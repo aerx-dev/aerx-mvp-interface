@@ -26,6 +26,7 @@ function IpfsComponent(props) {
         init()
     }, [ipfs]);
 
+    // On button click, upload the selected file to IPFS and return the access URL
     async function handleClick() {
         // console.log(event.target)
         const file = props.state
@@ -36,8 +37,8 @@ function IpfsComponent(props) {
         setNewFile(() => true)
     }
 
+    // Checks if a new file has been selected. If yes the old link should dissapear
     const [newFile, setNewFile] = useState(true);
-
     useEffect(() => {
         setNewFile(() => false)
     }, [props.state])

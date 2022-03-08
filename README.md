@@ -12,3 +12,7 @@ npm run dev
 # or
 yarn dev
 ```
+
+# Awwwknowledgements
+
+Got most of the code from [here 🗻](https://github.com/ipfs-examples/js-ipfs-examples/)

@@ -6,6 +6,7 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
 
+  // tracks teh state of the selected upload file from the input button.
   const [state, setState] = useState(null)
 
   function handleChange(event) {
