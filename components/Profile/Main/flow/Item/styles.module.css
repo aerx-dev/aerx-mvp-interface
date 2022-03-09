@@ -1,0 +1,44 @@
+.section {
+  @apply flex bg-profile-blue-300 rounded-3xl p-4;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  width: 48%;
+  margin-bottom: 40px;
+}
+
+.itemHead {
+  @apply font-work-sans tracking-wider font-medium;
+  font-size: 20px;
+  color: #b9bfd7;
+  margin-top: 8px;
+  /* Single line with ellipse*/
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.imageContainer {
+  @apply place-items-center rounded-xl;
+  position: relative;
+  height: 200px;
+  width: 100%;
+  background: #202020;
+  overflow-y: hidden;
+}
+
+.image {
+  @apply rounded-xl;
+}
+
+.largeText {
+  height: 200px;
+  overflow-y: hidden;
+}
+
+.btnContainer {
+  /* width: 100%; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}

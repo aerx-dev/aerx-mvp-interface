@@ -1,0 +1,8 @@
+.itemsList {
+  @apply flex  w-full justify-around mb-4;
+}
+
+.collapse {
+  @apply h-0;
+  transition: height 0.3s;
+}

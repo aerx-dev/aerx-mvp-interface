@@ -1,0 +1,25 @@
+.sidebar {
+  @apply bg-profile-blue-300 place-items-center text-3xl h-full w-full;
+  font-family: Jost;
+  padding: 24px 32px;
+}
+
+.logoContainer {
+  position: relative;
+  height: 40px;
+  width: 112px;
+  margin-bottom: 16px;
+}
+
+.profileImgContainer {
+  @apply place-items-center rounded-full;
+  position: relative;
+  height: 230px;
+  width: 230px;
+  background: #202020;
+  margin: 0px 32px;
+}
+
+.profileImg {
+  @apply rounded-full;
+}

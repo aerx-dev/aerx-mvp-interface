@@ -1,0 +1,23 @@
+{
+  "heroSection": {
+    "title": "Welcome To",
+    "subheading": "Monetize your content easily.",
+    "buttonText": "Get Started"
+  },
+  "features": {
+    "title": "Features",
+    "featuresArr": [
+      {
+        "title": "feature1"
+      },
+      {
+        "title": "feature2"
+      }
+    ]
+  },
+  "emailCapture": {
+    "title": "Email Subscribe",
+    "placeholder": "Enter your email address",
+    "buttonText": "Subscribe"
+  }
+}
