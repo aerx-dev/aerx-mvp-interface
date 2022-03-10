@@ -69,13 +69,9 @@ To get a local copy up and running follow these simple example steps.
 3. `npm i`
 4. `npm run dev`
 
-First, run the development server:
+### Contributing
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+[contributing](https://github.com/ethereum-boilerplate/ethereum-boilerplate/blob/main/CONTRIBUTING.md)
 
 # Acknowledgments
 
