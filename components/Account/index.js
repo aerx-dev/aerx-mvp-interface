@@ -37,20 +37,6 @@ const Account = () => {
     const { t } = useTranslation("account");
     const picBg = useColorModeValue("gray.200", "gray.700");
 
-    // useEffect(() => {
-    //     // const { cid, size } = content2ipfs(() => uploadImg)
-    //     const { cid, size } = upload(() => uploadImg)
-    //     console.log(size)
-    //     console.log(cid);
-    //     setProfile((prevProfile) => {
-    //         return {
-    //             ...prevProfile,
-    //             profileImgCid: cid,
-    //         }
-    //     })
-    //     // console.log(profile)
-    // }, [uploadImg])
-
     function profileImageChange(event) {
         const { files } = event.target;
         if (files && files.length) {
