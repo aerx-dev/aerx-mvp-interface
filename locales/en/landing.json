@@ -1,23 +1,69 @@
 {
-  "heroSection": {
-    "title": "Welcome To",
-    "subheading": "Monetize your content easily.",
-    "buttonText": "Get Started"
-  },
-  "features": {
-    "title": "Features",
-    "featuresArr": [
-      {
-        "title": "feature1"
-      },
-      {
-        "title": "feature2"
-      }
-    ]
-  },
-  "emailCapture": {
-    "title": "Email Subscribe",
-    "placeholder": "Enter your email address",
-    "buttonText": "Subscribe"
-  }
+    "heroSection": {
+        "title": "Welcome to",
+        "subheading": "Web3 social media platform",
+        "caption": "AERX is fundamentally, a new approach to moneytization of creators content",
+        "buttonText": "Get Started"
+    },
+    "features": {
+        "title": "Features",
+        "featuresArr": [
+            {
+                "title": "feature1",
+                "description": "Moneytize your ideas easily",
+                "caption": "Create unique content: text, picture, video or audio"
+            },
+            {
+                "title": "feature2",
+                "description": "And get rewarded when other users like it",
+                "sub": [
+                    {
+                        "description": "For Authors",
+                        "caption": "It dosen't matter if you are a proffessional artist, just come up with a funny meme, a beginner musician? write lyrics."
+                    },
+                    {
+                        "description": "For Viewers",
+                        "caption": "Click 'like' if the content was valuable to you. Thus, you wil send a mini-donation to the creator and motivate him to create new content"
+                    }
+                ]
+            },
+            {
+                "title": "feature3",
+                "description": "Make collaborations and earn together",
+                "caption": "Create combined posts. Publications that contain creative contents from different authors. Make your posts more intense and earn together"
+            },
+            {
+                "title": "feature4",
+                "caption": "To surpport the creators on our patform, an internal utility token is used - æ (aex token) at its core, aex token is aerx fuel. And like any other resource, it can be mined"
+            },
+            {
+                "title": "feature5",
+                "description": "To date, there are 2 ways of minning:",
+                "sub": [
+                    {
+                        "description": "Get the starter pack:",
+                        "caption": "Upon registration, the user recieves a starter package in the amount of 100 æ token"
+                    },
+                    {
+                        "description": "Be a maker",
+                        "caption": "Create content and share it with other users."
+                    }
+                ]
+            }
+        ]
+    },
+    "useCase": {
+        "title": "What can i do with aex token?",
+        "first": "Withdraw them and exchange them for NEAR",
+        "second": "Send them to other users",
+        "third": "Use them to pay for other aerx services"
+    },
+    "warning": {
+        "description": "Be active share your ideas and earn. Everyone has ideas and everyone is talented in thier own  way - which means that everyone can earn in aerx!"
+    },
+    "emailCapture": {
+        "title": "Email Subscribe",
+        "placeholder": "Enter your email address",
+        "buttonText": "Subscribe"
+    }
 }

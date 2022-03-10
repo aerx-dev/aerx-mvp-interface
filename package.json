@@ -1,40 +1,40 @@
 {
-  "name": "testipfs",
-  "version": "0.1.1",
-  "private": true,
-  "engines": {
-    "npm": "*",
-    "yarn": "PLEASE USE NPM"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@heroicons/react": "^1.0.5",
-    "@ant-design/icons": "^4.7.0",
-    "@chakra-ui/icons": "^1.1.5",
-    "@chakra-ui/react": "^1.8.3",
-    "ipfs-core": "^0.14.1",
-    "keen-slider": "^6.6.3",
-    "near-api-js": "^0.44.2",
-    "next": "12.1.0",
-    "next-themes": "^0.0.15",
-    "next-translate": "^1.2.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-icons": "^4.3.1",
-    "react-parallax-tilt": "^1.6.1",
-    "styled-components": "^5.3.3",
-    "uuid": "^8.3.2",
-    "zustand": "^3.7.0"
-  },
-  "devDependencies": {
-    "eslint": "8.10.0",
-    "eslint-config-next": "12.1.0",
-    "postcss": "^8.4.5",
-    "tailwindcss": "^3.0.13"
-  }
+    "name": "aerx",
+    "version": "0.1.1",
+    "private": true,
+    "engines": {
+        "npm": "*",
+        "yarn": "PLEASE USE NPM"
+    },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@heroicons/react": "^1.0.5",
+        "@ant-design/icons": "^4.7.0",
+        "@chakra-ui/icons": "^1.1.5",
+        "@chakra-ui/react": "^1.8.3",
+        "ipfs-core": "^0.14.1",
+        "keen-slider": "^6.6.3",
+        "near-api-js": "^0.44.2",
+        "next": "12.1.0",
+        "next-themes": "^0.0.15",
+        "next-translate": "^1.2.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-icons": "^4.3.1",
+        "react-parallax-tilt": "^1.6.1",
+        "styled-components": "^5.3.3",
+        "uuid": "^8.3.2",
+        "zustand": "^3.7.0"
+    },
+    "devDependencies": {
+        "eslint": "8.10.0",
+        "eslint-config-next": "12.1.0",
+        "postcss": "^8.4.5",
+        "tailwindcss": "^3.0.13"
+    }
 }
