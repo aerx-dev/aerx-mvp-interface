@@ -9,24 +9,24 @@ import "keen-slider/keen-slider.min.css";
 import "../components/Landing/slider.css";
 
 function MyApp({ Component, pageProps }) {
-  const state = nearStore((state) => state);
-  // const profileState = profileStore((state) => state);
-  const [isLoading, setIsLoading] = useState(true);
+    const state = nearStore((state) => state);
+    // const profileState = profileStore((state) => state);
+    const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    if (isLoading) {
-      initNearConnection(state);
-      setIsLoading(false);
-    }
-  });
+    useEffect(() => {
+        if (isLoading) {
+            initNearConnection(state);
+            setIsLoading(false);
+        }
+    });
 
-  return (
-    <ChakraProvider theme={theme}>
-      <ThemeProvider attribute="class">
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </ChakraProvider>
-  );
+    return (
+        <ChakraProvider theme={theme}>
+            <ThemeProvider attribute="class">
+                <Component {...pageProps} />
+            </ThemeProvider>
+        </ChakraProvider>
+    );
 }
 
 export default MyApp;

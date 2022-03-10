@@ -1,6 +1,5 @@
 import Feed from "../components/Feed";
-import { Box } from "@chakra-ui/react"
-
+import { Box } from "@chakra-ui/react";
 
 const FeedPage = () => {
     return (
@@ -8,6 +7,6 @@ const FeedPage = () => {
             <Feed />
         </Box>
     );
-}
+};
 
 export default FeedPage;

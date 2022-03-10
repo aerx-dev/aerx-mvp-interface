@@ -1,6 +1,6 @@
 {
-  "title": "Profile",
-  "label": {
-    "balance": "Баланс"
-  }
+    "title": "Profile",
+    "label": {
+        "balance": "Баланс"
+    }
 }

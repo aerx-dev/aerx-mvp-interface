@@ -17,7 +17,6 @@ import CreateProfileForm from "./Form";
 import IpfsComponent from "../ipfs";
 
 const Account = () => {
-
     // The profile picture which will go into the NFT
     const [profile, setProfile] = useState({
         username: "",
@@ -66,7 +65,6 @@ const Account = () => {
             setUploadImg(event.target.files[0]);
             // document.querySelectorAll(".profile-picture")[0].value = info.cdnUrl;
             // console.log(JSON.stringify(uploadImg))
-
         }
     }
 
@@ -100,13 +98,19 @@ const Account = () => {
         })
             .then((response) => response.json())
             //3. Put the link to JSON's ipfs into NFTTokenMetadata object
-            .then((data) => createUserProfileNFT(nearState, profileId, data.uri)); // use the returned content uri
+            .then((data) =>
+                createUserProfileNFT(nearState, profileId, data.uri),
+            ); // use the returned content uri
     }
-
 
     return (
         <Layout>
-            <Box className="px-4 md:px-10" py={2} maxWidth={1100} margin="0 auto">
+            <Box
+                className="px-4 md:px-10"
+                py={2}
+                maxWidth={1100}
+                margin="0 auto"
+            >
                 <Heading as="h1" mb={3}>
                     {t("title")}
                 </Heading>
@@ -122,7 +126,7 @@ const Account = () => {
                 {/* <Button colorScheme="green" mt={2} size="lg" onClick={handleSave}>
           {t('label.save')}
         </Button> */}
-        <IpfsComponent state={uploadImg}/>
+                <IpfsComponent state={uploadImg} />
             </Box>
         </Layout>
     );

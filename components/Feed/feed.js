@@ -1,5 +1,5 @@
 const Feed = () => {
-    return null;
+    return <>hello from feeds</>;
 };
 
 export default Feed;

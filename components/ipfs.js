@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { create } from 'ipfs-core'
+import { useState, useEffect } from "react";
+import { create } from "ipfs-core";
 
 function IpfsComponent(props) {
     const [id, setId] = useState(null);
@@ -9,7 +9,7 @@ function IpfsComponent(props) {
     const [imgUrl, setUrl] = useState(null);
     useEffect(() => {
         const init = async () => {
-            if (ipfs) return
+            if (ipfs) return;
 
             const node = await create();
 
@@ -21,46 +21,53 @@ function IpfsComponent(props) {
             setId(nodeId.id);
             setVersion(nodeVersion.version);
             setIsOnline(nodeIsOnline);
-        }
+        };
 
-        init()
+        init();
     }, [ipfs]);
 
     // On button click, upload the selected file to IPFS and return the access URL
     async function handleClick() {
         // console.log(event.target)
-        const file = props.state
-        console.log(file)
-        const res = await ipfs.add(file)
-        console.log(res)
-        setUrl(() => { return "https://ipfs.io/ipfs/" + res.path })
-        setNewFile(() => true)
+        const file = props.state;
+        console.log(file);
+        const res = await ipfs.add(file);
+        console.log(res);
+        setUrl(() => {
+            return "https://ipfs.io/ipfs/" + res.path;
+        });
+        setNewFile(() => true);
     }
 
     // Checks if a new file has been selected. If yes the old link should dissapear
     const [newFile, setNewFile] = useState(true);
     useEffect(() => {
-        setNewFile(() => false)
-    }, [props.state])
+        setNewFile(() => false);
+    }, [props.state]);
 
     if (!ipfs) {
-        return <h4>Connecting to IPFS...</h4>
+        return <h4>Connecting to IPFS...</h4>;
     }
 
     return (
         <div>
             <div>
-                {props.state && <button onClick={handleClick} >Add to IPFS</button>}
+                {props.state && (
+                    <button onClick={handleClick}>Add to IPFS</button>
+                )}
             </div>
             <div>
-                {imgUrl && newFile && (<a href={imgUrl}>Deployed to: {imgUrl}</a>)}
+                {imgUrl && newFile && (
+                    <a href={imgUrl}>Deployed to: {imgUrl}</a>
+                )}
             </div>
             <h4 data-test="id">ID: {id}</h4>
             <h4 data-test="version">Version: {version}</h4>
-            <h4 data-test="status">Status: {isOnline ? 'Online' : 'Offline'}</h4>
-
+            <h4 data-test="status">
+                Status: {isOnline ? "Online" : "Offline"}
+            </h4>
         </div>
-    )
+    );
 }
 
-export default IpfsComponent
+export default IpfsComponent;

@@ -13,13 +13,11 @@ import {
 import { AtSignIcon } from "@chakra-ui/icons";
 import { useRef } from "react";
 
-
 export default function CreateProfileForm(props) {
-
     const inputFile = useRef(null);
     const onButtonClick = () => {
         inputFile.current.click();
-        console.log(props.uploadImg)
+        console.log(props.uploadImg);
     };
 
     return (
@@ -161,7 +159,12 @@ export default function CreateProfileForm(props) {
                     />
                 </FormControl>
 
-                <Button colorScheme="green" mt={2} size="lg" onClick={props.save}>
+                <Button
+                    colorScheme="green"
+                    mt={2}
+                    size="lg"
+                    onClick={props.save}
+                >
                     {props.t("label.save")}
                 </Button>
             </Box>

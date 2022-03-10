@@ -50,14 +50,14 @@ function HeroSection() {
                 />
             </Box>
 
-            <Heading textAlign={"center"} mb="2">
+            <Heading textAlign={"center"}>
                 {t("heroSection.subheading")}
             </Heading>
-            <Text fontSize="sm" textAlign={"center"} fontStyle="italic">
+            <Text fontSize="sm" textAlign={"center"} fontStyle="italic" m="2">
                 {t("heroSection.caption")}
             </Text>
 
-            <Box textAlign="center" mt="10">
+            <Box textAlign="center" m="10">
                 <Button
                     variant="outline"
                     _hover={{ bg: "none" }}

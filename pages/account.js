@@ -1,6 +1,5 @@
 import Account from "../components/Account";
-import { Box } from "@chakra-ui/react"
-
+import { Box } from "@chakra-ui/react";
 
 const AccountPage = () => {
     return (
@@ -8,6 +7,6 @@ const AccountPage = () => {
             <Account />
         </Box>
     );
-}
+};
 
 export default AccountPage;

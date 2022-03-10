@@ -3,30 +3,30 @@
 @tailwind utilities;
 
 @layer components {
-  .nav-item {
-    @apply block px-1 py-1 mt-1 text-lg leading-[27px] rounded-md md:p-2 hover:bg-brand;
-  }
-  .btn {
-    @apply inline-block px-4 py-1 mb-2 font-medium tracking-wider rounded-lg;
-  }
+    .nav-item {
+        @apply block px-1 py-1 mt-1 text-lg leading-[27px] rounded-md md:p-2 hover:bg-brand;
+    }
+    .btn {
+        @apply inline-block px-4 py-1 mb-2 font-medium tracking-wider rounded-lg;
+    }
 
-  .btn:focus {
-    @apply outline-none ring;
-  }
+    .btn:focus {
+        @apply outline-none ring;
+    }
 
-  .btn-brand {
-    @apply bg-brand;
-  }
+    .btn-brand {
+        @apply bg-brand;
+    }
 
-  .btn-brand:hover {
-    @apply bg-white text-brand ring-1 ring-brand;
-  }
+    .btn-brand:hover {
+        @apply bg-white text-brand ring-1 ring-brand;
+    }
 
-  .btn-login {
-    @apply py-3 border-2 px-14;
-  }
+    .btn-login {
+        @apply py-3 border-2 px-14;
+    }
 
-  .btn-login:hover {
-    @apply bg-brand;
-  }
+    .btn-login:hover {
+        @apply bg-brand;
+    }
 }

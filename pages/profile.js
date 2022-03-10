@@ -1,6 +1,5 @@
 import Profile from "../components/Profile";
-import { Box } from "@chakra-ui/react"
-
+import { Box } from "@chakra-ui/react";
 
 const ProfilePage = () => {
     return (
@@ -8,6 +7,6 @@ const ProfilePage = () => {
             <Profile />
         </Box>
     );
-}
+};
 
 export default ProfilePage;
