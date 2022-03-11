@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
     Heading,
     Box,
@@ -7,7 +6,6 @@ import {
     useColorMode,
     Text,
 } from "@chakra-ui/react";
-import Tilt from "react-parallax-tilt";
 
 import useTranslation from "next-translate/useTranslation";
 
@@ -16,6 +14,16 @@ function HeroSection() {
     const { colorMode } = useColorMode();
     return (
         <Box as="section" pt={100}>
+            <Box position="relative">
+                <ChakraImage
+                    zIndex={-1}
+                    src="/mesh.png"
+                    filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
+                    width="100%"
+                    position="absolute"
+                    top="-200px"
+                />
+            </Box>
             <Heading textAlign={"center"} size="4xl" mb={2} fontWeight="bold">
                 {t("heroSection.title")}
 
@@ -31,7 +39,7 @@ function HeroSection() {
                     priority="true"
                     display="inline"
                     cursor={"pointer"}
-                    width={"100px"}
+                    width={"150px"}
                     position="relative"
                     bottom="2px"
                     marginLeft="12px"
@@ -41,19 +49,19 @@ function HeroSection() {
             <Box position="relative">
                 <ChakraImage
                     zIndex={-1}
-                    src="/grid.png"
+                    src="/orb.svg"
                     filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
-                    width={400}
+                    width={700}
                     position="absolute"
-                    top={0}
-                    right={"30%"}
+                    top="-150px"
+                    right={"25%"}
                 />
             </Box>
 
             <Heading textAlign={"center"}>
                 {t("heroSection.subheading")}
             </Heading>
-            <Text fontSize="sm" textAlign={"center"} fontStyle="italic" m="2">
+            <Text textAlign={"center"} m="2">
                 {t("heroSection.caption")}
             </Text>
 

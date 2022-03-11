@@ -3,6 +3,7 @@ import {
     Heading,
     Box,
     Button,
+    Text,
     Input,
     Grid,
     useColorMode,
@@ -18,7 +19,6 @@ function EmailCapture({ rest }) {
     const [email, setEmail] = useState("");
     const [state, setState] = useState("IDLE");
     const { colorMode } = useColorMode();
-    const bg = useColorModeValue("white", "gray.800");
 
     async function subscribe(e) {
         e.preventDefault();
@@ -43,31 +43,17 @@ function EmailCapture({ rest }) {
     }
 
     return (
-        <Box as="section" py={100}>
-            <Box position="relative">
-                <ChakraImage
-                    zIndex={-1}
-                    src="/grid.png"
-                    filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
-                    width={400}
-                    position="absolute"
-                    top={-20}
-                    right={"30%"}
-                />
-            </Box>
-
-            <Heading textAlign={"center"} mb={8}>
+        <Box>
+            <Text textAlign={"left"} mb={5}>
                 {t("emailCapture.title")}
-            </Heading>
+            </Text>
 
-            <Box textAlign="center" bg={bg}>
+            <Box textAlign="left" mb={5}>
                 <Grid
                     templateColumns={[
                         "repeat(100%)",
                         "calc(100% - 150px) 140px",
                     ]}
-                    gap="8px"
-                    maxWidth={600}
                     margin="0 auto"
                     as="form"
                     onSubmit={subscribe}
@@ -77,15 +63,14 @@ function EmailCapture({ rest }) {
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         placeholder={t("emailCapture.placeholder")}
+                        borderRadius={20}
                     />
-                    <Button
+                    {/* <Button
                         variant="outline"
                         _hover={{ bg: "none" }}
                         _active={{ bg: "none" }}
                         width="100%"
-                    >
-                        {t("emailCapture.buttonText")}
-                    </Button>
+                    ></Button> */}
                 </Grid>
             </Box>
         </Box>

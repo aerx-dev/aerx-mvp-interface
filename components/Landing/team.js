@@ -1,15 +1,15 @@
-import Image from "next/image";
 import {
     Heading,
     Box,
-    Button,
     Flex,
     Image as ChakraImage,
     useColorMode,
 } from "@chakra-ui/react";
+import useTranslation from "next-translate/useTranslation";
 
 function Team() {
     const { colorMode } = useColorMode();
+    const { t } = useTranslation("landing");
     const team = [
         {
             name: "Pav",
@@ -49,7 +49,7 @@ function Team() {
     return (
         <Box as="section" mb={50}>
             <Heading textAlign={"center"} mb={12}>
-                Team
+                {t("team.heading")}
             </Heading>
 
             <Box position="relative">

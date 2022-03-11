@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 
-function Feature1() {
+function Feature4() {
     const { colorMode } = useColorMode();
     const { t } = useTranslation("landing");
     return (
@@ -24,21 +24,28 @@ function Feature1() {
                                         ? "invert(1)"
                                         : "invert(0)"
                                 }
-                                src="/01.png"
+                                src="/04.png"
                                 width="140px"
                                 position="absolute"
                                 top={-10}
                                 right={100}
                             />
-                            <Heading>
-                                {t("features.feature1.description")}
-                            </Heading>
-                            <Text m="2">{t("features.feature1.caption")}</Text>
+                            <Box height="50%" width="50%" mb={5}>
+                                <ChakraImage
+                                    src="/aetoken.svg"
+                                    filter={
+                                        colorMode === "light"
+                                            ? "invert(1)"
+                                            : "invert(0)"
+                                    }
+                                />
+                            </Box>
+                            <Text m="2">{t("features.feature4.caption")}</Text>
                         </Box>
                     </Center>
                 </Box>
                 <Box height="100%" width="100%">
-                    <ChakraImage src="/multimedia.png" />
+                    <ChakraImage src="/coins.png" />
                 </Box>
             </SimpleGrid>
             <ChakraImage
@@ -54,4 +61,4 @@ function Feature1() {
     );
 }
 
-export default Feature1;
+export default Feature4;

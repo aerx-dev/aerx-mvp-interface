@@ -4,12 +4,11 @@ import {
     useColorMode,
     Image as ChakraImage,
     HStack,
+    SimpleGrid,
+    Text,
 } from "@chakra-ui/react";
-import {
-    IoLogoInstagram,
-    IoLogoTwitter,
-    IoLogoFacebook,
-} from "react-icons/io5";
+import EmailCapture from "../Landing/email-capture";
+import { IoLogoDiscord, IoLogoTwitter } from "react-icons/io5";
 import useTranslation from "next-translate/useTranslation";
 
 function Footer() {
@@ -17,50 +16,60 @@ function Footer() {
     const { colorMode } = useColorMode();
 
     return (
-        <Box as="footer" className="px-4 py-10 md:px-10" pt={100}>
-            <Box textAlign={"center"}>
-                <Link href="/">
-                    <ChakraImage
-                        src={
-                            colorMode === "light"
-                                ? "/images/dark-logo.svg"
-                                : "/images/white-logo.svg"
-                        }
-                        alt={t("logoAlt")}
-                        className="rounded-sm"
-                        layout="responsive"
-                        margin="0 auto"
-                        lazyload="true"
-                        mb={8}
-                        cursor={"pointer"}
-                        width={"150px"}
-                    />
-                </Link>
-
-                <HStack fontSize="2xl" spacing={5} justifyContent={"center"}>
-                    <Box
-                        _hover={{ opacity: 0.6 }}
-                        cursor={"pointer"}
-                        transition="0.3s ease"
+        <Box as="footer" pt="25rem">
+            <SimpleGrid columns={2} spacing={10}>
+                <Box textAlign={"center"}>
+                    <Link href="/">
+                        <ChakraImage
+                            src={
+                                colorMode === "light"
+                                    ? "/images/dark-logo.svg"
+                                    : "/images/white-logo.svg"
+                            }
+                            alt={t("logoAlt")}
+                            className="rounded-sm"
+                            layout="responsive"
+                            margin="0 auto"
+                            lazyload="true"
+                            mb={8}
+                            cursor={"pointer"}
+                            width={"150px"}
+                        />
+                    </Link>
+                    <Text fontWeight="bold"> The future has arrived</Text>
+                    <Text fontWeight="bold">emailexample@aerx.com</Text>
+                </Box>
+                <Box height="100%" width="100%">
+                    <EmailCapture />
+                    <HStack
+                        fontSize="2xl"
+                        spacing={5}
+                        justifyContent={"flex-start"}
                     >
-                        <IoLogoFacebook />
-                    </Box>
-                    <Box
-                        _hover={{ opacity: 0.6 }}
-                        cursor={"pointer"}
-                        transition="0.3s ease"
-                    >
-                        <IoLogoTwitter />
-                    </Box>
-                    <Box
-                        _hover={{ opacity: 0.6 }}
-                        cursor={"pointer"}
-                        transition="0.3s ease"
-                    >
-                        <IoLogoInstagram />
-                    </Box>
-                </HStack>
-            </Box>
+                        <Box
+                            _hover={{ opacity: 0.6 }}
+                            cursor={"pointer"}
+                            transition="0.3s ease"
+                        >
+                            <IoLogoDiscord />
+                        </Box>
+                        <Box
+                            _hover={{ opacity: 0.6 }}
+                            cursor={"pointer"}
+                            transition="0.3s ease"
+                        >
+                            <IoLogoTwitter />
+                        </Box>
+                    </HStack>
+                </Box>
+            </SimpleGrid>
+            <ChakraImage
+                zIndex={-1}
+                src="/footerimg2.png"
+                maxWidth={"100vw"}
+                position="absolute"
+                bottom="-10vh"
+            />
         </Box>
     );
 }

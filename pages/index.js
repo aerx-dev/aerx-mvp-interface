@@ -1,13 +1,9 @@
 import Head from "next/head";
-import {
-    HeroSection,
-    EmailCapture,
-    Features,
-    Team,
-} from "../components/Landing";
+import { HeroSection, Features, Team } from "../components/Landing";
 import Layout from "../components/Layout";
 import { Box } from "@chakra-ui/react";
 import styles from "../styles/Home.module.css";
+import Channel from "../components/Landing/channel";
 
 export default function Home() {
     <Head>
@@ -21,7 +17,7 @@ export default function Home() {
                 <HeroSection />
                 <Features />
                 <Team />
-                <EmailCapture />
+                <Channel />
             </Box>
         </Layout>
     );
