@@ -21,11 +21,11 @@ function IpfsComponent(props) {
             setId(nodeId.id);
             setVersion(nodeVersion.version);
             setIsOnline(nodeIsOnline);
-            // Return a cleanup function: close the node
-            return node.stop().catch(err => console.error(err))
         };
-
         init();
+        
+        // Return a cleanup function: close the node
+        // return ipfs ? ipfs.stop().catch(err => console.error(err)) : null
     }, [ipfs]);
 
     // On button click, upload the selected file to IPFS and return the access URL
