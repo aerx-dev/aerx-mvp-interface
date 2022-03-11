@@ -21,6 +21,8 @@ function IpfsComponent(props) {
             setId(nodeId.id);
             setVersion(nodeVersion.version);
             setIsOnline(nodeIsOnline);
+            // Return a cleanup function: close the node
+            return node.stop().catch(err => console.error(err))
         };
 
         init();

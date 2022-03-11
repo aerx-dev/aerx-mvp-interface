@@ -5,7 +5,6 @@ import {
     Image as ChakraImage,
     useColorModeValue,
 } from "@chakra-ui/react";
-import { profileStore } from "../../stores/profile";
 import useTranslation from "next-translate/useTranslation";
 import { useRef, useState, useEffect, useReducer } from "react";
 import { getTotalSupply, sendToken } from "../../lib/tokenContract";
