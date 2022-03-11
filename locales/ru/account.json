@@ -1,0 +1,16 @@
+{
+    "title": "Аккаунт",
+    "label": {
+        "username": "Имя пользователя",
+        "email": "Эмейл",
+        "fullName": "Имя фамилия",
+        "profilePicture": "Аватар",
+        "headerPicture": "Картинка шапки",
+        "aboutMe": "Обо мне",
+        "save": "Сохранить",
+        "upload": "Загрузить",
+        "city": "Город",
+        "state": "Регион",
+        "country": "Страна"
+    }
+}

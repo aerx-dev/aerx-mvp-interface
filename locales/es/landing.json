@@ -1,0 +1,23 @@
+{
+    "heroSection": {
+        "title": "Bienvenido a",
+        "subheading": "Una red social modular.",
+        "buttonText": "Empezar"
+    },
+    "features": {
+        "title": "Caracteristicas",
+        "featuresArr": [
+            {
+                "title": "feature1"
+            },
+            {
+                "title": "feature2"
+            }
+        ]
+    },
+    "emailCapture": {
+        "title": "Suscríbete por correo electrónico",
+        "placeholder": "Dirección de correo electrónico",
+        "buttonText": "Suscribir"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "navLinkHome": "Home",
+    "navLinkFeatures": "Projects",
+    "navLinkAboutUs": "Meet the Team",
+    "navLinkLogin": "Login",
+    "copyRightFooter": "© 2022 aerx",
+    "subscribeTitle": "Kindly subscribe to our email news letter to get amazing information.",
+    "subscribeInputPlaceholder": "jhondoe@email.com",
+    "subscribeInputSubmitLoading": "Loading",
+    "subscribeInputSubmitText": "Subscribe",
+    "subscribeSuccessMessage": "Awesome, thanks for your subscription!",
+    "subscribeErrorMessage": "Something went wrong. Please send me an email to dp@aerx.me and I will add you personally."
+}

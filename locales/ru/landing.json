@@ -1,0 +1,23 @@
+{
+    "heroSection": {
+        "title": "Добро пожаловать в",
+        "subheading": "Монетизируй свой контент.",
+        "buttonText": "Начать"
+    },
+    "features": {
+        "title": "Функционал",
+        "featuresArr": [
+            {
+                "title": "feature1"
+            },
+            {
+                "title": "feature2"
+            }
+        ]
+    },
+    "emailCapture": {
+        "title": "Электронная почта Подписаться",
+        "placeholder": "Адрес электронной почты",
+        "buttonText": "Подписаться"
+    }
+}
