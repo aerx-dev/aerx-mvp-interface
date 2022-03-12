@@ -64,6 +64,9 @@ function EmailCapture({ rest }) {
                         type="email"
                         placeholder={t("emailCapture.placeholder")}
                         borderRadius={20}
+                        filter={
+                            colorMode === "light" ? "invert(1)" : "invert(0)"
+                        }
                     />
                     {/* <Button
                         variant="outline"

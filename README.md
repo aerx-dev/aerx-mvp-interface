@@ -64,7 +64,7 @@
 ## Browser side IPFS deployment
 
 Deploy your files via a browserside local IPFS node.
-The CID url is displayed on success.
+The CID and URI is returned on success.
 
 ### Contributing
 
@@ -74,6 +74,6 @@ The CID url is displayed on success.
 
 - IPFS reference [here 🗻](https://github.com/ipfs-examples/js-ipfs-examples/)
 
-## 📝 License
+<!-- ## 📝 License -->
 
-This project is [Apache](lic.url) licensed.
+<!-- This project is [Apache](lic.url) licensed. -->
