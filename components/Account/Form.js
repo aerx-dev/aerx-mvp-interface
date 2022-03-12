@@ -1,5 +1,6 @@
 import {
     Box,
+    Header,
     FormControl,
     FormLabel,
     Input,
@@ -11,7 +12,7 @@ import {
     Grid,
 } from "@chakra-ui/react";
 import { AtSignIcon } from "@chakra-ui/icons";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CreateProfileForm(props) {
     const inputFile = useRef(null);
@@ -19,6 +20,10 @@ export default function CreateProfileForm(props) {
         inputFile.current.click();
         console.log(props.uploadImg);
     };
+
+    // TODO Only show upload BUtton if IPFS is ready
+    const [uploadReady, setUploadReady] = useState(true);
+
 
     return (
         <Grid
@@ -57,16 +62,20 @@ export default function CreateProfileForm(props) {
                         )}
                     </Box>
 
-                    <Button
-                        size="sm"
-                        colorScheme={props.uploadImg ? "gray" : "pink"}
-                        mb={2}
-                        onClick={onButtonClick}
-                    >
-                        {props.uploadImg
-                            ? props.t("label.change")
-                            : props.t("label.upload")}
-                    </Button>
+                    {uploadReady ?
+                        <Button
+                            size="sm"
+                            colorScheme={props.uploadImg ? "gray" : "pink"}
+                            mb={2}
+                            onClick={onButtonClick}
+                        >
+                            {props.uploadImg
+                                ? props.t("label.change")
+                                : props.t("label.upload")}
+                        </Button>
+                        :
+                        <Button> IFPS loading ... </Button>
+                    }
 
                     <Box height={0} width={0} opacity={0}>
                         <input
@@ -80,6 +89,12 @@ export default function CreateProfileForm(props) {
             </Box>
 
             <Box pl={[0, 0, 1]} pr={8}>
+                {props.uploadImg &&
+                    <FormControl mb={2}>
+                        <FormLabel>{props.t("label.profilePicCid")}</FormLabel>
+                        <p > {props.profile.profileImgCid} </p>
+                    </FormControl>
+                }
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.fullName")}</FormLabel>
                     <Input

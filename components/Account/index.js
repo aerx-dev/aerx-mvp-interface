@@ -24,6 +24,7 @@ const Account = () => {
         fullName: "",
         aboutMe: "",
         profileImgCid: "",
+        profileImgSize: "...",
     });
 
     // The uploaded image which will be deployed through IPFS
@@ -31,7 +32,16 @@ const Account = () => {
 
     // Ipsf hook with details and upload hook.
     const ipfsData = useIPFS(uploadImg);
-    // console.log(ipfsData)
+    console.log(ipfsData)
+    useEffect(() => {
+        setProfile((prevProfile) => {
+            return {
+                ...prevProfile,
+                profileImgCid: ipfsData.fileUrl,
+                profileImgSize: ipfsData.fileSize
+            };
+        });
+    }, [ipfsData])
 
     const nearState = nearStore((profile) => profile);
 
@@ -44,23 +54,15 @@ const Account = () => {
     function profileImageChange(event) {
         const { files } = event.target;
         if (files && files.length) {
-            console.log(files);
-            const filename = files[0].name;
+            // console.log(files);
+            // const filename = files[0].name;
 
-            var parts = filename.split(".");
-            const fileType = parts[parts.length - 1];
+            // var parts = filename.split(".");
+            // const fileType = parts[parts.length - 1];
 
-            // TODO assert that it is a image file
-            console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
+            // // TODO assert that it is a image file
+            // console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
             setUploadImg(() => event.target.files[0]);
-            // document.querySelectorAll(".profile-picture")[0].value = info.cdnUrl;
-            // console.log(JSON.stringify(uploadImg))
-            setProfile((prevProfile) => {
-                return {
-                    ...prevProfile,
-                    profileImgCid: ipfs.fileUrl,
-                };
-            });
         }
     }
 

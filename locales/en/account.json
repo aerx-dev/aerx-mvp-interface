@@ -5,6 +5,7 @@
         "email": "Email",
         "fullName": "Full Name",
         "profilePicture": "Profile Picture",
+        "profilePicCid": "Profile Picture CID",
         "headerPicture": "Header Picture",
         "aboutMe": "About Me",
         "save": "Save",
