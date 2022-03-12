@@ -13,10 +13,11 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@heroicons/react": "^1.0.5",
         "@ant-design/icons": "^4.7.0",
         "@chakra-ui/icons": "^1.1.5",
         "@chakra-ui/react": "^1.8.3",
+        "@heroicons/react": "^1.0.5",
+        "antd": "^4.19.1",
         "ipfs-core": "^0.14.1",
         "keen-slider": "^6.6.3",
         "near-api-js": "^0.44.2",

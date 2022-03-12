@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import { Box } from "@chakra-ui/react";
 import styles from "../styles/Home.module.css";
 import Channel from "../components/Landing/channel";
+import Footer from "../components/Footer";
 
 export default function Home() {
     <Head>
@@ -18,6 +19,7 @@ export default function Home() {
                 <Features />
                 <Team />
                 <Channel />
+                <Footer />
             </Box>
         </Layout>
     );

@@ -16,6 +16,7 @@ import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import { profileStore } from "../../stores/profile.js";
 import Post from "..//Post/post";
+import SideBar from "./SideNav";
 
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
@@ -36,7 +37,6 @@ const Profile = () => {
     const bg = useColorModeValue("white", "gray.800");
     const pageBg = useColorModeValue("gray.50", "gray.800");
     const picBg = useColorModeValue("gray.200", "gray.700");
-    const imageBg = useColorModeValue("gray.100", "#0a0a0a");
 
     useEffect(() => {
         async function userNearBalance() {
@@ -62,20 +62,6 @@ const Profile = () => {
         }
     }
 
-    function headerImage() {
-        if (profile.profileImage) {
-            return (
-                <ChakraImage
-                    src={profile.headerImage}
-                    alt="header"
-                    height="100%"
-                    width="100%"
-                    objectFit="cover"
-                />
-            );
-        }
-    }
-
     if (profileState.profile && profileLoaded === false) {
         setProfile(profileState.profile);
         setProfileLoaded(true);
@@ -84,19 +70,7 @@ const Profile = () => {
     return (
         <Layout>
             <Box bg={pageBg}>
-                <Box height="250px" bg={imageBg} width="100%" position="fixed">
-                    {headerImage()}
-                </Box>
-
-                <Box
-                    maxWidth={1000}
-                    margin="0 auto"
-                    className="px-4 md:px-10"
-                    py={4}
-                    zIndex={10}
-                    position={"relative"}
-                    minHeight="100vh"
-                >
+                <SideBar>
                     <Grid
                         templateColumns={[
                             "repeat(100%)",
@@ -105,7 +79,7 @@ const Profile = () => {
                         ]}
                         gap="20px"
                     >
-                        <VStack>
+                        {/* <VStack>
                             <Box
                                 overflow={"hidden"}
                                 borderWidth={2}
@@ -132,7 +106,7 @@ const Profile = () => {
                                     </VStack>
                                 </HStack>
                             </Box>
-                        </VStack>
+                        </VStack> */}
                         <Box pr={8}>
                             <Box
                                 bg={bg}
@@ -159,7 +133,7 @@ const Profile = () => {
                             )}
                         </Box>
                     </Grid>
-                </Box>
+                </SideBar>
             </Box>
         </Layout>
     );

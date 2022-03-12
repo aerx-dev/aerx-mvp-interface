@@ -40,10 +40,13 @@ function Post({ el }) {
     function updateSlider(e) {
         setSliderValue(e);
     }
-    function sendMoney() {
-        //todo: send money here
-        console.log(nearState.profile);
-        // sendToken(nearState);
+    async function sendMoney(to, amount = 0.5) {
+        sendToken(
+            nearState, // state
+            to, // reciever Id
+            amount, // amount in ae
+            `like from ${nearState.profile.walletId}`, // memo
+        );
         onClose();
     }
 
