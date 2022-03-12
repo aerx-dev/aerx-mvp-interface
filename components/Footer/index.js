@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
     Box,
@@ -69,7 +70,7 @@ function Footer() {
                 maxWidth={"100vw"}
                 position="absolute"
                 bottom="-10vh"
-                filter={colorMode === "light" ? "opacity(1)" : "opacity(0.5)"}
+                filter={colorMode === "light" ? "opacity(0.7)" : "opacity(0.5)"}
             />
         </Box>
     );

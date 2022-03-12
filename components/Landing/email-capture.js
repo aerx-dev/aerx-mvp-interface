@@ -8,7 +8,6 @@ import {
     Grid,
     useColorMode,
     Image as ChakraImage,
-    useColorModeValue,
 } from "@chakra-ui/react";
 
 import useTranslation from "next-translate/useTranslation";

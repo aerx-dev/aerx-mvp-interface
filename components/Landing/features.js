@@ -1,4 +1,4 @@
-import { Heading, Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import Feature1 from "./01-section";
 import Feature2 from "./02-section";

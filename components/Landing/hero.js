@@ -65,12 +65,11 @@ function HeroSection() {
                 {t("heroSection.caption")}
             </Text>
 
-            <Box textAlign="center" m="10">
+            <Box textAlign="center" display="none">
                 <Button
                     variant="outline"
                     _hover={{ bg: "none" }}
                     _active={{ bg: "none" }}
-                    sx={{ borderRadius: 20 }}
                 >
                     {t("heroSection.buttonText")}
                 </Button>

@@ -5,7 +5,6 @@ import {
     Image as ChakraImage,
     useColorModeValue,
 } from "@chakra-ui/react";
-import { profileStore } from "../../stores/profile";
 import useTranslation from "next-translate/useTranslation";
 import { useRef, useState, useEffect, useReducer } from "react";
 import { getTotalSupply, sendToken } from "../../lib/tokenContract";
@@ -14,7 +13,8 @@ import { registerUserIfNotRegistered } from "../../lib/auth";
 import { nearStore } from "../../stores/near";
 import CreateProfileForm from "./Form";
 // import content2ipfs from "../pages/api/uploadProfileNFT"
-import IpfsComponent from "../ipfs";
+// import IpfsComponent from "../ipfs";
+import useIPFS from "../../hooks/useIPFS";
 
 const Account = () => {
     // The profile picture which will go into the NFT
@@ -28,6 +28,10 @@ const Account = () => {
 
     // The uploaded image which will be deployed through IPFS
     const [uploadImg, setUploadImg] = useState();
+
+    // Ipsf hook with details and upload hook.
+    const ipfsData = useIPFS(uploadImg);
+    // console.log(ipfsData)
 
     const nearState = nearStore((profile) => profile);
 
@@ -48,9 +52,15 @@ const Account = () => {
 
             // TODO assert that it is a image file
             console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
-            setUploadImg(event.target.files[0]);
+            setUploadImg(() => event.target.files[0]);
             // document.querySelectorAll(".profile-picture")[0].value = info.cdnUrl;
             // console.log(JSON.stringify(uploadImg))
+            setProfile((prevProfile) => {
+                return {
+                    ...prevProfile,
+                    profileImgCid: ipfs.fileUrl,
+                };
+            });
         }
     }
 
@@ -58,7 +68,7 @@ const Account = () => {
         let path = e.currentTarget.dataset.path;
         let newProfile = profile;
         newProfile[path] = e.currentTarget.value;
-        setProfile(newProfile);
+        setProfile(() => newProfile);
     }
 
     async function save() {
@@ -112,7 +122,7 @@ const Account = () => {
                 {/* <Button colorScheme="green" mt={2} size="lg" onClick={handleSave}>
           {t('label.save')}
         </Button> */}
-                <IpfsComponent state={uploadImg} />
+                {/* <IpfsComponent state={uploadImg} /> */}
             </Box>
         </Layout>
     );

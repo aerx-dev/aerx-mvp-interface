@@ -22,8 +22,10 @@ function IpfsComponent(props) {
             setVersion(nodeVersion.version);
             setIsOnline(nodeIsOnline);
         };
-
         init();
+
+        // Return a cleanup function: close the node
+        // return ipfs ? ipfs.stop().catch(err => console.error(err)) : null
     }, [ipfs]);
 
     // On button click, upload the selected file to IPFS and return the access URL

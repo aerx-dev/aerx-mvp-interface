@@ -19,7 +19,6 @@ import useTranslation from "next-translate/useTranslation";
 import { AiOutlineUser, AiOutlineProfile } from "react-icons/ai";
 import { IoNewspaperOutline, IoSettingsOutline } from "react-icons/io5";
 import { nearStore } from "../../stores/near.js";
-import styled from "styled-components";
 
 function Header() {
     const { colorMode } = useColorMode();
@@ -32,7 +31,7 @@ function Header() {
         if (state.walletConnection && state.walletConnection.isSignedIn()) {
             setLoggedIn(true);
         }
-    }, [state.walletConnection]);
+    });
 
     return (
         <Box
@@ -64,21 +63,42 @@ function Header() {
                     {loggedIn ? (
                         <>
                             <Link href="/feed">
-                                <StyledIconButton t={t("ariaWallet")}>
+                                <IconButton
+                                    fontSize="lg"
+                                    aria-label={t("ariaWallet")}
+                                    _hover={{ bg: "none" }}
+                                    _active={{ bg: "none" }}
+                                    rounded="full"
+                                    variant={"outline"}
+                                >
                                     <IoNewspaperOutline />
-                                </StyledIconButton>
+                                </IconButton>
                             </Link>
 
                             <Link href="/account">
-                                <StyledIconButton t={t("ariaWallet")}>
+                                <IconButton
+                                    fontSize="lg"
+                                    aria-label={t("ariaWallet")}
+                                    _hover={{ bg: "none" }}
+                                    _active={{ bg: "none" }}
+                                    rounded="full"
+                                    variant={"outline"}
+                                >
                                     <IoSettingsOutline />
-                                </StyledIconButton>
+                                </IconButton>
                             </Link>
 
                             <Link href="/profile">
-                                <StyledIconButton t={t("ariaWallet")}>
+                                <IconButton
+                                    fontSize="lg"
+                                    aria-label={t("ariaWallet")}
+                                    _hover={{ bg: "none" }}
+                                    _active={{ bg: "none" }}
+                                    rounded="full"
+                                    variant={"outline"}
+                                >
                                     <AiOutlineUser />
-                                </StyledIconButton>
+                                </IconButton>
                             </Link>
                         </>
                     ) : (
@@ -96,19 +116,3 @@ function Header() {
 }
 
 export default Header;
-
-const StyledIconButton = styled(IconButton).attrs((props) => ({
-    fontSize: "lg",
-    rounded: "full",
-    variant: "outline",
-    "aria-label": props.t,
-}))`
-    font-size: lg;
-    &:hover {
-        background: none;
-        border-radius: 66px;
-        &:active {
-        }
-        background: none;
-    }
-`;
