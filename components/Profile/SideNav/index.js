@@ -1,15 +1,25 @@
 import { Layout } from "antd";
-import { Box, Flex, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+    Box,
+    Flex,
+    Text,
+    Input,
+    useColorMode,
+    useColorModeValue,
+} from "@chakra-ui/react";
 import { useState, createElement } from "react";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import useTranslation from "next-translate/useTranslation";
 
 const { Header, Sider, Content, Footer } = Layout;
 
 export default function SideBar({ children }) {
+    const { t } = useTranslation("Profile");
     const [isCollapsed, setIsCollapsed] = useState(false);
     const toggle = () => {
         setIsCollapsed(!isCollapsed);
     };
+    const { colorMode } = useColorMode();
 
     return (
         <Layout hasSider>
@@ -32,7 +42,7 @@ export default function SideBar({ children }) {
             <Layout
                 style={{
                     marginLeft: 250,
-                    marginRight: isCollapsed ? 100 : 200,
+                    marginRight: isCollapsed ? 120 : 240,
                 }}
             >
                 <Header
@@ -41,6 +51,22 @@ export default function SideBar({ children }) {
                         marginTop: 5,
                     }}
                 >
+                    <Text
+                        fontSize="2xl"
+                        fontFamily="monospace"
+                        fontWeight="bold"
+                    >
+                        Flow
+                    </Text>
+                    <Input
+                        onChange={() => null}
+                        type="search"
+                        placeholder={t("search")}
+                        borderRadius={20}
+                        filter={
+                            colorMode === "light" ? "invert(1)" : "invert(0)"
+                        }
+                    />
                     {createElement(
                         isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                         {
@@ -70,7 +96,7 @@ export default function SideBar({ children }) {
                     overflow: "auto",
                     height: "100vh",
                     position: "fixed",
-                    right: 0,
+                    right: 30,
                     top: "4.5rem",
                     bottom: 0,
                 }}
@@ -115,8 +141,8 @@ const LSidebarContent = ({ ...rest }) => {
 const RSidebarContent = ({ ...rest }) => {
     return (
         <Box
-            borderRight="1px"
-            borderRightColor={useColorModeValue("gray.100", "gray.900")}
+            borderLeft="1px"
+            borderLeftColor={useColorModeValue("gray.100", "gray.900")}
             w={{ base: "full", md: 60 }}
             pos="fixed"
             h="full"
