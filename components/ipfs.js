@@ -23,7 +23,7 @@ function IpfsComponent(props) {
             setIsOnline(nodeIsOnline);
         };
         init();
-        
+
         // Return a cleanup function: close the node
         // return ipfs ? ipfs.stop().catch(err => console.error(err)) : null
     }, [ipfs]);

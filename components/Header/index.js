@@ -7,12 +7,12 @@ import ChangeLanguage from "./change-language";
 import ConnectWallet from "./connect-wallet";
 import ToggleMode from "./toggle-mode";
 import {
-  Box,
-  Image as ChakraImage,
-  HStack,
-  useColorMode,
-  useColorModeValue,
-  IconButton,
+    Box,
+    Image as ChakraImage,
+    HStack,
+    useColorMode,
+    useColorModeValue,
+    IconButton,
 } from "@chakra-ui/react";
 import Sidebar from "./sidebar";
 import useTranslation from "next-translate/useTranslation";
@@ -21,98 +21,98 @@ import { IoNewspaperOutline, IoSettingsOutline } from "react-icons/io5";
 import { nearStore } from "../../stores/near.js";
 
 function Header() {
-  const { colorMode } = useColorMode();
-  const { t } = useTranslation("header");
-  const bg = useColorModeValue("#ffffffdd", "#1a202cdd");
-  const state = nearStore((state) => state);
-  const [loggedIn, setLoggedIn] = useState(false);
+    const { colorMode } = useColorMode();
+    const { t } = useTranslation("header");
+    const bg = useColorModeValue("#ffffffdd", "#1a202cdd");
+    const state = nearStore((state) => state);
+    const [loggedIn, setLoggedIn] = useState(false);
 
-  useEffect(() => {
-    if (state.walletConnection && state.walletConnection.isSignedIn()) {
-      setLoggedIn(true);
-    }
-  });
+    useEffect(() => {
+        if (state.walletConnection && state.walletConnection.isSignedIn()) {
+            setLoggedIn(true);
+        }
+    });
 
-  return (
-    <Box
-      bg={bg}
-      as="nav"
-      backdropFilter={"blur(8px)"}
-      className="sticky top-0 z-50 w-full bg-transparent py-4 px-4 md:px-10"
-    >
-      <Box className="flex flex-row items-center justify-center w-full">
-        <div className="flex-1">
-          <Link href={{ pathname: "/" }}>
-            <ChakraImage
-              src={
-                colorMode === "light"
-                  ? "/images/dark-logo.svg"
-                  : "/images/white-logo.svg"
-              }
-              alt={t("logoAlt")}
-              className="rounded-sm"
-              layout="responsive"
-              priority="true"
-              cursor={"pointer"}
-              width={"80px"}
-            />
-          </Link>
-        </div>
+    return (
+        <Box
+            bg={bg}
+            as="nav"
+            backdropFilter={"blur(8px)"}
+            className="sticky top-0 z-50 w-full bg-transparent py-4 px-4 md:px-10"
+        >
+            <Box className="flex flex-row items-center justify-center w-full">
+                <div className="flex-1">
+                    <Link href={{ pathname: "/" }}>
+                        <ChakraImage
+                            src={
+                                colorMode === "light"
+                                    ? "/images/dark-logo.svg"
+                                    : "/images/white-logo.svg"
+                            }
+                            alt={t("logoAlt")}
+                            className="rounded-sm"
+                            layout="responsive"
+                            priority="true"
+                            cursor={"pointer"}
+                            width={"80px"}
+                        />
+                    </Link>
+                </div>
 
-        <HStack>
-          {loggedIn ? (
-            <>
-              <Link href="/feed">
-                <IconButton
-                  fontSize="lg"
-                  aria-label={t("ariaWallet")}
-                  _hover={{ bg: "none" }}
-                  _active={{ bg: "none" }}
-                  rounded="full"
-                  variant={"outline"}
-                >
-                  <IoNewspaperOutline />
-                </IconButton>
-              </Link>
+                <HStack>
+                    {loggedIn ? (
+                        <>
+                            <Link href="/feed">
+                                <IconButton
+                                    fontSize="lg"
+                                    aria-label={t("ariaWallet")}
+                                    _hover={{ bg: "none" }}
+                                    _active={{ bg: "none" }}
+                                    rounded="full"
+                                    variant={"outline"}
+                                >
+                                    <IoNewspaperOutline />
+                                </IconButton>
+                            </Link>
 
-              <Link href="/account">
-                <IconButton
-                  fontSize="lg"
-                  aria-label={t("ariaWallet")}
-                  _hover={{ bg: "none" }}
-                  _active={{ bg: "none" }}
-                  rounded="full"
-                  variant={"outline"}
-                >
-                  <IoSettingsOutline />
-                </IconButton>
-              </Link>
+                            <Link href="/account">
+                                <IconButton
+                                    fontSize="lg"
+                                    aria-label={t("ariaWallet")}
+                                    _hover={{ bg: "none" }}
+                                    _active={{ bg: "none" }}
+                                    rounded="full"
+                                    variant={"outline"}
+                                >
+                                    <IoSettingsOutline />
+                                </IconButton>
+                            </Link>
 
-              <Link href="/profile">
-                <IconButton
-                  fontSize="lg"
-                  aria-label={t("ariaWallet")}
-                  _hover={{ bg: "none" }}
-                  _active={{ bg: "none" }}
-                  rounded="full"
-                  variant={"outline"}
-                >
-                  <AiOutlineUser />
-                </IconButton>
-              </Link>
-            </>
-          ) : (
-            <></>
-          )}
+                            <Link href="/profile">
+                                <IconButton
+                                    fontSize="lg"
+                                    aria-label={t("ariaWallet")}
+                                    _hover={{ bg: "none" }}
+                                    _active={{ bg: "none" }}
+                                    rounded="full"
+                                    variant={"outline"}
+                                >
+                                    <AiOutlineUser />
+                                </IconButton>
+                            </Link>
+                        </>
+                    ) : (
+                        <></>
+                    )}
 
-          <ToggleMode />
-          <ChangeLanguage />
-          <ConnectWallet />
-          {/* <Sidebar /> */}
-        </HStack>
-      </Box>
-    </Box>
-  );
+                    <ToggleMode />
+                    <ChangeLanguage />
+                    <ConnectWallet />
+                    {/* <Sidebar /> */}
+                </HStack>
+            </Box>
+        </Box>
+    );
 }
 
 export default Header;

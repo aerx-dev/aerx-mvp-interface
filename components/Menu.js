@@ -9,16 +9,20 @@ export default function Menu({ toggled, setToggled }) {
 
     return (
         <div
-            className={`ml-10 md:flex md:items-center w-full ${toggled ? "" : "hidden"
-                }`}
+            className={`ml-10 md:flex md:items-center w-full ${
+                toggled ? "" : "hidden"
+            }`}
         >
             <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
                 <Link href={{ pathname: "/", hash: "welcome" }}>
                     <a
-                        className={`${asPath === "/#welcome" || asPath === "/" || asPath === "/#"
+                        className={`${
+                            asPath === "/#welcome" ||
+                            asPath === "/" ||
+                            asPath === "/#"
                                 ? "no-underline font-bold nav-item"
                                 : "no-underline nav-item"
-                            }`}
+                        }`}
                     >
                         {t("navLinkHome")}
                     </a>
@@ -27,10 +31,11 @@ export default function Menu({ toggled, setToggled }) {
             <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
                 <Link href={{ pathname: "/", hash: "features" }}>
                     <a
-                        className={`${asPath === "/#features"
+                        className={`${
+                            asPath === "/#features"
                                 ? "no-underline font-bold nav-item"
                                 : "no-underline nav-item"
-                            }`}
+                        }`}
                     >
                         {t("navLinkFeatures")}
                     </a>
@@ -39,10 +44,11 @@ export default function Menu({ toggled, setToggled }) {
             <div className="p-2" onClick={() => setToggled((prev) => !prev)}>
                 <Link href={{ pathname: "/", hash: "aboutUs" }}>
                     <a
-                        className={`${asPath === "/#aboutUs"
+                        className={`${
+                            asPath === "/#aboutUs"
                                 ? "no-underline font-bold nav-item"
                                 : "no-underline nav-item"
-                            }`}
+                        }`}
                     >
                         {t("navLinkAboutUs")}
                     </a>

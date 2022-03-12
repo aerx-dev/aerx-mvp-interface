@@ -11,51 +11,51 @@
 
 ### Prerequisites
 
-- Nodejs
-- NPM
+-   Nodejs
+-   NPM
 
 ## The project directories overview
 
 ### Components Directory
 
-- Account Directory contains 2 files, ie. 1. Form for getting user data from client side and 2. Index for the entry point of our account components
-- Header Directory navigation
-- Landing Directory for the entry point of the application
-- Profile Directory contains profile of the registered user
-- UI Directory contains the reuseable components for cards and icon buttons
+-   Account Directory contains 2 files, ie. 1. Form for getting user data from client side and 2. Index for the entry point of our account components
+-   Header Directory navigation
+-   Landing Directory for the entry point of the application
+-   Profile Directory contains profile of the registered user
+-   UI Directory contains the reuseable components for cards and icon buttons
 
 ### Pages Directory
 
-- This directory contains the main pages of our application. We have the following pages
-  - Account
-  - Feed
-  - Profile
+-   This directory contains the main pages of our application. We have the following pages
+    -   Account
+    -   Feed
+    -   Profile
 
 ### Lib directory
 
-- This directory contains the following: 1. Auth 2. NFTContract 3. TokenContract 4. Configuration. Model which contains the PrfoileNFTMetadata
+-   This directory contains the following: 1. Auth 2. NFTContract 3. TokenContract 4. Configuration. Model which contains the PrfoileNFTMetadata
 
 ### Locales
 
-- This directory contains all the languages we have set up. Easily translate the application across multiple languages
+-   This directory contains all the languages we have set up. Easily translate the application across multiple languages
 
 ### Public
 
-- This is the public directory
+-   This is the public directory
 
 ### Stores directory
 
-- This directory helps us manages state of the application with the help of the "create" method of "zustand" state management library
+-   This directory helps us manages state of the application with the help of the "create" method of "zustand" state management library
 
 ## Built With
 
-- React
-- Styled Components
-- NEAR API JS
-- Next Translate
-- Zustand
-- IPFS Core
-- React Icons
+-   React
+-   Styled Components
+-   NEAR API JS
+-   Next Translate
+-   Zustand
+-   IPFS Core
+-   React Icons
 
 ## Live Demo
 
@@ -64,7 +64,7 @@
 ## Browser side IPFS deployment
 
 Deploy your files via a browserside local IPFS node.
-The CID url is displayed on success.
+The CID and URI is returned on success.
 
 ### Contributing
 
@@ -72,8 +72,8 @@ The CID url is displayed on success.
 
 ## Acknowledgments
 
-- IPFS reference [here 🗻](https://github.com/ipfs-examples/js-ipfs-examples/)
+-   IPFS reference [here 🗻](https://github.com/ipfs-examples/js-ipfs-examples/)
 
-## 📝 License
+<!-- ## 📝 License -->
 
-This project is [Apache](lic.url) licensed.
+<!-- This project is [Apache](lic.url) licensed. -->

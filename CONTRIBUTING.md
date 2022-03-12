@@ -4,7 +4,7 @@
 
 ### Setting up you local machine
 
-- [Fork](https://github.com/AERX-dev/aerx-frontend-near.git) this project and clone the fork on your local machine:
+-   [Fork](https://github.com/AERX-dev/aerx-frontend-near.git) this project and clone the fork on your local machine:
 
 ```sh
 git clone https://github.com/AERX-dev/aerx-frontend-near.git

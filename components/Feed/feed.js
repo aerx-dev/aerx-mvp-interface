@@ -76,11 +76,18 @@ const Feed = () => {
                                         </Box>
                                     </Box>
                                     <Box px={4}>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Lorem ipsum dolor sit amet, consectetur
+                                        adipiscing elit.
                                     </Box>
                                     <Box borderTop={2} p={4}>
-                                        <AiOutlineThunderbolt style={{ display: "inline" }} />{" "}
-                                        {[10, 20, 30, 40][Math.floor(Math.random() * 4)]}
+                                        <AiOutlineThunderbolt
+                                            style={{ display: "inline" }}
+                                        />{" "}
+                                        {
+                                            [10, 20, 30, 40][
+                                                Math.floor(Math.random() * 4)
+                                            ]
+                                        }
                                     </Box>
                                 </Box>
                             );

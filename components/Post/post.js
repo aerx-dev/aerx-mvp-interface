@@ -112,7 +112,12 @@ function Post({ el }) {
                     <ModalHeader>Reward Post</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <Box pb={4} display="flex" alignContent={"center"} gap={2}>
+                        <Box
+                            pb={4}
+                            display="flex"
+                            alignContent={"center"}
+                            gap={2}
+                        >
                             <Box
                                 display="inline-block"
                                 height="40px"
@@ -137,7 +142,9 @@ function Post({ el }) {
 
                         <Box py={2} display="flex" pr={2}>
                             <Box fontSize="2xl" mr={4}>
-                                <AiOutlineThunderbolt style={{ display: "inline-block" }} />
+                                <AiOutlineThunderbolt
+                                    style={{ display: "inline-block" }}
+                                />
                             </Box>
 
                             <Slider
@@ -150,7 +157,10 @@ function Post({ el }) {
                                 <SliderTrack bg={sliderTrackBg}>
                                     <SliderFilledTrack bg={sliderTrack} />
                                 </SliderTrack>
-                                <SliderThumb color={sliderThumbColor} boxSize={6}>
+                                <SliderThumb
+                                    color={sliderThumbColor}
+                                    boxSize={6}
+                                >
                                     <small>{sliderValue}</small>
                                 </SliderThumb>
                             </Slider>

@@ -30,7 +30,7 @@ const Account = () => {
     const [uploadImg, setUploadImg] = useState();
 
     // Ipsf hook with details and upload hook.
-    const ipfsData = useIPFS(uploadImg)
+    const ipfsData = useIPFS(uploadImg);
     // console.log(ipfsData)
 
     const nearState = nearStore((profile) => profile);
@@ -55,12 +55,12 @@ const Account = () => {
             setUploadImg(() => event.target.files[0]);
             // document.querySelectorAll(".profile-picture")[0].value = info.cdnUrl;
             // console.log(JSON.stringify(uploadImg))
-            setProfile( (prevProfile) => {
+            setProfile((prevProfile) => {
                 return {
                     ...prevProfile,
-                    profileImgCid: ipfs.fileUrl
-                }
-            })
+                    profileImgCid: ipfs.fileUrl,
+                };
+            });
         }
     }
 

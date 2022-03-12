@@ -120,16 +120,27 @@ const Profile = () => {
                             </Box>
                             <Box bg={bg} py={2} width="100%" rounded={10}>
                                 <HStack px={2}>
-                                    <Image src={lightningbolt} alt="Lightning bolt" />
+                                    <Image
+                                        src={lightningbolt}
+                                        alt="Lightning bolt"
+                                    />
                                     <VStack px={8}>
-                                        <Text textAlign="right">{t("label.balance")}</Text>
+                                        <Text textAlign="right">
+                                            {t("label.balance")}
+                                        </Text>
                                         <Text>{balance}</Text>
                                     </VStack>
                                 </HStack>
                             </Box>
                         </VStack>
                         <Box pr={8}>
-                            <Box bg={bg} p={4} rounded="lg" borderWidth={2} mb={4}>
+                            <Box
+                                bg={bg}
+                                p={4}
+                                rounded="lg"
+                                borderWidth={2}
+                                mb={4}
+                            >
                                 <Heading>{profile.fullName}</Heading>
 
                                 <Text mb={4}>{profile.aboutMe}</Text>
