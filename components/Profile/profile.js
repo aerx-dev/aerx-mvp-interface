@@ -34,8 +34,7 @@ const Profile = () => {
     );
     const { t } = useTranslation("profile");
 
-    const bg = useColorModeValue("white", "gray.800");
-    const pageBg = useColorModeValue("gray.50", "gray.800");
+    const bg = useColorModeValue("gray.100", "gray.900");
     const picBg = useColorModeValue("gray.200", "gray.700");
 
     useEffect(() => {
@@ -69,17 +68,20 @@ const Profile = () => {
 
     return (
         <Layout>
-            <Box bg={pageBg}>
-                <SideBar>
-                    <Grid
-                        templateColumns={[
-                            "repeat(100%)",
-                            "repeat(100%)",
-                            "220px calc(100% - 200px)",
-                        ]}
-                        gap="20px"
-                    >
-                        {/* <VStack>
+            <SideBar bg={bg}>
+                <Box>
+                    <NewPost state={nearState} bg={bg} />
+
+                    {profile.posts ? (
+                        profile.posts.map((el) => {
+                            return <Post key={el.id} el={el} />;
+                        })
+                    ) : (
+                        <></>
+                    )}
+                </Box>
+
+                {/* <VStack>
                             <Box
                                 overflow={"hidden"}
                                 borderWidth={2}
@@ -107,34 +109,7 @@ const Profile = () => {
                                 </HStack>
                             </Box>
                         </VStack> */}
-                        <Box pr={8}>
-                            <Box
-                                bg={bg}
-                                p={4}
-                                rounded="lg"
-                                borderWidth={2}
-                                mb={4}
-                            >
-                                <Heading>{profile.fullName}</Heading>
-
-                                <Text mb={4}>{profile.aboutMe}</Text>
-
-                                <Box>
-                                    <NewPost state={nearState} />
-                                </Box>
-                            </Box>
-
-                            {profile.posts ? (
-                                profile.posts.map((el) => {
-                                    return <Post key={el.id} el={el} />;
-                                })
-                            ) : (
-                                <></>
-                            )}
-                        </Box>
-                    </Grid>
-                </SideBar>
-            </Box>
+            </SideBar>
         </Layout>
     );
 };

@@ -1,29 +1,41 @@
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    Button,
-    Textarea,
+    Alert,
+    AlertIcon,
+    AlertTitle,
+    AlertDescription,
+    Avatar,
     Box,
+    Button,
+    CloseButton,
+    colorMode,
+    IconButton,
+    Input,
+    useColorModeValue,
 } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 
-import { useState } from "react";
+import { useState, createElement } from "react";
 import { profileStore } from "../../stores/profile";
-// import supabase, { getProfile } from "../../lib/supabase";
 import { getBalance, issueTokens } from "../../lib/tokenContract";
+import useTranslation from "next-translate/useTranslation";
 
-function NewPost({ state }) {
+function NewPost({ state, bg }) {
     const profileState = profileStore((state) => state);
-
-    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [body, setBody] = useState("");
     const [postError, setPostError] = useState("");
+    const { t } = useTranslation("profile");
+
+    const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
+
+    const imgIconEl = createElement("img", {
+        src: "/icons/image.png",
+        alt: "upload image",
+    });
+    const musicIconEl = createElement("img", {
+        src: "/icons/music.png",
+        alt: "upload music",
+    });
 
     async function createPost() {
         if (body.length < 1) {
@@ -36,63 +48,86 @@ function NewPost({ state }) {
             console.log("0 posts");
             await issueTokens(state.accountId);
         }
-        // const { data, error } = await supabase
-        //     .from("posts")
-        //     .insert([
-        //         {
-        //             profileId: profileState.profile.id,
-        //             body,
-        //             walletId: profileState.profile.walletId,
-        //         },
-        //     ]);
-
-        // if (!error && data.length) {
-        //     const newProfile = await getProfile(profileState.profile.walletId);
-        //     profileState.setProfile(newProfile);
-        //     setBody("");
-        //     onClose();
-        //     window.location = window.location.href;
-        // } else {
-        //     console.log(error);
-        //     // alert("Error creating profile");
-        // }
     }
 
     return (
-        <>
-            <Button onClick={onOpen}>New Post</Button>
+        <Box
+            flexDirection="row"
+            display="flex"
+            alignItems="center"
+            bg={bg}
+            px={4}
+            py={2}
+            borderRadius={10}
+        >
+            <Avatar
+                size="xs"
+                name={profileState.profile?.fullName}
+                src={profileState.profile?.profileImage}
+                mr={3}
+            />
 
-            <Modal isOpen={isOpen} onClose={onClose} size="xl">
-                <ModalOverlay />
-                <ModalContent mx={5} rounded="xl">
-                    <ModalHeader>New Post</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <Textarea
-                            maxLength={200}
-                            onChange={(e) => {
-                                setPostError("");
-                                setBody(e.currentTarget.value);
-                            }}
-                            mb={1}
-                        />
-                        {body.length} / 200
-                    </ModalBody>
+            <Input
+                onChange={(e) => {
+                    setPostError("");
+                    setBody(e.currentTarget.value);
+                }}
+                maxLength={500}
+                type="text"
+                placeholder={t("new")}
+                borderRadius={20}
+                filter={filter}
+                size="sm"
+                border="none"
+                bg={useColorModeValue("white", "gray.800")}
+            />
 
-                    <ModalFooter>
-                        <Box fontSize="sm" color="red.500">
-                            {postError}
-                        </Box>
-                        <Button variant="ghost" mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button colorScheme="blue" onClick={createPost}>
-                            Confirm
-                        </Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-        </>
+            <IconButton
+                aria-label="Search"
+                isRound
+                size="xs"
+                variant="ghost"
+                icon={musicIconEl}
+                ml={3}
+                opacity={0.5}
+                bg={useColorModeValue("#6054F0", "gray.900")}
+            />
+            <IconButton
+                aria-label="Search"
+                isRound
+                size="xs"
+                variant="ghost"
+                icon={imgIconEl}
+                ml={2}
+                opacity={0.5}
+                bg={useColorModeValue("#6054F0", "gray.900")}
+            />
+            <IconButton
+                type="submit"
+                aria-label="Search"
+                isRound
+                size="xs"
+                icon={<AddIcon />}
+                ml={5}
+                onClick={createPost}
+                bgColor="#6054F0"
+                color="white"
+            />
+
+            {postError && (
+                <Alert status="error">
+                    <AlertIcon />
+                    <AlertTitle mr={2}>Error!</AlertTitle>
+                    <AlertDescription>{postError}</AlertDescription>
+                    <CloseButton
+                        position="absolute"
+                        right="8px"
+                        top="8px"
+                        onClick={() => setPostError("")}
+                    />
+                </Alert>
+            )}
+        </Box>
     );
 }
 

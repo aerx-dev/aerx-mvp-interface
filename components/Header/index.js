@@ -44,17 +44,18 @@ function Header() {
                 <div className="flex-1">
                     <Link href={{ pathname: "/" }}>
                         <ChakraImage
-                            src={
-                                colorMode === "light"
-                                    ? "/images/dark-logo.svg"
-                                    : "/images/white-logo.svg"
-                            }
+                            src="/images/aerxnew.svg"
                             alt={t("logoAlt")}
                             className="rounded-sm"
                             layout="responsive"
                             priority="true"
                             cursor={"pointer"}
                             width={"80px"}
+                            filter={
+                                colorMode === "light"
+                                    ? "invert(0)"
+                                    : "invert(1)"
+                            }
                         />
                     </Link>
                 </div>

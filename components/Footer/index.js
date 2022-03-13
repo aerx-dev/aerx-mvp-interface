@@ -22,11 +22,7 @@ function Footer() {
                 <Box textAlign={"center"}>
                     <Link href="/">
                         <ChakraImage
-                            src={
-                                colorMode === "light"
-                                    ? "/images/dark-logo.svg"
-                                    : "/images/white-logo.svg"
-                            }
+                            src="/images/aerxnew.svg"
                             alt={t("logoAlt")}
                             className="rounded-sm"
                             layout="responsive"
@@ -35,6 +31,11 @@ function Footer() {
                             mb={8}
                             cursor={"pointer"}
                             width={"150px"}
+                            filter={
+                                colorMode === "light"
+                                    ? "invert(0)"
+                                    : "invert(1)"
+                            }
                         />
                     </Link>
                     <Text fontWeight="bold"> The future has arrived</Text>

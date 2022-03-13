@@ -10,10 +10,12 @@ import {
 import { AiOutlineThunderbolt } from "react-icons/ai";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
+import { nearStore } from "../../stores/near";
 
 const Feed = () => {
+    const nearState = nearStore((state) => state);
     const picBg = useColorModeValue("gray.200", "gray.700");
-    const postBg = useColorModeValue("gray.50", "gray.900");
+    const postBg = useColorModeValue("gray.100", "gray.900");
     const imageBg = useColorModeValue("#fafafa", "#0a0a0a");
     return (
         <Layout>
@@ -44,7 +46,7 @@ const Feed = () => {
 
                     <Box pr={8}>
                         <Box mb={4}>
-                            <NewPost />
+                            <NewPost state={nearState} bg={postBg} />
                         </Box>
 
                         {[1, 2, 3, 4].map((el) => {
