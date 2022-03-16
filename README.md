@@ -31,6 +31,10 @@
     -   Feed
     -   Profile
 
+### [hooks](./hooks)
+
+Contains our custom hooks. The IFPS hook helps placing content on through the ipfs gateway. More [beautiful hooks](https://github.com/antonioru/beautiful-react-hooks) are available 🖌️
+
 ### Lib directory
 
 -   This directory contains the following: 1. Auth 2. NFTContract 3. TokenContract 4. Configuration. Model which contains the PrfoileNFTMetadata

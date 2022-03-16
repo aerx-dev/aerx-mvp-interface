@@ -89,12 +89,6 @@ export default function CreateProfileForm(props) {
             </Box>
 
             <Box pl={[0, 0, 1]} pr={8}>
-                {props.uploadImg &&
-                    <FormControl mb={2}>
-                        <FormLabel>{props.t("label.profilePicCid")}</FormLabel>
-                        <p > {props.profile.profileImgCid} </p>
-                    </FormControl>
-                }
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.fullName")}</FormLabel>
                     <Input
@@ -122,7 +116,7 @@ export default function CreateProfileForm(props) {
                     </InputGroup>
                 </FormControl>
 
-                <FormControl mb={2}>
+                {/* <FormControl mb={2}>
                     <FormLabel>{props.t("label.email")}</FormLabel>
                     <Input
                         type="text"
@@ -131,7 +125,7 @@ export default function CreateProfileForm(props) {
                         onChange={props.update}
                         data-path="email"
                     />
-                </FormControl>
+                </FormControl> */}
 
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.aboutMe")}</FormLabel>
