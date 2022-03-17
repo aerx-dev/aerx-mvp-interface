@@ -14,7 +14,6 @@ import {
     useColorModeValue,
     IconButton,
 } from "@chakra-ui/react";
-import Sidebar from "./sidebar";
 import useTranslation from "next-translate/useTranslation";
 import { AiOutlineUser, AiOutlineProfile } from "react-icons/ai";
 import { IoNewspaperOutline, IoSettingsOutline } from "react-icons/io5";
@@ -44,7 +43,7 @@ function Header() {
                 <div className="flex-1">
                     <Link href={{ pathname: "/" }}>
                         <ChakraImage
-                            src="/images/aerxnew.svg"
+                            src="/images/white-logo.svg"
                             alt={t("logoAlt")}
                             className="rounded-sm"
                             layout="responsive"
@@ -53,8 +52,8 @@ function Header() {
                             width={"80px"}
                             filter={
                                 colorMode === "light"
-                                    ? "invert(0)"
-                                    : "invert(1)"
+                                    ? "invert(1)"
+                                    : "invert(0)"
                             }
                         />
                     </Link>
@@ -109,7 +108,6 @@ function Header() {
                     <ToggleMode />
                     <ChangeLanguage />
                     <ConnectWallet />
-                    {/* <Sidebar /> */}
                 </HStack>
             </Box>
         </Box>

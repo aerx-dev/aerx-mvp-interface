@@ -1,4 +1,5 @@
 // import ProfilePage from "../components/ProfilePage";
+import React, { Suspense } from "react";
 import {
     Box,
     Heading,
@@ -8,6 +9,7 @@ import {
     Image as ChakraImage,
     VStack,
     HStack,
+    Button,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import lightningbolt from "../../public/images/lightningbolt.png";
@@ -16,12 +18,26 @@ import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import { profileStore } from "../../stores/profile.js";
 import Post from "..//Post/post";
-import SideBar from "./SideNav";
 
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
+import dynamic from "next/dynamic";
+
+// important! lazy loads the profile components initially
+const LazySider = dynamic(() => import("./SideBar"), {
+    loading: () => (
+        <Button
+            isLoading
+            variant="ghost"
+            position="absolute"
+            left="50vw"
+            top="50vh"
+            disabled
+        />
+    ),
+});
 
 const Profile = () => {
     const [first, setFirst] = useState(true);
@@ -35,7 +51,6 @@ const Profile = () => {
     const { t } = useTranslation("profile");
 
     const bg = useColorModeValue("gray.100", "gray.900");
-    const picBg = useColorModeValue("gray.200", "gray.700");
 
     useEffect(() => {
         async function userNearBalance() {
@@ -47,20 +62,6 @@ const Profile = () => {
         userNearBalance();
     }, [nearState]);
 
-    function profileImage() {
-        if (profile.profileImage) {
-            return (
-                <ChakraImage
-                    src={profile.profileImage}
-                    alt="profile"
-                    height="100%"
-                    width="100%"
-                    objectFit="cover"
-                />
-            );
-        }
-    }
-
     if (profileState.profile && profileLoaded === false) {
         setProfile(profileState.profile);
         setProfileLoaded(true);
@@ -68,7 +69,7 @@ const Profile = () => {
 
     return (
         <Layout>
-            <SideBar bg={bg}>
+            <LazySider bg={bg} profile={profile}>
                 <Box>
                     <NewPost state={nearState} bg={bg} />
 
@@ -80,36 +81,7 @@ const Profile = () => {
                         <></>
                     )}
                 </Box>
-
-                {/* <VStack>
-                            <Box
-                                overflow={"hidden"}
-                                borderWidth={2}
-                                height="320px"
-                                rounded="lg"
-                                width="100%"
-                                maxWidth={["100%", "400px", "225px"]}
-                                bg={picBg}
-                                margin="0 auto"
-                            >
-                                {profileImage()}
-                            </Box>
-                            <Box bg={bg} py={2} width="100%" rounded={10}>
-                                <HStack px={2}>
-                                    <Image
-                                        src={lightningbolt}
-                                        alt="Lightning bolt"
-                                    />
-                                    <VStack px={8}>
-                                        <Text textAlign="right">
-                                            {t("label.balance")}
-                                        </Text>
-                                        <Text>{balance}</Text>
-                                    </VStack>
-                                </HStack>
-                            </Box>
-                        </VStack> */}
-            </SideBar>
+            </LazySider>
         </Layout>
     );
 };

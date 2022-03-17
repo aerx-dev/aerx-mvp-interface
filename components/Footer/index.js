@@ -22,7 +22,7 @@ function Footer() {
                 <Box textAlign={"center"}>
                     <Link href="/">
                         <ChakraImage
-                            src="/images/aerxnew.svg"
+                            src="/images/white-logo.svg"
                             alt={t("logoAlt")}
                             className="rounded-sm"
                             layout="responsive"
@@ -33,8 +33,8 @@ function Footer() {
                             width={"150px"}
                             filter={
                                 colorMode === "light"
-                                    ? "invert(0)"
-                                    : "invert(1)"
+                                    ? "invert(1)"
+                                    : "invert(0)"
                             }
                         />
                     </Link>
