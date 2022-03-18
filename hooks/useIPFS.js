@@ -43,7 +43,7 @@ export default function useIPFS(file) {
             file && fileUpload();
         }
     }, [file]);
-    console.log(ipfsData);
+    // console.log(ipfsData);
 
     return ipfsData;
 }

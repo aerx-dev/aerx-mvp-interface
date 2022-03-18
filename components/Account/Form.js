@@ -139,6 +139,17 @@ export default function CreateProfileForm(props) {
                 </FormControl>
 
                 <FormControl mb={2}>
+                    <FormLabel>{props.t("label.aboutMe")}</FormLabel>
+                    <Textarea
+                        type="email"
+                        defaultValue={props.profile.hobbys}
+                        placeholder="aboutMe"
+                        onChange={props.update}
+                        data-path="aboutMe"
+                    />
+                </FormControl>
+
+                <FormControl mb={2}>
                     <FormLabel>{props.t("label.city")}</FormLabel>
                     <Input
                         placeholder="city"
@@ -148,7 +159,7 @@ export default function CreateProfileForm(props) {
                     />
                 </FormControl>
 
-                <FormControl mb={2}>
+                {/* <FormControl mb={2}>
                     <FormLabel>{props.t("label.state")}</FormLabel>
                     <Input
                         placeholder="State/Province"
@@ -156,7 +167,7 @@ export default function CreateProfileForm(props) {
                         onChange={props.update}
                         data-path="state"
                     />
-                </FormControl>
+                </FormControl> */}
 
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.country")}</FormLabel>

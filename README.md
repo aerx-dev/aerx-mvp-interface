@@ -39,6 +39,12 @@ Contains our custom hooks. The IFPS hook helps placing content on through the ip
 
 -   This directory contains the following: 1. Auth 2. NFTContract 3. TokenContract 4. Configuration. Model which contains the PrfoileNFTMetadata
 
+The auth file starts up an IPFS node, logs into the NEAR account and gives permission to the contracts.
+TODO:
+ - to mint an NFT, you need to send the mint rquest from the nft-contract accountId.
+ - That means it gets payed by the NFT account.
+ - SHould we change that in the contract or just have it pay for the minting for now?
+
 ### Locales
 
 -   This directory contains all the languages we have set up. Easily translate the application across multiple languages
