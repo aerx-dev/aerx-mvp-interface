@@ -139,13 +139,13 @@ export default function CreateProfileForm(props) {
                 </FormControl>
 
                 <FormControl mb={2}>
-                    <FormLabel>{props.t("label.aboutMe")}</FormLabel>
+                    <FormLabel>{props.t("label.hobbys")}</FormLabel>
                     <Textarea
                         type="email"
                         defaultValue={props.profile.hobbys}
-                        placeholder="aboutMe"
+                        placeholder="hobbys"
                         onChange={props.update}
-                        data-path="aboutMe"
+                        data-path="hobbys"
                     />
                 </FormControl>
 

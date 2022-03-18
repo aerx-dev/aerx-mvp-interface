@@ -95,7 +95,7 @@ const Account = () => {
                 token_metadata: profileToSave,
             },
             "300000000000000", // attached GAS (optional)
-            "1000000000000000000000000" // attached deposit in yoctoNEAR (optional))
+            "9260000000000000000111" // attached deposit in yoctoNEAR (optional))
         )
         console.log(res)
     }
