@@ -10,9 +10,9 @@ export default async function handler(req, res) {
   const metadata = JSON.stringify(req.body);
 
   try {
-    const { hash, uri } = await upload(metadata);
-    res.status(200).json({ cid: hash, uri: uri });
+    const { crustRes } = await upload(metadata);
+    res.status(200).json({ crustResponse: crustRes });
   } catch (err) {
-    res.status(500).json({ msg: "upload failed", error: err.message });
+    res.status(500).json({ msg: "upload to CRUST failed", error: err.message });
   }
 }
