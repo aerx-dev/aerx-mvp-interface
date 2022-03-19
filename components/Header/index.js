@@ -31,7 +31,7 @@ function Header() {
         if (state.walletConnection && state.walletConnection.isSignedIn()) {
             setLoggedIn(true);
         }
-    });
+    }, [state.walletConnection]);
 
     return (
         <Box

@@ -89,15 +89,20 @@ const Account = () => {
         // }
 
         // 3. send mint request
-        const res = await cnftContract.nft_mint(
-            {
-                receiver_id: nearState.accountId,
-                token_metadata: profileToSave,
-            },
-            "300000000000000", // attached GAS (optional)
-            "9260000000000000000111" // attached deposit in yoctoNEAR (optional))
-        )
-        console.log(res)
+        try {
+
+            const res = await cnftContract.nft_mint(
+                {
+                    receiver_id: nearState.accountId,
+                    token_metadata: profileToSave,
+                },
+                "300000000000000", // attached GAS (optional)
+                "9660000000000000000111" // attached deposit in yoctoNEAR (optional))
+            )
+            console.log(res)
+        } catch (e) {
+            console.log("NFT could not be minted! Error: " + e.message)
+        }
     }
 
 

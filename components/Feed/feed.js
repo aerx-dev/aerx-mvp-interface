@@ -10,11 +10,16 @@ import {
 import { AiOutlineThunderbolt } from "react-icons/ai";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
+import { useEffect } from "react";
 
 const Feed = () => {
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.50", "gray.900");
     const imageBg = useColorModeValue("#fafafa", "#0a0a0a");
+
+    useEffect(() => {
+        // async function fetch content profiles
+    })
     return (
         <Layout>
             <Box
