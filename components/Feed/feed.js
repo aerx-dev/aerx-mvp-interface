@@ -1,11 +1,4 @@
-import {
-    Box,
-    Heading,
-    useColorModeValue,
-    Grid,
-    Text,
-    Button,
-} from "@chakra-ui/react";
+import { Box, useColorModeValue, Grid, Button } from "@chakra-ui/react";
 
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
@@ -26,7 +19,6 @@ const LazyPosts = dynamic(() => import("../Post/post"), {
         />
     ),
 });
-
 
 const Feed = () => {
     const nearState = nearStore((state) => state);

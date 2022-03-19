@@ -1,4 +1,3 @@
-import Link from "next/link";
 import i18Config from "../../i18n.json";
 import useTranslation from "next-translate/useTranslation";
 import setLanguage from "next-translate/setLanguage";
@@ -9,10 +8,6 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
-    MenuDivider,
     IconButton,
 } from "@chakra-ui/react";
 

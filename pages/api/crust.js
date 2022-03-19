@@ -1,7 +1,3 @@
-import { Buffer } from "buffer";
-import { create } from "ipfs-http-client";
-import { KeyPair } from "near-api-js";
-import { u8aToHex } from "@polkadot/util";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { typesBundleForPolkadot } from "@crustio/type-definitions";
 import { Keyring } from "@polkadot/keyring";
@@ -20,16 +16,18 @@ const crustChainEndpoint = "wss://rpc-rocky.crust.network";
  * @return true/false
  */
 const placeOrder = async (api, keyRing, fileCID, fileSize, tip) => {
-  const memo = "";
-  // keyring pair will be used in sending transaction
-  const keyRingPair = keyRing.addFromUri(mnemonic);
-  // Determine whether to connect to the chain
-  await api.isReadyOrError;
-  // Generate transaction
-  const tx = api.tx.market.placeStorageOrder(fileCID, fileSize, tip, memo);
-  // Send transaction
-  const txResponse = JSON.parse(JSON.stringify(await sendTx(keyRingPair, tx)));
-  return JSON.parse(JSON.stringify(txResponse));
+    const memo = "";
+    // keyring pair will be used in sending transaction
+    const keyRingPair = keyRing.addFromUri(mnemonic);
+    // Determine whether to connect to the chain
+    await api.isReadyOrError;
+    // Generate transaction
+    const tx = api.tx.market.placeStorageOrder(fileCID, fileSize, tip, memo);
+    // Send transaction
+    const txResponse = JSON.parse(
+        JSON.stringify(await sendTx(keyRingPair, tx)),
+    );
+    return JSON.parse(JSON.stringify(txResponse));
 };
 
 /**
@@ -40,35 +38,35 @@ const placeOrder = async (api, keyRing, fileCID, fileSize, tip) => {
  * @return send transaction true/false
  */
 const addPrepaid = async (api, keyRing, cid, amount) => {
-  // keyring pair will be used in sending transaction
-  const keyRingPair = keyRing.addFromUri(mnemonic);
-  await api.isReadyOrError;
-  // Generate transaction
-  const tx = api.tx.market.addPrepaid(cid, amount);
-  // Send transaction
-  const txRes = JSON.parse(JSON.stringify(await sendTx(keyRingPair, tx)));
-  return JSON.parse(JSON.stringify(txRes));
+    // keyring pair will be used in sending transaction
+    const keyRingPair = keyRing.addFromUri(mnemonic);
+    await api.isReadyOrError;
+    // Generate transaction
+    const tx = api.tx.market.addPrepaid(cid, amount);
+    // Send transaction
+    const txRes = JSON.parse(JSON.stringify(await sendTx(keyRingPair, tx)));
+    return JSON.parse(JSON.stringify(txRes));
 };
 
-const sendTx = async (keyringPair, tx) => {
-  return new Promise((resolve, reject) => {
-    tx.signAndSend(keyringPair, ({ events = [], status }) => {
-      console.log(`💸  Tx status: ${status.type}, nonce: ${tx.nonce}`);
+const sendTx = (keyringPair, tx) => {
+    return new Promise((resolve, reject) => {
+        tx.signAndSend(keyringPair, ({ events = [], status }) => {
+            console.log(`💸  Tx status: ${status.type}, nonce: ${tx.nonce}`);
 
-      if (status.isInBlock) {
-        events.forEach(({ event: { method, section } }) => {
-          if (method === "ExtrinsicSuccess") {
-            console.log(`✅ success!`);
-            resolve(true);
-          }
+            if (status.isInBlock) {
+                events.forEach(({ event: { method, section } }) => {
+                    if (method === "ExtrinsicSuccess") {
+                        console.log(`✅ success!`);
+                        resolve(true);
+                    }
+                });
+            } else {
+                // Pass it
+            }
+        }).catch((e) => {
+            reject(e);
         });
-      } else {
-        // Pass it
-      }
-    }).catch((e) => {
-      reject(e);
     });
-  });
 };
 
 /**
@@ -78,24 +76,24 @@ const sendTx = async (keyringPair, tx) => {
  * @return order state
  */
 const getOrderState = async (api, cid) => {
-  await api.isReadyOrError;
-  return await api.query.market.files(cid);
+    await api.isReadyOrError;
+    return await api.query.market.files(cid);
 };
 
-
 const upload = async (contentCid, contentSize) => {
-  // Connect to crust chain --testnet
-  const api = new ApiPromise({
-    provider: new WsProvider(crustChainEndpoint),
-    typesBundle: typesBundleForPolkadot,
-  });
-  const keyRing = new Keyring({
-    type: "sr25519",
-  });
+    // Connect to crust chain --testnet
+    const api = new ApiPromise({
+        provider: new WsProvider(crustChainEndpoint),
+        typesBundle: typesBundleForPolkadot,
+    });
+    const keyRing = new Keyring({
+        type: "sr25519",
+    });
 
-  const order = await placeOrder(api, keyRing, contentCid, contentSize, 0);
-  console.log("place order >>", order);
-  const res = getOrderState(api, contentCid)
+    const order = await placeOrder(api, keyRing, contentCid, contentSize, 0);
+    console.log("place order >>", order);
+    const res = getOrderState(api, contentCid);
+    return res;
 };
 
 export { upload };

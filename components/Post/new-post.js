@@ -1,10 +1,10 @@
 import {
     Avatar,
     Box,
-    colorMode,
     Icon,
     IconButton,
     Input,
+    useColorMode,
     useColorModeValue,
 } from "@chakra-ui/react";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -19,8 +19,8 @@ function NewPost({ state, bg }) {
     const [balance, setBalance] = useState(0);
     const [body, setBody] = useState("");
     const { t } = useTranslation("profile");
-
-    const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
+    const { colorMode } = useColorMode();
+    const filter = colorMode === "light" ? "invert(0)" : "invert(0)";
     const fill = useColorModeValue("gray", "white");
 
     const toast = useCustomToast("warning", "Post cannot be empty!");

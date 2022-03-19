@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 const { locales } = i18Config;
 
 export default function ChangeLanguage() {
-    const { t, lang } = useTranslation();
+    const { lang } = useTranslation();
     const { asPath } = useRouter();
 
     return locales.map((lng) => {

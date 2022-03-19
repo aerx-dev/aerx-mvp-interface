@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    EnvironmentOutlined,
+    // EnvironmentOutlined,
     ThunderboltFilled,
 } from "@ant-design/icons";
 import {
@@ -17,7 +17,6 @@ import {
     Tag,
     useColorMode,
     useColorModeValue,
-    SimpleGrid,
     Stack,
     Heading,
     AvatarGroup,
@@ -30,7 +29,6 @@ import {
     ArrowDownIcon,
 } from "@chakra-ui/icons";
 import { useState, createElement } from "react";
-import useTranslation from "next-translate/useTranslation";
 import PurpleButton from "../../UI/PurpleButton";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -43,7 +41,6 @@ const { Header, Sider, Content, Footer } = Layout;
 
 export default function SideBar({ children, bg, profile }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const { t } = useTranslation("Profile");
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
 
@@ -361,7 +358,7 @@ const RSidebarContent = ({ collapse, ...rest }) => {
     );
 };
 
-const WalletModal = ({ ...rest }) => {};
+// const WalletModal = ({ ...rest }) => {};
 
 const styles = {
     fontFamily: "poppings",

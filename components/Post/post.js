@@ -14,7 +14,6 @@ import {
     SliderTrack,
     SliderFilledTrack,
     SliderThumb,
-    SliderMark,
     Image as ChakraImage,
     Text,
     Avatar,
