@@ -6,11 +6,10 @@ import { ApiPromise, WsProvider } from "@polkadot/api";
 import { typesBundleForPolkadot } from "@crustio/type-definitions";
 import { Keyring } from "@polkadot/keyring";
 
-const ipfsGateway = process.env.REACT_APP_IPFS_GATEWAY;
 // crust account mnemonic
-const mnemonic = process.env.REACT_APP_CRUST_MNEMONIC;
+const mnemonic = process.env.NEXT_PUBLIC_CRUST_MNEMONIC;
 // WS address of Crust chain --tesnet
-const crustChainEndpoint = process.env.REACT_APP_CRUST_ENDPOINT;
+const crustChainEndpoint = "wss://rpc-rocky.crust.network";
 
 /**
  * Place storage order
