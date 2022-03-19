@@ -2,8 +2,8 @@ import { Layout } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    InstagramOutlined,
     EnvironmentOutlined,
+    ThunderboltFilled,
 } from "@ant-design/icons";
 import {
     Box,
@@ -23,11 +23,15 @@ import {
     AvatarGroup,
     Avatar,
 } from "@chakra-ui/react";
-import { SearchIcon, AddIcon, WarningIcon } from "@chakra-ui/icons";
-import { HiLightningBolt } from "react-icons/hi";
-import { BsBoxArrowRight, BsBoxArrowInDown } from "react-icons/bs";
+import {
+    SearchIcon,
+    AddIcon,
+    ArrowForwardIcon,
+    ArrowDownIcon,
+} from "@chakra-ui/icons";
 import { useState, createElement } from "react";
 import useTranslation from "next-translate/useTranslation";
+import PurpleButton from "../../UI/PurpleButton";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -121,10 +125,10 @@ const ProfileHeader = ({ ...rest }) => {
             }}
         >
             <Button variant="ghost">Flow</Button>
-            <Button size="xs" variant="ghost" opacity={0.5}>
+            <Button variant="ghost" className="opacity-50 text-xs">
                 Favourite
             </Button>
-            <Box float="right">
+            <Box className="float-right">
                 <IconButton
                     aria-label="Search"
                     isRound
@@ -155,31 +159,21 @@ const LSidebarContent = ({ profile, ...rest }) => {
             title: "FOLLOWERS",
             count: "750K",
         },
-        {
-            title: "LIKES",
-            count: "10K",
-        },
-    ];
+    ]; // profile.stats
 
     return (
         <Box
-            border="none"
+            className="border-0 fixed h-full"
             w={{ base: "full", md: 60 }}
-            pos="fixed"
-            h="full"
             {...rest}
         >
             <Flex
-                alignItems="center"
-                mx="2"
-                mt={2}
-                justifyContent="space-between"
+                className="align-middle mx-2 mt-2 justify-between"
                 direction="column"
             >
                 <Box
+                    className="rounded-t-lg w-full relative "
                     height="38vh"
-                    borderTopRadius="lg"
-                    width="100%"
                     bg={picBg}
                     bgImage="/images/pavel.png" // profile.profileImage
                     position="relative"
@@ -188,17 +182,11 @@ const LSidebarContent = ({ profile, ...rest }) => {
                     bgPosition="center"
                 >
                     <Box
+                        className="z-10 absolute bottom-0 h-2/5 w-full px-2 text-white"
                         bgGradient={bgGradient}
-                        zIndex={10}
-                        position="absolute"
-                        bottom={0}
-                        height="40%"
-                        width="100%"
-                        px={2}
-                        color="white"
                         fontFamily="poppins"
                     >
-                        <Text fontWeight="bold" h="15%">
+                        <Text className="h-1/6 font-bold">
                             Pavel Dantsev {/** profile.fullName */}
                         </Text>
                         <Text as="i" sx={styles} fontWeight="bold">
@@ -206,37 +194,20 @@ const LSidebarContent = ({ profile, ...rest }) => {
                         </Text>
                         <LSideBarIters iterType="tags" data={tags} {...rest} />
                         <HStack
-                            position="absolute"
-                            bottom={0}
+                            className="absolute bottom-0 w-full"
                             sx={styles}
-                            w="100%"
                         >
-                            <Text>
-                                <Icon as={InstagramOutlined} /> pashq
-                                {/** profile.social */}
-                            </Text>
-                            <Text>
+                            {/* <Text>
                                 <Icon as={EnvironmentOutlined} /> Russia
-                                {/** profile.country */}
-                            </Text>
-                            <Button
-                                leftIcon={<AddIcon />}
-                                aria-label="follow"
-                                borderRadius={20}
-                                size="xs"
-                                bgColor="#6054F0"
-                                position="absolute"
-                                right={4}
-                            >
+                            </Text> */}
+                            <PurpleButton leftIcon={<AddIcon />} right={4}>
                                 Follow
-                            </Button>
+                            </PurpleButton>
                         </HStack>
                     </Box>
                 </Box>
-                <Box textAlign="center" h="23vh" p="10%" py="15%" sx={styles}>
-                    <Text opacity={0.5} mb={2}>
-                        ABOUT
-                    </Text>
+                <Box className="text-center p-5 py-7" h="23vh" sx={styles}>
+                    <Text className="opacity-50 mb-2">ABOUT</Text>
                     <Text>
                         I work as a doctor, but in my free time I lke to make
                         funny pictures and videos. See more details in my
@@ -279,7 +250,7 @@ const LSideBarIters = ({ iterType, data, ...rest }) => {
                         {iter}
                     </Tag>
                 ) : iterType === "stats" ? (
-                    <Box fontSize={8}>
+                    <Box fontSize={8} key={iter.title}>
                         <Text opacity={0.5} mb={1}>
                             {iter.title}
                         </Text>
@@ -303,56 +274,53 @@ const LSideBarIters = ({ iterType, data, ...rest }) => {
 
 const LSideBarBalance = ({ ...rest }) => {
     return (
-        <Box textAlign="center" sx={styles} {...rest} w="100%">
+        <Flex
+            textAlign="center"
+            sx={styles}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            {...rest}
+            w="100%"
+        >
             <Flex
-                direction="column"
-                justifyContent="flex-end"
+                bgImage="/images/balance-bg.svg"
+                bgColor="#ffff0006"
+                bgPos="center"
+                bgSize="contain"
+                bgBlendMode="darken"
+                borderRadius="lg"
+                w="100%"
+                direction="row"
                 alignItems="center"
-                h="100%"
+                justifyContent="flex-start"
+                py={1}
+                my={2}
             >
-                <Flex
-                    bgImage="/images/balance-bg.svg"
-                    bgColor="#ffff0006"
-                    bgPos="center"
-                    bgSize="contain"
-                    bgBlendMode="darken"
-                    borderRadius="lg"
-                    w="100%"
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="flex-start"
-                    py={1}
-                    my={2}
-                >
-                    <Icon mx={2} color="yellow" as={HiLightningBolt} />
-                    <Box>
-                        <Text opacity={0.7}>BALANCE</Text>
-                        <Heading size="sm">768.01</Heading>{" "}
-                        {/** profile.balance */}
-                    </Box>
-                    <Box position="absolute" right={7}>
-                        <IconButton
-                            aria-label="send"
-                            isRound
-                            size="sm"
-                            variant="ghost"
-                            icon={<Icon as={BsBoxArrowRight} />}
-                        ></IconButton>
-                        <IconButton
-                            aria-label="recieve"
-                            isRound
-                            size="sm"
-                            variant="ghost"
-                            icon={<Icon as={BsBoxArrowInDown} />}
-                        ></IconButton>
-                    </Box>
-                </Flex>
-                <Text>
-                    <Icon as={WarningIcon} /> reports: 112
-                    {/** profile.reports */}
-                </Text>
+                <Icon mx={2} color="yellow" as={ThunderboltFilled} />
+                <Box>
+                    <Text opacity={0.7}>BALANCE</Text>
+                    <Heading size="sm">768.01</Heading> {/** profile.balance */}
+                </Box>
+                <Box position="absolute" right={7}>
+                    <IconButton
+                        aria-label="send"
+                        isRound
+                        size="sm"
+                        variant="ghost"
+                        mr={2}
+                        icon={<Icon as={ArrowForwardIcon} />}
+                    ></IconButton>
+                    <IconButton
+                        aria-label="recieve"
+                        isRound
+                        size="sm"
+                        variant="ghost"
+                        icon={<Icon as={ArrowDownIcon} />}
+                    ></IconButton>
+                </Box>
             </Flex>
-        </Box>
+        </Flex>
     );
 };
 const RSidebarContent = ({ collapse, ...rest }) => {

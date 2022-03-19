@@ -1,27 +1,17 @@
 // import ProfilePage from "../components/ProfilePage";
-import React, { Suspense } from "react";
+import React from "react";
 import {
     Box,
-    Heading,
     useColorModeValue,
-    Grid,
-    Text,
-    Image as ChakraImage,
-    VStack,
-    HStack,
     Button,
 } from "@chakra-ui/react";
-import Image from "next/image";
-import lightningbolt from "../../public/images/lightningbolt.png";
-import { AiOutlineThunderbolt } from "react-icons/ai";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import { profileStore } from "../../stores/profile.js";
 import Post from "..//Post/post";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { nearStore } from "../../stores/near";
-import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import dynamic from "next/dynamic";
 
@@ -40,27 +30,16 @@ const LazySider = dynamic(() => import("./SideBar"), {
 });
 
 const Profile = () => {
-    const [first, setFirst] = useState(true);
     const nearState = nearStore((state) => state);
     const profileState = profileStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
-    const [balance, setBalance] = useState(0);
+    
     const [profile, setProfile] = useState(
         profileState.profile || { posts: [], follows: [] },
     );
     const { t } = useTranslation("profile");
 
     const bg = useColorModeValue("gray.100", "gray.900");
-
-    useEffect(() => {
-        async function userNearBalance() {
-            if (nearState.tokenContract) {
-                let res = await getBalance(nearState);
-                setBalance(res);
-            }
-        }
-        userNearBalance();
-    }, [nearState]);
 
     if (profileState.profile && profileLoaded === false) {
         setProfile(profileState.profile);

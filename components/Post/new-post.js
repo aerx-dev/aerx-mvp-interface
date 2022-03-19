@@ -6,45 +6,45 @@ import {
     IconButton,
     Input,
     useColorModeValue,
-    useToast,
 } from "@chakra-ui/react";
+import useCustomToast from "../../hooks/useCustomToast";
 import { AddIcon } from "@chakra-ui/icons";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { profileStore } from "../../stores/profile";
 import { getBalance, issueTokens } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 
 function NewPost({ state, bg }) {
     const profileState = profileStore((state) => state);
-    const toast = useToast();
+    const [balance, setBalance] = useState(0);
     const [body, setBody] = useState("");
     const { t } = useTranslation("profile");
-    const toastd = 111;
 
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
     const fill = useColorModeValue("gray", "white");
 
+    const toast = useCustomToast("warning", "Post cannot be empty!");
+
+    useEffect(() => {
+        async function userNearBalance() {
+            if (state.tokenContract) {
+                let res = await getBalance(state);
+                setBalance(res);
+            }
+        }
+        userNearBalance();
+    }, [state]);
+
     async function createPost() {
         if (body.length < 1) {
-            if (!toast.isActive(toastd)) {
-                toast({
-                    id: toastd,
-                    description: "Post cannot be empty.",
-                    status: "warning",
-                    position: "top",
-                    isClosable: true,
-                });
-            }
-
+            toast();
             return;
         }
 
-        let b = await getBalance(state);
-        if (b == 0) {
-            console.log("0 posts");
-            await issueTokens(state.accountId);
-        }
+        // if (balance == 0) {
+        //     console.log("0 posts");
+        //     await issueTokens(state.accountId);
+        // }
     }
 
     return (
