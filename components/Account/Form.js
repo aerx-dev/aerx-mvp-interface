@@ -1,5 +1,6 @@
 import {
     Box,
+    Header,
     FormControl,
     FormLabel,
     Input,
@@ -11,7 +12,7 @@ import {
     Grid,
 } from "@chakra-ui/react";
 import { AtSignIcon } from "@chakra-ui/icons";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CreateProfileForm(props) {
     const inputFile = useRef(null);
@@ -19,6 +20,10 @@ export default function CreateProfileForm(props) {
         inputFile.current.click();
         console.log(props.uploadImg);
     };
+
+    // TODO Only show upload BUtton if IPFS is ready
+    const [uploadReady, setUploadReady] = useState(true);
+
 
     return (
         <Grid
@@ -57,16 +62,20 @@ export default function CreateProfileForm(props) {
                         )}
                     </Box>
 
-                    <Button
-                        size="sm"
-                        colorScheme={props.uploadImg ? "gray" : "pink"}
-                        mb={2}
-                        onClick={onButtonClick}
-                    >
-                        {props.uploadImg
-                            ? props.t("label.change")
-                            : props.t("label.upload")}
-                    </Button>
+                    {uploadReady ?
+                        <Button
+                            size="sm"
+                            colorScheme={props.uploadImg ? "gray" : "pink"}
+                            mb={2}
+                            onClick={onButtonClick}
+                        >
+                            {props.uploadImg
+                                ? props.t("label.change")
+                                : props.t("label.upload")}
+                        </Button>
+                        :
+                        <Button> IFPS loading ... </Button>
+                    }
 
                     <Box height={0} width={0} opacity={0}>
                         <input
@@ -107,7 +116,7 @@ export default function CreateProfileForm(props) {
                     </InputGroup>
                 </FormControl>
 
-                <FormControl mb={2}>
+                {/* <FormControl mb={2}>
                     <FormLabel>{props.t("label.email")}</FormLabel>
                     <Input
                         type="text"
@@ -116,7 +125,7 @@ export default function CreateProfileForm(props) {
                         onChange={props.update}
                         data-path="email"
                     />
-                </FormControl>
+                </FormControl> */}
 
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.aboutMe")}</FormLabel>
@@ -130,6 +139,17 @@ export default function CreateProfileForm(props) {
                 </FormControl>
 
                 <FormControl mb={2}>
+                    <FormLabel>{props.t("label.hobbys")}</FormLabel>
+                    <Textarea
+                        type="email"
+                        defaultValue={props.profile.hobbys}
+                        placeholder="hobbys"
+                        onChange={props.update}
+                        data-path="hobbys"
+                    />
+                </FormControl>
+
+                <FormControl mb={2}>
                     <FormLabel>{props.t("label.city")}</FormLabel>
                     <Input
                         placeholder="city"
@@ -139,7 +159,7 @@ export default function CreateProfileForm(props) {
                     />
                 </FormControl>
 
-                <FormControl mb={2}>
+                {/* <FormControl mb={2}>
                     <FormLabel>{props.t("label.state")}</FormLabel>
                     <Input
                         placeholder="State/Province"
@@ -147,7 +167,7 @@ export default function CreateProfileForm(props) {
                         onChange={props.update}
                         data-path="state"
                     />
-                </FormControl>
+                </FormControl> */}
 
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.country")}</FormLabel>

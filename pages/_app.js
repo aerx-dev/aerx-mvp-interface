@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
             initNearConnection(state);
             setIsLoading(false);
         }
-    });
+    }, [isLoading, state]);
 
     return (
         <ChakraProvider theme={theme}>
