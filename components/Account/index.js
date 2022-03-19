@@ -7,60 +7,56 @@ import {
 } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import { useRef, useState, useEffect, useReducer } from "react";
-import { getTotalSupply, sendToken } from "../../lib/tokenContract";
-import { createUserProfileNFT } from "../../lib/NFTContract";
 import { registerUserIfNotRegistered } from "../../lib/auth";
 import { nearStore } from "../../stores/near";
 import CreateProfileForm from "./Form";
-// import content2ipfs from "../pages/api/uploadProfileNFT"
-// import IpfsComponent from "../ipfs";
 import useIPFS from "../../hooks/useIPFS";
+import { Big } from "big.js";
+import { contractFullAccessKey } from "../../lib/contract_call"
+
+import { useLocalStorage } from "beautiful-react-hooks"
 
 const Account = () => {
     // The profile picture which will go into the NFT
-    const [profile, setProfile] = useState({
-        username: "",
-        email: "",
-        fullName: "",
-        aboutMe: "",
-        profileImgCid: "",
-    });
-
-    // The uploaded image which will be deployed through IPFS
-    const [uploadImg, setUploadImg] = useState();
-
-    // Ipsf hook with details and upload hook.
-    const ipfsData = useIPFS(uploadImg);
-    // console.log(ipfsData)
-
-    const nearState = nearStore((profile) => profile);
-
-    const profileId = nearState.accountId; //"samullman.testnet"
-    const [profileLoaded, setProfileLoaded] = useState(false);
 
     const { t } = useTranslation("account");
     const picBg = useColorModeValue("gray.200", "gray.700");
+    const nearState = nearStore(state => state)
+
+    // The uploaded image which will be deployed through IPFS
+    const [uploadImg, setUploadImg] = useState();
+    // Ipsf hook with details and upload hook.
+    const ipfsData = useIPFS(uploadImg);
+
+
+    const [profile, setProfile] = useState({
+        username: nearState.accountId,
+        fullName: "",
+        aboutMe: "",
+        hobbys: "",
+        city: "",
+        country: "",
+    });
+
+    const [profileNFT, setProfileNFT] = useState({
+        title: profile.fullName,
+        description: "AERX ProfileNFT for " + profile.fullName,
+        media: ipfsData.fileUrl,
+        media_hash: ipfsData.urlSha256,
+        // issued_at: "", TODO: today
+        extra: profile,
+    })
 
     function profileImageChange(event) {
         const { files } = event.target;
         if (files && files.length) {
-            console.log(files);
-            const filename = files[0].name;
-
-            var parts = filename.split(".");
-            const fileType = parts[parts.length - 1];
-
-            // TODO assert that it is a image file
-            console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
+            // // TODO assert that it is a image file
+            // const filename = files[0].name;
+            // var parts = filename.split(".");
+            // const fileType = parts[parts.length - 1];
+            // console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
             setUploadImg(() => event.target.files[0]);
-            // document.querySelectorAll(".profile-picture")[0].value = info.cdnUrl;
-            // console.log(JSON.stringify(uploadImg))
-            setProfile((prevProfile) => {
-                return {
-                    ...prevProfile,
-                    profileImgCid: ipfs.fileUrl,
-                };
-            });
+            // TODO: get media hash :white_check_mark:
         }
     }
 
@@ -68,36 +64,42 @@ const Account = () => {
         let path = e.currentTarget.dataset.path;
         let newProfile = profile;
         newProfile[path] = e.currentTarget.value;
+        newProfile.username = nearState.accountId;
+
         setProfile(() => newProfile);
+        console.log(profile)
     }
 
-    async function save() {
-        let profileToSave = JSON.parse(JSON.stringify(profile));
-        console.log(profileToSave);
-        delete profileToSave.follows;
-        delete profileToSave.posts;
-        if (nearState.tokenContract) {
-            registerUserIfNotRegistered(nearState);
-        }
-    }
+    async function handleSave(e) {
+        e.preventDefault();
+        let profileToSave = {
+            title: profile.fullName,
+            description: "AERX ProfileNFT for " + profile.fullName,
+            media: ipfsData.fileUrl,
+            media_hash: ipfsData.urlSha256,
+            // issued_at: "", TODO: today
+            extra: JSON.stringify(profile),
+        };
+        const cnftContract = await contractFullAccessKey("profileNft")
+        console.log(profileToSave)
+        // TODO correct metadata
+        // 2. Check if user is registered for tokens. This should happen in the contract.
+        // if (nearState.tokenContract) {
+        //     registerUserIfNotRegistered(nearState);
+        // }
 
-    async function handleSave() {
-        //1. Put the values from our fields into a JSON
-        const data = JSON.stringify(profile);
-        //2. Send the json over to IPFS & get the link for the data
-        await fetch("/api/ipfs", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
+        // 3. send mint request
+        const res = await cnftContract.nft_mint(
+            {
+                receiver_id: nearState.accountId,
+                token_metadata: profileToSave,
             },
-            body: data,
-        })
-            .then((response) => response.json())
-            //3. Put the link to JSON's ipfs into NFTTokenMetadata object
-            .then((data) =>
-                createUserProfileNFT(nearState, profileId, data.uri),
-            ); // use the returned content uri
+            "300000000000000", // attached GAS (optional)
+            "9260000000000000000111" // attached deposit in yoctoNEAR (optional))
+        )
+        console.log(res)
     }
+
 
     return (
         <Layout>
@@ -117,7 +119,7 @@ const Account = () => {
                     uploadImg={uploadImg}
                     profileImageChange={profileImageChange}
                     update={update}
-                    save={save}
+                    save={handleSave}
                 />
                 {/* <Button colorScheme="green" mt={2} size="lg" onClick={handleSave}>
           {t('label.save')}
