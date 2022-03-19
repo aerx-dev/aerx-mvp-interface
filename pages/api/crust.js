@@ -12,35 +12,6 @@ const mnemonic = process.env.REACT_APP_CRUST_MNEMONIC;
 // WS address of Crust chain --tesnet
 const crustChainEndpoint = process.env.REACT_APP_CRUST_ENDPOINT;
 
-const header = () => {
-  const keyPair = KeyPair.fromRandom("ed25519");
-  // get pubic address
-  const address = keyPair.getPublicKey().toString().substring(8);
-  // get singature
-  const { signature } = keyPair.sign(Buffer.from(address));
-  const sig = u8aToHex(signature).substring(2);
-  // compile a authHeader
-  const authHeader = Buffer.from(`near-${address}:${sig}`).toString("base64");
-
-  // Connect to crust chain --testnet
-  const api = new ApiPromise({
-    provider: new WsProvider(crustChainEndpoint),
-    typesBundle: typesBundleForPolkadot,
-  });
-  const keyRing = new Keyring({
-    type: "sr25519",
-  });
-
-  const ipfs = create({
-    url: ipfsGateway + "/api/v0",
-    headers: {
-      authorization: "Basic " + authHeader,
-    },
-  });
-
-  return { api, keyRing, ipfs };
-};
-
 /**
  * Place storage order
  * @param api chain instance
@@ -112,34 +83,20 @@ const getOrderState = async (api, cid) => {
   return await api.query.market.files(cid);
 };
 
-const cid = async (ipfs, content) => {
-  const rst = await addFile(ipfs, content);
-  console.log(`✅ success! CID: ${rst.cid}`);
-  return rst;
-};
 
-const addFile = async (ipfs, content) => {
-  const { cid } = await ipfs.add(content);
-  const fileStat = await ipfs.files.stat("/ipfs/" + cid.toString());
+const upload = async (contentCid, contentSize) => {
+  // Connect to crust chain --testnet
+  const api = new ApiPromise({
+    provider: new WsProvider(crustChainEndpoint),
+    typesBundle: typesBundleForPolkadot,
+  });
+  const keyRing = new Keyring({
+    type: "sr25519",
+  });
 
-  return {
-    cid: cid.toString(),
-    size: fileStat.cumulativeSize,
-  };
-};
-
-const getUri = (cid) => {
-  return `${ipfsGateway}/ipfs/${cid}`;
-};
-
-const upload = async (content) => {
-  const { api, keyRing, ipfs } = header();
-  const data = await cid(ipfs, content);
-  const hash = data.cid;
-  const order = await placeOrder(api, keyRing, hash, data.size, 0);
+  const order = await placeOrder(api, keyRing, contentCid, contentSize, 0);
   console.log("place order >>", order);
-  const uri = getUri(data.cid);
-  return { hash, uri };
+  const res = getOrderState(api, contentCid)
 };
 
-export { upload, addPrepaid, getOrderState, getUri };
+export { upload };
