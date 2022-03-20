@@ -7,15 +7,11 @@ import { profileStore } from "../stores/profile.js";
 import { useEffect, useState } from "react";
 import theme from "../lib/theme.js";
 import "../components/Landing/slider.css";
-<<<<<<< HEAD
 import { contractFullAccessKey } from "../lib/contractCall";
-=======
-import { create } from "ipfs-core";
 import { useToast } from "@chakra-ui/react";
 import { useSessionStorage } from "beautiful-react-hooks"
 
 
->>>>>>> feedNFT
 
 function MyApp({ Component, pageProps }) {
     const state = nearStore((state) => state);
@@ -57,9 +53,7 @@ function MyApp({ Component, pageProps }) {
             setIpfsIsOnline(false)
             initNearConnection(state, profileState);
             setIsLoading(false);
-<<<<<<< HEAD
             console.log(state.feed);
-=======
             toast({
                 id: "loading",
                 status: "success",
@@ -67,7 +61,6 @@ function MyApp({ Component, pageProps }) {
                 description: "NEAR account loaded!",
                 variant: "solid",
             });
->>>>>>> feedNFT
         }
         console.log("Init Profile", profileState.profile);
     }, [isLoading, state]);
