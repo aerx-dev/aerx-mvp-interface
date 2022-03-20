@@ -1,15 +1,11 @@
-import Image from "next/image";
 import {
-    Heading,
     Box,
-    Button,
     Text,
     Input,
     Icon,
     IconButton,
     Grid,
     useColorMode,
-    Image as ChakraImage,
 } from "@chakra-ui/react";
 
 import useTranslation from "next-translate/useTranslation";
@@ -35,9 +31,9 @@ function EmailCapture({ rest }) {
 
             setState({ success, message });
             setEmail("");
-            if (!success) {
-                throw new Error(message);
-            }
+            // if (!success) {
+            //     throw new Error(message);
+            // }
         } catch (error) {
             console.log("Something went wrong");
         }

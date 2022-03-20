@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 
 const ProfilePage = () => {
     return (
-        <Box px>
+        <Box>
             <Profile />
         </Box>
     );
