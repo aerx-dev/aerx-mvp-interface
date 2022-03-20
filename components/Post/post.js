@@ -25,7 +25,7 @@ import {
 import { ThunderboltOutlined, ThunderboltFilled } from "@ant-design/icons";
 import { HiShoppingBag } from "react-icons/hi";
 import { profileStore } from "../../stores/profile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sendToken } from "../../lib/tokenContract";
 import { nearStore } from "../../stores/near";
 import { Layout } from "antd";
@@ -42,9 +42,9 @@ function Post({ el }) {
     }
 
     const styles = {
-        fontFamily: "poppings",
+        // fontFamily: "poppings",
         backgroundColor: postBg,
-        maxHeight: 430,
+        // maxHeight: 430,
         borderRadius: 10,
         padding: 20,
         marginTop: 20,
@@ -56,14 +56,32 @@ function Post({ el }) {
             position: "relative",
             gap: 5,
         },
-        content: { maxHeight: 300 },
-        footer: { height: 64, display: "flex", alignItems: "center" },
+        content: { margin: "0 auto" },
+        footer: { 
+            height: 64, 
+            display: "flex", 
+            alignItems: "center" 
+        },
     };
+
+    const [charge, setCharge] = useState()
+
+
+    useEffect(() => {
+        function getCharge(tokenId) {
+            // call contract and get charge
+            const eleven = 111
+            return eleven
+        }
+
+        setCharge(getCharge(el.token_id))
+
+    }, [isOpen])
 
     return (
         <>
             <Layout style={styles}>
-                <Header style={styles.header}>
+                <Header style={styles.header} >
                     <Avatar
                         name="Pavel Dantsev"
                         src={
@@ -73,10 +91,10 @@ function Post({ el }) {
                         size="sm"
                     />
                     <Text my={2}>
-                        {"Pavel Dantsev" || profileState.profile?.fullName}
+                        {el?.owner || "Pavel Dantsev"}
                     </Text>
                     <Text className="opacity-50">
-                        {"2h ago" || el?.created_at}
+                        {el?.created_at || "2h ago"}
                     </Text>
                     <PurpleButton
                         className="right-0 text-white"
@@ -86,7 +104,25 @@ function Post({ el }) {
                     </PurpleButton>
                 </Header>
                 <Content style={styles.content}>
-                    <Box mb={1}>{el?.body}</Box>
+                    {el?.media &&
+                        <ChakraImage
+                            height="320px"
+                            rounded="lg"
+                            maxWidth={["100%", "400px", "225px"]}
+                            margin="0 auto"
+                            paddingBottom="11px"
+                            src={el?.media}
+                            alt={"contentNftmedia" + el?.token_id}
+                            objectFit="cover"
+                        />
+                    }
+                    <Box
+                        mb={1}
+                        margin="0 auto"
+                    >
+                        {el?.body}
+                    </Box>
+
                 </Content>
                 <Divider />
                 <Footer
@@ -100,37 +136,39 @@ function Post({ el }) {
                             color="yellow"
                             variant="ghost"
                         />{" "}
-                        {[10, 20, 30, 40][Math.floor(Math.random() * 4)]}
+                        {charge}
                     </Box>
                 </Footer>
             </Layout>
 
             <ChargeModal
-                profileState={profileState}
                 el={el}
-                state={[isOpen, onClose]}
+                isOpen={isOpen}
+                onClose={onClose}
             />
         </>
     );
 }
 
-const ChargeModal = ({ profileState, el, state }) => {
-    const [isOpen, onClose] = state;
+const ChargeModal = ({ el, isOpen, onClose }) => {
     const nearState = nearStore((state) => state);
     const sliderTrack = useColorModeValue("yellow.400", "yellow.400");
     const sliderTrackBg = useColorModeValue("yellow.100", "yellow.100");
     const sliderThumbColor = useColorModeValue("gray.900", "gray.900");
     const [sliderValue, setSliderValue] = useState(0);
+    const profileState = profileStore((state) => state);
     function updateSlider(e) {
         setSliderValue(e);
     }
+
     async function sendMoney(to, amount = 0.5) {
-        sendToken(
-            nearState, // state
-            to, // reciever Id
-            amount, // amount in ae
-            `like from ${nearState?.accountId}`, // memo
-        );
+        // TODO send token to contentContract
+        // sendToken(
+        //     nearState, // state
+        //     to, // reciever Id
+        //     amount, // amount in ae
+        //     `like from ${nearState?.accountId}`, // memo
+        // );
         onClose();
     }
     return (

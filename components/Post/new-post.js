@@ -14,6 +14,7 @@ import { profileStore } from "../../stores/profile";
 import { getBalance, issueTokens } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 
+
 function NewPost({ state, bg }) {
     const profileState = profileStore((state) => state);
     const [balance, setBalance] = useState(0);
@@ -25,15 +26,15 @@ function NewPost({ state, bg }) {
 
     const toast = useCustomToast("warning", "Post cannot be empty!");
 
-    useEffect(() => {
-        async function userNearBalance() {
-            if (state.tokenContract) {
-                let res = await getBalance(state);
-                setBalance(res);
-            }
-        }
-        userNearBalance();
-    }, [state]);
+    // useEffect(() => {
+    //     async function userNearBalance() {
+    //         if (state.tokenContract) {
+    //             let res = await getBalance(state);
+    //             setBalance(res);
+    //         }
+    //     }
+    //     userNearBalance();
+    // }, [state]);
 
     async function createPost() {
         if (body.length < 1) {
