@@ -24,6 +24,7 @@ const Feed = () => {
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
 
+
     return (
         <Layout>
             <Box className="p-4 z-10 relative md:px-10">

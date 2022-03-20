@@ -43,9 +43,9 @@ function Post({ nft }) {
     }
 
     const styles = {
-        fontFamily: "poppings",
+        // fontFamily: "poppings",
         backgroundColor: postBg,
-        maxHeight: 430,
+        // maxHeight: 430,
         borderRadius: 10,
         padding: 20,
         marginTop: 20,
@@ -57,14 +57,32 @@ function Post({ nft }) {
             position: "relative",
             gap: 5,
         },
-        content: { maxHeight: 300 },
-        footer: { height: 64, display: "flex", alignItems: "center" },
+        content: { margin: "0 auto" },
+        footer: { 
+            height: 64, 
+            display: "flex", 
+            alignItems: "center" 
+        },
     };
+
+    const [charge, setCharge] = useState()
+
+
+    useEffect(() => {
+        function getCharge(tokenId) {
+            // call contract and get charge
+            const eleven = 111
+            return eleven
+        }
+
+        setCharge(getCharge(el.token_id))
+
+    }, [isOpen])
 
     return (
         <>
             <Layout style={styles}>
-                <Header style={styles.header}>
+                <Header style={styles.header} >
                     <Avatar
                         name={nft?.owner_id}
                         src={metadata?.media || "https://bit.ly/dan-abramov"}
@@ -126,6 +144,7 @@ const ChargeModal = ({ nft, state }) => {
     const sliderTrackBg = useColorModeValue("yellow.100", "yellow.100");
     const sliderThumbColor = useColorModeValue("gray.900", "gray.900");
     const [sliderValue, setSliderValue] = useState(0);
+    const profileState = profileStore((state) => state);
     function updateSlider(e) {
         setSliderValue(e);
     }
