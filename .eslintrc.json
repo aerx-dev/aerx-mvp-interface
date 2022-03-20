@@ -1,3 +1,5 @@
 {
-    "extends": "next/core-web-vitals"
+    "extends": ["next/core-web-vitals", "eslint:recommended", "prettier"],
+    "plugins": ["cypress", "storybook/recommended"],
+    "env": { "cypress/globals": true }
 }

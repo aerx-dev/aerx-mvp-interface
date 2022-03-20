@@ -5,7 +5,6 @@ import { initNearConnection } from "../lib/auth";
 import { nearStore } from "../stores/near.js";
 import { useEffect, useState } from "react";
 import theme from "../public/theme.js";
-import "keen-slider/keen-slider.min.css";
 import "../components/Landing/slider.css";
 
 function MyApp({ Component, pageProps }) {
