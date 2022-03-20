@@ -124,7 +124,7 @@ const ChargeModal = ({ profileState, el, state }) => {
         setSliderValue(e);
     }
     async function sendMoney(to, amount = 0.5) {
-        sendToken(
+        await sendToken(
             nearState, // state
             to, // reciever Id
             amount, // amount in ae

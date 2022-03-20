@@ -35,7 +35,7 @@ function NewPost({ state, bg }) {
         userNearBalance();
     }, [state]);
 
-    async function createPost() {
+    function createPost() {
         if (body.length < 1) {
             toast();
             return;

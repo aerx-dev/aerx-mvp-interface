@@ -48,11 +48,10 @@ const addPrepaid = async (api, keyRing, cid, amount) => {
     return JSON.parse(JSON.stringify(txRes));
 };
 
-const sendTx = (keyringPair, tx) => {
+const sendTx = async (keyringPair, tx) => {
     return new Promise((resolve, reject) => {
         tx.signAndSend(keyringPair, ({ events = [], status }) => {
             console.log(`💸  Tx status: ${status.type}, nonce: ${tx.nonce}`);
-
             if (status.isInBlock) {
                 events.forEach(({ event: { method, section } }) => {
                     if (method === "ExtrinsicSuccess") {
@@ -60,8 +59,6 @@ const sendTx = (keyringPair, tx) => {
                         resolve(true);
                     }
                 });
-            } else {
-                // Pass it
             }
         }).catch((e) => {
             reject(e);

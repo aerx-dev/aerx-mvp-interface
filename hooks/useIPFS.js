@@ -9,7 +9,7 @@ export default function useIPFS(file) {
         urlSha256: null,
     });
 
-    var shajs = require('sha.js')
+    var shajs = require("sha.js");
 
     useEffect(() => {
         async function fileUpload() {
@@ -24,8 +24,10 @@ export default function useIPFS(file) {
             try {
                 const res = await window.ipfs.add(file);
                 // Createthe url and get the sha256 base64 hash of the url
-                const _fileUrl = "https://ipfs.io/ipfs/" + res.path
-                const _urlHash = new shajs.sha256().update(_fileUrl).digest('base64')
+                const _fileUrl = "https://ipfs.io/ipfs/" + res.path;
+                const _urlHash = new shajs.sha256()
+                    .update(_fileUrl)
+                    .digest("base64");
                 setIpfsData((prevIpfs) => {
                     return {
                         ...prevIpfs,
@@ -34,7 +36,7 @@ export default function useIPFS(file) {
                         urlSha256: _urlHash,
                     };
                 });
-            } catch(e) {
+            } catch (e) {
                 console.log("IPFS not ready: " + e);
             }
         }
@@ -42,6 +44,7 @@ export default function useIPFS(file) {
         {
             file && fileUpload();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file]);
     // console.log(ipfsData);
 
