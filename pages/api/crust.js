@@ -92,7 +92,8 @@ const upload = async (contentCid, contentSize) => {
 
     const order = await placeOrder(api, keyRing, contentCid, contentSize, 0);
     console.log("place order >>", order);
-    const res = getOrderState(api, contentCid);
+    const crustRes = getOrderState(api, contentCid);
+    return crustRes;
 };
 
 export { upload };

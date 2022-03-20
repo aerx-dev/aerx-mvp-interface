@@ -1,6 +1,7 @@
 import Layout from "../Layout";
 import {
     Box,
+    Button,
     Heading,
     Image as ChakraImage,
     useColorModeValue,
@@ -12,7 +13,7 @@ import { nearStore } from "../../stores/near";
 import CreateProfileForm from "./Form";
 import useIPFS from "../../hooks/useIPFS";
 import { Big } from "big.js";
-import { contractFullAccessKey } from "../../lib/contract_call"
+import { contractFullAccessKey } from "../../lib/contractCall"
 
 import { useLocalStorage } from "beautiful-react-hooks"
 
@@ -38,14 +39,29 @@ const Account = () => {
         country: "",
     });
 
-    const [profileNFT, setProfileNFT] = useState({
-        title: profile.fullName,
-        description: "AERX ProfileNFT for " + profile.fullName,
-        media: ipfsData.fileUrl,
-        media_hash: ipfsData.urlSha256,
-        // issued_at: "", TODO: today
-        extra: profile,
-    })
+    const [noProfile, setNoProfile] = useState(false)
+
+    useEffect(() => {
+        async function checkProfile() {
+
+            const pnftContract = await contractFullAccessKey("profileNft");
+            const numPnft = await pnftContract.nft_supply_for_owner({ account_id: nearState.accountId })
+            console.log("NUM : " + numPnft)
+            if (parseInt(numPnft) > 0) {
+                const profileNft = await pnftContract.nft_tokens_for_owner({ account_id: nearState.accountId })
+                console.log(profileNft)
+                if (profileNft[0].metadata.extra) {
+
+                    const parsedProfile = JSON.parse(profileNft[0].metadata.extra)
+                    console.log("Fetched ProfileNFT: ", parsedProfile);
+                    setNoProfile(false)
+                    setProfile(parsedProfile)
+                }
+            } else { setNoProfile(true) }
+        }
+        checkProfile()
+    }, [nearState.accountId, setNoProfile])
+
 
     function profileImageChange(event) {
         const { files } = event.target;
@@ -56,7 +72,6 @@ const Account = () => {
             // const fileType = parts[parts.length - 1];
             // console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
             setUploadImg(() => event.target.files[0]);
-            // TODO: get media hash :white_check_mark:
         }
     }
 
@@ -105,6 +120,16 @@ const Account = () => {
         }
     }
 
+    async function onBurn(e) {
+        const cnftContract = await contractFullAccessKey("profileNft")
+        // TODO brun NFT
+        const res = await cnftContract.nft_transfer({
+
+        })
+
+
+    }
+
 
     return (
         <Layout>
@@ -117,19 +142,23 @@ const Account = () => {
                 <Heading as="h1" mb={3}>
                     {t("title")}
                 </Heading>
-                <CreateProfileForm
-                    t={t}
-                    picBg={picBg}
-                    profile={profile}
-                    uploadImg={uploadImg}
-                    profileImageChange={profileImageChange}
-                    update={update}
-                    save={handleSave}
-                />
-                {/* <Button colorScheme="green" mt={2} size="lg" onClick={handleSave}>
-          {t('label.save')}
-        </Button> */}
-                {/* <IpfsComponent state={uploadImg} /> */}
+                {noProfile ?
+                    <CreateProfileForm
+                        t={t}
+                        picBg={picBg}
+                        profile={profile}
+                        uploadImg={uploadImg}
+                        profileImageChange={profileImageChange}
+                        update={update}
+                        save={handleSave}
+                    />
+                    : <Box alignContent="safe center" > <p><pre> {JSON.stringify(profile)} </pre></p>
+                        <Button
+                            marginTop="10px"
+                            marginLeft="11px"
+                            colorScheme="red"
+                            onClick={console.log("BURN")}> Brun Profile </Button>
+                    </Box>}
             </Box>
         </Layout>
     );
