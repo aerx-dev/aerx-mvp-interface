@@ -5,6 +5,8 @@ import {
     Button,
     Text,
     Input,
+    Icon,
+    IconButton,
     Grid,
     useColorMode,
     Image as ChakraImage,
@@ -42,39 +44,35 @@ function EmailCapture({ rest }) {
     }
 
     return (
-        <Box>
-            <Text textAlign={"left"} mb={5}>
-                {t("emailCapture.title")}
-            </Text>
+        <Box w="37vw">
+            <Text textAlign={"left"}>{t("emailCapture.title")}</Text>
 
-            <Box textAlign="left" mb={5}>
-                <Grid
-                    templateColumns={[
-                        "repeat(100%)",
-                        "calc(100% - 150px) 140px",
-                    ]}
-                    margin="0 auto"
-                    as="form"
-                    onSubmit={subscribe}
-                    {...rest}
-                >
-                    <Input
-                        onChange={(e) => setEmail(e.target.value)}
-                        type="email"
-                        placeholder={t("emailCapture.placeholder")}
-                        borderRadius={20}
-                        filter={
-                            colorMode === "light" ? "invert(1)" : "invert(0)"
-                        }
-                    />
-                    {/* <Button
-                        variant="outline"
-                        _hover={{ bg: "none" }}
-                        _active={{ bg: "none" }}
-                        width="100%"
-                    ></Button> */}
-                </Grid>
-            </Box>
+            <Grid
+                margin="0 auto"
+                py={5}
+                textAlign="left"
+                as="form"
+                onSubmit={subscribe}
+                {...rest}
+            >
+                <Input
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                    placeholder={t("emailCapture.placeholder")}
+                    borderRadius={20}
+                    filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
+                    position="relative"
+                    p={5}
+                />
+                <IconButton
+                    _hover={{ bg: "none" }}
+                    _active={{ bg: "none" }}
+                    isRound
+                    position="absolute"
+                    justifySelf="flex-end"
+                    icon={<Icon />}
+                ></IconButton>
+            </Grid>
         </Box>
     );
 }
