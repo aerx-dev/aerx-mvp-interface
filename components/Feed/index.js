@@ -58,7 +58,7 @@ const Feed = () => {
                     }
                 )
             })
-            setContentNft(contentFeed)
+            setContentNft(contentFeed.reverse())
         }
     }
 

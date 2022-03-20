@@ -6,25 +6,30 @@ import {
     IconButton,
     Input,
     useColorModeValue,
+    useToast,
 } from "@chakra-ui/react";
 import useCustomToast from "../../hooks/useCustomToast";
 import { AddIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { profileStore } from "../../stores/profile";
+import { nearStore } from "../../stores/near";
 import { getBalance, issueTokens } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
+import { contractFullAccessKey } from "../../lib/contractCall";
 
 
-function NewPost({ state, bg }) {
+function NewPost({ bg }) {
     const profileState = profileStore((state) => state);
-    const [balance, setBalance] = useState(0);
+    const nearState = nearStore(state => state)
+    // const [balance, setBalance] = useState(0);
     const [body, setBody] = useState("");
     const { t } = useTranslation("profile");
 
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
     const fill = useColorModeValue("gray", "white");
 
-    const toast = useCustomToast("warning", "Post cannot be empty!");
+    const cToast = useCustomToast("warning", "Post cannot be empty!", "feedpage");
+    const toast = useToast();
 
     // useEffect(() => {
     //     async function userNearBalance() {
@@ -42,10 +47,40 @@ function NewPost({ state, bg }) {
             return;
         }
 
-        // if (balance == 0) {
-        //     console.log("0 posts");
-        //     await issueTokens(state.accountId);
-        // }
+        const cnftContract = await contractFullAccessKey("contentNft");
+        let postToSave = {
+            title: "AERX PostNFT for " + nearState.accountId,
+            description: body,
+            // media: ipfsData.fileUrl,
+            // media_hash: ipfsData.urlSha256,
+            // issued_at: "", TODO: today
+        };
+        console.log(body)
+        console.log(postToSave)
+        try {
+            const res = await cnftContract.nft_mint(
+                {
+                    receiver_id: nearState.accountId,
+                    token_metadata: postToSave,
+                },
+                "300000000000000", // attached GAS (optional)
+                "9660000000000000000111" // attached deposit in yoctoNEAR (optional))
+            )
+            console.log(res)
+            toast({
+                status: 'success',
+                description: "AERX PostNFT nr." + res.token_id + " minted successfully!",
+                id: "CNFTsccss",
+            })
+        } catch (e) {
+            console.log("NFT could not be minted! Error: " + e.message)
+            toast({
+                status: 'error',
+                description: "NFT could not be minted! Error: " + e.message,
+                id: "CNFTerror",
+            })
+        }
+
     }
 
     return (
