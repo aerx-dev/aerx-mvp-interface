@@ -57,7 +57,7 @@ function Post({ nft }) {
             position: "relative",
             gap: 5,
         },
-        content: { maxHeight: 300 },
+        content: { maxHeight: 300, overflowY: "hidden" },
         footer: { height: 64, display: "flex", alignItems: "center" },
     };
 
@@ -67,7 +67,7 @@ function Post({ nft }) {
                 <Header style={styles.header}>
                     <Avatar
                         name={nft?.owner_id}
-                        src={metadata?.media || "https://bit.ly/dan-abramov"}
+                        src={metadata?.media || nft?.owner_id}
                         size="sm"
                     />
                     <Text my={2}>{nft?.owner_id || "pavel dantsev"}</Text>
@@ -85,13 +85,13 @@ function Post({ nft }) {
                     <Box mb={1}>
                         {metadata?.media && (
                             <ChakraImage
-                                maxH={250}
+                                maxH={200}
                                 rounded="lg"
                                 maxWidth={["100%", "400px", "225px"]}
                                 margin="0 auto"
                                 src={metadata?.media}
                                 alt={"contentNftmedia" + tokenId}
-                                objectFit="cover"
+                                objectFit="contain"
                             />
                         )}
                     </Box>

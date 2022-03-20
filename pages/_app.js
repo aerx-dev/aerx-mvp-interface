@@ -17,7 +17,6 @@ function MyApp({ Component, pageProps }) {
         if (isLoading) {
             initNearConnection(state);
             setIsLoading(false);
-            console.log(state.feed);
         }
     }, [isLoading, state]);
 
@@ -27,14 +26,13 @@ function MyApp({ Component, pageProps }) {
                 "contentNft",
             );
             const responseFeed = await contentNFTContract.nft_tokens({});
-            console.log("useffect code runs");
-            console.log(responseFeed);
+            console.log(state.profile);
             if (responseFeed) {
                 state.setFeed(responseFeed);
             }
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoading]);
+    }, []);
 
     return (
         <ChakraProvider theme={theme}>
