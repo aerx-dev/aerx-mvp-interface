@@ -14,7 +14,7 @@ import {
     SliderTrack,
     SliderFilledTrack,
     SliderThumb,
-    SliderMark,
+    //SliderMark,
     Image as ChakraImage,
     Text,
     Avatar,
@@ -24,7 +24,6 @@ import {
 } from "@chakra-ui/react";
 import { ThunderboltOutlined, ThunderboltFilled } from "@ant-design/icons";
 import { HiShoppingBag } from "react-icons/hi";
-import { profileStore } from "../../stores/profile";
 import { useState } from "react";
 import { sendToken } from "../../lib/tokenContract";
 import { nearStore } from "../../stores/near";
@@ -33,12 +32,14 @@ import PurpleButton from "../UI/PurpleButton";
 
 const { Header, Footer, Content } = Layout;
 
-function Post({ el }) {
+function Post({ nft }) {
+    const metadata = nft?.metadata;
+    const tokenId = nft?.token_id;
     const postBg = useColorModeValue("#edf2f7", "#171923");
     const { isOpen, onOpen, onClose } = useDisclosure();
-    let profileState = profileStore((state) => state);
-    if (!profileState) {
-        profileState = {};
+
+    function getCharge() {
+        return [10, 20, 30, 40][Math.floor(Math.random() * 4)];
     }
 
     const styles = {
@@ -65,18 +66,13 @@ function Post({ el }) {
             <Layout style={styles}>
                 <Header style={styles.header}>
                     <Avatar
-                        name="Pavel Dantsev"
-                        src={
-                            "https://bit.ly/dan-abramov" ||
-                            profileState.profile?.profileImage
-                        }
+                        name={nft?.owner_id}
+                        src={metadata?.media || "https://bit.ly/dan-abramov"}
                         size="sm"
                     />
-                    <Text my={2}>
-                        {"Pavel Dantsev" || profileState.profile?.fullName}
-                    </Text>
+                    <Text my={2}>{nft?.owner_id || "pavel dantsev"}</Text>
                     <Text className="opacity-50">
-                        {"2h ago" || el?.created_at}
+                        {metadata?.issued_at || "2h ago"}
                     </Text>
                     <PurpleButton
                         className="right-0 text-white"
@@ -86,7 +82,20 @@ function Post({ el }) {
                     </PurpleButton>
                 </Header>
                 <Content style={styles.content}>
-                    <Box mb={1}>{el?.body}</Box>
+                    <Box mb={1}>
+                        {metadata?.media && (
+                            <ChakraImage
+                                maxH={250}
+                                rounded="lg"
+                                maxWidth={["100%", "400px", "225px"]}
+                                margin="0 auto"
+                                src={metadata?.media}
+                                alt={"contentNftmedia" + tokenId}
+                                objectFit="cover"
+                            />
+                        )}
+                    </Box>
+                    <Box p={2}>{metadata?.description}</Box>
                 </Content>
                 <Divider />
                 <Footer
@@ -100,21 +109,17 @@ function Post({ el }) {
                             color="yellow"
                             variant="ghost"
                         />{" "}
-                        {[10, 20, 30, 40][Math.floor(Math.random() * 4)]}
+                        {getCharge()}
                     </Box>
                 </Footer>
             </Layout>
 
-            <ChargeModal
-                profileState={profileState}
-                el={el}
-                state={[isOpen, onClose]}
-            />
+            <ChargeModal nft={nft} state={[isOpen, onClose]} />
         </>
     );
 }
 
-const ChargeModal = ({ profileState, el, state }) => {
+const ChargeModal = ({ nft, state }) => {
     const [isOpen, onClose] = state;
     const nearState = nearStore((state) => state);
     const sliderTrack = useColorModeValue("yellow.400", "yellow.400");
@@ -124,10 +129,10 @@ const ChargeModal = ({ profileState, el, state }) => {
     function updateSlider(e) {
         setSliderValue(e);
     }
-    async function sendMoney(to, amount = 0.5) {
+    async function sendMoney(amount = 0.5) {
         await sendToken(
             nearState, // state
-            to, // reciever Id
+            nft.owner_id, // reciever Id
             amount, // amount in ae
             `like from ${nearState?.accountId}`, // memo
         );
@@ -147,22 +152,6 @@ const ChargeModal = ({ profileState, el, state }) => {
                 <ModalHeader>Reward Post</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    <Box className="flex pb-4 gap-2 align-middle">
-                        <Box className="inline-block h-10 w-10 bg-gray-500 rounded-full overflow-hidden">
-                            <ChakraImage
-                                src={profileState.profile?.profileImage}
-                                objectFit="cover"
-                                alt={profileState.profile?.fullName}
-                            />
-                        </Box>
-
-                        <Box fontSize="lg" pt={1}>
-                            {profileState.profile?.fullName}
-                        </Box>
-                    </Box>
-
-                    {el?.body}
-
                     <Box className="py-2 flex pr-2">
                         <Box className="mr-4 text-2xl">
                             <Icon as={ThunderboltFilled} color="yellow" />

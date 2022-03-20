@@ -1,81 +1,46 @@
-import {
-    Box,
-    Heading,
-    useColorModeValue,
-    Grid,
-    Text,
-    Button,
-} from "@chakra-ui/react";
-import Content from "./content"
-
+import { Box, useColorModeValue, Grid, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
-import { useEffect, useState } from "react";
-import { contractFullAccessKey } from "../../lib/contractCall";
+import { nearStore } from "../../stores/near";
+import NFTCard from "../Profile/ProfileNFTCard";
+import dynamic from "next/dynamic";
 
+// important ! reduce load time. lazyLoad feeder during fetch
+const LazyPosts = dynamic(() => import("../Post/post"), {
+    loading: () => (
+        <Button
+            isLoading
+            variant="ghost"
+            position="absolute"
+            left="50vw"
+            top="50vh"
+            disabled
+        />
+    ),
+});
 
 const Feed = () => {
+    const nearState = nearStore((state) => state);
     const picBg = useColorModeValue("gray.200", "gray.700");
-    const postBg = useColorModeValue("gray.50", "gray.900");
-    const imageBg = useColorModeValue("#fafafa", "#0a0a0a");
-    const [contentNfts, setContentNft] = useState()
-
-    async function getFeed() {
-        const cnftContract = await contractFullAccessKey("contentNft")
-
-        const resFeed = await cnftContract.nft_tokens({})
-        console.log(resFeed)
-        if (resFeed) {
-            const contentFeed = resFeed.map((nft) => {
-                return (
-                    <Content
-                        cnft={nft}
-                        key={nft.token_id}
-                    />
-                )
-            })
-            setContentNft(contentFeed)
-        }
-    }
+    const postBg = useColorModeValue("gray.100", "gray.900");
 
     return (
         <Layout>
-            <Box
-                className="px-4 md:px-10"
-                py={4}
-                zIndex={10}
-                position={"relative"}
-                minHeight="100vh"
-            >
+            <Box className="p-4 z-10 relative md:px-10">
                 <Grid
-                    templateColumns={[
-                        "repeat(100%)",
-                        "repeat(100%)",
-                        "220px calc(100% - 200px)",
-                    ]}
+                    templateColumns={["repeat(100%)", "20vw calc(100% - 25vw)"]}
                     gap="20px"
                 >
-                    <Box>
-                        <Box
-                            height="320px"
-                            rounded="lg"
-                            maxWidth={["100%", "400px", "225px"]}
-                            bg={picBg}
-                            margin="0 auto"
-                        ></Box>
-                    </Box>
+                    <NFTCard bg={picBg} />
 
-                    <Box pr={8}>
-                        <Box mb={4} >
-                            <NewPost />
-                            <Button
-                                onClick={getFeed}
-                                colorScheme="purple"
-                                padding="11px" >
-                                Update Feed
-                            </Button>
+                    <Box maxW={640}>
+                        <Box mb={4}>
+                            <NewPost state={nearState} bg={postBg} />
                         </Box>
-                        {contentNfts}
+
+                        {nearState.feed?.map((nft) => {
+                            return <LazyPosts key={nft.token_id} nft={nft} />;
+                        })}
                     </Box>
                 </Grid>
             </Box>

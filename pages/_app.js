@@ -6,6 +6,7 @@ import { nearStore } from "../stores/near.js";
 import { useEffect, useState } from "react";
 import theme from "../lib/theme.js";
 import "../components/Landing/slider.css";
+import { contractFullAccessKey } from "../lib/contractCall";
 
 function MyApp({ Component, pageProps }) {
     const state = nearStore((state) => state);
@@ -16,8 +17,24 @@ function MyApp({ Component, pageProps }) {
         if (isLoading) {
             initNearConnection(state);
             setIsLoading(false);
+            console.log(state.feed);
         }
     }, [isLoading, state]);
+
+    useEffect(() => {
+        (async () => {
+            const contentNFTContract = await contractFullAccessKey(
+                "contentNft",
+            );
+            const responseFeed = await contentNFTContract.nft_tokens({});
+            console.log("useffect code runs");
+            console.log(responseFeed);
+            if (responseFeed) {
+                state.setFeed(responseFeed);
+            }
+        })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading]);
 
     return (
         <ChakraProvider theme={theme}>

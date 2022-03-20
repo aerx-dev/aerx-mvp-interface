@@ -28,11 +28,15 @@ const nearStore = create((set) => ({
 
     profile: null,
     setProfile: (profile) => set((state) => ({ profile })),
-    removeProfile: () => set((state) => ({ profile})),
+    removeProfile: () => set((state) => ({ profile })),
 
     lastRes: null,
-    setLastRes: (lastRes) => set((state) => ({ lastRes})),
-    removeLastRes: () => set((state) => ({ lastRes})),
+    setLastRes: (lastRes) => set((state) => ({ lastRes })),
+    removeLastRes: () => set((state) => ({ lastRes })),
+
+    feed: null,
+    setFeed: (feed) => set((state) => ({ feed })),
+    removeFeed: () => set((state) => ({ feed })),
 }));
 
 export { nearStore };

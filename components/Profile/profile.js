@@ -1,18 +1,12 @@
 // import ProfilePage from "../components/ProfilePage";
 import React from "react";
-import {
-    Box,
-    useColorModeValue,
-    Button,
-} from "@chakra-ui/react";
+import { Box, useColorModeValue, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import { profileStore } from "../../stores/profile.js";
 import Post from "..//Post/post";
-
 import { useState } from "react";
 import { nearStore } from "../../stores/near";
-import useTranslation from "next-translate/useTranslation";
 import dynamic from "next/dynamic";
 
 // important! lazy loads the profile components initially
@@ -33,11 +27,10 @@ const Profile = () => {
     const nearState = nearStore((state) => state);
     const profileState = profileStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
-    
+
     const [profile, setProfile] = useState(
         profileState.profile || { posts: [], follows: [] },
     );
-    const { t } = useTranslation("profile");
 
     const bg = useColorModeValue("gray.100", "gray.900");
 
@@ -52,10 +45,14 @@ const Profile = () => {
                 <Box>
                     <NewPost state={nearState} bg={bg} />
 
-                    {profile.posts ? (
-                        profile.posts.map((el) => {
-                            return <Post key={el.id} el={el} />;
-                        })
+                    {nearState?.feed && nearState?.accountId ? (
+                        nearState.feed
+                            .filter(
+                                (nft) => nft.owner_id === nearState.accountId,
+                            )
+                            .map((nft) => {
+                                return <Post key={nft.token_id} nft={nft} />;
+                            })
                     ) : (
                         <></>
                     )}
