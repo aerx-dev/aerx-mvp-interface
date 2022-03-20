@@ -85,8 +85,7 @@ function Post({ el }) {
                     <Avatar
                         name="Pavel Dantsev"
                         src={
-                            "https://bit.ly/dan-abramov" ||
-                            profileState.profile?.profileImage
+                            profileState.profile?.profileImg || "https://bit.ly/dan-abramov"
                         }
                         size="sm"
                     />

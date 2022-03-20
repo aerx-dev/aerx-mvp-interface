@@ -14,6 +14,7 @@ import { useState } from "react";
 import { nearStore } from "../../stores/near";
 import useTranslation from "next-translate/useTranslation";
 import dynamic from "next/dynamic";
+import useFetchPosts from "../../hooks/useFetchPosts"
 
 // important! lazy loads the profile components initially
 const LazySider = dynamic(() => import("./SideBar"), {
@@ -34,26 +35,24 @@ const Profile = () => {
     const profileState = profileStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
     
-    const [profile, setProfile] = useState(
-        profileState.profile || { posts: [], follows: [] },
-    );
+    const [posts, refreshPosts] = useFetchPosts(nearState.accountId)
+    
     const { t } = useTranslation("profile");
 
     const bg = useColorModeValue("gray.100", "gray.900");
 
     if (profileState.profile && profileLoaded === false) {
-        setProfile(profileState.profile);
         setProfileLoaded(true);
     }
 
     return (
         <Layout>
-            <LazySider bg={bg} profile={profile}>
+            <LazySider bg={bg} profile={profileState.profile}>
                 <Box>
                     <NewPost state={nearState} bg={bg} />
 
-                    {profile.posts ? (
-                        profile.posts.map((el) => {
+                    {posts ? (
+                        posts.map((el) => {
                             return <Post key={el.id} el={el} />;
                         })
                     ) : (

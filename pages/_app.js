@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 import { ChakraProvider } from "@chakra-ui/react";
 import { initNearConnection, initIfps } from "../lib/auth";
 import { nearStore } from "../stores/near.js";
+import { profileStore } from "../stores/profile.js";
 import { useEffect, useState } from "react";
 import theme from "../public/theme.js";
 import "../components/Landing/slider.css";
@@ -14,7 +15,7 @@ import { useSessionStorage } from "beautiful-react-hooks"
 
 function MyApp({ Component, pageProps }) {
     const state = nearStore((state) => state);
-    // const profileState = profileStore((state) => state);
+    const profileState = profileStore((state) => state);
     const [isLoading, setIsLoading] = useState(true);
 
     const [ipfsIsOnline, setIpfsIsOnline] = useSessionStorage("ipfsIsOnline", false);
@@ -50,7 +51,7 @@ function MyApp({ Component, pageProps }) {
     useEffect(() => {
         if (isLoading) {
             setIpfsIsOnline(false)
-            initNearConnection(state);
+            initNearConnection(state, profileState);
             setIsLoading(false);
             toast({
                 id: "loading",
@@ -60,6 +61,7 @@ function MyApp({ Component, pageProps }) {
                 variant: "solid",
             });
         }
+        console.log("Init Profile", profileState.profile);
     }, [isLoading, state]);
 
     return (

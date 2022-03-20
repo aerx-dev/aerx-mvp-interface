@@ -96,7 +96,7 @@ function NewPost({ bg }) {
             <Avatar
                 size="xs"
                 name={profileState.profile?.fullName}
-                src={profileState.profile?.profileImage}
+                src={profileState.profile?.profileImg}
                 mr={3}
             />
 
