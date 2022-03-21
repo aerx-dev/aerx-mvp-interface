@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/react";
-import useTranslation from "next-translate/useTranslation";
 import Feature1 from "./01-section";
 import Feature2 from "./02-section";
 import Feature3 from "./03-section";
@@ -8,7 +7,6 @@ import Feature5 from "./05-section";
 import Feature6 from "./06-section";
 
 function Features() {
-    const { t } = useTranslation("landing");
     return (
         <Box as="section" pt={50}>
             <Feature1 />

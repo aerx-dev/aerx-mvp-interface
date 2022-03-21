@@ -33,6 +33,7 @@ import { useState, createElement } from "react";
 import useTranslation from "next-translate/useTranslation";
 import PurpleButton from "../../UI/PurpleButton";
 
+
 const { Header, Sider, Content, Footer } = Layout;
 
 /**
@@ -175,7 +176,7 @@ const LSidebarContent = ({ profile, ...rest }) => {
                     className="rounded-t-lg w-full relative "
                     height="38vh"
                     bg={picBg}
-                    bgImage="/images/pavel.png" // profile.profileImage
+                    bgImage={profile.profileImg || "/images/pavel.png"}
                     position="relative"
                     bgSize="cover"
                     bgRepeat="no-repeat"

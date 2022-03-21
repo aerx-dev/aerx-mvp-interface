@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 
 const FeedPage = () => {
     return (
-        <Box px>
+        <Box>
             <Feed />
         </Box>
     );
