@@ -3,7 +3,6 @@ import React from "react";
 import { Box, useColorModeValue, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
-import { profileStore } from "../../stores/profile.js";
 import Post from "..//Post/post";
 import { useState } from "react";
 import { nearStore } from "../../stores/near";
@@ -25,23 +24,17 @@ const LazySider = dynamic(() => import("./SideBar"), {
 
 const Profile = () => {
     const nearState = nearStore((state) => state);
-    const profileState = profileStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
-
-    const [profile, setProfile] = useState(
-        profileState.profile || { posts: [], follows: [] },
-    );
 
     const bg = useColorModeValue("gray.100", "gray.900");
 
-    if (profileState.profile && profileLoaded === false) {
-        setProfile(profileState.profile);
+    if (nearState.profile && profileLoaded === false) {
         setProfileLoaded(true);
     }
 
     return (
         <Layout>
-            <LazySider bg={bg} profile={profile}>
+            <LazySider bg={bg} profile={nearState.profile}>
                 <Box>
                     <NewPost state={nearState} bg={bg} />
 

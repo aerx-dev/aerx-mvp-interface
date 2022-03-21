@@ -6,45 +6,141 @@ import {
     Input,
     useColorMode,
     useColorModeValue,
-} from "@chakra-ui/react";
-import useCustomToast from "../../hooks/useCustomToast";
-import { AddIcon } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
-import { profileStore } from "../../stores/profile";
-import { getBalance, issueTokens } from "../../lib/tokenContract";
-import useTranslation from "next-translate/useTranslation";
 
-function NewPost({ state, bg }) {
-    const profileState = profileStore((state) => state);
-    const [balance, setBalance] = useState(0);
-    const [body, setBody] = useState("");
+} from "@chakra-ui/react";
+import { RepeatIcon } from "@chakra-ui/icons";
+import useCustomToast from "../../hooks/useCustomToast";
+import useIPFS from "../../hooks/useIPFS";
+import { AddIcon } from "@chakra-ui/icons";
+import { useState, useEffect, useRef } from "react";
+import { nearStore } from "../../stores/near";
+import { getBalance } from "../../lib/tokenContract";
+import useTranslation from "next-translate/useTranslation";
+import useFetchPosts from "../../hooks/useFetchPosts";
+
+
+function NewPost({ bg }) {
+    const nearState = nearStore((state) => state);
+    // const [balance, setBalance] = useState(0);
+    const [refresh, setRefresh] = useFetchPosts();
+    const toast = useCustomToast();
+
+    // The uploaded image which will be deployed through IPFS
+    const [uploadFile, setUploadFile] = useState();
+    // Ipsf hook with details and upload hook.
+    const ipfsData = useIPFS(uploadFile, toast);
+
+
+    const [body, setBody] = useState({
+        text: "",
+        media_type: "text",
+
+    });
     const { t } = useTranslation("profile");
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(0)" : "invert(0)";
     const fill = useColorModeValue("gray", "white");
 
-    const toast = useCustomToast("warning", "Post cannot be empty!");
 
     useEffect(() => {
         async function userNearBalance() {
-            if (state.tokenContract) {
-                let res = await getBalance(state);
-                setBalance(res);
+            if (nearState.tokenContract) {
+                let { formatted } = await getBalance(nearState);
+                toast("info", "Your new balance is " + formatted + " AEX$", "BalanceId")
             }
         }
         userNearBalance();
-    }, [state]);
+    }, [nearState]);
 
-    function createPost() {
-        if (body.length < 1) {
-            toast();
+    async function createPost() {
+        if (!body.text) {
+            toast("warning", "Post cannot be empty!", "feedpage");
             return;
         }
 
-        // if (balance == 0) {
-        //     console.log("0 posts");
-        //     await issueTokens(state.accountId);
-        // }
+        let postToSave = {
+            title: "AERX ContentNFT for " + nearState.accountId,
+            description: body.text,
+            media: ipfsData.fileUrl,
+            media_hash: ipfsData.urlSha256,
+            issued_at: new Date().toString(),
+            extra: JSON.stringify(body),
+        };
+        console.log(body)
+        console.log("Post to save: ", postToSave)
+        try {
+            const res = await nearState.cnftContract.nft_mint(
+                {
+                    receiver_id: nearState.accountId,
+                    token_metadata: postToSave,
+                },
+                "300000000000000", // attached GAS (optional)
+                "9660000000000000000111" // attached deposit in yoctoNEAR (optional))
+            )
+            console.log(res)
+            toast('success', "AERX PostNFT nr." + res.token_id + " minted successfully!", "CNFTsccss")
+        } catch (e) {
+            console.log("NFT could not be minted! Error: " + e.message)
+            toast('error', "NFT could not be minted! Error: " + e.message, "CNFTerror")
+        }
+
+    }
+
+    // Reffs to the content data
+    const inputAudio = useRef(null);
+    const onAudioClick = () => {
+        inputAudio.current.click();
+        setBody((prevBody) => {
+            return {
+                ...prevBody,
+                media_type: "audio",
+            }
+        });
+    };
+
+    const inputImg = useRef(null);
+    const onImgClick = () => {
+        inputImg.current.click();
+        setBody((prevBody) => {
+            return {
+                ...prevBody,
+                media_type: "image",
+            }
+        })
+    };
+    function fileChange(event) {
+        const { files } = event.target;
+        if (files) {
+            // // TODO check what type it is
+            const filename = files[0].name;
+            var parts = filename.split(".");
+            const fileType = parts[parts.length - 1];
+            setBody((prevBody) => {
+                return {
+                    ...prevBody,
+                    media_extension: fileType,
+                }
+            })
+            console.log(body)
+            setUploadFile(() => event.target.files[0]);
+        }
+    }
+
+    function update(e) {
+        const path = e.currentTarget.dataset.path;
+        const val = e.currentTarget.value;
+        setBody((prevBody) => {
+            return {
+                ...prevBody,
+                [path]: val,
+            }
+        });
+    }
+
+    function clickRefresh() {
+        if (!refresh) {
+            setRefresh(true);
+        }
     }
 
     return (
@@ -57,19 +153,22 @@ function NewPost({ state, bg }) {
             py={2}
             borderRadius={10}
         >
+            <RepeatIcon
+                onClick={clickRefresh}
+                // padding="3px"
+            />
             <Avatar
                 size="xs"
-                name={profileState.profile?.fullName}
-                src={profileState.profile?.profileImage}
-                mr={3}
+            name={nearState.profile?.fullName}
+            src={nearState.profile?.profileImg}
+            mr={3}
             />
 
             <Input
-                onChange={(e) => {
-                    setBody(e.currentTarget.value);
-                }}
+                onChange={update}
                 maxLength={500}
                 type="text"
+                data-path="text"
                 placeholder={t("new")}
                 borderRadius={20}
                 filter={filter}
@@ -79,6 +178,7 @@ function NewPost({ state, bg }) {
             />
 
             <IconButton
+                onClick={onAudioClick}
                 aria-label="add-audio"
                 isRound
                 size="xs"
@@ -97,9 +197,17 @@ function NewPost({ state, bg }) {
                         />
                     </Icon>
                 }
-                ml={3}
-            />
+                ml={3}>
+            </IconButton>
+            <Box height={0} width={0} opacity={0}>
+                <input
+                    ref={inputAudio}
+                    onChange={fileChange}
+                    type="file"
+                />
+            </Box>
             <IconButton
+                onClick={onImgClick}
                 aria-label="add-image"
                 isRound
                 size="xs"
@@ -127,8 +235,15 @@ function NewPost({ state, bg }) {
                     </Icon>
                 }
                 ml={2}
-                opacity={0.7}
-            />
+                opacity={0.7}>
+            </IconButton>
+            <Box height={0} width={0} opacity={0}>
+                <input
+                    ref={inputImg}
+                    onChange={fileChange}
+                    type="file"
+                />
+            </Box>
             <IconButton
                 type="submit"
                 aria-label="post"
@@ -141,6 +256,7 @@ function NewPost({ state, bg }) {
                 color="white"
             />
         </Box>
+
     );
 }
 
