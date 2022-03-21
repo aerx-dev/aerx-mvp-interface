@@ -1,34 +1,40 @@
-import { useState } from "react";
-import {contractFullAccessKey} from "../lib/contractCall"
+import { useEffect, useState } from "react";
+import { nearStore } from "../stores/near";
 
 
+export default function useFetchPosts() {
 
-export default function useFetchPosts(accId) {
+    const [refresh, setRefresh] = useState()
+    const nearState = nearStore((state) => state)
 
-    const [posts, setPosts] = useState([])
+    useEffect(() => {
 
-    async function refreshPosts() {
+        async function refreshPosts() {
+            if (!nearState.cnftContract) {
+                return
+            }
+            const resFeed = await nearState.cnftContract.nft_tokens() || [];
+            // const contentFeed = resFeed.map((nft) => {
+                //     return (
+        //         {
+            //             title: nft.title,
+            //             token_id: nft.token_id,
+            //             owner: nft.owner_id,
+            //             created_at: nft.metadata.issued_at,
+            //             updated_at: nft.metadata.updated_at,
+            //             body: nft.metadata.description,
+            //             media: nft.metadata.media,
+            //             extra: nft.metadata.extra,
+            //         })
+            // })
+            nearState.setFeed(resFeed.reverse())
+            setRefresh(false)
+        }
+        if (refresh) {
 
-        const cnftContract = await contractFullAccessKey("contentNft");
-        const resFeed = accId ? await cnftContract.nft_tokens_for_owner({
-            account_id: accId
-        }) : [];
-        const contentFeed = resFeed.map((nft) => {
-            return (
-                {
-                    title: nft.title,
-                    token_id: nft.token_id,
-                    owner: nft.owner_id,
-                    created_at: nft.metadata.issued_at,
-                    updated_at: nft.metadata.updated_at,
-                    body: nft.metadata.description,
-                    media: nft.metadata.media,
-                    extra: nft.metadata.extra,
-                })
-        })
-        setPosts(contentFeed.reverse())
-    }
-    refreshPosts()
+            refreshPosts()
+        }
+    }, [refresh, nearState])
 
-    return [posts, refreshPosts]
+    return [refresh, setRefresh]
 }

@@ -3,33 +3,29 @@ import {
     Box,
     Button,
     Heading,
-    Image as ChakraImage,
     useColorModeValue,
 } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
-import { useRef, useState, useEffect, useReducer } from "react";
-import { registerUserIfNotRegistered } from "../../lib/auth";
+import {  useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
-import { profileStore } from "../../stores/profile.js";
 import CreateProfileForm from "./Form";
 import useIPFS from "../../hooks/useIPFS";
-import { Big } from "big.js";
-import { contractFullAccessKey } from "../../lib/contractCall"
+import useCustomToast from "../../hooks/useCustomToast";
 
-import { useLocalStorage } from "beautiful-react-hooks"
 
 const Account = () => {
     // The profile picture which will go into the NFT
 
     const { t } = useTranslation("account");
     const picBg = useColorModeValue("gray.200", "gray.700");
-    const nearState = nearStore(state => state)
-    const profileState = profileStore((state) => state);
+    const nearState = nearStore((state) => state);
+    const pnftContract = nearState.pnftContract;
+    const toast = useCustomToast()
 
     // The uploaded image which will be deployed through IPFS
     const [uploadImg, setUploadImg] = useState();
     // Ipsf hook with details and upload hook.
-    const ipfsData = useIPFS(uploadImg);
+    const ipfsData = useIPFS(uploadImg, toast);
 
 
     const [profile, setProfile] = useState({
@@ -39,7 +35,7 @@ const Account = () => {
         hobbys: "",
         city: "",
         country: "",
-        ...profileState.profile
+        ...nearState.profile
     });
     // User has no profileNFT yet
     const [noProfile, setNoProfile] = useState(true)
@@ -47,8 +43,8 @@ const Account = () => {
     useEffect(() => {
         async function checkProfile() {
 
-            if (nearState.accountId && noProfile) {
-                const pnftContract = await contractFullAccessKey("profileNft");
+            if (nearState.accountId && nearState.pnftContract && noProfile) {
+                const pnftContract = nearState.pnftContract
                 const numPnft = await pnftContract.nft_supply_for_owner({ account_id: nearState.accountId })
                 console.log("Number of ProfileNFTs : " + numPnft)
                 if (parseInt(numPnft) > 0) {
@@ -57,8 +53,8 @@ const Account = () => {
                     // If the NFT has Media, grab it!
                     if (profileNft[0].metadata.media) {
                         let fetchedImg = profileNft[0].metadata.media
-                        profileState.setProfile({
-                                ...profileState.profile,
+                        nearState.setProfile({
+                                ...nearState.profile,
                                 profileImg: fetchedImg,
                             })
                         console.log("Fetched profileImg!", fetchedImg)
@@ -112,14 +108,14 @@ const Account = () => {
             description: "AERX ProfileNFT for " + profile.fullName,
             media: ipfsData.fileUrl,
             media_hash: ipfsData.urlSha256,
-            // issued_at: "", TODO: today
+            issued_at: new Date().toString(),
             extra: JSON.stringify(profile),
         };
-        const cnftContract = await contractFullAccessKey("profileNft")
+        
         console.log(profileToSave)
-        let fetchedImg = ipfsData.fileUrl ? ipfsData.fileUrl : profileState.profile.profileImg
-        profileState.setProfile({
-                ...profileState.profile,
+        let fetchedImg = ipfsData.fileUrl ? ipfsData.fileUrl : nearState.profile.profileImg
+        nearState.setProfile({
+                ...nearState.profile,
                 ...profile,
                 profileImg: fetchedImg,
         })
@@ -132,27 +128,28 @@ const Account = () => {
         // 3. send mint request
         try {
 
-            const res = await cnftContract.nft_mint(
+            const res = await pnftContract.nft_mint(
                 {
                     receiver_id: nearState.accountId,
                     token_metadata: profileToSave,
                 },
                 "300000000000000", // attached GAS (optional)
-                "9660000000000000000111" // attached deposit in yoctoNEAR (optional))
+                "9640000000000000000011" // attached deposit in yoctoNEAR (optional))
             )
+            toast('success', "Your AERX ProfilNFT id: " + res.token_id + " was minted successfully!", "PNFTsccss")
             console.log(res)
         } catch (e) {
-            console.log("NFT could not be minted! Error: " + e.message)
+            toast('error', "ProfileNFT could not be minted!", "PNFTsccss",)
+            console.log("NFT could not be minted! Error: ", e)
         }
     }
 
-    async function onBurn(e) {
+    async function onBurn() {
         console.log("BURN")
-        const cnftContract = await contractFullAccessKey("profileNft")
+        const res = 11;
+        toast("success", "Your AERX ProfilNFT id: " + res.token_id + " was burned!", "PNFTburn")
         // TODO brun NFT
-        // const res = await cnftContract.nft_transfer({
 
-        // })
         setNoProfile(true)
     }
 

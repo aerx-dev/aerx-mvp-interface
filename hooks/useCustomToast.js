@@ -1,13 +1,13 @@
 // custom hook for toast
 import { useToast } from "@chakra-ui/react";
 
-export default function useCustomToast(status, description, toastId) {
+export default function useCustomToast() {
     const toast = useToast();
-    function call() {
+    function call(status, description, toastId) {
         if (!toast.isActive(toastId)) {
             toast({
                 id: toastId,
-                duration: 3000,
+                duration: 3300,
                 status: status,
                 description: description,
                 position: "bottom",

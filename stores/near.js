@@ -19,24 +19,24 @@ const nearStore = create((set) => ({
     removeTokenContract: () => set((state) => ({ tokenContract: null })),
 
     pnftContract: null,
-    setNFTContract: (pnftContract) => set((state) => ({ pnftContract })),
+    setPNFTContract: (pnftContract) => set((state) => ({ pnftContract })),
     removeNFTContract: () => set((state) => ({ pnftContract: null })),
 
     cnftContract: null,
-    setNFTContract: (cnftContract) => set((state) => ({ cnftContract })),
+    setCNFTContract: (cnftContract) => set((state) => ({ cnftContract })),
     removeNFTContract: () => set((state) => ({ cnftContract: null })),
 
-    profile: null,
+    profile: {},
     setProfile: (profile) => set((state) => ({ profile })),
-    removeProfile: () => set((state) => ({ profile })),
+    removeProfile: () => set((state) => ({ profile: null })),
 
     lastRes: null,
     setLastRes: (lastRes) => set((state) => ({ lastRes })),
-    removeLastRes: () => set((state) => ({ lastRes })),
+    removeLastRes: () => set((state) => ({ lastRes: null })),
 
     feed: null,
     setFeed: (feed) => set((state) => ({ feed })),
-    removeFeed: () => set((state) => ({ feed })),
+    removeFeed: () => set((state) => ({ feed: null })),
 }));
 
 export { nearStore };
