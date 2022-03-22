@@ -50,23 +50,22 @@ const addPrepaid = async (api, keyRing, cid, amount) => {
 
 const sendTx = async (keyringPair, tx) => {
     return new Promise((resolve, reject) => {
-        try {
-            tx.signAndSend(keyringPair, ({ events = [], status }) => {
-                console.log(
-                    `💸  Tx status: ${status.type}, nonce: ${tx.nonce}`,
-                );
-                if (status.isInBlock) {
-                    events.forEach(({ event: { method, section } }) => {
-                        if (method === "ExtrinsicSuccess") {
-                            console.log(`✅ success!`);
-                            resolve(true);
-                        }
-                    });
-                }
-            });
-        } catch (e) {
+        tx.signAndSend(keyringPair, ({ events = [], status }) => {
+            console.log(`💸  Tx status: ${status.type}, nonce: ${tx.nonce}`);
+
+            if (status.isInBlock) {
+                events.forEach(({ event: { method, section } }) => {
+                    if (method === "ExtrinsicSuccess") {
+                        console.log(`✅ success!`);
+                        resolve(true);
+                    }
+                });
+            } else {
+                // Pass it
+            }
+        }).catch((e) => {
             reject(e);
-        }
+        });
     });
 };
 
@@ -93,8 +92,8 @@ const upload = async (contentCid, contentSize) => {
 
     const order = await placeOrder(api, keyRing, contentCid, contentSize, 0);
     console.log("place order >>", order);
-    const res = getOrderState(api, contentCid);
-    return res;
+    const crustRes = getOrderState(api, contentCid);
+    return crustRes;
 };
 
 export { upload };

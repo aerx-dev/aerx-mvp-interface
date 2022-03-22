@@ -1,17 +1,17 @@
 // custom hook for toast
 import { useToast } from "@chakra-ui/react";
 
-export default function useCustomToast(status, description) {
+export default function useCustomToast() {
     const toast = useToast();
-    const toastd = 111;
-    function call() {
-        if (!toast.isActive(toastd)) {
+    function call(status, description, toastId) {
+        if (!toast.isActive(toastId)) {
             toast({
-                id: toastd,
+                id: toastId,
+                duration: 3300,
                 status: status,
                 description: description,
-                position: "top",
-                isClosable: true,
+                position: "bottom",
+                // isClosable: true,
             });
         }
     }

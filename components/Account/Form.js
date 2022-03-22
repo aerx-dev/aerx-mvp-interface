@@ -12,7 +12,7 @@ import {
     Grid,
 } from "@chakra-ui/react";
 import { AtSignIcon } from "@chakra-ui/icons";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 
 export default function CreateProfileForm(props) {
     const inputFile = useRef(null);
@@ -191,19 +191,3 @@ export default function CreateProfileForm(props) {
         </Grid>
     );
 }
-
-const profileImage = () => {
-    return (
-        profile.profileImage && (
-            <ChakraImage
-                height="320px"
-                rounded="lg"
-                maxWidth={["100%", "400px", "225px"]}
-                margin="0 auto"
-                src={profile.profileImage}
-                alt="profileImgPreview"
-                objectFit="cover"
-            />
-        )
-    );
-};

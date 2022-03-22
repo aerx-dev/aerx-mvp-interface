@@ -2,6 +2,12 @@
 
 > aerx is a decentralized social media platform, where users can monetized their posts, create NFT contents, etc
 
+![GitHub language count](https://img.shields.io/github/languages/count/AERX-dev/aerx-frontend-near?style=for-the-badge&color=magenta)
+![GitHub top language](https://img.shields.io/github/languages/top/AERX-dev/aerx-frontend-near?style=for-the-badge&color=red)
+![Lines of code](https://img.shields.io/tokei/lines/github/AERX-dev/aerx-frontend-near?style=for-the-badge&color=orange)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/AERX-dev/aerx-frontend-near?color=lightblue&style=for-the-badge)
+
+
 ## Getting Started
 
 1. `git clone https://github.com/AERX-dev/aerx-frontend-near.git`

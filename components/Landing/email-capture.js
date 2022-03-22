@@ -31,6 +31,9 @@ function EmailCapture({ rest }) {
 
             setState({ success, message });
             setEmail("");
+            // if (!success) {
+            //     throw new Error(message);
+            // }
         } catch (error) {
             console.log("Something went wrong", error);
         }

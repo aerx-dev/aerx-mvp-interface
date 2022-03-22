@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 // pass the file or state you want to upload. It will upload the file and retrun the response.
-export default function useIPFS(file) {
+export default function useIPFS(file, toast) {
     const [ipfsData, setIpfsData] = useState({
         fileUrl: null,
         fileSize: null,
@@ -36,8 +36,16 @@ export default function useIPFS(file) {
                         urlSha256: _urlHash,
                     };
                 });
+                var res2 = await window.ipfs.pin.add(res.path);
+                console.log("IPFS pin:", res2);
+                toast(
+                    "success",
+                    "File deployed to IPFS! Url: " + _fileUrl,
+                    "ipfsSccss",
+                );
             } catch (e) {
-                console.log("IPFS not ready: " + e);
+                toast("error", "IPFS not ready: " + e.message, "ipfsError");
+                console.log("IPFS not ready: ", e);
             }
         }
 
