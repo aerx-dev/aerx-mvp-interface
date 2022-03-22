@@ -34,7 +34,7 @@ const Profile = () => {
 
     return (
         <Layout>
-            <LazySider bg={bg} profile={nearState.profile}>
+            <LazySider bg={bg} state={nearState}>
                 <Box>
                     <NewPost state={nearState} bg={bg} />
 

@@ -6,13 +6,14 @@ import { nearStore } from "../stores/near.js";
 import { useEffect, useState } from "react";
 import theme from "../lib/theme.js";
 import "../components/Landing/slider.css";
-import { useSessionStorage } from "beautiful-react-hooks"
-
-
+import { useSessionStorage } from "beautiful-react-hooks";
 
 function MyApp({ Component, pageProps }) {
     const [isLoading, setIsLoading] = useState(true);
-    const [ipfsIsOnline, setIpfsIsOnline] = useSessionStorage("ipfsIsOnline", false);
+    const [ipfsIsOnline, setIpfsIsOnline] = useSessionStorage(
+        "ipfsIsOnline",
+        false,
+    );
     const nearState = nearStore((state) => state);
 
     // const toast = useToast();
@@ -28,11 +29,10 @@ function MyApp({ Component, pageProps }) {
             var nodeIsOnline;
             if (window.ipfs) {
                 nodeIsOnline = window.ipfs.isOnline();
+            } else {
+                nodeIsOnline = initIfps();
             }
-            else {
-                nodeIsOnline = initIfps()
-            }
-            setIpfsIsOnline(nodeIsOnline)
+            setIpfsIsOnline(nodeIsOnline);
             console.log("IFPS node is online: ", nodeIsOnline);
             // toast({
             //     id: "ipfs2",
@@ -41,24 +41,29 @@ function MyApp({ Component, pageProps }) {
             //     description: "IPFS node is online!",
             // });
         }
-    }, [ipfsIsOnline])
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ipfsIsOnline]);
 
     useEffect(() => {
+        // due to issue with checkProfile
         if (isLoading) {
-            // setIpfsIsOnline(false)
-            initNearConnection(nearState)
-            checkProfile(nearState)
-            setIsLoading(false)
-            // toast({
-            //     id: "loading",
-            //     status: "success",
-            //     duration: 3000,
-            //     description: "NEAR account loaded!",
-            //     variant: "solid",
-            // });
+            initNearConnection(nearState);
+            setIsLoading(false);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading]);
+
+    useEffect(() => {
+        // run checkprofile only after connection is initialized.
+        // making sure than the checkprofile happens after pnft is set to state
+        if (!isLoading) {
+            (async () => {
+                await checkProfile(nearState);
+            })();
+        }
+        // run code inside useEffects anytime each of the dependencies changes.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading, nearState.accountId, nearState.pnftContract]);
 
     return (
         <ChakraProvider theme={theme}>

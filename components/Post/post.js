@@ -30,7 +30,6 @@ import { Layout } from "antd";
 import PurpleButton from "../UI/PurpleButton";
 import useCustomToast from "../../hooks/useCustomToast";
 
-
 const { Header, Footer, Content } = Layout;
 
 function Post({ nft, extra, date }) {
@@ -39,9 +38,6 @@ function Post({ nft, extra, date }) {
     const postBg = useColorModeValue("#edf2f7", "#171923");
     const nearState = nearStore((state) => state);
     const { isOpen, onOpen, onClose } = useDisclosure();
-
-
-
 
     const styles = {
         // fontFamily: "poppings",
@@ -58,38 +54,56 @@ function Post({ nft, extra, date }) {
             position: "relative",
             gap: 5,
         },
-        content: { margin: "0 auto" },
+        // ! prevent too long to read contents from spanning large heights
+        // instead turn to scrollable content container
+        content: {
+            margin: "0 auto",
+            overflowY: "auto",
+            maxH: 400,
+            overflowX: "hidden",
+        },
         footer: {
             height: 64,
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
         },
     };
 
-    const [charge, setCharge] = useState()
-
+    const [charge, setCharge] = useState();
 
     useEffect(() => {
         // TODO make this work
         async function getCharge() {
-            nearState.cnftContract.get_charge({ token_id: nft.token_id })
-                .finally((res) => {return res})
-                .catch((err) => { console.log("GetCharge failed!", err); return 0 });
+            nearState.cnftContract
+                .get_charge({ token_id: nft.token_id })
+                .finally((res) => {
+                    return res;
+                })
+                .catch((err) => {
+                    console.log("GetCharge failed!", err);
+                    return 0;
+                });
             // return res;
         }
         const ch = getCharge();
-        console.log("CH: ", ch)
-        setCharge(11)
-
-    }, [nearState.cnftContract, isOpen])
+        console.log("CH: ", ch);
+        setCharge(11);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nearState.cnftContract, isOpen]);
 
     return (
         <>
             <Layout style={styles}>
-                <Header style={styles.header} >
+                <Header style={styles.header}>
                     <Avatar
                         name={nft?.owner_id}
-                        src={(nft.owner_id === nearState.accountId) ? nearState.profile.profileImg : "https://bit.ly/dan-abramov"}
+                        src={
+                            nft?.owner_id === nearState.accountId
+                                ? nearState.profile?.profileImg
+                                : metadata?.media ||
+                                  nft?.owner_id || // extra connditions for display data
+                                  "https://bit.ly/dan-abramov"
+                        }
                         size="sm"
                     />
                     <Text my={2}>{nft?.owner_id || "pavel dantsev"}</Text>
@@ -107,13 +121,13 @@ function Post({ nft, extra, date }) {
                     <Box mb={1}>
                         {metadata?.media && (
                             <ChakraImage
-                                maxH={250}
+                                maxH={200}
                                 rounded="lg"
                                 maxWidth={["100%", "400px", "225px"]}
                                 margin="0 auto"
                                 src={metadata?.media}
                                 alt={"contentNftmedia" + tokenId}
-                                objectFit="cover"
+                                objectFit="contain"
                             />
                         )}
                     </Box>
@@ -162,30 +176,37 @@ const ChargeModal = ({ nft, state }) => {
                 charge: _charge.toString(),
             });
             toast("success", "Charged " + _charge + "AEX$", "ChargeIderr");
-        } catch (e) { console.log("set charge failed!", e) }
+        } catch (e) {
+            console.log("set charge failed!", e);
+        }
     }
 
     async function chargePost() {
         const amount = 11;
-        nearState.tokenContract.ft_transfer({
-            receiver_id: nft.owner_id,
-            amount: amount.toString(),
-            memo: "Charge :zap: from " + nearState?.accountId + " for your AEXpost id." + nft.token_id
-        },
-            "300000000000000", // attached GAS (optional)
-            1, // attached deposit in yoctoNEAR (optional)
-        )
-            .catch(e => {
+        nearState.tokenContract
+            .ft_transfer(
+                {
+                    receiver_id: nft.owner_id,
+                    amount: amount.toString(),
+                    memo:
+                        "Charge :zap: from " +
+                        nearState?.accountId +
+                        " for your AEXpost id." +
+                        nft.token_id,
+                },
+                "300000000000000", // attached GAS (optional)
+                1, // attached deposit in yoctoNEAR (optional)
+            )
+            .catch((e) => {
                 console.log("Charge failed!", e);
-                toast("error", "Charge failed!", "ChargeIderr")
+                toast("error", "Charge failed!", "ChargeIderr");
             })
-            .then(() => setCharge(nft.tokenId, amount))
+            .then(() => setCharge(nft.tokenId, amount));
         onClose();
     }
     return (
         <Modal
             size="xl"
-
             isOpen={isOpen}
             onClose={() => {
                 setSliderValue(0);

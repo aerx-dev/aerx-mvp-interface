@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    EnvironmentOutlined,
+    //EnvironmentOutlined,
     ThunderboltFilled,
 } from "@ant-design/icons";
 import {
@@ -17,7 +17,7 @@ import {
     Tag,
     useColorMode,
     useColorModeValue,
-    SimpleGrid,
+    //SimpleGrid,
     Stack,
     Heading,
     AvatarGroup,
@@ -30,9 +30,7 @@ import {
     ArrowDownIcon,
 } from "@chakra-ui/icons";
 import { useState, createElement } from "react";
-import useTranslation from "next-translate/useTranslation";
 import PurpleButton from "../../UI/PurpleButton";
-
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -42,9 +40,8 @@ const { Header, Sider, Content, Footer } = Layout;
  * always define height and width in percentages %
  */
 
-export default function SideBar({ children, bg, profile }) {
+export default function SideBar({ children, bg, state }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const { t } = useTranslation("Profile");
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
 
@@ -62,7 +59,7 @@ export default function SideBar({ children, bg, profile }) {
                     bottom: 0,
                 }}
             >
-                <LSidebarContent profile={profile} bg={bg} />
+                <LSidebarContent profile={state?.profile} balance={state?.aexBalance} bg={bg} />
             </Sider>
             <Layout
                 style={{
@@ -144,7 +141,8 @@ const ProfileHeader = ({ ...rest }) => {
     );
 };
 
-const LSidebarContent = ({ profile, ...rest }) => {
+const LSidebarContent = ({ profile, balance, ...rest }) => {
+    console.log(balance)
     const picBg = useColorModeValue("white", "gray.800");
     const bgGradient = useColorModeValue(
         "linear(#edf2f700, #edf2f720 15%, gray.100 90%)",
@@ -176,7 +174,7 @@ const LSidebarContent = ({ profile, ...rest }) => {
                     className="rounded-t-lg w-full relative "
                     height="38vh"
                     bg={picBg}
-                    bgImage={profile.profileImg || "/images/pavel.png"}
+                    bgImage={profile?.profileImg || "/images/pavel.png"}
                     position="relative"
                     bgSize="cover"
                     bgRepeat="no-repeat"
@@ -188,10 +186,10 @@ const LSidebarContent = ({ profile, ...rest }) => {
                         fontFamily="poppins"
                     >
                         <Text className="h-1/6 font-bold">
-                            Pavel Dantsev {/** profile.fullName */}
+                            {profile?.fullName || "Pavel Dantsev"}
                         </Text>
                         <Text as="i" sx={styles} fontWeight="bold">
-                            @pashq {/** profile.userName */}
+                            @{profile?.username || "pashq"}
                         </Text>
                         <LSideBarIters iterType="tags" data={tags} {...rest} />
                         <HStack
@@ -199,7 +197,7 @@ const LSidebarContent = ({ profile, ...rest }) => {
                             sx={styles}
                         >
                             {/* <Text>
-                                <Icon as={EnvironmentOutlined} /> Russia
+                                <Icon as={EnvironmentOutlined} /> {profile.country}
                             </Text> */}
                             <PurpleButton leftIcon={<AddIcon />} right={4}>
                                 Follow
@@ -210,14 +208,15 @@ const LSidebarContent = ({ profile, ...rest }) => {
                 <Box className="text-center p-5 py-7" h="23vh" sx={styles}>
                     <Text className="opacity-50 mb-2">ABOUT</Text>
                     <Text>
-                        I work as a doctor, but in my free time I lke to make
+                        {profile?.aboutMe ||
+                            `I work as a doctor, but in my free time I lke to make
                         funny pictures and videos. See more details in my
-                        collection. {/** profile.about */}
+                        collection.`}
                     </Text>
                 </Box>
                 <Divider />
                 <LSideBarIters iterType="stats" data={stats} {...rest} />
-                <LSideBarBalance {...rest} h="12vh" />
+                <LSideBarBalance balance={balance} {...rest} h="12vh" />
             </Flex>
         </Box>
     );
@@ -273,7 +272,7 @@ const LSideBarIters = ({ iterType, data, ...rest }) => {
     );
 };
 
-const LSideBarBalance = ({ ...rest }) => {
+const LSideBarBalance = ({ balance, ...rest }) => {
     return (
         <Flex
             textAlign="center"
@@ -301,7 +300,7 @@ const LSideBarBalance = ({ ...rest }) => {
                 <Icon mx={2} color="yellow" as={ThunderboltFilled} />
                 <Box>
                     <Text opacity={0.7}>BALANCE</Text>
-                    <Heading size="sm">768.01</Heading> {/** profile.balance */}
+                    <Heading size="sm">{balance || 0}</Heading> {/** profile.balance */}
                 </Box>
                 <Box position="absolute" right={7}>
                     <IconButton

@@ -1,21 +1,13 @@
 import create from "zustand";
 
 const profileStore = create((set) => ({
-    profile: {
-        // username: null,
-        // fullName: null,
-        // aboutMe: null,
-        // hobbys: null,
-        // city: null,
-        // country: null,
-        // profileImg: null,
-        nearId: null,
-        // signUpDate: null,
-    },
-    follows: null,
-    posts: [],
+    profile: null,
     setProfile: (profile) => set((state) => ({ profile })),
+
+    follows: null,
     setFollows: (follows) => set((state) => ({ follows })),
+
+    posts: null,
     setPosts: (posts) => set((state) => ({ posts })),
 }));
 

@@ -24,7 +24,6 @@ const Feed = () => {
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
 
-
     return (
         <Layout>
             <Box className="p-4 z-10 relative md:px-10">
@@ -40,12 +39,20 @@ const Feed = () => {
                         </Box>
 
                         {nearState.feed?.map((nft) => {
-                            return <LazyPosts
-                                key={nft.token_id}
-                                nft={nft}
-                                extra={JSON.parse(nft.metadata.extra) || null}
-                                date={nft.metadata.issued_at.split(',')[0] || null}
-                            />;
+                            return (
+                                <LazyPosts
+                                    key={nft.token_id}
+                                    nft={nft}
+                                    extra={
+                                        JSON.parse(nft.metadata?.extra) || null
+                                    }
+                                    date={
+                                        nft.metadata?.issued_at?.split(
+                                            ",",
+                                        )[0] || null
+                                    }
+                                />
+                            );
                         })}
                     </Box>
                 </Grid>
