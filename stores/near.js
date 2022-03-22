@@ -37,6 +37,10 @@ const nearStore = create((set) => ({
     feed: null,
     setFeed: (feed) => set((state) => ({ feed })),
     removeFeed: () => set((state) => ({ feed: null })),
+
+    aexBalance: 0,
+    setAexBalance: (aexBalance) => set((state) => ({ aexBalance })),
+    removeAexBalance: () => set((state) => ({ aexBalance: 0 })),
 }));
 
 export { nearStore };

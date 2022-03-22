@@ -40,7 +40,7 @@ const { Header, Sider, Content, Footer } = Layout;
  * always define height and width in percentages %
  */
 
-export default function SideBar({ children, bg, profile }) {
+export default function SideBar({ children, bg, state }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
@@ -59,7 +59,7 @@ export default function SideBar({ children, bg, profile }) {
                     bottom: 0,
                 }}
             >
-                <LSidebarContent profile={profile} bg={bg} />
+                <LSidebarContent profile={state?.profile} balance={state?.aexBalance} bg={bg} />
             </Sider>
             <Layout
                 style={{
@@ -141,7 +141,8 @@ const ProfileHeader = ({ ...rest }) => {
     );
 };
 
-const LSidebarContent = ({ profile, ...rest }) => {
+const LSidebarContent = ({ profile, balance, ...rest }) => {
+    console.log(balance)
     const picBg = useColorModeValue("white", "gray.800");
     const bgGradient = useColorModeValue(
         "linear(#edf2f700, #edf2f720 15%, gray.100 90%)",
@@ -215,7 +216,7 @@ const LSidebarContent = ({ profile, ...rest }) => {
                 </Box>
                 <Divider />
                 <LSideBarIters iterType="stats" data={stats} {...rest} />
-                <LSideBarBalance {...rest} h="12vh" />
+                <LSideBarBalance balance={balance} {...rest} h="12vh" />
             </Flex>
         </Box>
     );
@@ -271,7 +272,7 @@ const LSideBarIters = ({ iterType, data, ...rest }) => {
     );
 };
 
-const LSideBarBalance = ({ ...rest }) => {
+const LSideBarBalance = ({ balance, ...rest }) => {
     return (
         <Flex
             textAlign="center"
@@ -299,7 +300,7 @@ const LSideBarBalance = ({ ...rest }) => {
                 <Icon mx={2} color="yellow" as={ThunderboltFilled} />
                 <Box>
                     <Text opacity={0.7}>BALANCE</Text>
-                    <Heading size="sm">768.01</Heading> {/** profile.balance */}
+                    <Heading size="sm">{balance || 0}</Heading> {/** profile.balance */}
                 </Box>
                 <Box position="absolute" right={7}>
                     <IconButton

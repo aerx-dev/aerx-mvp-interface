@@ -43,13 +43,13 @@ function NewPost({ bg }) {
                 let { formatted } = await getBalance(nearState);
                 toast(
                     "info",
-                    "Your new balance is " + formatted + " AEX$",
+                    "Your balance is " + formatted + " AEX$",
                     "BalanceId",
                 );
             }
         })(); // IIFE
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nearState]);
+    }, []);
 
     async function createPost() {
         if (!body.text) {
