@@ -6,7 +6,6 @@ import {
     Input,
     useColorMode,
     useColorModeValue,
-
 } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 import useCustomToast from "../../hooks/useCustomToast";
@@ -18,11 +17,10 @@ import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
 
-
 function NewPost({ bg }) {
     const nearState = nearStore((state) => state);
     // const [balance, setBalance] = useState(0);
-    const [refresh, setRefresh] = useFetchPosts();
+    const refresh = useFetchPosts();
     const toast = useCustomToast();
 
     // The uploaded image which will be deployed through IPFS
@@ -30,26 +28,27 @@ function NewPost({ bg }) {
     // Ipsf hook with details and upload hook.
     const ipfsData = useIPFS(uploadFile, toast);
 
-
     const [body, setBody] = useState({
         text: "",
         media_type: "text",
-
     });
     const { t } = useTranslation("profile");
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(0)" : "invert(0)";
     const fill = useColorModeValue("gray", "white");
 
-
     useEffect(() => {
-        async function userNearBalance() {
+        (async () => {
             if (nearState.tokenContract) {
                 let { formatted } = await getBalance(nearState);
-                toast("info", "Your new balance is " + formatted + " AEX$", "BalanceId")
+                toast(
+                    "info",
+                    "Your new balance is " + formatted + " AEX$",
+                    "BalanceId",
+                );
             }
-        }
-        userNearBalance();
+        })(); // IIFE
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nearState]);
 
     async function createPost() {
@@ -66,8 +65,8 @@ function NewPost({ bg }) {
             issued_at: new Date().toString(),
             extra: JSON.stringify(body),
         };
-        console.log(body)
-        console.log("Post to save: ", postToSave)
+        console.log(body);
+        console.log("Post to save: ", postToSave);
         try {
             const res = await nearState.cnftContract.nft_mint(
                 {
@@ -75,15 +74,22 @@ function NewPost({ bg }) {
                     token_metadata: postToSave,
                 },
                 "300000000000000", // attached GAS (optional)
-                "9660000000000000000111" // attached deposit in yoctoNEAR (optional))
-            )
-            console.log(res)
-            toast('success', "AERX PostNFT nr." + res.token_id + " minted successfully!", "CNFTsccss")
+                "9660000000000000000111", // attached deposit in yoctoNEAR (optional))
+            );
+            console.log(res);
+            toast(
+                "success",
+                "AERX PostNFT nr." + res.token_id + " minted successfully!",
+                "CNFTsccss",
+            );
         } catch (e) {
-            console.log("NFT could not be minted! Error: " + e.message)
-            toast('error', "NFT could not be minted! Error: " + e.message, "CNFTerror")
+            console.log("NFT could not be minted! Error: " + e.message);
+            toast(
+                "error",
+                "NFT could not be minted! Error: " + e.message,
+                "CNFTerror",
+            );
         }
-
     }
 
     // Reffs to the content data
@@ -94,7 +100,7 @@ function NewPost({ bg }) {
             return {
                 ...prevBody,
                 media_type: "audio",
-            }
+            };
         });
     };
 
@@ -105,8 +111,8 @@ function NewPost({ bg }) {
             return {
                 ...prevBody,
                 media_type: "image",
-            }
-        })
+            };
+        });
     };
     function fileChange(event) {
         const { files } = event.target;
@@ -119,9 +125,9 @@ function NewPost({ bg }) {
                 return {
                     ...prevBody,
                     media_extension: fileType,
-                }
-            })
-            console.log(body)
+                };
+            });
+            console.log(body);
             setUploadFile(() => event.target.files[0]);
         }
     }
@@ -133,15 +139,17 @@ function NewPost({ bg }) {
             return {
                 ...prevBody,
                 [path]: val,
-            }
+            };
         });
     }
 
-    function clickRefresh() {
-        if (!refresh) {
-            setRefresh(true);
-        }
-    }
+    // ! since refresh is a function itself it can be called directly once
+    // to avoid it running more than once inside a useEffects
+    // function clickRefresh() {
+    //     if (!refresh) {
+    //         setRefresh(true);
+    //     }
+    // }
 
     return (
         <Box
@@ -154,14 +162,14 @@ function NewPost({ bg }) {
             borderRadius={10}
         >
             <RepeatIcon
-                onClick={clickRefresh}
+                onClick={refresh} // directly refresh
                 // padding="3px"
             />
             <Avatar
                 size="xs"
-            name={nearState.profile?.fullName}
-            src={nearState.profile?.profileImg}
-            mr={3}
+                name={nearState.profile?.fullName}
+                src={nearState.profile?.profileImg}
+                mr={3}
             />
 
             <Input
@@ -197,14 +205,11 @@ function NewPost({ bg }) {
                         />
                     </Icon>
                 }
-                ml={3}>
-            </IconButton>
-            <Box height={0} width={0} opacity={0}>
-                <input
-                    ref={inputAudio}
-                    onChange={fileChange}
-                    type="file"
-                />
+                ml={3}
+            ></IconButton>
+            {/* use display="none" if it shouldnt be displayed*/}
+            <Box display="none">
+                <input ref={inputAudio} onChange={fileChange} type="file" />
             </Box>
             <IconButton
                 onClick={onImgClick}
@@ -235,14 +240,11 @@ function NewPost({ bg }) {
                     </Icon>
                 }
                 ml={2}
-                opacity={0.7}>
-            </IconButton>
-            <Box height={0} width={0} opacity={0}>
-                <input
-                    ref={inputImg}
-                    onChange={fileChange}
-                    type="file"
-                />
+                opacity={0.7}
+            ></IconButton>
+            {/* use display="none" if it shouldnt be displayed*/}
+            <Box display="none">
+                <input ref={inputImg} onChange={fileChange} type="file" />
             </Box>
             <IconButton
                 type="submit"
@@ -256,7 +258,6 @@ function NewPost({ bg }) {
                 color="white"
             />
         </Box>
-
     );
 }
 

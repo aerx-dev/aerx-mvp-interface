@@ -1,40 +1,20 @@
-import { useEffect, useState } from "react";
 import { nearStore } from "../stores/near";
+import { contractFullAccessKey } from "../lib/contractCall";
 
+// re-wrote this to return a single callable function instead
+// todo - modify this to append to feed state instead
+// todo - to be called as the user scrolls down in the content page : opt
 
 export default function useFetchPosts() {
+    const nearState = nearStore((state) => state);
 
-    const [refresh, setRefresh] = useState()
-    const nearState = nearStore((state) => state)
-
-    useEffect(() => {
-
-        async function refreshPosts() {
-            if (!nearState.cnftContract) {
-                return
-            }
-            const resFeed = await nearState.cnftContract.nft_tokens() || [];
-            // const contentFeed = resFeed.map((nft) => {
-                //     return (
-        //         {
-            //             title: nft.title,
-            //             token_id: nft.token_id,
-            //             owner: nft.owner_id,
-            //             created_at: nft.metadata.issued_at,
-            //             updated_at: nft.metadata.updated_at,
-            //             body: nft.metadata.description,
-            //             media: nft.metadata.media,
-            //             extra: nft.metadata.extra,
-            //         })
-            // })
-            nearState.setFeed(resFeed.reverse())
-            setRefresh(false)
+    async function refreshPosts() {
+        const cnftContract = await contractFullAccessKey("contentNft");
+        const responseFeed = await cnftContract.nft_tokens({});
+        if (responseFeed) {
+            nearState.setFeed(responseFeed.reverse());
         }
-        if (refresh) {
+    }
 
-            refreshPosts()
-        }
-    }, [refresh, nearState])
-
-    return [refresh, setRefresh]
+    return refreshPosts;
 }

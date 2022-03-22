@@ -54,7 +54,14 @@ function Post({ nft, extra, date }) {
             position: "relative",
             gap: 5,
         },
-        content: { margin: "0 auto" },
+        // ! prevent too long to read contents from spanning large heights
+        // instead turn to scrollable content container
+        content: {
+            margin: "0 auto",
+            overflowY: "auto",
+            maxH: 400,
+            overflowX: "hidden",
+        },
         footer: {
             height: 64,
             display: "flex",
@@ -81,6 +88,7 @@ function Post({ nft, extra, date }) {
         const ch = getCharge();
         console.log("CH: ", ch);
         setCharge(11);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nearState.cnftContract, isOpen]);
 
     return (
@@ -90,9 +98,11 @@ function Post({ nft, extra, date }) {
                     <Avatar
                         name={nft?.owner_id}
                         src={
-                            nft.owner_id === nearState.accountId
-                                ? nearState.profile.profileImg
-                                : "https://bit.ly/dan-abramov"
+                            nft?.owner_id === nearState.accountId
+                                ? nearState.profile?.profileImg
+                                : metadata?.media ||
+                                  nft?.owner_id || // extra connditions for display data
+                                  "https://bit.ly/dan-abramov"
                         }
                         size="sm"
                     />

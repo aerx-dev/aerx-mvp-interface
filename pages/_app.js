@@ -41,23 +41,29 @@ function MyApp({ Component, pageProps }) {
             //     description: "IPFS node is online!",
             // });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ipfsIsOnline]);
 
     useEffect(() => {
+        // due to issue with checkProfile
         if (isLoading) {
-            // setIpfsIsOnline(false)
             initNearConnection(nearState);
-            checkProfile(nearState);
             setIsLoading(false);
-            // toast({
-            //     id: "loading",
-            //     status: "success",
-            //     duration: 3000,
-            //     description: "NEAR account loaded!",
-            //     variant: "solid",
-            // });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading]);
+
+    useEffect(() => {
+        // run checkprofile only after connection is initialized.
+        // making sure than the checkprofile happens after pnft is set to state
+        if (!isLoading) {
+            (async () => {
+                await checkProfile(nearState);
+            })();
+        }
+        // run code inside useEffects anytime each of the dependencies changes.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading, nearState.accountId, nearState.pnftContract]);
 
     return (
         <ChakraProvider theme={theme}>

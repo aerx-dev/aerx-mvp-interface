@@ -26,7 +26,7 @@ const nearStore = create((set) => ({
     setCNFTContract: (cnftContract) => set((state) => ({ cnftContract })),
     removeNFTContract: () => set((state) => ({ cnftContract: null })),
 
-    profile: {},
+    profile: null,
     setProfile: (profile) => set((state) => ({ profile })),
     removeProfile: () => set((state) => ({ profile: null })),
 

@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    EnvironmentOutlined,
+    //EnvironmentOutlined,
     ThunderboltFilled,
 } from "@ant-design/icons";
 import {
@@ -17,7 +17,7 @@ import {
     Tag,
     useColorMode,
     useColorModeValue,
-    SimpleGrid,
+    //SimpleGrid,
     Stack,
     Heading,
     AvatarGroup,
@@ -30,9 +30,7 @@ import {
     ArrowDownIcon,
 } from "@chakra-ui/icons";
 import { useState, createElement } from "react";
-import useTranslation from "next-translate/useTranslation";
 import PurpleButton from "../../UI/PurpleButton";
-
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -44,7 +42,6 @@ const { Header, Sider, Content, Footer } = Layout;
 
 export default function SideBar({ children, bg, profile }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const { t } = useTranslation("Profile");
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
 
@@ -176,7 +173,7 @@ const LSidebarContent = ({ profile, ...rest }) => {
                     className="rounded-t-lg w-full relative "
                     height="38vh"
                     bg={picBg}
-                    bgImage={profile.profileImg || "/images/pavel.png"}
+                    bgImage={profile?.profileImg || "/images/pavel.png"}
                     position="relative"
                     bgSize="cover"
                     bgRepeat="no-repeat"
@@ -188,10 +185,10 @@ const LSidebarContent = ({ profile, ...rest }) => {
                         fontFamily="poppins"
                     >
                         <Text className="h-1/6 font-bold">
-                            Pavel Dantsev {/** profile.fullName */}
+                            {profile?.fullName || "Pavel Dantsev"}
                         </Text>
                         <Text as="i" sx={styles} fontWeight="bold">
-                            @pashq {/** profile.userName */}
+                            @{profile?.username || "pashq"}
                         </Text>
                         <LSideBarIters iterType="tags" data={tags} {...rest} />
                         <HStack
@@ -199,7 +196,7 @@ const LSidebarContent = ({ profile, ...rest }) => {
                             sx={styles}
                         >
                             {/* <Text>
-                                <Icon as={EnvironmentOutlined} /> Russia
+                                <Icon as={EnvironmentOutlined} /> {profile.country}
                             </Text> */}
                             <PurpleButton leftIcon={<AddIcon />} right={4}>
                                 Follow
@@ -210,9 +207,10 @@ const LSidebarContent = ({ profile, ...rest }) => {
                 <Box className="text-center p-5 py-7" h="23vh" sx={styles}>
                     <Text className="opacity-50 mb-2">ABOUT</Text>
                     <Text>
-                        I work as a doctor, but in my free time I lke to make
+                        {profile?.aboutMe ||
+                            `I work as a doctor, but in my free time I lke to make
                         funny pictures and videos. See more details in my
-                        collection. {/** profile.about */}
+                        collection.`}
                     </Text>
                 </Box>
                 <Divider />

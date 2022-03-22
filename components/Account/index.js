@@ -1,17 +1,12 @@
 import Layout from "../Layout";
-import {
-    Box,
-    Button,
-    Heading,
-    useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, Heading, useColorModeValue } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
-import {  useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import CreateProfileForm from "./Form";
 import useIPFS from "../../hooks/useIPFS";
 import useCustomToast from "../../hooks/useCustomToast";
-
+import AccountData from "./Account";
 
 const Account = () => {
     // The profile picture which will go into the NFT
@@ -20,13 +15,12 @@ const Account = () => {
     const picBg = useColorModeValue("gray.200", "gray.700");
     const nearState = nearStore((state) => state);
     const pnftContract = nearState.pnftContract;
-    const toast = useCustomToast()
+    const toast = useCustomToast();
 
     // The uploaded image which will be deployed through IPFS
     const [uploadImg, setUploadImg] = useState();
     // Ipsf hook with details and upload hook.
     const ipfsData = useIPFS(uploadImg, toast);
-
 
     const [profile, setProfile] = useState({
         username: nearState.accountId,
@@ -35,47 +29,8 @@ const Account = () => {
         hobbys: "",
         city: "",
         country: "",
-        ...nearState.profile
+        ...nearState.profile,
     });
-    // User has no profileNFT yet
-    const [noProfile, setNoProfile] = useState(true)
-
-    useEffect(() => {
-        async function checkProfile() {
-
-            if (nearState.accountId && nearState.pnftContract && noProfile) {
-                const pnftContract = nearState.pnftContract
-                const numPnft = await pnftContract.nft_supply_for_owner({ account_id: nearState.accountId })
-                console.log("Number of ProfileNFTs : " + numPnft)
-                if (parseInt(numPnft) > 0) {
-                    const profileNft = await pnftContract.nft_tokens_for_owner({ account_id: nearState.accountId })
-                    console.log(profileNft)
-                    // If the NFT has Media, grab it!
-                    if (profileNft[0].metadata.media) {
-                        let fetchedImg = profileNft[0].metadata.media
-                        nearState.setProfile({
-                                ...nearState.profile,
-                                profileImg: fetchedImg,
-                            })
-                        console.log("Fetched profileImg!", fetchedImg)
-                    }
-                    if (profileNft[0].metadata.extra) {
-                        const parsedProfile = JSON.parse(profileNft[0].metadata.extra)
-                        console.log("Fetched ProfileNFT: ", parsedProfile);
-                        setNoProfile(false)
-                        setProfile((prevProfile) => {
-                            return {
-                                ...prevProfile,
-                                ...parsedProfile,
-                            }
-                        })
-                    }
-                } else { setNoProfile(true) }
-            }
-        }
-        checkProfile();
-    }, [nearState.accountId, noProfile])
-
 
     function profileImageChange(event) {
         const { files } = event.target;
@@ -97,7 +52,7 @@ const Account = () => {
                 ...prevProfile,
                 username: nearState.accountId,
                 [path]: val,
-            }
+            };
         });
     }
 
@@ -111,14 +66,16 @@ const Account = () => {
             issued_at: new Date().toString(),
             extra: JSON.stringify(profile),
         };
-        
-        console.log(profileToSave)
-        let fetchedImg = ipfsData.fileUrl ? ipfsData.fileUrl : nearState.profile.profileImg
+
+        console.log(profileToSave);
+        let fetchedImg = ipfsData.fileUrl
+            ? ipfsData.fileUrl
+            : nearState.profile.profileImg;
         nearState.setProfile({
-                ...nearState.profile,
-                ...profile,
-                profileImg: fetchedImg,
-        })
+            ...nearState.profile,
+            ...profile,
+            profileImg: fetchedImg,
+        });
         // TODO correct metadata
         // 2. Check if user is registered for tokens. This should happen in the contract.
         // if (nearState.tokenContract) {
@@ -127,32 +84,41 @@ const Account = () => {
 
         // 3. send mint request
         try {
-
             const res = await pnftContract.nft_mint(
                 {
                     receiver_id: nearState.accountId,
                     token_metadata: profileToSave,
                 },
                 "300000000000000", // attached GAS (optional)
-                "9640000000000000000011" // attached deposit in yoctoNEAR (optional))
-            )
-            toast('success', "Your AERX ProfilNFT id: " + res.token_id + " was minted successfully!", "PNFTsccss")
-            console.log(res)
+                "9640000000000000000011", // attached deposit in yoctoNEAR (optional))
+            );
+            toast(
+                "success",
+                "Your AERX ProfilNFT id: " +
+                    res.token_id +
+                    " was minted successfully!",
+                "PNFTsccss",
+            );
+            console.log(res);
         } catch (e) {
-            toast('error', "ProfileNFT could not be minted!", "PNFTsccss",)
-            console.log("NFT could not be minted! Error: ", e)
+            toast("error", "ProfileNFT could not be minted!", "PNFTsccss");
+            console.log("NFT could not be minted! Error: ", e);
         }
     }
 
     async function onBurn() {
-        console.log("BURN")
+        console.log("BURN");
         const res = 11;
-        toast("success", "Your AERX ProfilNFT id: " + res.token_id + " was burned!", "PNFTburn")
+        toast(
+            "success",
+            "Your AERX ProfilNFT id: " + res.token_id + " was burned!",
+            "PNFTburn",
+        );
         // TODO brun NFT
 
-        setNoProfile(true)
+        // remove profile from state
+        nearState.setProfile(null);
     }
-
 
     return (
         <Layout>
@@ -165,7 +131,19 @@ const Account = () => {
                 <Heading as="h1" mb={3}>
                     {t("title")}
                 </Heading>
-                {noProfile ?
+                {nearState.profile ? (
+                    <Box alignContent="safe center">
+                        <AccountData profile={nearState.profile} t={t} />
+                        <Button
+                            marginTop="10px"
+                            marginLeft="11px"
+                            colorScheme="red"
+                            onClick={onBurn}
+                        >
+                            Burn Profile
+                        </Button>
+                    </Box>
+                ) : (
                     <CreateProfileForm
                         t={t}
                         picBg={picBg}
@@ -175,13 +153,7 @@ const Account = () => {
                         update={update}
                         save={handleSave}
                     />
-                    : <Box alignContent="safe center" > <p><pre> {JSON.stringify(profile)} </pre></p>
-                        <Button
-                            marginTop="10px"
-                            marginLeft="11px"
-                            colorScheme="red"
-                            onClick={onBurn}> Brun Profile </Button>
-                    </Box>}
+                )}
             </Box>
         </Layout>
     );
