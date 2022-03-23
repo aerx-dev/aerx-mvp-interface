@@ -29,15 +29,17 @@ import { nearStore } from "../../stores/near";
 import { Layout } from "antd";
 import PurpleButton from "../UI/PurpleButton";
 import useCustomToast from "../../hooks/useCustomToast";
+import TimeAgo from "timeago-react";
 
 const { Header, Footer, Content } = Layout;
 
-function Post({ nft, extra, date }) {
-    const metadata = nft?.metadata;
-    const tokenId = nft?.token_id;
+function Post({ nft }) {
+    const metadata = nft.metadata;
+    const tokenId = nft.token_id;
     const postBg = useColorModeValue("#edf2f7", "#171923");
     const nearState = nearStore((state) => state);
     const { isOpen, onOpen, onClose } = useDisclosure();
+
 
     const styles = {
         // fontFamily: "poppings",
@@ -91,6 +93,8 @@ function Post({ nft, extra, date }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nearState.cnftContract, isOpen]);
 
+    const isUserMsg = (nft.owner_id === nearState.accountId) ? true : false;
+
     return (
         <>
             <Layout style={styles}>
@@ -98,18 +102,18 @@ function Post({ nft, extra, date }) {
                     <Avatar
                         name={nft?.owner_id}
                         src={
-                            nft?.owner_id === nearState.accountId
-                                ? nearState.profile?.profileImg
+                            isUserMsg ? nearState.profile?.profileImg
                                 : metadata?.media ||
-                                  nft?.owner_id || // extra connditions for display data
-                                  "https://bit.ly/dan-abramov"
+                                nft?.owner_id || // extra connditions for display data
+                                "https://bit.ly/dan-abramov"
                         }
                         size="sm"
                     />
                     <Text my={2}>{nft?.owner_id || "pavel dantsev"}</Text>
-                    <Text className="opacity-50">
+                    <TimeAgo className={`text-[11px] ${isUserMsg && "order-last pr-1"}`} datetime={nft.metadata.issued_at} />
+                    {/* <Text className="opacity-50">
                         {date?.issued_at || "2h ago"}
-                    </Text>
+                    </Text> */}
                     <PurpleButton
                         className="right-0 text-white"
                         leftIcon={<HiShoppingBag />}
