@@ -40,7 +40,6 @@ function Post({ nft }) {
     const nearState = nearStore((state) => state);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-
     const styles = {
         // fontFamily: "poppings",
         backgroundColor: postBg,
@@ -93,7 +92,7 @@ function Post({ nft }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nearState.cnftContract, isOpen]);
 
-    const isUserMsg = (nft.owner_id === nearState.accountId) ? true : false;
+    const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
 
     return (
         <>
@@ -102,15 +101,21 @@ function Post({ nft }) {
                     <Avatar
                         name={nft?.owner_id}
                         src={
-                            isUserMsg ? nearState.profile?.profileImg
+                            isUserMsg
+                                ? nearState.profile?.profileImg
                                 : metadata?.media ||
-                                nft?.owner_id || // extra connditions for display data
-                                "https://bit.ly/dan-abramov"
+                                  nft?.owner_id || // extra connditions for display data
+                                  "https://bit.ly/dan-abramov"
                         }
                         size="sm"
                     />
                     <Text my={2}>{nft?.owner_id || "pavel dantsev"}</Text>
-                    <TimeAgo className={`text-[11px] ${isUserMsg && "order-last pr-1"}`} datetime={nft.metadata.issued_at} />
+                    <TimeAgo
+                        className={`text-[11px] ${
+                            isUserMsg && "order-last pr-1"
+                        } opacity-60`}
+                        datetime={metadata.issued_at}
+                    />
                     {/* <Text className="opacity-50">
                         {date?.issued_at || "2h ago"}
                     </Text> */}
