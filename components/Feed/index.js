@@ -43,14 +43,6 @@ const Feed = () => {
                                 <LazyPosts
                                     key={nft.token_id}
                                     nft={nft}
-                                    extra={
-                                        JSON.parse(nft.metadata?.extra) || null
-                                    }
-                                    date={
-                                        nft.metadata?.issued_at?.split(
-                                            ",",
-                                        )[0] || null
-                                    }
                                 />
                             );
                         })}
