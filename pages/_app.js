@@ -16,16 +16,8 @@ function MyApp({ Component, pageProps }) {
     );
     const nearState = nearStore((state) => state);
 
-    // const toast = useToast();
-
     useEffect(() => {
         if (!ipfsIsOnline) {
-            // toast({
-            //     id: "ipfs1",
-            //     status: "info",
-            //     duration: 3000,
-            //     description: "Starting IPFS node...",
-            // });
             var nodeIsOnline;
             if (window.ipfs) {
                 nodeIsOnline = window.ipfs.isOnline();
@@ -34,12 +26,6 @@ function MyApp({ Component, pageProps }) {
             }
             setIpfsIsOnline(nodeIsOnline);
             console.log("IFPS node is online: ", nodeIsOnline);
-            // toast({
-            //     id: "ipfs2",
-            //     status: "success",
-            //     duration: 3000,
-            //     description: "IPFS node is online!",
-            // });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ipfsIsOnline]);
@@ -61,7 +47,6 @@ function MyApp({ Component, pageProps }) {
                 await checkProfile(nearState);
             })();
         }
-        // run code inside useEffects anytime each of the dependencies changes.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading, nearState.accountId, nearState.pnftContract]);
 
