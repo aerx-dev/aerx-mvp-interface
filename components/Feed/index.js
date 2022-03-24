@@ -24,6 +24,19 @@ const Feed = () => {
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
 
+    async function getCharge(token_id) {
+        nearState.cnftContract
+            .get_charge({ token_id: token_id })
+            .finally((res) => {
+                return res;
+            })
+            .catch((err) => {
+                console.log("GetCharge failed!", err);
+                return 0;
+            });
+        // return res;
+    }
+
     return (
         <Layout>
             <Box className="p-4 z-10 relative md:px-10">
@@ -43,6 +56,7 @@ const Feed = () => {
                                 <LazyPosts
                                     key={nft.token_id}
                                     nft={nft}
+                                    charge={getCharge(nft.token_id)}
                                 />
                             );
                         })}

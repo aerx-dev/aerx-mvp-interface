@@ -33,7 +33,7 @@ import TimeAgo from "timeago-react";
 
 const { Header, Footer, Content } = Layout;
 
-function Post({ nft }) {
+function Post({ nft, charge }) {
     const metadata = nft.metadata;
     const tokenId = nft.token_id;
     const postBg = useColorModeValue("#edf2f7", "#171923");
@@ -71,27 +71,27 @@ function Post({ nft }) {
         },
     };
 
-    const [charge, setCharge] = useState();
+    // const [charge, setCharge] = useState();
 
-    useEffect(() => {
-        // TODO make this work
-        async function getCharge() {
-            nearState.cnftContract
-                .get_charge({ token_id: nft.token_id })
-                .finally((res) => {
-                    return res;
-                })
-                .catch((err) => {
-                    console.log("GetCharge failed!", err);
-                    return 0;
-                });
-            // return res;
-        }
-        const ch = getCharge();
-        console.log("CH: ", ch);
-        setCharge(11);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nearState.cnftContract, isOpen]);
+    // useEffect(() => {
+    //     // TODO make this work
+    //     async function getCharge() {
+    //         nearState.cnftContract
+    //             .get_charge({ token_id: nft.token_id })
+    //             .finally((res) => {
+    //                 return res;
+    //             })
+    //             .catch((err) => {
+    //                 console.log("GetCharge failed!", err);
+    //                 return 0;
+    //             });
+    //         // return res;
+    //     }
+    //     const ch = getCharge();
+    //     console.log("CH: ", ch);
+    //     setCharge(11);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [nearState.cnftContract, isOpen]);
 
     const isUserMsg = (nft.owner_id === nearState.accountId) ? true : false;
 
