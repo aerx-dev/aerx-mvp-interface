@@ -161,10 +161,6 @@ function NewPost({ bg }) {
             py={2}
             borderRadius={10}
         >
-            <RepeatIcon
-                onClick={refresh} // directly refresh
-                // padding="3px"
-            />
             <Avatar
                 size="xs"
                 name={nearState.profile?.fullName}
@@ -241,6 +237,16 @@ function NewPost({ bg }) {
                 }
                 ml={2}
                 opacity={0.7}
+            ></IconButton>
+            <IconButton
+                onClick={refresh}
+                aria-label="add-audio"
+                isRound
+                size="xs"
+                variant="ghost"
+                opacity={0.6}
+                icon={<RepeatIcon />}
+                ml={3}
             ></IconButton>
             {/* use display="none" if it shouldnt be displayed*/}
             <Box display="none">

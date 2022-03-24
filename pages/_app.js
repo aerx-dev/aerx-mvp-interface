@@ -61,7 +61,6 @@ function MyApp({ Component, pageProps }) {
                 await checkProfile(nearState);
             })();
         }
-        // run code inside useEffects anytime each of the dependencies changes.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading, nearState.accountId, nearState.pnftContract]);
 
