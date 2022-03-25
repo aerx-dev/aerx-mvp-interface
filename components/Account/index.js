@@ -4,7 +4,8 @@ import useTranslation from "next-translate/useTranslation";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import CreateProfileForm from "./Form";
-import useIPFS from "../../hooks/useIPFS";
+// import useIPFS from "../../hooks/useIPFS";
+import usePinata from "../../hooks/usePinata"
 import useCustomToast from "../../hooks/useCustomToast";
 import AccountData from "./Account";
 import { pinFileToIPFS } from "../../lib/ipfsPinata"
@@ -20,9 +21,8 @@ const Account = () => {
 
     // The uploaded image which will be deployed through IPFS
     const [uploadImg, setUploadImg] = useState();
-    const [cidImg, setCidImg] = useState();
     // Ipsf hook with details and upload hook.
-    // const ipfsData = useIPFS(uploadImg, toast);
+    const ipfsData = usePinata(uploadImg, toast);
 
     const [profile, setProfile] = useState({
         username: nearState.accountId,
@@ -37,14 +37,13 @@ const Account = () => {
     function profileImageChange(event) {
         const { files } = event.target;
         if (files && files.length) {
+            console.log("Files : ", files)
             // // TODO assert that it is a image file
             // const filename = files[0].name;
             // var parts = filename.split(".");
             // const fileType = parts[parts.length - 1];
             // console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
-            const cid = pinFileToIPFS(event.target.files[0])
-            setTimeout(() => cid)
-            setUploadImg(() => event.target.files[0]);
+            setUploadImg(files[0]);
         }
     }
 
