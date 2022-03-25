@@ -16,19 +16,33 @@ function MyApp({ Component, pageProps }) {
     );
     const nearState = nearStore((state) => state);
 
-    useEffect(() => {
-        if (!ipfsIsOnline) {
-            var nodeIsOnline;
-            if (window.ipfs) {
-                nodeIsOnline = window.ipfs.isOnline();
-            } else {
-                nodeIsOnline = initIfps();
-            }
-            setIpfsIsOnline(nodeIsOnline);
-            console.log("IFPS node is online: ", nodeIsOnline);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ipfsIsOnline]);
+    // const toast = useToast();
+
+    // useEffect(() => {
+    //     if (!ipfsIsOnline) {
+    //         // toast({
+    //         //     id: "ipfs1",
+    //         //     status: "info",
+    //         //     duration: 3000,
+    //         //     description: "Starting IPFS node...",
+    //         // });
+    //         var nodeIsOnline;
+    //         if (window.ipfs) {
+    //             nodeIsOnline = window.ipfs.isOnline();
+    //         } else {
+    //             nodeIsOnline = initIfps();
+    //         }
+    //         setIpfsIsOnline(nodeIsOnline);
+    //         console.log("IFPS node is online: ", nodeIsOnline);
+    //         // toast({
+    //         //     id: "ipfs2",
+    //         //     status: "success",
+    //         //     duration: 3000,
+    //         //     description: "IPFS node is online!",
+    //         // });
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [ipfsIsOnline]);
 
     useEffect(() => {
         // due to issue with checkProfile

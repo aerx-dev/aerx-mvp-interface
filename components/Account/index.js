@@ -7,6 +7,7 @@ import CreateProfileForm from "./Form";
 import useIPFS from "../../hooks/useIPFS";
 import useCustomToast from "../../hooks/useCustomToast";
 import AccountData from "./Account";
+import { pinFileToIPFS } from "../../lib/ipfsPinata"
 
 const Account = () => {
     // The profile picture which will go into the NFT
@@ -19,8 +20,9 @@ const Account = () => {
 
     // The uploaded image which will be deployed through IPFS
     const [uploadImg, setUploadImg] = useState();
+    const [cidImg, setCidImg] = useState();
     // Ipsf hook with details and upload hook.
-    const ipfsData = useIPFS(uploadImg, toast);
+    // const ipfsData = useIPFS(uploadImg, toast);
 
     const [profile, setProfile] = useState({
         username: nearState.accountId,
@@ -40,6 +42,8 @@ const Account = () => {
             // var parts = filename.split(".");
             // const fileType = parts[parts.length - 1];
             // console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
+            const cid = pinFileToIPFS(event.target.files[0])
+            setTimeout(() => cid)
             setUploadImg(() => event.target.files[0]);
         }
     }
@@ -95,8 +99,8 @@ const Account = () => {
             toast(
                 "success",
                 "Your AERX ProfilNFT id: " +
-                    res.token_id +
-                    " was minted successfully!",
+                res.token_id +
+                " was minted successfully!",
                 "PNFTsccss",
             );
             console.log(res);
