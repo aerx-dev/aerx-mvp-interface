@@ -9,7 +9,7 @@ const deployCrust = false;
 
 
 // pass the file or state you want to upload. It will upload the file and retrun the response.
-export default function useIPFS(file, toast) {
+export default function usePinata(file, toast) {
     const [ipfsData, setIpfsData] = useState({
         fileUrl: null,
         fileSize: null,
