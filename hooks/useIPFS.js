@@ -13,7 +13,7 @@ export default function useIPFS(file, toast) {
 
     useEffect(() => {
         async function fileUpload() {
-            // console.log(window.ipfs)
+            console.log(file)
             const filename = file.name;
 
             var parts = filename.split(".");
