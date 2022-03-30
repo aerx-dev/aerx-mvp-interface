@@ -79,9 +79,14 @@ TODO:
 -   IPFS Core
 -   React Icons
 
-## Live Demo
+## Storyboard
 
-[aerx](https://aerx-2.vercel.app/)
+Storyboard is set up following this [tutorial](https://dev.to/theodorusclarence/step-by-step-how-to-setup-storybook-with-nextjs-and-tailwind-css-lf)
+
+Place your `.stories.js` in `./stories` and Start the stroyboard server:
+```bash
+npm run storyboard
+```
 
 ## Browser side IPFS deployment
 
