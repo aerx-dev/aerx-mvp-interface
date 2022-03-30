@@ -81,7 +81,7 @@ TODO:
 
 ## Storyboard
 
-Storyboard is set up following this [tutorial](https://dev.to/theodorusclarence/step-by-step-how-to-setup-storybook-with-nextjs-and-tailwind-css-lf)
+Storyboard is set up following this [tutorial](https://storybook.js.org/blog/get-started-with-storybook-and-next-js/)
 
 Place your `.stories.js` in `./stories` and Start the stroyboard server:
 ```bash
