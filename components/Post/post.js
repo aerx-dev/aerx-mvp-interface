@@ -30,6 +30,7 @@ import { Layout } from "antd";
 import PurpleButton from "../UI/PurpleButton";
 import useCustomToast from "../../hooks/useCustomToast";
 import TimeAgo from "timeago-react";
+import SongCard from "../Player/songCard";
 
 const { Header, Footer, Content } = Layout;
 
@@ -104,16 +105,15 @@ function Post({ nft, charge }) {
                             isUserMsg
                                 ? nearState.profile?.profileImg
                                 : metadata?.media ||
-                                  nft?.owner_id || // extra connditions for display data
-                                  "https://bit.ly/dan-abramov"
+                                nft?.owner_id || // extra connditions for display data
+                                "https://bit.ly/dan-abramov"
                         }
                         size="sm"
                     />
                     <Text my={2}>{nft?.owner_id || "pavel dantsev"}</Text>
                     <TimeAgo
-                        className={`text-[11px] ${
-                            isUserMsg && "order-last pr-1"
-                        } opacity-60`}
+                        className={`text-[11px] ${isUserMsg && "order-last pr-1"
+                            } opacity-60`}
                         datetime={metadata.issued_at}
                     />
                     {/* <Text className="opacity-50">
@@ -127,7 +127,15 @@ function Post({ nft, charge }) {
                     </PurpleButton>
                 </Header>
                 <Content style={styles.content}>
-                    <Box mb={1}>
+                    {metadata?.extra?.type === "audio"
+                        ? <SongCard
+                            url={metadata?.media}
+                            artist={metadata?.extra?.artist}
+                            title={metadata?.extra?.title}
+                            duration={metadata?.extra?.duration}
+                            cover={metadata?.extra?.cover}
+                    />
+                    : <Box mb={1}>
                         {metadata?.media && (
                             <ChakraImage
                                 maxH={200}
@@ -139,7 +147,7 @@ function Post({ nft, charge }) {
                                 objectFit="contain"
                             />
                         )}
-                    </Box>
+                    </Box>}
                     <Box p={2}>{metadata?.description}</Box>
                 </Content>
                 <Divider />
