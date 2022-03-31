@@ -1,5 +1,6 @@
 // .storybook/preview.js
 import "../styles/globals.css";
+import "../components/Landing/slider.css";
 import * as NextImage from "next/image";
 
 const OriginalNextImage = NextImage.default;
@@ -9,12 +10,12 @@ Object.defineProperty(NextImage, "default", {
   value: (props) => <OriginalNextImage {...props} unoptimized />,
 });
 
-// const theme = require('../lib/theme.js')
+const myTheme = require('../lib/theme')
 
 export const parameters = {
-  // chakra: {
-  //   theme,
-  // },
+  chakra: {
+    myTheme,
+  },
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {
     matchers: {
@@ -23,4 +24,3 @@ export const parameters = {
     },
   },
 }
-

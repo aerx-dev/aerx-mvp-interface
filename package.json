@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@ant-design/icons": "^4.7.0",
+        "@chakra-ui/color-mode": "^1.4.7",
         "@chakra-ui/icons": "^1.1.5",
         "@chakra-ui/react": "^1.8.3",
         "@crustio/type-definitions": "^1.2.0",
@@ -47,7 +48,9 @@
         "@chakra-ui/storybook-addon": "^1.0.3",
         "@emotion/react": "^11.8.2",
         "@emotion/styled": "^11.8.1",
+        "@react-theming/storybook-addon": "^1.1.5",
         "@storybook/addon-actions": "^6.4.19",
+        "@storybook/addon-controls": "^6.4.19",
         "@storybook/addon-essentials": "^6.4.19",
         "@storybook/addon-interactions": "^6.4.19",
         "@storybook/addon-links": "^6.4.19",

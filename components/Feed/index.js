@@ -56,7 +56,7 @@ const Feed = () => {
                                 <LazyPosts
                                     key={nft.token_id}
                                     nft={nft}
-                                    charge={getCharge(nft.token_id)}
+                                    // charge={getCharge(nft.token_id) || 0}
                                 />
                             );
                         })}

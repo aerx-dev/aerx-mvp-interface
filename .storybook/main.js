@@ -4,15 +4,18 @@ module.exports = {
     "../stories/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
-    '@chakra-ui/storybook-addon',
     '@storybook/addon-postcss',
     "@storybook/addon-links",
     "@storybook/addon-essentials",
+    '@storybook/addon-controls',
     "@storybook/addon-actions",
     "@storybook/addon-interactions",
+    '@chakra-ui/storybook-addon',
+    "@react-theming/storybook-addon",
   ],
   "framework": "@storybook/react",
   "core": {
     "builder": "webpack5"
-  }
+  },
+
 }

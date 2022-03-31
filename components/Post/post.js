@@ -36,6 +36,7 @@ const { Header, Footer, Content } = Layout;
 
 function Post({ nft, charge }) {
     const metadata = nft.metadata;
+    const extra = JSON.parse(nft.metadata?.extra) || null;
     const tokenId = nft.token_id;
     const postBg = useColorModeValue("#edf2f7", "#171923");
     const nearState = nearStore((state) => state);
@@ -116,9 +117,6 @@ function Post({ nft, charge }) {
                             } opacity-60`}
                         datetime={metadata.issued_at}
                     />
-                    {/* <Text className="opacity-50">
-                        {date?.issued_at || "2h ago"}
-                    </Text> */}
                     <PurpleButton
                         className="right-0 text-white"
                         leftIcon={<HiShoppingBag />}
@@ -127,13 +125,13 @@ function Post({ nft, charge }) {
                     </PurpleButton>
                 </Header>
                 <Content style={styles.content}>
-                    {metadata?.extra?.type === "audio"
+                    {(extra?.media_type === "audio" || extra?.type === "audio")
                         ? <SongCard
                             url={metadata?.media}
-                            artist={metadata?.extra?.artist}
-                            title={metadata?.extra?.title}
-                            duration={metadata?.extra?.duration}
-                            cover={metadata?.extra?.cover}
+                            artist={extra?.artist}
+                            title={extra?.title}
+                            duration={extra?.duration}
+                            cover={extra?.cover}
                     />
                     : <Box mb={1}>
                         {metadata?.media && (

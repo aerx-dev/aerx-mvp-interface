@@ -20,7 +20,6 @@ export default function usePinata(file, toast) {
 
     useEffect(() => {
         async function fileUpload() {
-            // console.log(window.ipfs)
             const filename = file.name
             var parts = filename.split(".");
             const fileType = parts[parts.length - 1];
@@ -30,7 +29,6 @@ export default function usePinata(file, toast) {
 
             pinFileToIPFS(file, filename)
                 .then((res) => {
-                    console.log("resss: ", res)
                     // Createthe url and get the sha256 base64 hash of the url
                     const _fileUrl = "https://ipfs.io/ipfs/" + res.data.IpfsHash
                     const _urlHash = new shajs.sha256().update(_fileUrl).digest('base64')
