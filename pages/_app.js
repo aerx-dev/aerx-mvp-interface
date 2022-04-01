@@ -4,7 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { initNearConnection, initIfps, checkProfile } from "../lib/auth";
 import { nearStore } from "../stores/near.js";
 import { useEffect, useState } from "react";
-import theme from "../lib/theme.js";
+import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
 // import { useSessionStorage } from "beautiful-react-hooks";
 
@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <ChakraProvider
-         theme={theme}
+         theme={myTheme}
          >
             <ThemeProvider attribute="class">
                 <Component {...pageProps} />
