@@ -173,12 +173,35 @@ function Post({ nft, charge }) {
 const ChargeModal = ({ nft, state }) => {
     const [isOpen, onClose] = state;
     const nearState = nearStore((state) => state);
+    const [currentCharge, setCurrentCharge] = useState()
     const sliderTrack = useColorModeValue("yellow.400", "yellow.400");
     const sliderTrackBg = useColorModeValue("yellow.100", "yellow.100");
     const sliderThumbColor = useColorModeValue("gray.900", "gray.900");
     const [sliderValue, setSliderValue] = useState(0);
     const postBg = useColorModeValue("#d182ffda", "#171923");
     const toast = useCustomToast();
+
+
+    
+    useEffect(() => {
+        async function getCharge(_token_id) {
+            nearState.cnftContract
+                .get_charge({ token_id: _token_id })
+                .finally((res) => {
+                    setCurrentCharge(res)
+                    console.log(res)
+                    return res;
+                })
+                .catch((err) => {
+                    console.log("GetCharge failed!", err);
+                    // return 0;
+                });
+            // return res;
+        }
+        getCharge(nft.token_id);
+        // setCurrentCharge(chargeId)
+        
+    }, [nearState, nft.token_id]);
 
     function updateSlider(e) {
         setSliderValue(e);
@@ -197,12 +220,13 @@ const ChargeModal = ({ nft, state }) => {
     }
 
     async function chargePost() {
-        // const amount = 11;
+        const _amount = sliderValue.toString();
+        setCharge(nft.tokenId, _amount)
         nearState.tokenContract
             .ft_transfer(
                 {
                     receiver_id: nft.owner_id,
-                    amount: sliderValue.toString(),
+                    amount: _amount,
                     memo:
                         "Charge :zap: from " +
                         nearState?.accountId +
@@ -216,7 +240,7 @@ const ChargeModal = ({ nft, state }) => {
                 console.log("Charge failed!", e);
                 toast("error", "Charge failed!", "ChargeIderr");
             })
-            .then(() => setCharge(nft.tokenId, amount));
+            .then(() => setCharge(nft.tokenId, _amount));
         onClose();
     }
     return (
@@ -256,6 +280,11 @@ const ChargeModal = ({ nft, state }) => {
                 </ModalBody>
 
                 <ModalFooter>
+                    <Box 
+                    className="mr-auto"
+                    >
+                        {currentCharge || "loading..."}
+                    </Box>
                     <Button
                         variant="ghost"
                         mr={3}

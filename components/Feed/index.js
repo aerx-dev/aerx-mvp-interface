@@ -24,18 +24,6 @@ const Feed = () => {
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
 
-    async function getCharge(token_id) {
-        nearState.cnftContract
-            .get_charge({ token_id: token_id })
-            .finally((res) => {
-                return res;
-            })
-            .catch((err) => {
-                console.log("GetCharge failed!", err);
-                return 0;
-            });
-        // return res;
-    }
 
     return (
         <Layout>
