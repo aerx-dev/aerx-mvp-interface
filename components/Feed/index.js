@@ -51,7 +51,7 @@ const Feed = () => {
                             <NewPost state={nearState} bg={postBg} />
                         </Box>
 
-                        {nearState.feed?.map((nft) => {
+                        {nearState.feed?.sort(function(a, b){return b.token_id-a.token_id}).map((nft) => {
                             return (
                                 <LazyPosts
                                     key={nft.token_id}
