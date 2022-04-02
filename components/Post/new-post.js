@@ -9,7 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 import useCustomToast from "../../hooks/useCustomToast";
-import useIPFS from "../../hooks/useIPFS";
+// import useIPFS from "../../hooks/useIPFS";
+import usePinata from "../../hooks/usePinata"
 import { AddIcon } from "@chakra-ui/icons";
 import { useState, useEffect, useRef } from "react";
 import { nearStore } from "../../stores/near";
@@ -26,7 +27,7 @@ function NewPost({ bg }) {
     // The uploaded image which will be deployed through IPFS
     const [uploadFile, setUploadFile] = useState();
     // Ipsf hook with details and upload hook.
-    const ipfsData = useIPFS(uploadFile, toast);
+    const ipfsData = usePinata(uploadFile, toast);
 
     const [body, setBody] = useState({
         text: "",
@@ -99,7 +100,7 @@ function NewPost({ bg }) {
         setBody((prevBody) => {
             return {
                 ...prevBody,
-                media_type: "audio",
+                type: "audio",
             };
         });
     };
@@ -110,7 +111,7 @@ function NewPost({ bg }) {
         setBody((prevBody) => {
             return {
                 ...prevBody,
-                media_type: "image",
+                type: "image",
             };
         });
     };
