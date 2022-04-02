@@ -197,12 +197,12 @@ const ChargeModal = ({ nft, state }) => {
     }
 
     async function chargePost() {
-        const amount = 11;
+        // const amount = 11;
         nearState.tokenContract
             .ft_transfer(
                 {
                     receiver_id: nft.owner_id,
-                    amount: amount.toString(),
+                    amount: sliderValue.toString(),
                     memo:
                         "Charge :zap: from " +
                         nearState?.accountId +

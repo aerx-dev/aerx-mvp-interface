@@ -45,6 +45,8 @@ export default function SideBar({ children, bg, state }) {
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
 
+    console.log(state)
+
     return (
         <Layout hasSider>
             <Sider
