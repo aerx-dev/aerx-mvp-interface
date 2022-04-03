@@ -17,6 +17,7 @@ import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
 import { supabase } from "../../lib/supabaseClient"
+import { randomUUID } from "crypto";
 
 function NewPost({ bg }) {
     const nearState = nearStore((state) => state);
@@ -33,6 +34,7 @@ function NewPost({ bg }) {
         text: "",
         media_type: "text",
     });
+
     const { t } = useTranslation("profile");
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(0)" : "invert(0)";
@@ -48,9 +50,11 @@ function NewPost({ bg }) {
                     "BalanceId",
                 );
             }
+
         })(); // IIFE
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
     async function createPost() {
         if (!body.text) {
@@ -84,8 +88,10 @@ function NewPost({ bg }) {
                 "CNFTsccss",
             );
 
-            // upload the data to Supabase if successfully minted
-            let { error } = await supabase.from('tokenmetadata').upsert(res, {
+            postToSave.id = randomUUID()
+            postToSave.totalcharged = 0;
+            postToSave.owner_id = res.owner_id;
+            let { error } = await supabase.from('contentnft').upsert(postToSave, {
                 returning: 'minimal', // Don't return the value after inserting
             })
 
