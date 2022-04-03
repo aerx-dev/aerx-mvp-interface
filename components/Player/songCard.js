@@ -52,7 +52,7 @@ const SongCard = (props) => {
             borderRadius="full"
             className="shadow-xl"
         >
-            {!props.cover && <Avatar
+            {props.cover && <Avatar
                 mr={3}
                 size="xl"
                 src={props.cover}
