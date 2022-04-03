@@ -221,7 +221,6 @@ const ChargeModal = ({ nft, state }) => {
 
     async function chargePost() {
         const _amount = sliderValue.toString();
-        setCharge(nft.tokenId, _amount)
         nearState.tokenContract
             .ft_transfer(
                 {
@@ -233,8 +232,8 @@ const ChargeModal = ({ nft, state }) => {
                         " for your AEXpost id." +
                         nft.token_id,
                 },
-                "300000000000000", // attached GAS (optional)
-                1, // attached deposit in yoctoNEAR (optional)
+                // "300000000000000", // attached GAS (optional)
+                // 1, // attached deposit in yoctoNEAR (optional)
             )
             .catch((e) => {
                 console.log("Charge failed!", e);
