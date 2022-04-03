@@ -197,26 +197,26 @@ const ChargeModal = ({ nft, state }) => {
     }
 
     async function chargePost() {
-        // const amount = 11;
+        const _amount = sliderValue.toString();
         nearState.tokenContract
             .ft_transfer(
                 {
                     receiver_id: nft.owner_id,
-                    amount: sliderValue.toString(),
+                    amount: _amount,
                     memo:
                         "Charge :zap: from " +
                         nearState?.accountId +
                         " for your AEXpost id." +
                         nft.token_id,
                 },
-                "300000000000000", // attached GAS (optional)
-                1, // attached deposit in yoctoNEAR (optional)
+                // "300000000000000", // attached GAS (optional)
+                // 1, // attached deposit in yoctoNEAR (optional)
             )
             .catch((e) => {
                 console.log("Charge failed!", e);
                 toast("error", "Charge failed!", "ChargeIderr");
             })
-            .then(() => setCharge(nft.tokenId, amount));
+            .then(() => setCharge(nft.tokenId, _amount));
         onClose();
     }
     return (
