@@ -37,6 +37,11 @@ const Feed = () => {
         // return res;
     }
 
+    async function getProfileNFTMetadata(token_id) {
+        // get the data from supabase here and render below
+
+    }
+
     return (
         <Layout>
             <Box className="p-4 z-10 relative md:px-10">

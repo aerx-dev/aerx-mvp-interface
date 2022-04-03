@@ -16,6 +16,7 @@ import { nearStore } from "../../stores/near";
 import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
+import { supabase } from "../../lib/supabaseClient"
 
 function NewPost({ bg }) {
     const nearState = nearStore((state) => state);
@@ -82,6 +83,19 @@ function NewPost({ bg }) {
                 "AERX PostNFT nr." + res.token_id + " minted successfully!",
                 "CNFTsccss",
             );
+
+            // upload the data to Supabase if successfully minted
+            let { error } = await supabase.from('tokenmetadata').upsert(res, {
+                returning: 'minimal', // Don't return the value after inserting
+            })
+
+            if (error) {
+                throw error
+            } else {
+                console.log(res + " Uploaded successfully to Supabase")
+            }
+
+
         } catch (e) {
             console.log("NFT could not be minted! Error: " + e.message);
             toast(
