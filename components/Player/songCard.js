@@ -70,7 +70,7 @@ const SongCard = (props) => {
             <Box
                 className="ml-2 mr-3"
             >
-                {loading ? <SpinnerIcon class="animate-spin h-6 w-6" />
+                {loading ? <SpinnerIcon className="animate-spin h-6 w-6" />
                     : <PlayButton
                         playing={playing}
                         setPlaying={setPlaying}
