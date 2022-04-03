@@ -88,9 +88,12 @@ function NewPost({ bg }) {
                 "CNFTsccss",
             );
 
+            //Upload the contentNFT to Supabase
             postToSave.id = randomUUID()
             postToSave.totalcharged = 0;
             postToSave.owner_id = res.owner_id;
+            postToSave.comments = [];
+            postToSave.media_type = '';
             let { error } = await supabase.from('contentnft').upsert(postToSave, {
                 returning: 'minimal', // Don't return the value after inserting
             })
