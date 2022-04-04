@@ -92,6 +92,8 @@ function Post({ nft, charge }) {
             <Layout style={styles}>
                 <Header style={styles.header}>
                     <Avatar
+                        className=" bg-slate-300"
+                        bg={postBg}
                         name={nft?.owner_id}
                         src={
                             isUserMsg

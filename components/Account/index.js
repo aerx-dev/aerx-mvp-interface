@@ -21,6 +21,16 @@ const Account = () => {
 
     // The uploaded image which will be deployed through IPFS
     const [uploadImg, setUploadImg] = useState();
+    const [lockPage, setLockPage] = useState(true);
+    const [updating, setUpdating] = useState(true);
+
+    console.log(nearState.profile)
+    useEffect(() => {
+        if (!nearState.profile) {
+            setLockPage(false)
+            setUpdating(false)
+        }
+    }, [nearState.profile])
     // Ipsf hook with details and upload hook.
     const ipfsData = usePinata(uploadImg, toast);
 
@@ -87,14 +97,26 @@ const Account = () => {
 
         // 3. send mint request
         try {
-            const res = await pnftContract.nft_mint(
-                {
-                    receiver_id: nearState.accountId,
-                    token_metadata: profileToSave,
-                },
-                "300000000000000", // attached GAS (optional)
-                "9640000000000000000011", // attached deposit in yoctoNEAR (optional))
-            );
+            var res;
+            if (updating) {
+                res = await pnftContract.nft_update_profile(
+                    {
+                        receiver_id: nearState.accountId,
+                        token_metadata: profileToSave,
+                    },
+                    "300000000000000", // attached GAS (optional)
+                    "9990000000000000000011", // attached deposit in yoctoNEAR (optional))
+                    );
+            } else {
+                res = await pnftContract.nft_mint(
+                    {
+                        receiver_id: nearState.accountId,
+                        token_metadata: profileToSave,
+                    },
+                    "300000000000000", // attached GAS (optional)
+                    "9990000000000000000011", // attached deposit in yoctoNEAR (optional))
+                    );
+                }
             toast(
                 "success",
                 "Your AERX ProfilNFT id: " +
@@ -110,41 +132,43 @@ const Account = () => {
     }
 
     async function onBurn() {
-        console.log("BURN");
-        const res = 11;
-        toast(
-            "success",
-            "Your AERX ProfilNFT id: " + res.token_id + " was burned!",
-            "PNFTburn",
-        );
-        // TODO brun NFT
-
-        // remove profile from state
-        nearState.setProfile(null);
+        setProfile(() => {
+            return {
+                ...nearState.profile,
+                username: nearState.accountId,
+            }
+        })
+        setUpdating(true)
+        setLockPage(false)
+        // nearState.setProfile(null);
     }
 
     return (
         <Layout>
             <Box
-                className="px-4 md:px-10"
+                className="px-4 md:px-10 max-w-screen-xl"
                 py={2}
-                maxWidth={1100}
-                margin="0 auto"
             >
-                <Heading as="h1" mb={3}>
-                    {t("title")}
-                </Heading>
-                {nearState.profile ? (
-                    <Box alignContent="safe center">
-                        <AccountData profile={nearState.profile} t={t} />
+                <Box className="drop-shadow-xl flex">
+                    <Heading as="h1" mb={3}>
+                        {t("title")}
+                    </Heading>
+                    {lockPage &&
                         <Button
-                            marginTop="10px"
-                            marginLeft="11px"
-                            colorScheme="red"
+                            className=" ml-auto"
+                            colorScheme="blue"
                             onClick={onBurn}
                         >
-                            Burn Profile
+                            Update Profile
                         </Button>
+                    }
+                </Box>
+                {lockPage ? (
+                    <Box >
+                        <Box alignContent="safe center">
+                            <AccountData profile={profile} t={t} />
+
+                        </Box>
                     </Box>
                 ) : (
                     <CreateProfileForm

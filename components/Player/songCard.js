@@ -57,6 +57,7 @@ const SongCard = (props) => {
                 size="xl"
                 src={props.cover}
                 alt={props.title}
+                bg={bg}
                 className="shadow-sm ring-2 ring-gray-600 hover:ring"
             />}
             <Stack >

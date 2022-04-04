@@ -100,7 +100,7 @@ export default function SideBar({ children, bg, state }) {
                 collapsed={isCollapsed}
                 style={{
                     overflow: "auto",
-                    height: "100vh",
+                    // height: "100vh",
                     position: "fixed",
                     right: 0,
                     top: "4.5rem",
@@ -164,7 +164,7 @@ const LSidebarContent = ({ profile, balance, ...rest }) => {
 
     return (
         <Box
-            className="border-0 fixed h-full"
+            className="border-1 fixed max-h-screen "
             w={{ base: "full", md: 60 }}
             {...rest}
         >
@@ -190,13 +190,12 @@ const LSidebarContent = ({ profile, balance, ...rest }) => {
                         <Text className="h-1/6 font-bold">
                             {profile?.fullName || "Pavel Dantsev"}
                         </Text>
-                        <Text as="i" sx={styles} fontWeight="bold">
+                        <Text as="i">
                             @{profile?.username || "pashq"}
                         </Text>
                         <LSideBarIters iterType="tags" data={tags} {...rest} />
                         <HStack
                             className="absolute bottom-0 w-full"
-                            sx={styles}
                         >
                             {/* <Text>
                                 <Icon as={EnvironmentOutlined} /> {profile.country}
@@ -207,13 +206,18 @@ const LSidebarContent = ({ profile, balance, ...rest }) => {
                         </HStack>
                     </Box>
                 </Box>
-                <Box className="text-center p-5 py-7" h="23vh" sx={styles}>
-                    <Text className="opacity-50 mb-2">ABOUT</Text>
-                    <Text>
+                <Box className="text-center p-5 py-7 max-h-auto" >
+                    <Text className="opacity-50 mb-2  font-semibold">ABOUT</Text>
+                    <Text className=" text-sm">
                         {profile?.aboutMe ||
                             `I work as a doctor, but in my free time I lke to make
                         funny pictures and videos. See more details in my
                         collection.`}
+                    </Text>
+                    <Text className="opacity-50 mb-2 mt-6 font-semibold">HOBBYES</Text>
+                    <Text className="text-sm">
+                        {profile?.hobbys ||
+                            `Hobbies, what's that?!`}
                     </Text>
                 </Box>
                 <Divider />
@@ -278,7 +282,6 @@ const LSideBarBalance = ({ balance, ...rest }) => {
     return (
         <Flex
             textAlign="center"
-            sx={styles}
             direction="column"
             justifyContent="center"
             alignItems="center"
@@ -330,7 +333,7 @@ const RSidebarContent = ({ collapse, ...rest }) => {
         collapse[1](!collapse[0]);
     };
     return (
-        <Box border="none" w={200} pos="fixed" h="full" sx={styles}>
+        <Box border="none" w={200} pos="fixed" h="full" >
             <Flex
                 alignItems="left"
                 mx={2}
