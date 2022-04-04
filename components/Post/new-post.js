@@ -195,7 +195,6 @@ function NewPost({ bg }) {
             });
             console.log(body);
             setUploadFile(() => event.target.files[0]);
-            console.log("Testing file to be uploaded", event.target.files[0])
             fileUpload(event.target.files[0]);
         }
     }
@@ -221,7 +220,7 @@ function NewPost({ bg }) {
 
     async function fileUpload(file) {
         if (file) {
-            const { data, error } = await supabase.storage.from('contentnft').upload('contentnft', file, {
+            const { data, error } = await supabase.storage.from('contentnft').upload(file.name, file, {
                 cacheControl: '3600',
                 upsert: false
             });
