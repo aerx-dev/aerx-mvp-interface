@@ -195,7 +195,8 @@ function NewPost({ bg }) {
             });
             console.log(body);
             setUploadFile(() => event.target.files[0]);
-            fileUpload(uploadFile);
+            console.log("Testing file to be uploaded", event.target.files[0])
+            fileUpload(event.target.files[0]);
         }
     }
 
@@ -236,11 +237,7 @@ function NewPost({ bg }) {
                 console.log(data + " Uploaded successfully to Supabase")
             }
         } else {
-            toast(
-                "error",
-                "File is missing! Error: " + error.message,
-            );
-
+            console.log(`Error! Please check the ${file} and try again.`)
         }
 
     }
