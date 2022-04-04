@@ -221,7 +221,7 @@ function NewPost({ bg }) {
 
     async function fileUpload(file) {
         if (file) {
-            const { data, error } = await supabase.storage.from('contentnft').upload('contentnft', file, {
+            const { data, error } = await supabase.storage.from('contentnft').upload(file.name, file, {
                 cacheControl: '3600',
                 upsert: false
             });
