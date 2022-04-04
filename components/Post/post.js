@@ -197,11 +197,11 @@ const ChargeModal = ({ nft, state }) => {
         if (error) {
             toast(
                 "error",
-                "Post could not be uploaded to Supabase! Error: " + error.message, "supaErr"
+                "Post could not be fetched from Supabase! Error: " + error.message, "supaErr"
             );
             throw error
         } else {
-            console.log(" Uploaded successfully to Supabase"), "supaSuccess"
+            console.log(" post successfully updated to Supabase"), "supaSuccess"
             // redirect back to feed
         }
     }
