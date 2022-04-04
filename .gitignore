@@ -38,3 +38,5 @@ yarn-error.log*
 # storybook
 stories
 /stories
+
+package-lock.json

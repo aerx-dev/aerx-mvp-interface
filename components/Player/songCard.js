@@ -52,13 +52,14 @@ const SongCard = (props) => {
             borderRadius="full"
             className="shadow-xl"
         >
-            <Avatar
+            {props.cover && <Avatar
                 mr={3}
                 size="xl"
                 src={props.cover}
                 alt={props.title}
+                bg={bg}
                 className="shadow-sm ring-2 ring-gray-600 hover:ring"
-            />
+            />}
             <Stack >
                 <Box className="drop-shadow-lg font-black uppercase">
                     {props.title}
@@ -70,14 +71,14 @@ const SongCard = (props) => {
             <Box
                 className="ml-2 mr-3"
             >
-                {loading ? <SpinnerIcon class="animate-spin h-6 w-6" />
+                {loading ? <SpinnerIcon className="animate-spin h-6 w-6" />
                     : <PlayButton
                         playing={playing}
                         setPlaying={setPlaying}
                     />}
             </Box>
             <Box
-                className="w-full ml-1 mr-3"
+                className="w-full ml-2 mr-6"
             >
                {!loading && <PlaySlider
                     current={curTime}
