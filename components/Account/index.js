@@ -29,6 +29,9 @@ const Account = () => {
         if (!nearState.profile) {
             setLockPage(false)
             setUpdating(false)
+        } else {
+            setLockPage(true)
+            setUpdating(true)
         }
     }, [nearState.profile])
     // Ipsf hook with details and upload hook.
