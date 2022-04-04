@@ -25,6 +25,11 @@ const Feed = () => {
     const postBg = useColorModeValue("gray.100", "gray.900");
 
 
+    async function getContentNFT(token_id) {
+        // get the content NFT data from supabase here and render below
+
+    }
+
     return (
         <Layout>
             <Box className="p-4 z-10 relative md:px-10">
