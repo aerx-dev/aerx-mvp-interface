@@ -79,9 +79,15 @@ TODO:
 -   IPFS Core
 -   React Icons
 
-## Live Demo
+## Storyboard
 
-[aerx](https://aerx-2.vercel.app/)
+Storyboard is set up following this [tutorial](https://storybook.js.org/blog/get-started-with-storybook-and-next-js/) and the [chakra-ui settings](https://chakra-ui.com/guides/integrations/with-storybook).
+
+
+Place your `.stories.js` in `./stories` and Start the stroyboard server:
+```bash
+npm run storyboard
+```
 
 ## Browser side IPFS deployment
 
