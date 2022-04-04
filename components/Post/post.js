@@ -31,6 +31,7 @@ import PurpleButton from "../UI/PurpleButton";
 import useCustomToast from "../../hooks/useCustomToast";
 import TimeAgo from "timeago-react";
 import SongCard from "../Player/songCard";
+import { supabase, postToSupa } from "../../lib/supabaseClient"
 
 const { Header, Footer, Content } = Layout;
 
@@ -132,20 +133,20 @@ function Post({ nft, charge }) {
                             title={extra?.title}
                             duration={extra?.duration}
                             cover={extra?.cover}
-                    />
-                    : <Box mb={1}>
-                        {metadata?.media && (
-                            <ChakraImage
-                                maxH={200}
-                                rounded="lg"
-                                maxWidth={["100%", "400px", "225px"]}
-                                margin="0 auto"
-                                src={metadata?.media}
-                                alt={"contentNftmedia" + tokenId}
-                                objectFit="contain"
-                            />
-                        )}
-                    </Box>}
+                        />
+                        : <Box mb={1}>
+                            {metadata?.media && (
+                                <ChakraImage
+                                    maxH={200}
+                                    rounded="lg"
+                                    maxWidth={["100%", "400px", "225px"]}
+                                    margin="0 auto"
+                                    src={metadata?.media}
+                                    alt={"contentNftmedia" + tokenId}
+                                    objectFit="contain"
+                                />
+                            )}
+                        </Box>}
                     <Box p={2}>{metadata?.description}</Box>
                 </Content>
                 <Divider />
@@ -184,6 +185,27 @@ const ChargeModal = ({ nft, state }) => {
         setSliderValue(e);
     }
 
+    async function getTotalCharges(_tokenId, _charge) {
+        // Get the post using the tokenId from supabase
+        const { data, error } = await supabase.from('postnft').select('id, totalCharged').eq('id', _tokenId)
+        console.log("data received from supabase", data)
+        const newTotalCharge = data.totalCharged + _charge;
+        // Update the post total charge on the db before setting the charge
+        // on page reload
+        setCharge(_tokenId, newTotalCharge);
+
+        if (error) {
+            toast(
+                "error",
+                "Post could not be uploaded to Supabase! Error: " + error.message, "supaErr"
+            );
+            throw error
+        } else {
+            console.log(" Uploaded successfully to Supabase"), "supaSuccess"
+            // redirect back to feed
+        }
+    }
+
     async function setCharge(_tokenId, _charge) {
         try {
             await nearState.cnftContract.set_charge({
@@ -216,9 +238,12 @@ const ChargeModal = ({ nft, state }) => {
                 console.log("Charge failed!", e);
                 toast("error", "Charge failed!", "ChargeIderr");
             })
-            .then(() => setCharge(nft.tokenId, amount));
+            .then(() => getTotalCharges(nft.tokenId, amount))
+        //.then(() => setCharge(nft.tokenId, newAmount));
         onClose();
     }
+
+
     return (
         <Modal
             size="xl"
