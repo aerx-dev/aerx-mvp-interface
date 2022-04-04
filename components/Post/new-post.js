@@ -18,7 +18,7 @@ import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
 import { supabase } from "../../lib/supabaseClient"
-import { randomUUID } from "crypto";
+import { v4 as uuidv4 } from 'uuid';
 
 function NewPost({ bg }) {
     const nearState = nearStore((state) => state);
@@ -68,7 +68,7 @@ function NewPost({ bg }) {
             description: body.text,
             media: ipfsData.fileUrl,
             media_hash: ipfsData.urlSha256,
-            issued_at: new Date().toString(),
+            issued_at: ((new Date()).toISOString()).toLocaleString('zh-TW'),
             extra: JSON.stringify(body),
         };
         console.log(body);
@@ -90,21 +90,61 @@ function NewPost({ bg }) {
             );
 
             //Upload the contentNFT to Supabase
-            postToSave.id = randomUUID()
+            postToSave.id = uuidv4();
             postToSave.totalcharged = 0;
             postToSave.owner_id = res.owner_id;
             postToSave.comments = [];
-            postToSave.media_type = '';
-            let { error } = await supabase.from('contentnft').upsert(postToSave, {
-                returning: 'minimal', // Don't return the value after inserting
-            })
+            postToSave.media_type = 'text';
+            const [
+                id,
+                owner_id,
+                title,
+                description,
+                media,
+                media_hash,
+                media_type,
+                issued_at,
+                extra,
+                totalcharged,
+                comments,
+            ] = [
+                    postToSave.id,
+                    postToSave.owner_id,
+                    postToSave.title,
+                    postToSave.description,
+                    postToSave.media,
+                    postToSave.media_hash,
+                    postToSave.media_type,
+                    postToSave.issued_at,
+                    postToSave.totalcharged,
+                    postToSave.comments,
+                ]
+            const { data, error } = await supabase.from("postnft").insert([{
+                id,
+                owner_id,
+                title,
+                description,
+                media,
+                media_hash,
+                media_type,
+                issued_at,
+                extra,
+                totalcharged,
+                comments
+
+            }]);
+
+            console.log("data uploaded to supabase", data)
 
             if (error) {
+                toast(
+                    "error",
+                    "Post could not be uploaded! Error: " + error.message,
+                );
                 throw error
             } else {
                 console.log(res + " Uploaded successfully to Supabase")
             }
-
 
         } catch (e) {
             console.log("NFT could not be minted! Error: " + e.message);
@@ -153,6 +193,7 @@ function NewPost({ bg }) {
             });
             console.log(body);
             setUploadFile(() => event.target.files[0]);
+            fileUpload(uploadFile);
         }
     }
 
@@ -174,6 +215,27 @@ function NewPost({ bg }) {
     //         setRefresh(true);
     //     }
     // }
+
+    async function fileUpload(file) {
+        if (file) {
+            const { data, error } = await supabase.storage.from('contentnft').upload('contentnft', file, {
+                cacheControl: '3600',
+                upsert: false
+            });
+
+            console.log("File uploaded to supabase", file)
+            if (error) {
+                toast(
+                    "error",
+                    "File could not be uploaded! Error: " + error.message,
+                );
+                throw error
+            } else {
+                console.log(data + " Uploaded successfully to Supabase")
+            }
+        }
+
+    }
 
     return (
         <Box
