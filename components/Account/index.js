@@ -24,16 +24,6 @@ const Account = () => {
     const [lockPage, setLockPage] = useState(true);
     const [updating, setUpdating] = useState(true);
 
-    console.log(nearState.profile)
-    useEffect(() => {
-        if (!nearState.profile) {
-            setLockPage(false)
-            setUpdating(false)
-        } else {
-            setLockPage(true)
-            setUpdating(true)
-        }
-    }, [nearState.profile])
     // Ipsf hook with details and upload hook.
     const ipfsData = usePinata(uploadImg, toast);
 
@@ -46,6 +36,25 @@ const Account = () => {
         country: "",
         ...nearState.profile,
     });
+
+    useEffect(() => {
+        console.log(nearState.profile)
+        if (!nearState.profile) {
+            setLockPage(false)
+            setUpdating(false)
+        } else {
+            setLockPage(true)
+            setUpdating(true)
+            setProfile((prevProfile) => {
+                return {
+                    ...prevProfile,
+                    username: nearState.accountId,
+                    ...nearState.profile,
+                };
+            });
+
+        }
+    }, [nearState.profile, nearState.accountId])
 
     function profileImageChange(event) {
         const { files } = event.target;
@@ -109,7 +118,7 @@ const Account = () => {
                     },
                     "300000000000000", // attached GAS (optional)
                     "9990000000000000000011", // attached deposit in yoctoNEAR (optional))
-                    );
+                );
             } else {
                 res = await pnftContract.nft_mint(
                     {
@@ -118,8 +127,8 @@ const Account = () => {
                     },
                     "300000000000000", // attached GAS (optional)
                     "9990000000000000000011", // attached deposit in yoctoNEAR (optional))
-                    );
-                }
+                );
+            }
             toast(
                 "success",
                 "Your AERX ProfilNFT id: " +
