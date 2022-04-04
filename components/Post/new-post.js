@@ -17,6 +17,7 @@ import { nearStore } from "../../stores/near";
 import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
+import { supabase, postToSupa } from "../../lib/supabaseClient"
 
 function NewPost({ bg }) {
     const nearState = nearStore((state) => state);
@@ -33,6 +34,7 @@ function NewPost({ bg }) {
         text: "",
         media_type: "text",
     });
+
     const { t } = useTranslation("profile");
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(0)" : "invert(0)";
@@ -48,9 +50,11 @@ function NewPost({ bg }) {
                     "BalanceId",
                 );
             }
+
         })(); // IIFE
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
     async function createPost() {
         if (!body.text) {
@@ -63,7 +67,7 @@ function NewPost({ bg }) {
             description: body.text,
             media: ipfsData.fileUrl,
             media_hash: ipfsData.urlSha256,
-            issued_at: new Date().toString(),
+            issued_at: new Date().toISOString(),
             extra: JSON.stringify(body),
         };
         console.log(body);
@@ -83,6 +87,9 @@ function NewPost({ bg }) {
                 "AERX PostNFT nr." + res.token_id + " minted successfully!",
                 "CNFTsccss",
             );
+
+            postToSupa(postToSave, toast)
+
         } catch (e) {
             console.log("NFT could not be minted! Error: " + e.message);
             toast(
