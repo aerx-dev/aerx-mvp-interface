@@ -105,7 +105,7 @@ function NewPost({ bg }) {
                 media_type,
                 issued_at,
                 totalcharged,
-                extra,              
+                extra,
                 comments,
             ] = [
                     postToSave.id,
@@ -144,7 +144,8 @@ function NewPost({ bg }) {
                 );
                 throw error
             } else {
-                console.log(res + " Uploaded successfully to Supabase")
+                console.log(" Uploaded successfully to Supabase")
+                // redirect back to feed
             }
 
         } catch (e) {
@@ -234,6 +235,12 @@ function NewPost({ bg }) {
             } else {
                 console.log(data + " Uploaded successfully to Supabase")
             }
+        } else {
+            toast(
+                "error",
+                "File is missing! Error: " + error.message,
+            );
+
         }
 
     }
