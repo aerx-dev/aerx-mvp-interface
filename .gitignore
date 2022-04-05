@@ -40,3 +40,7 @@ stories
 /stories
 
 package-lock.json
+
+# example files
+*.json.example
+*.example
