@@ -1,0 +1,812 @@
+scalar BigInt
+
+"""
+Boolean expression comparing fields on type "BigInt"
+"""
+input BigIntFilter {
+  eq: BigInt
+  gt: BigInt
+  gte: BigInt
+  lt: BigInt
+  lte: BigInt
+  neq: BigInt
+}
+
+"""
+Boolean expression comparing fields on type "Boolean"
+"""
+input BooleanFilter {
+  eq: Boolean
+  gt: Boolean
+  gte: Boolean
+  lt: Boolean
+  lte: Boolean
+  neq: Boolean
+}
+
+type Comment {
+  id: BigInt!
+  createdAt: Datetime
+  updatedAt: Datetime
+  message: String!
+  profileId: UUID!
+  postId: BigInt!
+  post: Post
+  profile: Profile
+}
+
+type CommentConnection {
+  edges: [CommentEdge!]!
+  pageInfo: PageInfo!
+
+  """The total number of records matching the `filter` criteria"""
+  totalCount: Int!
+}
+
+type CommentDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Comment!]!
+}
+
+type CommentEdge {
+  cursor: String!
+  node: Comment
+}
+
+input CommentFilter {
+  id: BigIntFilter
+  createdAt: DatetimeFilter
+  updatedAt: DatetimeFilter
+  message: StringFilter
+  profileId: UUIDFilter
+  postId: BigIntFilter
+}
+
+input CommentInsertInput {
+  createdAt: Datetime
+  updatedAt: Datetime
+  message: String
+  profileId: UUID
+  postId: BigInt
+}
+
+type CommentInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Comment!]!
+}
+
+input CommentOrderBy {
+  id: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+  message: OrderByDirection
+  profileId: OrderByDirection
+  postId: OrderByDirection
+}
+
+input CommentUpdateInput {
+  createdAt: Datetime
+  updatedAt: Datetime
+  message: String
+  profileId: UUID
+  postId: BigInt
+}
+
+type CommentUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Comment!]!
+}
+
+scalar Cursor
+
+scalar Date
+
+"""
+Boolean expression comparing fields on type "Date"
+"""
+input DateFilter {
+  eq: Date
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  neq: Date
+}
+
+scalar Datetime
+
+"""
+Boolean expression comparing fields on type "Datetime"
+"""
+input DatetimeFilter {
+  eq: Datetime
+  gt: Datetime
+  gte: Datetime
+  lt: Datetime
+  lte: Datetime
+  neq: Datetime
+}
+
+enum Direction {
+  DOWN
+  UP
+}
+
+"""
+Boolean expression comparing fields on type "Float"
+"""
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  neq: Float
+}
+
+"""
+Boolean expression comparing fields on type "Int"
+"""
+input IntFilter {
+  eq: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+  neq: Int
+}
+
+scalar JSON
+
+"""
+Boolean expression comparing fields on type "JSON"
+"""
+input JSONFilter {
+  eq: JSON
+  neq: JSON
+}
+
+"""The root type for creating and mutating data"""
+type Mutation {
+  """Deletes zero or more records from the collection"""
+  deleteFromCommentCollection(
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: CommentFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): CommentDeleteResponse!
+
+  """Deletes zero or more records from the collection"""
+  deleteFromPostCollection(
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: PostFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): PostDeleteResponse!
+
+  """Deletes zero or more records from the collection"""
+  deleteFromProfileCollection(
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: ProfileFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): ProfileDeleteResponse!
+
+  """Deletes zero or more records from the collection"""
+  deleteFromVoteCollection(
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: VoteFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): VoteDeleteResponse!
+
+  """Adds one or more `CommentInsertResponse` records to the collection"""
+  insertIntoCommentCollection(objects: [CommentInsertInput!]!): CommentInsertResponse
+
+  """Adds one or more `PostInsertResponse` records to the collection"""
+  insertIntoPostCollection(objects: [PostInsertInput!]!): PostInsertResponse
+
+  """Adds one or more `ProfileInsertResponse` records to the collection"""
+  insertIntoProfileCollection(objects: [ProfileInsertInput!]!): ProfileInsertResponse
+
+  """Adds one or more `VoteInsertResponse` records to the collection"""
+  insertIntoVoteCollection(objects: [VoteInsertInput!]!): VoteInsertResponse
+
+  """Updates zero or more records in the collection"""
+  updateCommentCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: CommentUpdateInput!
+
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: CommentFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): CommentUpdateResponse!
+
+  """Updates zero or more records in the collection"""
+  updatePostCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: PostUpdateInput!
+
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: PostFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): PostUpdateResponse!
+
+  """Updates zero or more records in the collection"""
+  updateProfileCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: ProfileUpdateInput!
+
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: ProfileFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): ProfileUpdateResponse!
+
+  """Updates zero or more records in the collection"""
+  updateVoteCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: VoteUpdateInput!
+
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: VoteFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): VoteUpdateResponse!
+}
+
+"""Defines a per-field sorting order"""
+enum OrderByDirection {
+  AscNullsFirst
+  AscNullsLast
+  DescNullsFirst
+  DescNullsLast
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Post {
+  id: BigInt!
+  createdAt: Datetime!
+  updatedAt: Datetime
+  title: String!
+  url: String!
+  profileId: UUID!
+  upVoteTotal: Int!
+  downVoteTotal: Int!
+  voteTotal: Int!
+  voteRank: Int!
+  score: Int
+  voteDelta: Int!
+  commentCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: CommentFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [CommentOrderBy!]
+  ): CommentConnection
+  profile: Profile
+  voteCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: VoteFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [VoteOrderBy!]
+  ): VoteConnection
+}
+
+type PostConnection {
+  edges: [PostEdge!]!
+  pageInfo: PageInfo!
+
+  """The total number of records matching the `filter` criteria"""
+  totalCount: Int!
+}
+
+type PostDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Post!]!
+}
+
+type PostEdge {
+  cursor: String!
+  node: Post
+}
+
+input PostFilter {
+  id: BigIntFilter
+  createdAt: DatetimeFilter
+  updatedAt: DatetimeFilter
+  title: StringFilter
+  url: StringFilter
+  profileId: UUIDFilter
+  upVoteTotal: IntFilter
+  downVoteTotal: IntFilter
+  voteTotal: IntFilter
+  voteRank: IntFilter
+  score: IntFilter
+  voteDelta: IntFilter
+}
+
+input PostInsertInput {
+  createdAt: Datetime
+  updatedAt: Datetime
+  title: String
+  url: String
+  profileId: UUID
+  upVoteTotal: Int
+  downVoteTotal: Int
+  voteTotal: Int
+  voteRank: Int
+  score: Int
+  voteDelta: Int
+}
+
+type PostInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Post!]!
+}
+
+input PostOrderBy {
+  id: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+  title: OrderByDirection
+  url: OrderByDirection
+  profileId: OrderByDirection
+  upVoteTotal: OrderByDirection
+  downVoteTotal: OrderByDirection
+  voteTotal: OrderByDirection
+  voteRank: OrderByDirection
+  score: OrderByDirection
+  voteDelta: OrderByDirection
+}
+
+input PostUpdateInput {
+  createdAt: Datetime
+  updatedAt: Datetime
+  title: String
+  url: String
+  profileId: UUID
+  upVoteTotal: Int
+  downVoteTotal: Int
+  voteTotal: Int
+  voteRank: Int
+  score: Int
+  voteDelta: Int
+}
+
+type PostUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Post!]!
+}
+
+type Profile {
+  id: UUID!
+  updatedat: Datetime
+  username: String
+  avatarUrl: String
+  website: String
+  bio: String
+  commentCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: CommentFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [CommentOrderBy!]
+  ): CommentConnection
+  postCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: PostFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [PostOrderBy!]
+  ): PostConnection
+  voteCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: VoteFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [VoteOrderBy!]
+  ): VoteConnection
+}
+
+type ProfileConnection {
+  edges: [ProfileEdge!]!
+  pageInfo: PageInfo!
+
+  """The total number of records matching the `filter` criteria"""
+  totalCount: Int!
+}
+
+type ProfileDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Profile!]!
+}
+
+type ProfileEdge {
+  cursor: String!
+  node: Profile
+}
+
+input ProfileFilter {
+  id: UUIDFilter
+  updatedat: DatetimeFilter
+  username: StringFilter
+  avatarUrl: StringFilter
+  website: StringFilter
+  bio: StringFilter
+}
+
+input ProfileInsertInput {
+  id: UUID
+  updatedat: Datetime
+  username: String
+  avatarUrl: String
+  website: String
+  bio: String
+}
+
+type ProfileInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Profile!]!
+}
+
+input ProfileOrderBy {
+  id: OrderByDirection
+  updatedat: OrderByDirection
+  username: OrderByDirection
+  avatarUrl: OrderByDirection
+  website: OrderByDirection
+  bio: OrderByDirection
+}
+
+input ProfileUpdateInput {
+  id: UUID
+  updatedat: Datetime
+  username: String
+  avatarUrl: String
+  website: String
+  bio: String
+}
+
+type ProfileUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Profile!]!
+}
+
+"""The root type for querying data"""
+type Query {
+  """A pagable collection of type `Comment`"""
+  commentCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: CommentFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [CommentOrderBy!]
+  ): CommentConnection
+
+  """A pagable collection of type `Post`"""
+  postCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: PostFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [PostOrderBy!]
+  ): PostConnection
+
+  """A pagable collection of type `Profile`"""
+  profileCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: ProfileFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [ProfileOrderBy!]
+  ): ProfileConnection
+
+  """A pagable collection of type `Vote`"""
+  voteCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: VoteFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [VoteOrderBy!]
+  ): VoteConnection
+}
+
+type SchemaMigrationsInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+}
+
+"""
+Boolean expression comparing fields on type "String"
+"""
+input StringFilter {
+  eq: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  neq: String
+}
+
+scalar Time
+
+"""
+Boolean expression comparing fields on type "Time"
+"""
+input TimeFilter {
+  eq: Time
+  gt: Time
+  gte: Time
+  lt: Time
+  lte: Time
+  neq: Time
+}
+
+scalar UUID
+
+"""
+Boolean expression comparing fields on type "UUID"
+"""
+input UUIDFilter {
+  eq: UUID
+  neq: UUID
+}
+
+type Vote {
+  id: BigInt!
+  createdAt: Datetime
+  updatedAt: Datetime
+  profileId: UUID!
+  postId: BigInt!
+  direction: String!
+  post: Post
+  profile: Profile
+}
+
+type VoteConnection {
+  edges: [VoteEdge!]!
+  pageInfo: PageInfo!
+
+  """The total number of records matching the `filter` criteria"""
+  totalCount: Int!
+}
+
+type VoteDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Vote!]!
+}
+
+type VoteEdge {
+  cursor: String!
+  node: Vote
+}
+
+input VoteFilter {
+  id: BigIntFilter
+  createdAt: DatetimeFilter
+  updatedAt: DatetimeFilter
+  profileId: UUIDFilter
+  postId: BigIntFilter
+  direction: StringFilter
+}
+
+input VoteInsertInput {
+  createdAt: Datetime
+  updatedAt: Datetime
+  profileId: UUID
+  postId: BigInt
+  direction: String
+}
+
+type VoteInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Vote!]!
+}
+
+input VoteOrderBy {
+  id: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+  profileId: OrderByDirection
+  postId: OrderByDirection
+  direction: OrderByDirection
+}
+
+input VoteUpdateInput {
+  createdAt: Datetime
+  updatedAt: Datetime
+  profileId: UUID
+  postId: BigInt
+  direction: String
+}
+
+type VoteUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Vote!]!
+}
