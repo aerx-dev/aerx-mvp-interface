@@ -1,3 +1,92 @@
+type Account {
+  id: Int!
+  email: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  postCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: PostFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [PostOrderBy!]
+  ): PostConnection
+}
+
+type AccountConnection {
+  edges: [AccountEdge!]!
+  pageInfo: PageInfo!
+
+  """The total number of records matching the `filter` criteria"""
+  totalCount: Int!
+}
+
+type AccountDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Account!]!
+}
+
+type AccountEdge {
+  cursor: String!
+  node: Account
+}
+
+input AccountFilter {
+  id: IntFilter
+  email: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input AccountInsertInput {
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type AccountInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Account!]!
+}
+
+input AccountOrderBy {
+  id: OrderByDirection
+  email: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+input AccountUpdateInput {
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type AccountUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Account!]!
+}
+
 scalar BigInt
 
 """
@@ -12,6 +101,218 @@ input BigIntFilter {
   neq: BigInt
 }
 
+type Post {
+  id: Int!
+  ownerId: Int!
+  name: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  postNftCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: PostNftFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [PostNftOrderBy!]
+  ): PostNftConnection
+  owner: Account
+}
+
+type PostConnection {
+  edges: [PostEdge!]!
+  pageInfo: PageInfo!
+}
+
+type PostDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Post!]!
+}
+
+type PostEdge {
+  cursor: String!
+  node: Post
+}
+
+input PostFilter {
+  id: IntFilter
+  ownerId: IntFilter
+  name: StringFilter
+  description: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input PostInsertInput {
+  ownerId: Int
+  name: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PostInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Post!]!
+}
+
+input PostOrderBy {
+  id: OrderByDirection
+  ownerId: OrderByDirection
+  name: OrderByDirection
+  description: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+type PostNft {
+  id: UUID!
+  postId: Int!
+  title: String!
+  media: String
+  mediaHash: String
+  mediaType: String
+  totalCharged: Float
+  extra: String
+  body: String
+  status: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  post: Post
+}
+
+type PostNftConnection {
+  edges: [PostNftEdge!]!
+  pageInfo: PageInfo!
+}
+
+type PostNftDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [PostNft!]!
+}
+
+type PostNftEdge {
+  cursor: String!
+  node: PostNft
+}
+
+input PostNftFilter {
+  id: UUIDFilter
+  postId: IntFilter
+  title: StringFilter
+  media: StringFilter
+  mediaHash: StringFilter
+  mediaType: StringFilter
+  totalCharged: FloatFilter
+  extra: StringFilter
+  body: StringFilter
+  status: StringFilter
+  createdAt: DateTimeFilter
+  updatedAt: DateTimeFilter
+}
+
+input PostNftInsertInput {
+  id: UUID
+  postId: Int
+  title: String
+  media: String
+  mediaHash: String
+  mediaType: String
+  totalCharged: Float
+  extra: String
+  body: String
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PostNftInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [PostNft!]!
+}
+
+input PostNftOrderBy {
+  id: OrderByDirection
+  postId: OrderByDirection
+  title: OrderByDirection
+  media: OrderByDirection
+  mediaHash: OrderByDirection
+  mediaType: OrderByDirection
+  totalCharged: OrderByDirection
+  extra: OrderByDirection
+  body: OrderByDirection
+  status: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+enum PostNftStatus {
+  PENDING
+  POSTED
+}
+
+input PostNftUpdateInput {
+  id: UUID
+  postId: Int
+  title: String
+  media: String
+  mediaHash: String
+  mediaType: String
+  totalCharged: Float
+  extra: String
+  body: String
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PostNftUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [PostNft!]!
+}
+
+input PostUpdateInput {
+  ownerId: Int
+  name: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type PostUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [Post!]!
+}
+
 """
 Boolean expression comparing fields on type "Boolean"
 """
@@ -24,121 +325,20 @@ input BooleanFilter {
   neq: Boolean
 }
 
-type Comment {
-  id: BigInt!
-  createdAt: Datetime
-  updatedAt: Datetime
-  message: String!
-  profileId: UUID!
-  postId: BigInt!
-  post: Post
-  profile: Profile
-}
-
-type CommentConnection {
-  edges: [CommentEdge!]!
-  pageInfo: PageInfo!
-
-  """The total number of records matching the `filter` criteria"""
-  totalCount: Int!
-}
-
-type CommentDeleteResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Comment!]!
-}
-
-type CommentEdge {
-  cursor: String!
-  node: Comment
-}
-
-input CommentFilter {
-  id: BigIntFilter
-  createdAt: DatetimeFilter
-  updatedAt: DatetimeFilter
-  message: StringFilter
-  profileId: UUIDFilter
-  postId: BigIntFilter
-}
-
-input CommentInsertInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  message: String
-  profileId: UUID
-  postId: BigInt
-}
-
-type CommentInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Comment!]!
-}
-
-input CommentOrderBy {
-  id: OrderByDirection
-  createdAt: OrderByDirection
-  updatedAt: OrderByDirection
-  message: OrderByDirection
-  profileId: OrderByDirection
-  postId: OrderByDirection
-}
-
-input CommentUpdateInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  message: String
-  profileId: UUID
-  postId: BigInt
-}
-
-type CommentUpdateResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Comment!]!
-}
-
 scalar Cursor
 
-scalar Date
+scalar DateTime
 
 """
-Boolean expression comparing fields on type "Date"
+Boolean expression comparing fields on type "DateTime"
 """
-input DateFilter {
-  eq: Date
-  gt: Date
-  gte: Date
-  lt: Date
-  lte: Date
-  neq: Date
-}
-
-scalar Datetime
-
-"""
-Boolean expression comparing fields on type "Datetime"
-"""
-input DatetimeFilter {
-  eq: Datetime
-  gt: Datetime
-  gte: Datetime
-  lt: Datetime
-  lte: Datetime
-  neq: Datetime
-}
-
-enum Direction {
-  DOWN
-  UP
+input DateTimeFilter {
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
 }
 
 """
@@ -178,15 +378,15 @@ input JSONFilter {
 """The root type for creating and mutating data"""
 type Mutation {
   """Deletes zero or more records from the collection"""
-  deleteFromCommentCollection(
+  deleteFromAccountCollection(
     """Restricts the mutation's impact to records matching the critera"""
-    filter: CommentFilter
+    filter: AccountFilter
 
     """
     The maximum number of records in the collection permitted to be affected
     """
     atMost: Int! = 1
-  ): CommentDeleteResponse!
+  ): AccountDeleteResponse!
 
   """Deletes zero or more records from the collection"""
   deleteFromPostCollection(
@@ -200,54 +400,40 @@ type Mutation {
   ): PostDeleteResponse!
 
   """Deletes zero or more records from the collection"""
-  deleteFromProfileCollection(
+  deleteFromPostNftCollection(
     """Restricts the mutation's impact to records matching the critera"""
-    filter: ProfileFilter
+    filter: PostNftFilter
 
     """
     The maximum number of records in the collection permitted to be affected
     """
     atMost: Int! = 1
-  ): ProfileDeleteResponse!
+  ): PostNftDeleteResponse!
 
-  """Deletes zero or more records from the collection"""
-  deleteFromVoteCollection(
-    """Restricts the mutation's impact to records matching the critera"""
-    filter: VoteFilter
-
-    """
-    The maximum number of records in the collection permitted to be affected
-    """
-    atMost: Int! = 1
-  ): VoteDeleteResponse!
-
-  """Adds one or more `CommentInsertResponse` records to the collection"""
-  insertIntoCommentCollection(objects: [CommentInsertInput!]!): CommentInsertResponse
+  """Adds one or more `AccountInsertResponse` records to the collection"""
+  insertIntoAccountCollection(objects: [AccountInsertInput!]!): AccountInsertResponse
 
   """Adds one or more `PostInsertResponse` records to the collection"""
   insertIntoPostCollection(objects: [PostInsertInput!]!): PostInsertResponse
 
-  """Adds one or more `ProfileInsertResponse` records to the collection"""
-  insertIntoProfileCollection(objects: [ProfileInsertInput!]!): ProfileInsertResponse
-
-  """Adds one or more `VoteInsertResponse` records to the collection"""
-  insertIntoVoteCollection(objects: [VoteInsertInput!]!): VoteInsertResponse
+  """Adds one or more `PostNftInsertResponse` records to the collection"""
+  insertIntoPostNftCollection(objects: [PostNftInsertInput!]!): PostNftInsertResponse
 
   """Updates zero or more records in the collection"""
-  updateCommentCollection(
+  updateAccountCollection(
     """
     Fields that are set will be updated for all records matching the `filter`
     """
-    set: CommentUpdateInput!
+    set: AccountUpdateInput!
 
     """Restricts the mutation's impact to records matching the critera"""
-    filter: CommentFilter
+    filter: AccountFilter
 
     """
     The maximum number of records in the collection permitted to be affected
     """
     atMost: Int! = 1
-  ): CommentUpdateResponse!
+  ): AccountUpdateResponse!
 
   """Updates zero or more records in the collection"""
   updatePostCollection(
@@ -266,36 +452,20 @@ type Mutation {
   ): PostUpdateResponse!
 
   """Updates zero or more records in the collection"""
-  updateProfileCollection(
+  updatePostNftCollection(
     """
     Fields that are set will be updated for all records matching the `filter`
     """
-    set: ProfileUpdateInput!
+    set: PostNftUpdateInput!
 
     """Restricts the mutation's impact to records matching the critera"""
-    filter: ProfileFilter
+    filter: PostNftFilter
 
     """
     The maximum number of records in the collection permitted to be affected
     """
     atMost: Int! = 1
-  ): ProfileUpdateResponse!
-
-  """Updates zero or more records in the collection"""
-  updateVoteCollection(
-    """
-    Fields that are set will be updated for all records matching the `filter`
-    """
-    set: VoteUpdateInput!
-
-    """Restricts the mutation's impact to records matching the critera"""
-    filter: VoteFilter
-
-    """
-    The maximum number of records in the collection permitted to be affected
-    """
-    atMost: Int! = 1
-  ): VoteUpdateResponse!
+  ): PostNftUpdateResponse!
 }
 
 """Defines a per-field sorting order"""
@@ -313,298 +483,10 @@ type PageInfo {
   startCursor: String
 }
 
-type Post {
-  id: BigInt!
-  createdAt: Datetime!
-  updatedAt: Datetime
-  title: String!
-  url: String!
-  profileId: UUID!
-  upVoteTotal: Int!
-  downVoteTotal: Int!
-  voteTotal: Int!
-  voteRank: Int!
-  score: Int
-  voteDelta: Int!
-  commentCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: CommentFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [CommentOrderBy!]
-  ): CommentConnection
-  profile: Profile
-  voteCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: VoteFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [VoteOrderBy!]
-  ): VoteConnection
-}
-
-type PostConnection {
-  edges: [PostEdge!]!
-  pageInfo: PageInfo!
-
-  """The total number of records matching the `filter` criteria"""
-  totalCount: Int!
-}
-
-type PostDeleteResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Post!]!
-}
-
-type PostEdge {
-  cursor: String!
-  node: Post
-}
-
-input PostFilter {
-  id: BigIntFilter
-  createdAt: DatetimeFilter
-  updatedAt: DatetimeFilter
-  title: StringFilter
-  url: StringFilter
-  profileId: UUIDFilter
-  upVoteTotal: IntFilter
-  downVoteTotal: IntFilter
-  voteTotal: IntFilter
-  voteRank: IntFilter
-  score: IntFilter
-  voteDelta: IntFilter
-}
-
-input PostInsertInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  title: String
-  url: String
-  profileId: UUID
-  upVoteTotal: Int
-  downVoteTotal: Int
-  voteTotal: Int
-  voteRank: Int
-  score: Int
-  voteDelta: Int
-}
-
-type PostInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Post!]!
-}
-
-input PostOrderBy {
-  id: OrderByDirection
-  createdAt: OrderByDirection
-  updatedAt: OrderByDirection
-  title: OrderByDirection
-  url: OrderByDirection
-  profileId: OrderByDirection
-  upVoteTotal: OrderByDirection
-  downVoteTotal: OrderByDirection
-  voteTotal: OrderByDirection
-  voteRank: OrderByDirection
-  score: OrderByDirection
-  voteDelta: OrderByDirection
-}
-
-input PostUpdateInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  title: String
-  url: String
-  profileId: UUID
-  upVoteTotal: Int
-  downVoteTotal: Int
-  voteTotal: Int
-  voteRank: Int
-  score: Int
-  voteDelta: Int
-}
-
-type PostUpdateResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Post!]!
-}
-
-type Profile {
-  id: UUID!
-  updatedat: Datetime
-  username: String
-  avatarUrl: String
-  website: String
-  bio: String
-  commentCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: CommentFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [CommentOrderBy!]
-  ): CommentConnection
-  postCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: PostFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [PostOrderBy!]
-  ): PostConnection
-  voteCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: VoteFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [VoteOrderBy!]
-  ): VoteConnection
-}
-
-type ProfileConnection {
-  edges: [ProfileEdge!]!
-  pageInfo: PageInfo!
-
-  """The total number of records matching the `filter` criteria"""
-  totalCount: Int!
-}
-
-type ProfileDeleteResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Profile!]!
-}
-
-type ProfileEdge {
-  cursor: String!
-  node: Profile
-}
-
-input ProfileFilter {
-  id: UUIDFilter
-  updatedat: DatetimeFilter
-  username: StringFilter
-  avatarUrl: StringFilter
-  website: StringFilter
-  bio: StringFilter
-}
-
-input ProfileInsertInput {
-  id: UUID
-  updatedat: Datetime
-  username: String
-  avatarUrl: String
-  website: String
-  bio: String
-}
-
-type ProfileInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Profile!]!
-}
-
-input ProfileOrderBy {
-  id: OrderByDirection
-  updatedat: OrderByDirection
-  username: OrderByDirection
-  avatarUrl: OrderByDirection
-  website: OrderByDirection
-  bio: OrderByDirection
-}
-
-input ProfileUpdateInput {
-  id: UUID
-  updatedat: Datetime
-  username: String
-  avatarUrl: String
-  website: String
-  bio: String
-}
-
-type ProfileUpdateResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Profile!]!
-}
-
 """The root type for querying data"""
 type Query {
-  """A pagable collection of type `Comment`"""
-  commentCollection(
+  """A pagable collection of type `Account`"""
+  accountCollection(
     """Query the first `n` records in the collection"""
     first: Int
 
@@ -618,11 +500,11 @@ type Query {
     after: Cursor
 
     """Filters to apply to the results set when querying from the collection"""
-    filter: CommentFilter
+    filter: AccountFilter
 
     """Sort order to apply to the collection"""
-    orderBy: [CommentOrderBy!]
-  ): CommentConnection
+    orderBy: [AccountOrderBy!]
+  ): AccountConnection
 
   """A pagable collection of type `Post`"""
   postCollection(
@@ -645,8 +527,8 @@ type Query {
     orderBy: [PostOrderBy!]
   ): PostConnection
 
-  """A pagable collection of type `Profile`"""
-  profileCollection(
+  """A pagable collection of type `PostNft`"""
+  postNftCollection(
     """Query the first `n` records in the collection"""
     first: Int
 
@@ -660,37 +542,11 @@ type Query {
     after: Cursor
 
     """Filters to apply to the results set when querying from the collection"""
-    filter: ProfileFilter
+    filter: PostNftFilter
 
     """Sort order to apply to the collection"""
-    orderBy: [ProfileOrderBy!]
-  ): ProfileConnection
-
-  """A pagable collection of type `Vote`"""
-  voteCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: VoteFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [VoteOrderBy!]
-  ): VoteConnection
-}
-
-type SchemaMigrationsInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
+    orderBy: [PostNftOrderBy!]
+  ): PostNftConnection
 }
 
 """
@@ -705,20 +561,6 @@ input StringFilter {
   neq: String
 }
 
-scalar Time
-
-"""
-Boolean expression comparing fields on type "Time"
-"""
-input TimeFilter {
-  eq: Time
-  gt: Time
-  gte: Time
-  lt: Time
-  lte: Time
-  neq: Time
-}
-
 scalar UUID
 
 """
@@ -727,86 +569,4 @@ Boolean expression comparing fields on type "UUID"
 input UUIDFilter {
   eq: UUID
   neq: UUID
-}
-
-type Vote {
-  id: BigInt!
-  createdAt: Datetime
-  updatedAt: Datetime
-  profileId: UUID!
-  postId: BigInt!
-  direction: String!
-  post: Post
-  profile: Profile
-}
-
-type VoteConnection {
-  edges: [VoteEdge!]!
-  pageInfo: PageInfo!
-
-  """The total number of records matching the `filter` criteria"""
-  totalCount: Int!
-}
-
-type VoteDeleteResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Vote!]!
-}
-
-type VoteEdge {
-  cursor: String!
-  node: Vote
-}
-
-input VoteFilter {
-  id: BigIntFilter
-  createdAt: DatetimeFilter
-  updatedAt: DatetimeFilter
-  profileId: UUIDFilter
-  postId: BigIntFilter
-  direction: StringFilter
-}
-
-input VoteInsertInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  profileId: UUID
-  postId: BigInt
-  direction: String
-}
-
-type VoteInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Vote!]!
-}
-
-input VoteOrderBy {
-  id: OrderByDirection
-  createdAt: OrderByDirection
-  updatedAt: OrderByDirection
-  profileId: OrderByDirection
-  postId: OrderByDirection
-  direction: OrderByDirection
-}
-
-input VoteUpdateInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  profileId: UUID
-  postId: BigInt
-  direction: String
-}
-
-type VoteUpdateResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Vote!]!
 }

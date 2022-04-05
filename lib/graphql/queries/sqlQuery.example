@@ -1,0 +1,61 @@
+-- Turn on automatic inflection of type names
+comment on schema public is '@graphql({"inflect_names": true})';
+
+create table account(
+    id serial primary key,
+    email varchar(255) not null,
+    created_at timestamp not null,
+    updated_at timestamp not null
+);
+
+-- enable a `totalCount` field on the `account` query type
+comment on table account is e'@graphql({"totalCount": {"enabled": true}})';
+
+create table post(
+    id serial primary key,
+    owner_id integer not null references account(id),
+    name varchar(255) not null,
+    description varchar(255),
+    created_at timestamp not null,
+    updated_at timestamp not null
+);
+
+create type post_nft_status as enum ('PENDING', 'POSTED');
+
+create table post_nft(
+    id uuid not null default uuid_generate_v4() primary key,
+    post_id integer not null references post(id),
+    title varchar(255) not null,
+    media varchar(255),
+    media_hash varchar(255),
+    media_type varchar(255),
+    totalCharged float,
+    extra varchar(10000),
+    body varchar(10000),
+    status post_nft_status not null,
+    created_at timestamp not null,
+    updated_at timestamp not null
+);
+
+
+alter table Post enable row level security;
+
+create policy "Public contents are viewable by everyone."
+  on Post for select
+  using ( true );
+
+-- Set up Realtime!
+begin;
+  drop publication if exists supabase_realtime;
+  create publication supabase_realtime;
+commit;
+alter publication supabase_realtime add table Post;
+
+-- Set up Storage!
+insert into storage.buckets (id, name)
+values ('Post', 'Post');
+
+create policy "Post publicly accessible."
+  on storage.objects for select
+  using ( bucket_id = 'Post' );
+
