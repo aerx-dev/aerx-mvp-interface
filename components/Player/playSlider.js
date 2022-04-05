@@ -74,7 +74,7 @@ export default function PlaySlider(props) {
                 bg='blue.300'
                 color='white'
                 placement='top'
-                isOpen={!showTooltip}
+                isOpen={(!showTooltip  && props.playing)}
                 label={props.convertDurationTrack(props.current)}
             >
                 <SliderThumb

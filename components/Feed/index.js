@@ -24,18 +24,6 @@ const Feed = () => {
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
 
-    async function getCharge(token_id) {
-        nearState.cnftContract
-            .get_charge({ token_id: token_id })
-            .finally((res) => {
-                return res;
-            })
-            .catch((err) => {
-                console.log("GetCharge failed!", err);
-                return 0;
-            });
-        // return res;
-    }
 
     async function getContentNFT(token_id) {
         // get the content NFT data from supabase here and render below
@@ -56,7 +44,7 @@ const Feed = () => {
                             <NewPost state={nearState} bg={postBg} />
                         </Box>
 
-                        {nearState.feed?.map((nft) => {
+                        {nearState.feed?.sort(function(a, b){return b.token_id-a.token_id}).map((nft) => {
                             return (
                                 <LazyPosts
                                     key={nft.token_id}

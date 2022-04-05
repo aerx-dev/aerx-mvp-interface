@@ -73,27 +73,18 @@ function Post({ nft, charge }) {
         },
     };
 
-    // const [charge, setCharge] = useState();
+    const [currentCharge, setCurrentCharge] = useState()
+    useEffect(() => {
+        async function getCharge() {
+            var res = await nearState.cnftContract
+                .get_charge({ token_id: nft.token_id.toString() })
 
-    // useEffect(() => {
-    //     // TODO make this work
-    //     async function getCharge() {
-    //         nearState.cnftContract
-    //             .get_charge({ token_id: nft.token_id })
-    //             .finally((res) => {
-    //                 return res;
-    //             })
-    //             .catch((err) => {
-    //                 console.log("GetCharge failed!", err);
-    //                 return 0;
-    //             });
-    //         // return res;
-    //     }
-    //     const ch = getCharge();
-    //     console.log("CH: ", ch);
-    //     setCharge(11);
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [nearState.cnftContract, isOpen]);
+            setCurrentCharge(res)
+            // return res;
+        }
+        getCharge();
+    }, [nearState, nft.token_id, isOpen]);
+
 
     const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
 
@@ -102,6 +93,8 @@ function Post({ nft, charge }) {
             <Layout style={styles}>
                 <Header style={styles.header}>
                     <Avatar
+                        className=" bg-slate-300"
+                        bg={postBg}
                         name={nft?.owner_id}
                         src={
                             isUserMsg
@@ -161,7 +154,7 @@ function Post({ nft, charge }) {
                             color="yellow"
                             variant="ghost"
                         />{" "}
-                        {charge}
+                        {currentCharge}
                     </Box>
                 </Footer>
             </Layout>
@@ -180,6 +173,8 @@ const ChargeModal = ({ nft, state }) => {
     const [sliderValue, setSliderValue] = useState(0);
     const postBg = useColorModeValue("#d182ffda", "#171923");
     const toast = useCustomToast();
+
+
 
     function updateSlider(e) {
         setSliderValue(e);
@@ -209,7 +204,7 @@ const ChargeModal = ({ nft, state }) => {
     async function setCharge(_tokenId, _charge) {
         try {
             await nearState.cnftContract.set_charge({
-                token_id: _tokenId,
+                token_id: _tokenId.toString(),
                 charge: _charge.toString(),
             });
             toast("success", "Charged " + _charge + "AEX$", "ChargeIderr");
