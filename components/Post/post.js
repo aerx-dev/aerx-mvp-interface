@@ -31,11 +31,34 @@ import PurpleButton from "../UI/PurpleButton";
 import useCustomToast from "../../hooks/useCustomToast";
 import TimeAgo from "timeago-react";
 import SongCard from "../Player/songCard";
-import { supabase, postToSupa } from "../../lib/supabaseClient"
+import { useQuery } from 'urql';
+import { GET_ALL_POSTS } from "../../graphql/queries/query";
 
 const { Header, Footer, Content } = Layout;
 
 function Post({ nft, charge }) {
+    
+    const [posts, setPosts] = useState(null)
+    const [fetchError, setFetchError] = useState(null)
+
+    // Query for the data (React)
+const [result, reexecuteQuery] = useQuery({
+    query: GET_ALL_POSTS,
+  })
+  
+  // Read the result
+  const { data, fetching, error } = result
+
+  console.log({data:data})
+  console.log({error:error})
+
+    useEffect( () => {
+       
+       
+    }, [])
+
+
+
     const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
     const tokenId = nft.token_id;

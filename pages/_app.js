@@ -6,6 +6,8 @@ import { nearStore } from "../stores/near.js";
 import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
+import { Provider } from 'urql';
+import { supabaseGraphQLClient } from "../lib/supabaseClient";
 // import { useSessionStorage } from "beautiful-react-hooks";
 
 function MyApp({ Component, pageProps }) {
@@ -65,13 +67,17 @@ function MyApp({ Component, pageProps }) {
     }, [isLoading, nearState.accountId, nearState.pnftContract]);
 
     return (
-        <ChakraProvider
-         theme={myTheme}
-         >
-            <ThemeProvider attribute="class">
-                <Component {...pageProps} />
-            </ThemeProvider>
-        </ChakraProvider>
+        <Provider value={supabaseGraphQLClient}>
+            <ChakraProvider
+                theme={myTheme}
+            >
+                <ThemeProvider attribute="class">
+                    <Component {...pageProps} />
+                </ThemeProvider>
+            </ChakraProvider>
+
+        </Provider>
+
     );
 }
 
