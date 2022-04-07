@@ -222,7 +222,7 @@ const [result, reexecuteQuery] = useQuery({
                                     borderRadius={20}
                                     size="sm"
                                     border="none"
-                                    bg={useColorModeValue("white", "#1B1D1E")}
+                                    //bg={useColorModeValue("white", "#1B1D1E")}
                                 />
                             
                             <Box>
