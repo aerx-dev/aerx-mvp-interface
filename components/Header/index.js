@@ -52,7 +52,7 @@ function Header() {
                 />
             </Link>
 
-            <div className="ml-auto">
+            <div className="ml-auto space-x-2">
                 {loggedIn ? (
                     <>
                         <Link href="/feed">
