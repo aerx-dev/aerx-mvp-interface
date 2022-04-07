@@ -50,10 +50,10 @@ export default function SideBar({ children, bg, state }) {
 
     return (
         <div className="grid grid-cols-12 gap-4">
-            <div className="col-start-1 col-span-3 flex flex-col items-center">
+            <div className="col-start-1 col-span-3 flex flex-col items-center -translate-x-full md:translate-x-0">
                 <LeftSide collapse={[isCollapsed, setIsCollapsed]} bg={bg} />
             </div>
-            <div className="col-start-4 col-span-6 flex flex-col items-center">
+            <div className=" col-start-1 md:col-start-4 col-span-6 flex flex-col items-center">
                 <ProfileHeader
                     opacity={colorMode === "light" ? 1 : 0.5}
                     filter={filter}
