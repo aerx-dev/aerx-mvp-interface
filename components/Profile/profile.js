@@ -26,7 +26,7 @@ const Profile = () => {
     const nearState = nearStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
 
-    const bg = useColorModeValue("gray.100", "gray.900");
+    const bg = useColorModeValue("gray.100", "lightblack");
 
     if (nearState.profile && profileLoaded === false) {
         setProfileLoaded(true);
@@ -35,7 +35,7 @@ const Profile = () => {
     return (
         <Layout>
             <LazySider bg={bg} state={nearState}>
-                <Box>
+                <Box maxWidth="84%">
                     <NewPost state={nearState} bg={bg} />
 
                     {nearState?.feed && nearState?.accountId ? (

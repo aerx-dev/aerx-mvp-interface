@@ -21,8 +21,12 @@ import {
     Divider,
     Icon,
     IconButton,
+    Input
 } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 import { ThunderboltOutlined, ThunderboltFilled } from "@ant-design/icons";
+import { IoChatbubbleOutline } from "react-icons/io5";
+import { FiNavigation } from "react-icons/fi";
 import { HiShoppingBag } from "react-icons/hi";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
@@ -38,12 +42,18 @@ function Post({ nft, charge }) {
     const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
     const tokenId = nft.token_id;
-    const postBg = useColorModeValue("#edf2f7", "#171923");
+    const postBg = useColorModeValue("#edf2f7", "#1E2021");
+    const iconColor = useColorModeValue("gray.400", "white")
     const nearState = nearStore((state) => state);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+    const [ commentBox , setCommentBox ] = useState(false);
+    const comment = () =>{
+        setCommentBox(!commentBox)
+    }
+
     const styles = {
-        // fontFamily: "poppings",
+        fontFamily: "poppins",
         backgroundColor: postBg,
         // maxHeight: 430,
         borderRadius: 10,
@@ -93,7 +103,7 @@ function Post({ nft, charge }) {
                 <Header style={styles.header}>
                     <Avatar
                         className=" bg-slate-300"
-                        bg={postBg}
+                        bg="gray.400"
                         name={nft?.owner_id}
                         src={
                             isUserMsg
@@ -102,9 +112,9 @@ function Post({ nft, charge }) {
                                 nft?.owner_id || // extra connditions for display data
                                 "https://bit.ly/dan-abramov"
                         }
-                        size="sm"
+                        size="md"
                     />
-                    <Text my={2}>{nft?.owner_id || "pavel dantsev"}</Text>
+                    <Text my={2} ml={2}>{nft?.owner_id || "Pavel dantsev"}</Text>
                     <TimeAgo
                         className={`text-[11px] ${isUserMsg && "order-last pr-1"
                             } opacity-60`}
@@ -114,7 +124,7 @@ function Post({ nft, charge }) {
                         className="right-0 text-white"
                         leftIcon={<HiShoppingBag />}
                     >
-                        64 AE
+                        64 æ
                     </PurpleButton>
                 </Header>
                 <Content style={styles.content}>
@@ -155,6 +165,55 @@ function Post({ nft, charge }) {
                         />{" "}
                         {currentCharge}
                     </Box>
+                    <Box onClick={comment}>
+                        <IconButton
+                            color = {iconColor}
+                            variant="ghost"
+                            size="lg"
+                            icon={<IoChatbubbleOutline />}
+                            isRound  
+                        />
+                    </Box>
+                    <Box>
+                        <IconButton
+                            color= {iconColor}
+                            variant="ghost"
+                            size="lg"
+                            icon={<FiNavigation />}
+                            isRound  
+                        />
+                    </Box>
+                </Footer>
+                <Footer>
+                    { commentBox ? 
+                        <Box 
+                            flexDirection="row"
+                            display="flex"
+                            alignItems="center">
+                                <Input
+                                    maxLength={500}
+                                    type="text"
+                                    data-path="text"
+                                    placeholder="comment"
+                                    borderRadius={20}
+                                    size="sm"
+                                    border="none"
+                                    bg={useColorModeValue("white", "#1B1D1E")}
+                                />
+                            
+                            <Box>
+                                <IconButton
+                                    type="submit"
+                                    aria-label="post"
+                                    isRound
+                                    size="xs"
+                                    icon={<AddIcon />}
+                                    ml={2}
+                                    bgColor="#6054F0"
+                                    color="white"
+                                /> 
+                            </Box>
+                        </Box> : null}
                 </Footer>
             </Layout>
 
