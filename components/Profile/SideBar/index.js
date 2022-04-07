@@ -362,18 +362,22 @@ const LeftSide = ({ collapse, ...rest }) => {
         {
             name : "Music",
             count : 345 ,
+            color: "bg-blue-500",
         },
         {
             name : "Memes",
             count : 95 ,
+            color: 'bg-red-500',
         },
         {
             name : "Art",
             count : 89 ,
+            color: 'bg-green-500',
         },
         {
             name : "Pop",
             count : 63 ,
+            color: 'bg-orange-500',
         },
     ]
 
@@ -387,30 +391,30 @@ const LeftSide = ({ collapse, ...rest }) => {
                 direction="column"
             >
                 <Heading size="lg" >Collections</Heading>
-                <Stack w="100%" pr={10} mt={10}>
-                    { collections.map((item) => (
-                        <Box height={150} width={200} borderRadius={10} overflowY={"hidden"} {...rest}>
+                <div w="100%" pr={10} mt={10} className="grid grid-rows-4 grid-flow-col gap-4 max-h-72">
+                    { collections.map((item, index) => (
+                        <div key={index} overflowY={"hidden"} className={`flex flex-col drop-shadow-lg h-36 w-48 rounded-xl ${item.color}`} {...rest} >
+                            <div className="flex flex-row items-center justify-end">
                             <Tag
                             size="xs"
                             variant="solid"
                             borderRadius={15}
                             px={1.5}
                             py={0.5}
-                            position = "fixed"
-                            right = "82.5%"
                             mt={2}
                             bg="#6054F0"
                             color="invert(bg)"
+                            className="m-1"
                             >
                             {item.count}
-                            </Tag>
-                            <Text m={12} align="center">{item.name}</Text>
-                        </Box>
+                            </Tag></div>
+                            <Text className="m-1 mt-3">{item.name}</Text>
+                        </div>
                     ))}
                     
                     {/* <Box height={50} borderRadius={10} {...rest}></Box>
                     <Box height={50} borderRadius={10} {...rest}></Box> */}
-                </Stack>
+                </div>
             </Flex>
             {/* {iters.map((iter) => (
                 <RSideBarIters key={iter.name} icon={iter.icon}>
