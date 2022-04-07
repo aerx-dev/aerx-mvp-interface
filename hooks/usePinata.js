@@ -49,7 +49,7 @@ export default function usePinata(file, toast) {
                             .then((crustScs) => {
                                 if (crustScs === true) {
                                     toast("success", "File deployed to Crust!", "crustSccss");
-                                    unpinPinata(fileCid)
+                                    //unpinPinata(fileCid)
                                 }
                             })
                             .catch((error) => console.log(error))
