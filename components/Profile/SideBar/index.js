@@ -393,7 +393,7 @@ const LeftSide = ({ collapse, ...rest }) => {
                 <Heading size="lg" >Collections</Heading>
                 <div w="100%" pr={10} mt={10} className="grid grid-rows-4 grid-flow-col gap-4 max-h-72">
                     { collections.map((item, index) => (
-                        <div key={index} overflowY={"hidden"} className={`flex flex-col drop-shadow-lg h-36 w-48 rounded-xl ${item.color}`} {...rest} >
+                        <div key={index} className={`flex flex-col drop-shadow-lg h-36 w-48 rounded-xl hover:z-50 ${item.color}`} {...rest} >
                             <div className="flex flex-row items-center justify-end">
                             <Tag
                             size="xs"
