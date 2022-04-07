@@ -3,8 +3,7 @@
     "version": "0.1.1",
     "private": true,
     "engines": {
-        "npm": "*",
-        "yarn": "PLEASE USE NPM"
+        "npm": "*"
     },
     "scripts": {
         "dev": "next dev",
