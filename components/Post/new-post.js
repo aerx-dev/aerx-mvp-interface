@@ -188,7 +188,7 @@ function NewPost({ bg }) {
                 filter={filter}
                 size="sm"
                 border="none"
-                bg={useColorModeValue("white", "gray.800")}
+                bg={useColorModeValue("white", "#1B1D1E")}
             />
 
             <IconButton
@@ -257,6 +257,7 @@ function NewPost({ bg }) {
                 opacity={0.6}
                 icon={<RepeatIcon />}
                 ml={3}
+                display="none"
             ></IconButton>
             {/* use display="none" if it shouldnt be displayed*/}
             <Box display="none">

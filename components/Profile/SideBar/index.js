@@ -2,9 +2,10 @@ import { Layout } from "antd";
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
-    //EnvironmentOutlined,
     ThunderboltFilled,
 } from "@ant-design/icons";
+import {HiLocationMarker} from "react-icons/hi";
+import {IoNotificationsOutline, IoHeartOutline} from "react-icons/io5";
 import {
     Box,
     Button,
@@ -56,16 +57,19 @@ export default function SideBar({ children, bg, state }) {
                     overflow: "auto",
                     height: "full",
                     position: "fixed",
-                    left: 0,
+                    left: "4.5%",
                     top: "4.5rem",
                     bottom: 0,
                 }}
             >
-                <LSidebarContent profile={state?.profile} balance={state?.aexBalance} bg={bg} />
+                <LeftSide
+                    collapse={[isCollapsed, setIsCollapsed]}
+                    bg={bg}
+                />
             </Sider>
             <Layout
                 style={{
-                    marginLeft: 250,
+                    marginLeft: "15%",
                     marginRight: isCollapsed ? 100 : 200,
                     backgroundColor: "none",
                 }}
@@ -97,20 +101,16 @@ export default function SideBar({ children, bg, state }) {
             </Layout>
             <Sider
                 trigger={null}
-                collapsed={isCollapsed}
                 style={{
                     overflow: "auto",
-                    // height: "100vh",
+                    height: "full",
                     position: "fixed",
-                    right: 0,
+                    right : "12%",
                     top: "4.5rem",
                     bottom: 0,
                 }}
             >
-                <RSidebarContent
-                    collapse={[isCollapsed, setIsCollapsed]}
-                    bg={bg}
-                />
+                <RightSide profile={state?.profile} balance={state?.aexBalance} bg={bg} />
             </Sider>
         </Layout>
     );
@@ -124,9 +124,13 @@ const ProfileHeader = ({ ...rest }) => {
                 marginTop: 5,
             }}
         >
-            <Button variant="ghost">Flow</Button>
+            <Heading size="lg" mb={2}>Flow</Heading>
+            <Button variant="ghost" styles={styles.marker}>My</Button>
             <Button variant="ghost" className="opacity-50 text-xs">
-                Favourite
+                <Text fontWeight="medium">Favourite</Text>
+            </Button>
+            <Button variant="ghost" className="opacity-50 text-xs">
+                <Text fontWeight="medium">Subscriptions</Text>
             </Button>
             <Box className="float-right">
                 <IconButton
@@ -143,12 +147,12 @@ const ProfileHeader = ({ ...rest }) => {
     );
 };
 
-const LSidebarContent = ({ profile, balance, ...rest }) => {
+const RightSide = ({ profile, balance, ...rest }) => {
     console.log(balance)
-    const picBg = useColorModeValue("white", "gray.800");
+    const picBg = useColorModeValue("white", "gray.300");
     const bgGradient = useColorModeValue(
         "linear(#edf2f700, #edf2f720 15%, gray.100 90%)",
-        "linear(#17192300, #17192320 15%, gray.900 90%)",
+        "linear(#1E202100, #1E202100 15%, lightblack 90%)",
     );
     const tags = ["#crypto", "#eth", "#near", "#aerx"]; // profile.tags
     const stats = [
@@ -160,12 +164,16 @@ const LSidebarContent = ({ profile, balance, ...rest }) => {
             title: "FOLLOWERS",
             count: "750K",
         },
+        {
+            title: "LIKES",
+            count: "10K",
+        },
     ]; // profile.stats
 
     return (
         <Box
             className="border-1 fixed max-h-screen "
-            w={{ base: "full", md: 60 }}
+            w={{ base: "full", md: "22%" }}
             {...rest}
         >
             <Flex
@@ -174,7 +182,7 @@ const LSidebarContent = ({ profile, balance, ...rest }) => {
             >
                 <Box
                     className="rounded-t-lg w-full relative "
-                    height="38vh"
+                    height="45vh"
                     bg={picBg}
                     bgImage={profile?.profileImg || "/images/pavel.png"}
                     position="relative"
@@ -182,53 +190,70 @@ const LSidebarContent = ({ profile, balance, ...rest }) => {
                     bgRepeat="no-repeat"
                     bgPosition="center"
                 >
+                <Box ml="70%">
+                    <IconButton mr="-3.5"
+                        icon={<IoHeartOutline />}
+                        color="white"
+                        variant="ghost"
+                        size="lg"
+                        isRound />
+                    <IconButton 
+                        icon={<IoNotificationsOutline/>}
+                        color="white"
+                        variant="ghost"
+                        size="lg"
+                        isRound />
+                </Box>
+                
                     <Box
                         className="z-10 absolute bottom-0 h-2/5 w-full px-2 text-white"
                         bgGradient={bgGradient}
                         fontFamily="poppins"
                     >
-                        <Text className="h-1/6 font-bold">
+                                                <Text className="h-1/6 mb-2" fontWeight="bold" fontSize="2xl">
                             {profile?.fullName || "Pavel Dantsev"}
                         </Text>
-                        <Text as="i">
+                        <Text as="i" sx={styles} fontWeight="medium">
                             @{profile?.username || "pashq"}
                         </Text>
-                        <LSideBarIters iterType="tags" data={tags} {...rest} />
+                        <RSideBarIters iterType="tags" data={tags} {...rest} />
                         <HStack
                             className="absolute bottom-0 w-full"
+                            sx={styles}
                         >
-                            {/* <Text>
-                                <Icon as={EnvironmentOutlined} /> {profile.country}
-                            </Text> */}
+                            <Text>
+                                {/* <Icon as={HiLocationMarker} /> {profile.country} */}
+                                <Icon as={HiLocationMarker} /> aerx 
+                            </Text>
                             <PurpleButton leftIcon={<AddIcon />} right={4}>
                                 Follow
                             </PurpleButton>
                         </HStack>
                     </Box>
                 </Box>
-                <Box className="text-center p-5 py-7 max-h-auto" >
-                    <Text className="opacity-50 mb-2  font-semibold">ABOUT</Text>
-                    <Text className=" text-sm">
+                <Box className="text-center p-5 py-7" h="20vh" sx={styles}>
+                    <Text className="opacity-50 mb-3">ABOUT</Text>
+                    <Text>
                         {profile?.aboutMe ||
-                            `I work as a doctor, but in my free time I lke to make
+                            `I work as a doctor, but in my free time I like to make
                         funny pictures and videos. See more details in my
                         collection.`}
                     </Text>
-                    <Text className="opacity-50 mb-2 mt-6 font-semibold">HOBBYES</Text>
+                    {/* <Text className="opacity-50 mb-2 mt-6 font-semibold">HOBBYES</Text>
                     <Text className="text-sm">
                         {profile?.hobbys ||
                             `Hobbies, what's that?!`}
-                    </Text>
+                    </Text> */}
                 </Box>
                 <Divider />
-                <LSideBarIters iterType="stats" data={stats} {...rest} />
-                <LSideBarBalance balance={balance} {...rest} h="12vh" />
+                <RSideBarIters iterType="stats" data={stats} {...rest} />
+                <RSideBarBalance balance={balance} {...rest} h="10vh" />
             </Flex>
         </Box>
     );
 };
 
-const LSideBarIters = ({ iterType, data, ...rest }) => {
+const RSideBarIters = ({ iterType, data, ...rest }) => {
     return (
         <HStack
             spacing={1}
@@ -257,11 +282,11 @@ const LSideBarIters = ({ iterType, data, ...rest }) => {
                     </Tag>
                 ) : iterType === "stats" ? (
                     <Box fontSize={8} key={iter.title}>
-                        <Text opacity={0.5} mb={1}>
+                    <Text opacity={0.5} mb={1} textAlign="center">
                             {iter.title}
                         </Text>
-                        <Heading size="sm">{iter.count}</Heading>
-                        <AvatarGroup size="xs" max={2}>
+                        <Heading size="md" textAlign="center" >{iter.count}</Heading>
+                        <AvatarGroup size="xs" max={2} my={2}>
                             <Avatar
                                 name="Ryan Florence"
                                 src="https://bit.ly/ryan-florence"
@@ -278,7 +303,7 @@ const LSideBarIters = ({ iterType, data, ...rest }) => {
     );
 };
 
-const LSideBarBalance = ({ balance, ...rest }) => {
+const RSideBarBalance = ({ balance, ...rest }) => {
     return (
         <Flex
             textAlign="center"
@@ -302,7 +327,7 @@ const LSideBarBalance = ({ balance, ...rest }) => {
                 py={1}
                 my={2}
             >
-                <Icon mx={2} color="yellow" as={ThunderboltFilled} />
+                <Icon mx={6} color="yellow" as={ThunderboltFilled} />
                 <Box>
                     <Text opacity={0.7}>BALANCE</Text>
                     <Heading size="sm">{balance || 0}</Heading> {/** profile.balance */}
@@ -328,33 +353,63 @@ const LSideBarBalance = ({ balance, ...rest }) => {
         </Flex>
     );
 };
-const RSidebarContent = ({ collapse, ...rest }) => {
+const LeftSide = ({ collapse, ...rest }) => {
     const toggle = () => {
         collapse[1](!collapse[0]);
     };
+
+    const collections = [
+        {
+            name : "Music",
+            count : 345 ,
+        },
+        {
+            name : "Memes",
+            count : 95 ,
+        },
+        {
+            name : "Art",
+            count : 89 ,
+        },
+        {
+            name : "Pop",
+            count : 63 ,
+        },
+    ]
+
     return (
         <Box border="none" w={200} pos="fixed" h="full" >
             <Flex
                 alignItems="left"
                 mx={2}
-                mt={2}
+                mt={1.5}
                 justifyContent="space-between"
                 direction="column"
             >
-                <HStack spacing={2}>
-                    {createElement(
-                        collapse[0] ? MenuUnfoldOutlined : MenuFoldOutlined,
-                        {
-                            className: "trigger",
-                            onClick: toggle,
-                        },
-                    )}
-                    <Text opacity={0.5}>SHOW ME</Text>
-                </HStack>
+                <Heading size="lg" >Collections</Heading>
                 <Stack w="100%" pr={10} mt={10}>
-                    <Box height={50} borderRadius={10} {...rest}></Box>
-                    <Box height={50} borderRadius={10} {...rest}></Box>
-                    <Box height={50} borderRadius={10} {...rest}></Box>
+                    { collections.map((item) => (
+                        <Box height={150} width={200} borderRadius={10} overflowY={"hidden"} {...rest}>
+                            <Tag
+                            size="xs"
+                            variant="solid"
+                            borderRadius={15}
+                            px={1.5}
+                            py={0.5}
+                            position = "fixed"
+                            right = "82.5%"
+                            mt={2}
+                            bg="#6054F0"
+                            color="invert(bg)"
+                            >
+                            {item.count}
+                            </Tag>
+                            <Text m={12} align="center">{item.name}</Text>
+                        </Box>
+                    ))}
+                    
+                    {/* <Box height={50} borderRadius={10} {...rest}></Box>
+                    <Box height={50} borderRadius={10} {...rest}></Box> */}
                 </Stack>
             </Flex>
             {/* {iters.map((iter) => (
@@ -369,6 +424,6 @@ const RSidebarContent = ({ collapse, ...rest }) => {
 const WalletModal = ({ ...rest }) => {};
 
 const styles = {
-    fontFamily: "poppings",
+    fontFamily: "poppins",
     fontSize: 12,
 };

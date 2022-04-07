@@ -22,7 +22,7 @@ import { nearStore } from "../../stores/near.js";
 function Header() {
     const { colorMode } = useColorMode();
     const { t } = useTranslation("header");
-    const bg = useColorModeValue("#ffffffdd", "#1a202cdd");
+    const bg = useColorModeValue("#ffffffdd", "gray.800");
     const state = nearStore((state) => state);
     const [loggedIn, setLoggedIn] = useState(false);
 
