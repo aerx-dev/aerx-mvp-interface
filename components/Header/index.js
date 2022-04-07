@@ -37,79 +37,71 @@ function Header() {
             bg={bg}
             as="nav"
             backdropFilter={"blur(8px)"}
-            className="sticky top-0 z-50 w-full bg-transparent py-4 px-4 md:px-10"
+            className="sticky top-0 z-50 w-full bg-transparent py-4 px-4 md:px-10 flex flex-row items-center relative"
         >
-            <Box className="flex flex-row items-center justify-center w-full">
-                <div className="flex-1">
-                    <Link href={{ pathname: "/" }}>
-                        <ChakraImage
-                            src="/images/white-logo.svg"
-                            alt={t("logoAlt")}
-                            className="rounded-sm"
-                            layout="responsive"
-                            priority="true"
-                            cursor={"pointer"}
-                            width={"80px"}
-                            filter={
-                                colorMode === "light"
-                                    ? "invert(1)"
-                                    : "invert(0)"
-                            }
-                        />
-                    </Link>
-                </div>
+            <Link href={{ pathname: "/" }}>
+                <ChakraImage
+                    src="/images/white-logo.svg"
+                    alt={t("logoAlt")}
+                    className="rounded-sm flex-initial absolute left-1/2 transform -translate-x-1/2"
+                    layout="responsive"
+                    priority="true"
+                    cursor={"pointer"}
+                    width={"80px"}
+                    filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
+                />
+            </Link>
 
-                <HStack>
-                    {loggedIn ? (
-                        <>
-                            <Link href="/feed">
-                                <IconButton
-                                    fontSize="lg"
-                                    aria-label={t("ariaWallet")}
-                                    _hover={{ bg: "none" }}
-                                    _active={{ bg: "none" }}
-                                    rounded="full"
-                                    variant={"outline"}
-                                >
-                                    <IoNewspaperOutline />
-                                </IconButton>
-                            </Link>
+            <div className="ml-auto space-x-2">
+                {loggedIn ? (
+                    <>
+                        <Link href="/feed">
+                            <IconButton
+                                fontSize="lg"
+                                aria-label={t("ariaWallet")}
+                                _hover={{ bg: "none" }}
+                                _active={{ bg: "none" }}
+                                rounded="full"
+                                variant={"outline"}
+                            >
+                                <IoNewspaperOutline />
+                            </IconButton>
+                        </Link>
 
-                            <Link href="/account">
-                                <IconButton
-                                    fontSize="lg"
-                                    aria-label={t("ariaWallet")}
-                                    _hover={{ bg: "none" }}
-                                    _active={{ bg: "none" }}
-                                    rounded="full"
-                                    variant={"outline"}
-                                >
-                                    <IoSettingsOutline />
-                                </IconButton>
-                            </Link>
+                        <Link href="/account">
+                            <IconButton
+                                fontSize="lg"
+                                aria-label={t("ariaWallet")}
+                                _hover={{ bg: "none" }}
+                                _active={{ bg: "none" }}
+                                rounded="full"
+                                variant={"outline"}
+                            >
+                                <IoSettingsOutline />
+                            </IconButton>
+                        </Link>
 
-                            <Link href="/profile">
-                                <IconButton
-                                    fontSize="lg"
-                                    aria-label={t("ariaWallet")}
-                                    _hover={{ bg: "none" }}
-                                    _active={{ bg: "none" }}
-                                    rounded="full"
-                                    variant={"outline"}
-                                >
-                                    <AiOutlineUser />
-                                </IconButton>
-                            </Link>
-                        </>
-                    ) : (
-                        <></>
-                    )}
+                        <Link href="/profile">
+                            <IconButton
+                                fontSize="lg"
+                                aria-label={t("ariaWallet")}
+                                _hover={{ bg: "none" }}
+                                _active={{ bg: "none" }}
+                                rounded="full"
+                                variant={"outline"}
+                            >
+                                <AiOutlineUser />
+                            </IconButton>
+                        </Link>
+                    </>
+                ) : (
+                    <></>
+                )}
 
-                    <ToggleMode />
-                    <ChangeLanguage />
-                    <ConnectWallet />
-                </HStack>
-            </Box>
+                <ToggleMode />
+                <ChangeLanguage />
+                <ConnectWallet />
+            </div>
         </Box>
     );
 }
