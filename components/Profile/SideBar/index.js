@@ -49,11 +49,11 @@ export default function SideBar({ children, bg, state }) {
     console.log(state);
 
     return (
-        <div className="grid grid-cols-12 gap-4">
-            <div className="col-start-1 col-span-3 flex flex-col items-center -translate-x-full md:translate-x-0">
+        <div className="flex flew-row min-w-full justify-center space-x-7">
+            <div className="w-60 flex flex-col items-center">
                 <LeftSide collapse={[isCollapsed, setIsCollapsed]} bg={bg} />
             </div>
-            <div className=" col-start-1 md:col-start-4 col-span-6 flex flex-col items-center">
+            <div className="w-[600px] flex flex-col items-center">
                 <ProfileHeader
                     opacity={colorMode === "light" ? 1 : 0.5}
                     filter={filter}
@@ -71,14 +71,13 @@ export default function SideBar({ children, bg, state }) {
                     Aerx ©2022 Created by AERX Labs
                 </Footer>
             </div>
-            <div
-                className="col-start-10 col-span-3 flex flex-col items-center"
-                trigger={null}
-            >
+
+            <div className="w-80 flex flex-col items-center min-h-full" trigger={null}>
                 <RightSide
                     profile={state?.profile}
                     balance={state?.aexBalance}
                     bg={bg}
+                    className="sticky top-20 min-h-max"
                 />
             </div>
         </div>
@@ -88,9 +87,7 @@ export default function SideBar({ children, bg, state }) {
 const ProfileHeader = ({ ...rest }) => {
     return (
         <Header className="min-w-full">
-            <Heading size="lg">
-                Flow
-            </Heading>
+            <Heading size="lg">Flow</Heading>
             <Button variant="ghost" styles={styles.marker}>
                 My
             </Button>
@@ -140,8 +137,8 @@ const RightSide = ({ profile, balance, ...rest }) => {
 
     return (
         <Box
-            className="border-1 fixed max-h-screen rounded-xl "
-            w={{ base: "full", md: "22%" }}
+            className="border-1  max-h-screen rounded-xl "
+            // w={{ base: "full", md: "22%" }}
             {...rest}
         >
             <Flex
@@ -360,17 +357,16 @@ const LeftSide = ({ collapse, ...rest }) => {
     ];
 
     return (
-        <Box border="none" w={200} pos="fixed" h="full">
-            <Flex
-                alignItems="left"
-                justifyContent="space-between"
-                direction="column"
-            >
-                <Heading size="lg">Collections</Heading>
-                <div w="100%" pr={10} mt={10} className="grid grid-rows-4 grid-flow-col gap-4 max-h-72">
-                    { collections.map((item, index) => (
-                        <div key={index} className={`flex flex-col shadow-lg h-36 w-48 rounded-xl hover:-translate-y-6 transition ${item.color}`} {...rest} >
-                            <div className="flex flex-row items-center justify-end">
+        <div className="flex flex-col w-full">
+            <Heading size="lg">Collections</Heading>
+            <div className="grid grid-rows-4 grid-flow-col gap-4 max-h-80 mt-10">
+                {collections.map((item, index) => (
+                    <div
+                        key={index}
+                        className={`flex flex-col shadow-lg h-36 w-full rounded-xl hover:-translate-y-6 translate-y-0 transition ${item.color}`}
+                        {...rest}
+                    >
+                        <div className="flex flex-row items-center justify-end">
                             <Tag
                                 size="xs"
                                 variant="solid"
@@ -383,21 +379,13 @@ const LeftSide = ({ collapse, ...rest }) => {
                                 className="m-1"
                             >
                                 {item.count}
-                                </Tag></div>
-                            <Text className="m-1 mt-3">{item.name}</Text>
+                            </Tag>
                         </div>
-                    ))}
-
-                    {/* <Box height={50} borderRadius={10} {...rest}></Box>
-                    <Box height={50} borderRadius={10} {...rest}></Box> */}
-                </div>
-            </Flex>
-            {/* {iters.map((iter) => (
-                <RSideBarIters key={iter.name} icon={iter.icon}>
-                    {iter.name}
-                </RSideBarIters>
-            ))} */}
-        </Box>
+                        <Text className="m-1 mt-3">{item.name}</Text>
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 };
 
