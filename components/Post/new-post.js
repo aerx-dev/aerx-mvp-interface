@@ -87,9 +87,9 @@ function NewPost({ bg }) {
                 "AERX PostNFT nr." + res.token_id + " minted successfully!",
                 "CNFTsccss",
             );
-            postToSave.token_id = res.token_id;
-            postToSave.owner_id = res.owner_id;
-            postToSave.id = res.token_id;
+            postToSave.tokenId = res.token_id;
+            postToSave.ownerId = res.owner_id;
+            postToSave.postId = res.token_id;
             postToSupa(postToSave, toast)
 
         } catch (e) {

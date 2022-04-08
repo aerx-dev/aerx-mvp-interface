@@ -34,11 +34,45 @@ import SongCard from "../Player/songCard";
 
 
 const { Header, Footer, Content } = Layout;
+const postQuery = `
+query {
+    feed: postCollection {
+      edges {
+        post: node {
+          id
+          title
+          url
+          upVotes: voteCollection(filter: { direction: { eq: "UP" } }) {
+            totalCount
+          }
+          downVotes: voteCollection(filter: { direction: { eq: "DOWN" } }) {
+            totalCount
+          }
+          comments: commentCollection {
+            edges {
+              node {
+                id
+                message
+                profile {
+                  id
+                  username
+                  avatarUrl
+                }
+              }
+            }
+            commentCount: totalCount
+          }
+        }
+      }
+    }
+  }
 
-function Post({ nft, posts, charge }) {
+`
 
-    const allPosts = posts;
-    console.log({allPosts: allPosts})
+
+
+function Post({ nft, charge }) {
+
 
     const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
