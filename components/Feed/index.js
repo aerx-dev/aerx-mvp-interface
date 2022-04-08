@@ -4,6 +4,7 @@ import Layout from "../Layout";
 import { nearStore } from "../../stores/near";
 import NFTCard from "../Profile/ProfileNFTCard";
 import dynamic from "next/dynamic";
+import { useQuery } from 'urql';
 
 // important ! reduce load time. lazyLoad feeder during fetch
 const LazyPosts = dynamic(() => import("../Post/post"), {
@@ -19,16 +20,11 @@ const LazyPosts = dynamic(() => import("../Post/post"), {
     ),
 });
 
-const Feed = () => {
+const Feed = ( posts ) => {
+
     const nearState = nearStore((state) => state);
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
-
-
-    async function getContentNFT(token_id) {
-        // get the content NFT data from supabase here and render below
-
-    }
 
     return (
         <Layout>
@@ -49,6 +45,7 @@ const Feed = () => {
                                 <LazyPosts
                                     key={nft.token_id}
                                     nft={nft}
+                                    posts = {posts}
                                     // charge={getCharge(nft.token_id) || 0}
                                 />
                             );
@@ -59,5 +56,49 @@ const Feed = () => {
         </Layout>
     );
 };
+
+export async function getStaticProps() {
+    // If this request throws an uncaught error, Next.js will
+    // not invalidate the currently shown page and
+    // retry getStaticProps on the next request.
+    // Prepare our GraphQL query
+    const PostsQuery = `
+query {
+  postCollection {
+    edges {
+      node {
+        id
+        description
+      }
+    }
+  }
+}
+`
+
+// Query for the data (React)
+const [result, reexecuteQuery] = useQuery({
+    query: PostsQuery,
+  })
+  
+  // Read the result
+  const { data, fetching, error } = result
+
+    if (!data) {
+        // If there is a server error, you might want to
+        // throw an error instead of returning so that the cache is not updated
+        // until the next successful request.
+        throw new Error(`Failed to fetch posts, received status ${error}`)
+    }
+
+    // If the request was successful, return the posts
+    // and revalidate every 10 seconds.
+    return {
+        props: {
+            posts,
+        },
+        revalidate: 10,
+    }
+}
+
 
 export default Feed;

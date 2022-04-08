@@ -1,0 +1,26 @@
+# Your GraphQL query or mutation goes here
+query {
+  feed: postCollection {
+    edges {
+      post: node {
+        id
+        title
+        url
+        comments: commentCollection {
+          edges {
+            node {
+              id
+              message
+              profile {
+                id
+                username
+                avatarUrl
+              }
+            }
+          }
+          commentCount: totalCount
+        }
+      }
+    }
+  }
+}
