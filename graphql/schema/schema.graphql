@@ -12,6 +12,86 @@ input BigIntFilter {
   neq: BigInt
 }
 
+type BlogPost {
+  id: UUID!
+  blogId: Int!
+  title: String!
+  body: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  blog: Post
+}
+
+type BlogPostConnection {
+  edges: [BlogPostEdge!]!
+  pageInfo: PageInfo!
+}
+
+type BlogPostDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [BlogPost!]!
+}
+
+type BlogPostEdge {
+  cursor: String!
+  node: BlogPost
+}
+
+input BlogPostFilter {
+  id: UUIDFilter
+  blogId: IntFilter
+  title: StringFilter
+  body: StringFilter
+  createdAt: DatetimeFilter
+  updatedAt: DatetimeFilter
+}
+
+input BlogPostInsertInput {
+  id: UUID
+  blogId: Int
+  title: String
+  body: String
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+type BlogPostInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [BlogPost!]!
+}
+
+input BlogPostOrderBy {
+  id: OrderByDirection
+  blogId: OrderByDirection
+  title: OrderByDirection
+  body: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
+}
+
+input BlogPostUpdateInput {
+  id: UUID
+  blogId: Int
+  title: String
+  body: String
+  createdAt: Datetime
+  updatedAt: Datetime
+}
+
+type BlogPostUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [BlogPost!]!
+}
+
 """
 Boolean expression comparing fields on type "Boolean"
 """
@@ -22,88 +102,6 @@ input BooleanFilter {
   lt: Boolean
   lte: Boolean
   neq: Boolean
-}
-
-type Comment {
-  id: BigInt!
-  createdAt: Datetime
-  updatedAt: Datetime
-  message: String!
-  profileId: UUID!
-  postId: BigInt!
-  post: Post
-  profile: Profile
-}
-
-type CommentConnection {
-  edges: [CommentEdge!]!
-  pageInfo: PageInfo!
-
-  """The total number of records matching the `filter` criteria"""
-  totalCount: Int!
-}
-
-type CommentDeleteResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Comment!]!
-}
-
-type CommentEdge {
-  cursor: String!
-  node: Comment
-}
-
-input CommentFilter {
-  id: BigIntFilter
-  createdAt: DatetimeFilter
-  updatedAt: DatetimeFilter
-  message: StringFilter
-  profileId: UUIDFilter
-  postId: BigIntFilter
-}
-
-input CommentInsertInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  message: String
-  profileId: UUID
-  postId: BigInt
-}
-
-type CommentInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Comment!]!
-}
-
-input CommentOrderBy {
-  id: OrderByDirection
-  createdAt: OrderByDirection
-  updatedAt: OrderByDirection
-  message: OrderByDirection
-  profileId: OrderByDirection
-  postId: OrderByDirection
-}
-
-input CommentUpdateInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  message: String
-  profileId: UUID
-  postId: BigInt
-}
-
-type CommentUpdateResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Comment!]!
 }
 
 scalar Cursor
@@ -134,11 +132,6 @@ input DatetimeFilter {
   lt: Datetime
   lte: Datetime
   neq: Datetime
-}
-
-enum Direction {
-  DOWN
-  UP
 }
 
 """
@@ -178,15 +171,15 @@ input JSONFilter {
 """The root type for creating and mutating data"""
 type Mutation {
   """Deletes zero or more records from the collection"""
-  deleteFromCommentCollection(
+  deleteFromBlogPostCollection(
     """Restricts the mutation's impact to records matching the critera"""
-    filter: CommentFilter
+    filter: BlogPostFilter
 
     """
     The maximum number of records in the collection permitted to be affected
     """
     atMost: Int! = 1
-  ): CommentDeleteResponse!
+  ): BlogPostDeleteResponse!
 
   """Deletes zero or more records from the collection"""
   deleteFromPostCollection(
@@ -210,19 +203,8 @@ type Mutation {
     atMost: Int! = 1
   ): ProfileDeleteResponse!
 
-  """Deletes zero or more records from the collection"""
-  deleteFromVoteCollection(
-    """Restricts the mutation's impact to records matching the critera"""
-    filter: VoteFilter
-
-    """
-    The maximum number of records in the collection permitted to be affected
-    """
-    atMost: Int! = 1
-  ): VoteDeleteResponse!
-
-  """Adds one or more `CommentInsertResponse` records to the collection"""
-  insertIntoCommentCollection(objects: [CommentInsertInput!]!): CommentInsertResponse
+  """Adds one or more `BlogPostInsertResponse` records to the collection"""
+  insertIntoBlogPostCollection(objects: [BlogPostInsertInput!]!): BlogPostInsertResponse
 
   """Adds one or more `PostInsertResponse` records to the collection"""
   insertIntoPostCollection(objects: [PostInsertInput!]!): PostInsertResponse
@@ -230,24 +212,21 @@ type Mutation {
   """Adds one or more `ProfileInsertResponse` records to the collection"""
   insertIntoProfileCollection(objects: [ProfileInsertInput!]!): ProfileInsertResponse
 
-  """Adds one or more `VoteInsertResponse` records to the collection"""
-  insertIntoVoteCollection(objects: [VoteInsertInput!]!): VoteInsertResponse
-
   """Updates zero or more records in the collection"""
-  updateCommentCollection(
+  updateBlogPostCollection(
     """
     Fields that are set will be updated for all records matching the `filter`
     """
-    set: CommentUpdateInput!
+    set: BlogPostUpdateInput!
 
     """Restricts the mutation's impact to records matching the critera"""
-    filter: CommentFilter
+    filter: BlogPostFilter
 
     """
     The maximum number of records in the collection permitted to be affected
     """
     atMost: Int! = 1
-  ): CommentUpdateResponse!
+  ): BlogPostUpdateResponse!
 
   """Updates zero or more records in the collection"""
   updatePostCollection(
@@ -280,22 +259,6 @@ type Mutation {
     """
     atMost: Int! = 1
   ): ProfileUpdateResponse!
-
-  """Updates zero or more records in the collection"""
-  updateVoteCollection(
-    """
-    Fields that are set will be updated for all records matching the `filter`
-    """
-    set: VoteUpdateInput!
-
-    """Restricts the mutation's impact to records matching the critera"""
-    filter: VoteFilter
-
-    """
-    The maximum number of records in the collection permitted to be affected
-    """
-    atMost: Int! = 1
-  ): VoteUpdateResponse!
 }
 
 """Defines a per-field sorting order"""
@@ -314,19 +277,16 @@ type PageInfo {
 }
 
 type Post {
-  id: BigInt!
-  createdAt: Datetime!
-  updatedAt: Datetime
-  title: String!
+  id: Int!
   url: String!
   profileId: UUID!
-  upVoteTotal: Int!
-  downVoteTotal: Int!
-  voteTotal: Int!
-  voteRank: Int!
-  score: Int
-  voteDelta: Int!
-  commentCollection(
+  media: String
+  mediaType: String
+  mediaHash: String
+  description: String
+  createdAt: Datetime!
+  updatedAt: Datetime!
+  blogPostCollection(
     """Query the first `n` records in the collection"""
     first: Int
 
@@ -340,39 +300,17 @@ type Post {
     after: Cursor
 
     """Filters to apply to the results set when querying from the collection"""
-    filter: CommentFilter
+    filter: BlogPostFilter
 
     """Sort order to apply to the collection"""
-    orderBy: [CommentOrderBy!]
-  ): CommentConnection
+    orderBy: [BlogPostOrderBy!]
+  ): BlogPostConnection
   profile: Profile
-  voteCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: VoteFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [VoteOrderBy!]
-  ): VoteConnection
 }
 
 type PostConnection {
   edges: [PostEdge!]!
   pageInfo: PageInfo!
-
-  """The total number of records matching the `filter` criteria"""
-  totalCount: Int!
 }
 
 type PostDeleteResponse {
@@ -389,32 +327,26 @@ type PostEdge {
 }
 
 input PostFilter {
-  id: BigIntFilter
-  createdAt: DatetimeFilter
-  updatedAt: DatetimeFilter
-  title: StringFilter
+  id: IntFilter
   url: StringFilter
   profileId: UUIDFilter
-  upVoteTotal: IntFilter
-  downVoteTotal: IntFilter
-  voteTotal: IntFilter
-  voteRank: IntFilter
-  score: IntFilter
-  voteDelta: IntFilter
+  media: StringFilter
+  mediaType: StringFilter
+  mediaHash: StringFilter
+  description: StringFilter
+  createdAt: DatetimeFilter
+  updatedAt: DatetimeFilter
 }
 
 input PostInsertInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  title: String
   url: String
   profileId: UUID
-  upVoteTotal: Int
-  downVoteTotal: Int
-  voteTotal: Int
-  voteRank: Int
-  score: Int
-  voteDelta: Int
+  media: String
+  mediaType: String
+  mediaHash: String
+  description: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 type PostInsertResponse {
@@ -427,31 +359,25 @@ type PostInsertResponse {
 
 input PostOrderBy {
   id: OrderByDirection
-  createdAt: OrderByDirection
-  updatedAt: OrderByDirection
-  title: OrderByDirection
   url: OrderByDirection
   profileId: OrderByDirection
-  upVoteTotal: OrderByDirection
-  downVoteTotal: OrderByDirection
-  voteTotal: OrderByDirection
-  voteRank: OrderByDirection
-  score: OrderByDirection
-  voteDelta: OrderByDirection
+  media: OrderByDirection
+  mediaType: OrderByDirection
+  mediaHash: OrderByDirection
+  description: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
 }
 
 input PostUpdateInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  title: String
   url: String
   profileId: UUID
-  upVoteTotal: Int
-  downVoteTotal: Int
-  voteTotal: Int
-  voteRank: Int
-  score: Int
-  voteDelta: Int
+  media: String
+  mediaType: String
+  mediaHash: String
+  description: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 type PostUpdateResponse {
@@ -464,30 +390,11 @@ type PostUpdateResponse {
 
 type Profile {
   id: UUID!
-  updatedat: Datetime
-  username: String
+  username: String!
   avatarUrl: String
-  website: String
   bio: String
-  commentCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: CommentFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [CommentOrderBy!]
-  ): CommentConnection
+  createdAt: Datetime!
+  updatedAt: Datetime!
   postCollection(
     """Query the first `n` records in the collection"""
     first: Int
@@ -507,25 +414,6 @@ type Profile {
     """Sort order to apply to the collection"""
     orderBy: [PostOrderBy!]
   ): PostConnection
-  voteCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: VoteFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [VoteOrderBy!]
-  ): VoteConnection
 }
 
 type ProfileConnection {
@@ -551,20 +439,20 @@ type ProfileEdge {
 
 input ProfileFilter {
   id: UUIDFilter
-  updatedat: DatetimeFilter
   username: StringFilter
   avatarUrl: StringFilter
-  website: StringFilter
   bio: StringFilter
+  createdAt: DatetimeFilter
+  updatedAt: DatetimeFilter
 }
 
 input ProfileInsertInput {
   id: UUID
-  updatedat: Datetime
   username: String
   avatarUrl: String
-  website: String
   bio: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 type ProfileInsertResponse {
@@ -577,20 +465,20 @@ type ProfileInsertResponse {
 
 input ProfileOrderBy {
   id: OrderByDirection
-  updatedat: OrderByDirection
   username: OrderByDirection
   avatarUrl: OrderByDirection
-  website: OrderByDirection
   bio: OrderByDirection
+  createdAt: OrderByDirection
+  updatedAt: OrderByDirection
 }
 
 input ProfileUpdateInput {
   id: UUID
-  updatedat: Datetime
   username: String
   avatarUrl: String
-  website: String
   bio: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 type ProfileUpdateResponse {
@@ -603,8 +491,8 @@ type ProfileUpdateResponse {
 
 """The root type for querying data"""
 type Query {
-  """A pagable collection of type `Comment`"""
-  commentCollection(
+  """A pagable collection of type `BlogPost`"""
+  blogPostCollection(
     """Query the first `n` records in the collection"""
     first: Int
 
@@ -618,11 +506,11 @@ type Query {
     after: Cursor
 
     """Filters to apply to the results set when querying from the collection"""
-    filter: CommentFilter
+    filter: BlogPostFilter
 
     """Sort order to apply to the collection"""
-    orderBy: [CommentOrderBy!]
-  ): CommentConnection
+    orderBy: [BlogPostOrderBy!]
+  ): BlogPostConnection
 
   """A pagable collection of type `Post`"""
   postCollection(
@@ -665,32 +553,6 @@ type Query {
     """Sort order to apply to the collection"""
     orderBy: [ProfileOrderBy!]
   ): ProfileConnection
-
-  """A pagable collection of type `Vote`"""
-  voteCollection(
-    """Query the first `n` records in the collection"""
-    first: Int
-
-    """Query the last `n` records in the collection"""
-    last: Int
-
-    """Query values in the collection before the provided cursor"""
-    before: Cursor
-
-    """Query values in the collection after the provided cursor"""
-    after: Cursor
-
-    """Filters to apply to the results set when querying from the collection"""
-    filter: VoteFilter
-
-    """Sort order to apply to the collection"""
-    orderBy: [VoteOrderBy!]
-  ): VoteConnection
-}
-
-type SchemaMigrationsInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
 }
 
 """
@@ -727,86 +589,4 @@ Boolean expression comparing fields on type "UUID"
 input UUIDFilter {
   eq: UUID
   neq: UUID
-}
-
-type Vote {
-  id: BigInt!
-  createdAt: Datetime
-  updatedAt: Datetime
-  profileId: UUID!
-  postId: BigInt!
-  direction: String!
-  post: Post
-  profile: Profile
-}
-
-type VoteConnection {
-  edges: [VoteEdge!]!
-  pageInfo: PageInfo!
-
-  """The total number of records matching the `filter` criteria"""
-  totalCount: Int!
-}
-
-type VoteDeleteResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Vote!]!
-}
-
-type VoteEdge {
-  cursor: String!
-  node: Vote
-}
-
-input VoteFilter {
-  id: BigIntFilter
-  createdAt: DatetimeFilter
-  updatedAt: DatetimeFilter
-  profileId: UUIDFilter
-  postId: BigIntFilter
-  direction: StringFilter
-}
-
-input VoteInsertInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  profileId: UUID
-  postId: BigInt
-  direction: String
-}
-
-type VoteInsertResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Vote!]!
-}
-
-input VoteOrderBy {
-  id: OrderByDirection
-  createdAt: OrderByDirection
-  updatedAt: OrderByDirection
-  profileId: OrderByDirection
-  postId: OrderByDirection
-  direction: OrderByDirection
-}
-
-input VoteUpdateInput {
-  createdAt: Datetime
-  updatedAt: Datetime
-  profileId: UUID
-  postId: BigInt
-  direction: String
-}
-
-type VoteUpdateResponse {
-  """Count of the records impacted by the mutation"""
-  affectedCount: Int!
-
-  """Array of records impacted by the mutation"""
-  records: [Vote!]!
 }
