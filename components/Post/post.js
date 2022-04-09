@@ -32,47 +32,11 @@ import useCustomToast from "../../hooks/useCustomToast";
 import TimeAgo from "timeago-react";
 import SongCard from "../Player/songCard";
 
-
 const { Header, Footer, Content } = Layout;
-const postQuery = `
-query {
-    feed: postCollection {
-      edges {
-        post: node {
-          id
-          title
-          url
-          upVotes: voteCollection(filter: { direction: { eq: "UP" } }) {
-            totalCount
-          }
-          downVotes: voteCollection(filter: { direction: { eq: "DOWN" } }) {
-            totalCount
-          }
-          comments: commentCollection {
-            edges {
-              node {
-                id
-                message
-                profile {
-                  id
-                  username
-                  avatarUrl
-                }
-              }
-            }
-            commentCount: totalCount
-          }
-        }
-      }
-    }
-  }
 
-`
-
-
-
-function Post({ nft, charge }) {
-
+function Post({ nft, charge, feeds }) {
+    console.log("nft", nft);
+    console.log("feeds", feeds)
 
     const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
@@ -111,18 +75,18 @@ function Post({ nft, charge }) {
         },
     };
 
-    const [currentCharge, setCurrentCharge] = useState()
+    const [currentCharge, setCurrentCharge] = useState();
     useEffect(() => {
         async function getCharge() {
-            var res = await nearState.cnftContract
-                .get_charge({ token_id: nft.token_id.toString() })
+            var res = await nearState.cnftContract.get_charge({
+                token_id: nft.token_id.toString(),
+            });
 
-            setCurrentCharge(res)
+            setCurrentCharge(res);
             // return res;
         }
         getCharge();
     }, [nearState, nft.token_id, isOpen]);
-
 
     const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
 
@@ -138,15 +102,16 @@ function Post({ nft, charge }) {
                             isUserMsg
                                 ? nearState.profile?.profileImg
                                 : metadata?.media ||
-                                nft?.owner_id || // extra connditions for display data
-                                "https://bit.ly/dan-abramov"
+                                  nft?.owner_id || // extra connditions for display data
+                                  "https://bit.ly/dan-abramov"
                         }
                         size="sm"
                     />
                     <Text my={2}>{nft?.owner_id || "pavel dantsev"}</Text>
                     <TimeAgo
-                        className={`text-[11px] ${isUserMsg && "order-last pr-1"
-                            } opacity-60`}
+                        className={`text-[11px] ${
+                            isUserMsg && "order-last pr-1"
+                        } opacity-60`}
                         datetime={metadata.issued_at}
                     />
                     <PurpleButton
@@ -157,15 +122,17 @@ function Post({ nft, charge }) {
                     </PurpleButton>
                 </Header>
                 <Content style={styles.content}>
-                    {(extra?.media_type === "audio" || extra?.type === "audio")
-                        ? <SongCard
+                    {extra?.media_type === "audio" ||
+                    extra?.type === "audio" ? (
+                        <SongCard
                             url={metadata?.media}
                             artist={extra?.artist}
                             title={extra?.title}
                             duration={extra?.duration}
                             cover={extra?.cover}
                         />
-                        : <Box mb={1}>
+                    ) : (
+                        <Box mb={1}>
                             {metadata?.media && (
                                 <ChakraImage
                                     maxH={200}
@@ -177,7 +144,8 @@ function Post({ nft, charge }) {
                                     objectFit="contain"
                                 />
                             )}
-                        </Box>}
+                        </Box>
+                    )}
                     <Box p={2}>{metadata?.description}</Box>
                 </Content>
                 <Divider />
@@ -212,16 +180,17 @@ const ChargeModal = ({ nft, state }) => {
     const postBg = useColorModeValue("#d182ffda", "#171923");
     const toast = useCustomToast();
 
-
-
     function updateSlider(e) {
         setSliderValue(e);
     }
 
     async function getTotalCharges(_tokenId, _charge) {
         // Get the post using the tokenId from supabase
-        const { data, error } = await supabase.from('postnft').select('id, totalCharged').eq('id', _tokenId)
-        console.log("data received from supabase", data)
+        const { data, error } = await supabase
+            .from("postnft")
+            .select("id, totalCharged")
+            .eq("id", _tokenId);
+        console.log("data received from supabase", data);
         const newTotalCharge = data.totalCharged + _charge;
         // Update the post total charge on the db before setting the charge
         // on page reload
@@ -230,11 +199,14 @@ const ChargeModal = ({ nft, state }) => {
         if (error) {
             toast(
                 "error",
-                "Post could not be fetched from Supabase! Error: " + error.message, "supaErr"
+                "Post could not be fetched from Supabase! Error: " +
+                    error.message,
+                "supaErr",
             );
-            throw error
+            throw error;
         } else {
-            console.log(" post successfully updated to Supabase"), "supaSuccess"
+            console.log(" post successfully updated to Supabase"),
+                "supaSuccess";
             // redirect back to feed
         }
     }
@@ -270,12 +242,10 @@ const ChargeModal = ({ nft, state }) => {
             .catch((e) => {
                 console.log("Charge failed!", e);
                 toast("error", "Charge failed!", "ChargeIderr");
-            })
-            .then(() => getTotalCharges(nft.tokenId, amount))
+            });
         //.then(() => setCharge(nft.tokenId, newAmount));
         onClose();
     }
-
 
     return (
         <Modal
@@ -334,4 +304,7 @@ const ChargeModal = ({ nft, state }) => {
 };
 
 
+
+
 export default Post;
+

@@ -25,6 +25,7 @@
         "@chakra-ui/icons": "^1.1.5",
         "@chakra-ui/react": "^1.8.3",
         "@crustio/type-definitions": "^1.2.0",
+        "@graphql-codegen/cli": "^2.6.2",
         "@graphql-yoga/render-graphiql": "2.0.0",
         "@polkadot/api": "^7.13.1",
         "@polkadot/keyring": "^8.6.1",

@@ -10,14 +10,14 @@ import {
 import { RepeatIcon } from "@chakra-ui/icons";
 import useCustomToast from "../../hooks/useCustomToast";
 // import useIPFS from "../../hooks/useIPFS";
-import usePinata from "../../hooks/usePinata"
+import usePinata from "../../hooks/usePinata";
 import { AddIcon } from "@chakra-ui/icons";
 import { useState, useEffect, useRef } from "react";
 import { nearStore } from "../../stores/near";
 import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
-import { supabase, postToSupa } from "../../lib/supabaseClient"
+import { supabase, postToSupa } from "../../lib/supabaseClient";
 
 function NewPost({ bg }) {
     const nearState = nearStore((state) => state);
@@ -50,11 +50,9 @@ function NewPost({ bg }) {
                     "BalanceId",
                 );
             }
-
         })(); // IIFE
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
     async function createPost() {
         if (!body.text) {
@@ -90,8 +88,7 @@ function NewPost({ bg }) {
             postToSave.tokenId = res.token_id;
             postToSave.ownerId = res.owner_id;
             postToSave.postId = res.token_id;
-            postToSupa(postToSave, toast)
-
+            postToSupa(postToSave, toast);
         } catch (e) {
             console.log("NFT could not be minted! Error: " + e.message);
             toast(

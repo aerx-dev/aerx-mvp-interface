@@ -4,7 +4,8 @@ import Layout from "../Layout";
 import { nearStore } from "../../stores/near";
 import NFTCard from "../Profile/ProfileNFTCard";
 import dynamic from "next/dynamic";
-import { useQuery } from 'urql';
+import { GET_ALL_POSTS } from "../../graphql/queries/queries";
+import { useQuery } from "urql";
 
 // important ! reduce load time. lazyLoad feeder during fetch
 const LazyPosts = dynamic(() => import("../Post/post"), {
@@ -20,8 +21,7 @@ const LazyPosts = dynamic(() => import("../Post/post"), {
     ),
 });
 
-const Feed = ( posts ) => {
-
+const Feed = () => {
     const nearState = nearStore((state) => state);
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
@@ -40,16 +40,20 @@ const Feed = ( posts ) => {
                             <NewPost state={nearState} bg={postBg} />
                         </Box>
 
-                        {nearState.feed?.sort(function(a, b){return b.token_id-a.token_id}).map((nft) => {
-                            return (
-                                <LazyPosts
-                                    key={nft.token_id}
-                                    nft={nft}
-                                    posts = {posts}
-                                    // charge={getCharge(nft.token_id) || 0}
-                                />
-                            );
-                        })}
+                        {nearState.feed
+                            ?.sort(function (a, b) {
+                                return b.token_id - a.token_id;
+                            })
+                            .map((nft) => {
+                                return (
+                                    <LazyPosts
+                                        key={nft.token_id}
+                                        nft={nft}
+                                        
+                                        //charge={getCharge(nft.token_id) || 0}
+                                    />
+                                );
+                            })}
                     </Box>
                 </Grid>
             </Box>
@@ -57,48 +61,22 @@ const Feed = ( posts ) => {
     );
 };
 
-export async function getStaticProps() {
-    // If this request throws an uncaught error, Next.js will
-    // not invalidate the currently shown page and
-    // retry getStaticProps on the next request.
-    // Prepare our GraphQL query
-    const PostsQuery = `
-query {
-  postCollection {
-    edges {
-      node {
-        id
-        description
-      }
-    }
-  }
-}
-`
-
-// Query for the data (React)
-const [result, reexecuteQuery] = useQuery({
-    query: PostsQuery,
-  })
-  
-  // Read the result
-  const { data, fetching, error } = result
-
-    if (!data) {
-        // If there is a server error, you might want to
-        // throw an error instead of returning so that the cache is not updated
-        // until the next successful request.
-        throw new Error(`Failed to fetch posts, received status ${error}`)
-    }
-
-    // If the request was successful, return the posts
-    // and revalidate every 10 seconds.
-    return {
-        props: {
-            posts,
-        },
-        revalidate: 10,
-    }
-}
-
 
 export default Feed;
+
+export const getStaticProps = async () => {
+    // Query for the data (React)
+    const [result, reexecuteQuery] = useQuery({
+        query: GET_ALL_POSTS,
+    });
+
+    // Read the result
+    const { data, fetching, error } = result;
+
+    return {
+      props: {
+        feeds: data
+      }
+    }
+};
+
