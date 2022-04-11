@@ -26,6 +26,22 @@ const Feed = () => {
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
 
+    // Query for the data (React) from the database
+    const [result, reexecuteQuery] = useQuery({
+        query: GET_ALL_POSTS,
+    });
+
+    // Read the result
+    const { data: postData, fetching, error: postError } = result;
+    if (!postData) {
+        // If there is a server error, you might want to
+        // throw an error instead of returning so that the cache is not updated
+        // until the next successful request.
+        console.log(`Error! ${postError}`);
+        //throw new Error(`Failed to fetch posts, received status ${error}`)
+    }
+    console.log({ postData: postData });
+
     return (
         <Layout>
             <Box className="p-4 z-10 relative md:px-10">
@@ -49,7 +65,7 @@ const Feed = () => {
                                     <LazyPosts
                                         key={nft.token_id}
                                         nft={nft}
-                                        
+
                                         //charge={getCharge(nft.token_id) || 0}
                                     />
                                 );
@@ -61,22 +77,4 @@ const Feed = () => {
     );
 };
 
-
 export default Feed;
-
-export const getStaticProps = async () => {
-    // Query for the data (React)
-    const [result, reexecuteQuery] = useQuery({
-        query: GET_ALL_POSTS,
-    });
-
-    // Read the result
-    const { data, fetching, error } = result;
-
-    return {
-      props: {
-        feeds: data
-      }
-    }
-};
-

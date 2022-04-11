@@ -6,7 +6,7 @@ query {
     edges {
       post: node {
         id
-        title
+        description
        
       }
     }
@@ -14,4 +14,22 @@ query {
 }
 `
 
-export { GET_ALL_POSTS }
+const GET_ALL_PROFILES = `
+query {
+  profiles: profileCollection {
+    edges {
+      profle: node {
+        id
+        username
+        fullname
+        about_me
+        avatar_url
+
+      }
+    }
+  }
+}
+`
+
+
+export { GET_ALL_POSTS, GET_ALL_PROFILES }

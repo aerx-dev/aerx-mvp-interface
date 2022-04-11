@@ -9,6 +9,7 @@ import usePinata from "../../hooks/usePinata"
 import useCustomToast from "../../hooks/useCustomToast";
 import AccountData from "./Account";
 import { pinFileToIPFS } from "../../lib/ipfsPinata"
+import { profileToSupa } from "../../lib/supabaseClient";
 
 const Account = () => {
     // The profile picture which will go into the NFT
@@ -85,10 +86,11 @@ const Account = () => {
         e.preventDefault();
         let profileToSave = {
             title: profile.fullName,
+            username: nearState.accountId,
             description: "AERX ProfileNFT for " + profile.fullName,
             media: ipfsData.fileUrl,
             media_hash: ipfsData.urlSha256,
-            issued_at: new Date().toString(),
+            issued_at: new Date().toISOString(),
             extra: JSON.stringify(profile),
         };
 
@@ -137,6 +139,9 @@ const Account = () => {
                 "PNFTsccss",
             );
             console.log(res);
+
+            profileToSupa(profileToSave, toast)
+
         } catch (e) {
             toast("error", "ProfileNFT could not be minted!", "PNFTsccss");
             console.log("NFT could not be minted! Error: ", e);

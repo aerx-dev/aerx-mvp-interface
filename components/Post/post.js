@@ -34,9 +34,7 @@ import SongCard from "../Player/songCard";
 
 const { Header, Footer, Content } = Layout;
 
-function Post({ nft, charge, feeds }) {
-    console.log("nft", nft);
-    console.log("feeds", feeds)
+function Post({ nft, charge}) {
 
     const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
