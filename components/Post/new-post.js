@@ -168,6 +168,7 @@ function NewPost({ bg }) {
             px={4}
             py={2}
             borderRadius={10}
+            className="sticky top-20 z-10 shadow-lg"
         >
             <Avatar
                 size="xs"
