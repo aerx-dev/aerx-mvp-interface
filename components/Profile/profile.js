@@ -35,7 +35,7 @@ const Profile = () => {
     return (
         <Layout>
             <LazySider bg={bg} state={nearState}>
-                <Box maxWidth="84%">
+                <Box>
                     <NewPost state={nearState} bg={bg} />
 
                     {nearState?.feed && nearState?.accountId ? (

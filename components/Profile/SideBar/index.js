@@ -46,47 +46,28 @@ export default function SideBar({ children, bg, state }) {
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
 
-    console.log(state)
+    console.log(state);
 
     return (
-        <Layout hasSider>
-            <Sider
+        <div className="grid grid-cols-12 gap-x-6 mx-10">
+            <div
+                className="col-start-1 col-span-3 flex flex-col items-center min-h-full"
                 trigger={null}
-                collapsed={false}
-                style={{
-                    overflow: "auto",
-                    height: "full",
-                    position: "fixed",
-                    left: "4.5%",
-                    top: "4.5rem",
-                    bottom: 0,
-                }}
             >
-                <LeftSide
-                    collapse={[isCollapsed, setIsCollapsed]}
+                <RightSide
+                    profile={state?.profile}
+                    balance={state?.aexBalance}
                     bg={bg}
+                    className="sticky top-20 min-h-max min-w-full"
                 />
-            </Sider>
-            <Layout
-                style={{
-                    marginLeft: "15%",
-                    marginRight: isCollapsed ? 100 : 200,
-                    backgroundColor: "none",
-                }}
-            >
-                <ProfileHeader
+            </div>
+            <div className="col-start-4 col-span-6 flex flex-col items-center">
+                {/* <ProfileHeader
                     opacity={colorMode === "light" ? 1 : 0.5}
                     filter={filter}
-                />
-                <Content
-                    style={{
-                        margin: "0 10% 0",
-                        marginTop: 8,
-                        overflow: "initial",
-                    }}
-                >
-                    {children}
-                </Content>
+                /> */}
+                <Content className="min-w-full">{children}</Content>
+
                 <Footer
                     style={{
                         textAlign: "center",
@@ -98,21 +79,16 @@ export default function SideBar({ children, bg, state }) {
                 >
                     Aerx ©2022 Created by AERX Labs
                 </Footer>
-            </Layout>
-            <Sider
-                trigger={null}
-                style={{
-                    overflow: "auto",
-                    height: "full",
-                    position: "fixed",
-                    right : "12%",
-                    top: "4.5rem",
-                    bottom: 0,
-                }}
-            >
-                <RightSide profile={state?.profile} balance={state?.aexBalance} bg={bg} />
-            </Sider>
-        </Layout>
+            </div>
+
+            <div className="col-start-10 col-span-3 flex flex-col items-center">
+                <LeftSide
+                    collapse={[isCollapsed, setIsCollapsed]}
+                    bg={bg}
+                    className="min-w-full"
+                />
+            </div>
+        </div>
     );
 }
 
@@ -124,8 +100,12 @@ const ProfileHeader = ({ ...rest }) => {
                 marginTop: 5,
             }}
         >
-            <Heading size="lg" mb={2}>Flow</Heading>
-            <Button variant="ghost" styles={styles.marker}>My</Button>
+            <Heading size="lg" mb={2}>
+                Flow
+            </Heading>
+            <Button variant="ghost" styles={styles.marker}>
+                My
+            </Button>
             <Button variant="ghost" className="opacity-50 text-xs">
                 <Text fontWeight="medium">Favourite</Text>
             </Button>
@@ -148,7 +128,7 @@ const ProfileHeader = ({ ...rest }) => {
 };
 
 const RightSide = ({ profile, balance, ...rest }) => {
-    console.log(balance)
+    console.log(balance);
     const picBg = useColorModeValue("white", "gray.300");
     const bgGradient = useColorModeValue(
         "linear(#edf2f700, #edf2f720 15%, gray.100 90%)",
@@ -171,15 +151,8 @@ const RightSide = ({ profile, balance, ...rest }) => {
     ]; // profile.stats
 
     return (
-        <Box
-            className="border-1 fixed max-h-screen "
-            w={{ base: "full", md: "22%" }}
-            {...rest}
-        >
-            <Flex
-                className="align-middle mx-2 mt-2 justify-between"
-                direction="column"
-            >
+        <Box className="border-1 fixed max-h-screen " {...rest}>
+            <Flex className="align-middle justify-between" direction="column">
                 <Box
                     className="rounded-t-lg w-full relative "
                     height="45vh"
@@ -190,27 +163,34 @@ const RightSide = ({ profile, balance, ...rest }) => {
                     bgRepeat="no-repeat"
                     bgPosition="center"
                 >
-                <Box ml="70%">
-                    <IconButton mr="-3.5"
-                        icon={<IoHeartOutline />}
-                        color="white"
-                        variant="ghost"
-                        size="lg"
-                        isRound />
-                    <IconButton 
-                        icon={<IoNotificationsOutline/>}
-                        color="white"
-                        variant="ghost"
-                        size="lg"
-                        isRound />
-                </Box>
-                
+                    <Box ml="70%">
+                        <IconButton
+                            mr="-3.5"
+                            icon={<IoHeartOutline />}
+                            color="white"
+                            variant="ghost"
+                            size="lg"
+                            isRound
+                        />
+                        <IconButton
+                            icon={<IoNotificationsOutline />}
+                            color="white"
+                            variant="ghost"
+                            size="lg"
+                            isRound
+                        />
+                    </Box>
+
                     <Box
                         className="z-10 absolute bottom-0 h-2/5 w-full px-2 text-white"
                         bgGradient={bgGradient}
                         fontFamily="poppins"
                     >
-                                                <Text className="h-1/6 mb-2" fontWeight="bold" fontSize="2xl">
+                        <Text
+                            className="h-1/6 mb-2"
+                            fontWeight="bold"
+                            fontSize="2xl"
+                        >
                             {profile?.fullName || "Pavel Dantsev"}
                         </Text>
                         <Text as="i" sx={styles} fontWeight="medium">
@@ -223,7 +203,7 @@ const RightSide = ({ profile, balance, ...rest }) => {
                         >
                             <Text>
                                 {/* <Icon as={HiLocationMarker} /> {profile.country} */}
-                                <Icon as={HiLocationMarker} /> aerx 
+                                <Icon as={HiLocationMarker} /> aerx
                             </Text>
                             <PurpleButton leftIcon={<AddIcon />} right={4}>
                                 Follow
@@ -252,7 +232,6 @@ const RightSide = ({ profile, balance, ...rest }) => {
         </Box>
     );
 };
-
 const RSideBarIters = ({ iterType, data, ...rest }) => {
     return (
         <HStack
@@ -282,10 +261,12 @@ const RSideBarIters = ({ iterType, data, ...rest }) => {
                     </Tag>
                 ) : iterType === "stats" ? (
                     <Box fontSize={8} key={iter.title}>
-                    <Text opacity={0.5} mb={1} textAlign="center">
+                        <Text opacity={0.5} mb={1} textAlign="center">
                             {iter.title}
                         </Text>
-                        <Heading size="md" textAlign="center" >{iter.count}</Heading>
+                        <Heading size="md" textAlign="center">
+                            {iter.count}
+                        </Heading>
                         <AvatarGroup size="xs" max={2} my={2}>
                             <Avatar
                                 name="Ryan Florence"
@@ -302,7 +283,6 @@ const RSideBarIters = ({ iterType, data, ...rest }) => {
         </HStack>
     );
 };
-
 const RSideBarBalance = ({ balance, ...rest }) => {
     return (
         <Flex
@@ -330,7 +310,8 @@ const RSideBarBalance = ({ balance, ...rest }) => {
                 <Icon mx={6} color="yellow" as={ThunderboltFilled} />
                 <Box>
                     <Text opacity={0.7}>BALANCE</Text>
-                    <Heading size="sm">{balance || 0}</Heading> {/** profile.balance */}
+                    <Heading size="sm">{balance || 0}</Heading>{" "}
+                    {/** profile.balance */}
                 </Box>
                 <Box position="absolute" right={7}>
                     <IconButton
@@ -360,63 +341,58 @@ const LeftSide = ({ collapse, ...rest }) => {
 
     const collections = [
         {
-            name : "Music",
-            count : 345 ,
+            name: "Music",
+            count: 345,
+            color: "bg-blue-500",
         },
         {
-            name : "Memes",
-            count : 95 ,
+            name: "Memes",
+            count: 95,
+            color: "bg-red-500",
         },
         {
-            name : "Art",
-            count : 89 ,
+            name: "Art",
+            count: 89,
+            color: "bg-green-500",
         },
         {
-            name : "Pop",
-            count : 63 ,
+            name: "Pop",
+            count: 63,
+            color: "bg-orange-500",
         },
-    ]
+    ];
 
     return (
-        <Box border="none" w={200} pos="fixed" h="full" >
-            <Flex
-                alignItems="left"
-                mx={2}
-                mt={1.5}
-                justifyContent="space-between"
-                direction="column"
-            >
-                <Heading size="lg" >Collections</Heading>
-                <Stack w="100%" pr={10} mt={10}>
-                    { collections.map((item) => (
-                        <Box height={150} width={200} borderRadius={10} overflowY={"hidden"} {...rest}>
+        <Box
+            className="flex flex-col w-full sticky top-20"
+
+        >
+            <Heading size="lg">Collections</Heading>
+            <div className="grid grid-rows-4 grid-flow-col gap-4 max-h-80 mt-10">
+                {collections.map((item, index) => (
+                    <div
+                        key={index}
+                        className={`flex flex-col shadow-lg h-36 w-full rounded-xl hover:-translate-y-6 translate-y-0 transition ${item.color} `}
+                    >
+                        <div className="flex flex-row items-center justify-end">
                             <Tag
-                            size="xs"
-                            variant="solid"
-                            borderRadius={15}
-                            px={1.5}
-                            py={0.5}
-                            position = "fixed"
-                            right = "82.5%"
-                            mt={2}
-                            bg="#6054F0"
-                            color="invert(bg)"
+                                size="xs"
+                                variant="solid"
+                                borderRadius={15}
+                                px={1.5}
+                                py={0.5}
+                                mt={2}
+                                bg="#6054F0"
+                                color="invert(bg)"
+                                className="m-1"
                             >
-                            {item.count}
+                                {item.count}
                             </Tag>
-                            <Text m={12} align="center">{item.name}</Text>
-                        </Box>
-                    ))}
-                    
-                    {/* <Box height={50} borderRadius={10} {...rest}></Box>
-                    <Box height={50} borderRadius={10} {...rest}></Box> */}
-                </Stack>
-            </Flex>
-            {/* {iters.map((iter) => (
-                <RSideBarIters key={iter.name} icon={iter.icon}>
-                    {iter.name}
-                </RSideBarIters>
-            ))} */}
+                        </div>
+                        <Text className="m-1 mt-3">{item.name}</Text>
+                    </div>
+                ))}
+            </div>
         </Box>
     );
 };
