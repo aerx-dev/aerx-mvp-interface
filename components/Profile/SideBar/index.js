@@ -4,7 +4,8 @@ import {
     MenuFoldOutlined,
     ThunderboltFilled,
 } from "@ant-design/icons";
-import {HiLocationMarker} from "react-icons/hi";
+import {RiSendPlaneFill} from "react-icons/ri";
+import { MdOutlineDone , MdCopyAll} from "react-icons/md";
 import {IoNotificationsOutline, IoHeartOutline} from "react-icons/io5";
 import {
     Box,
@@ -18,11 +19,12 @@ import {
     Tag,
     useColorMode,
     useColorModeValue,
-    //SimpleGrid,
-    Stack,
+    Input,
+    Hide,
     Heading,
-    AvatarGroup,
+    useClipboard,
     Avatar,
+    VStack,
 } from "@chakra-ui/react";
 import {
     SearchIcon,
@@ -32,6 +34,7 @@ import {
 } from "@chakra-ui/icons";
 import { useState, createElement } from "react";
 import PurpleButton from "../../UI/PurpleButton";
+import { nearStore } from "../../../stores/near";
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -45,27 +48,30 @@ export default function SideBar({ children, bg, state }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
-
+    
     console.log(state);
 
     return (
-        <div className="grid grid-cols-12 gap-x-6 mx-10">
+        <div className="grid grid-cols-12 gap-x-10 mx-10">          
             <div
                 className="col-start-1 col-span-3 flex flex-col items-center min-h-full"
                 trigger={null}
-            >
-                <RightSide
+            >    
+            <Hide below='md'>
+            <RightSide
                     profile={state?.profile}
                     balance={state?.aexBalance}
                     bg={bg}
                     className="sticky top-20 min-h-max min-w-full"
                 />
+            </Hide>      
+                
             </div>
-            <div className="col-start-4 col-span-6 flex flex-col items-center">
-                {/* <ProfileHeader
+            {/* <ProfileHeader
                     opacity={colorMode === "light" ? 1 : 0.5}
                     filter={filter}
                 /> */}
+            <div className="col-start-4 col-span-6 flex flex-col items-center">
                 <Content className="min-w-full">{children}</Content>
 
                 <Footer
@@ -80,14 +86,16 @@ export default function SideBar({ children, bg, state }) {
                     Aerx ©2022 Created by AERX Labs
                 </Footer>
             </div>
-
-            <div className="col-start-10 col-span-3 flex flex-col items-center">
-                <LeftSide
-                    collapse={[isCollapsed, setIsCollapsed]}
-                    bg={bg}
-                    className="min-w-full"
-                />
-            </div>
+            <Hide below="md">
+                <div className="col-start-10 col-span-3 flex flex-col items-center">
+                    <LeftSide
+                        collapse={[isCollapsed, setIsCollapsed]}
+                        bg={bg}
+                        className="min-w-full"
+                    />
+                </div>
+            </Hide>
+            
         </div>
     );
 }
@@ -128,6 +136,8 @@ const ProfileHeader = ({ ...rest }) => {
 };
 
 const RightSide = ({ profile, balance, ...rest }) => {
+    const value = "0jx12hbuwc34jcsuhwoc" ;
+    const { hasCopied, onCopy } = useClipboard(value);
     console.log(balance);
     const picBg = useColorModeValue("white", "gray.300");
     const bgGradient = useColorModeValue(
@@ -182,36 +192,58 @@ const RightSide = ({ profile, balance, ...rest }) => {
                     </Box>
 
                     <Box
-                        className="z-10 absolute bottom-0 h-2/5 w-full px-2 text-white"
+                        className="z-10 absolute bottom-0 h-1/3 w-full px-2 text-white"
                         bgGradient={bgGradient}
                         fontFamily="poppins"
                     >
                         <Text
-                            className="h-1/6 mb-2"
+                            className="h-1/4 mb-2"
                             fontWeight="bold"
                             fontSize="2xl"
                         >
                             {profile?.fullName || "Pavel Dantsev"}
                         </Text>
-                        <Text as="i" sx={styles} fontWeight="medium">
-                            @{profile?.username || "pashq"}
+                        <Text sx={styles} fontWeight="medium">
+                            @{profile?.username || "pashq.aerx"}
                         </Text>
                         <RSideBarIters iterType="tags" data={tags} {...rest} />
-                        <HStack
-                            className="absolute bottom-0 w-full"
-                            sx={styles}
-                        >
-                            <Text>
-                                {/* <Icon as={HiLocationMarker} /> {profile.country} */}
-                                <Icon as={HiLocationMarker} /> aerx
-                            </Text>
-                            <PurpleButton leftIcon={<AddIcon />} right={4}>
-                                Follow
-                            </PurpleButton>
+                        <HStack className="bottom-0 gap-x-3 my-2" >
+                            <Box>
+                                <Button 
+                                    borderRadius={20}
+                                    bgColor="#6054F0"
+                                    size="sm"
+                                    variant="outline"
+                                    leftIcon={<RiSendPlaneFill />} left={1}>
+                                    Send
+                                </Button>
+                            </Box>
+                            <Box>
+                                <Button
+                                    borderRadius={20}
+                                    bgColor="transparent"
+                                    size="sm"
+                                    variant="outline"
+                                    leftIcon={<MdOutlineDone />}
+                                    > Followed 
+                                </Button>
+                            </Box> 
+                            
                         </HStack>
+                        
                     </Box>
                 </Box>
-                <Box className="text-center p-5 py-7" h="20vh" sx={styles}>
+                <HStack m={3} justifyContent="left">
+                    <Text> {value} </Text>
+                    <IconButton 
+                        onClick={onCopy} 
+                        variant='ghost'
+                        colorScheme='gray'
+                        isRound
+                        icon={<MdCopyAll />} ml={2} />
+                </HStack>
+                
+                <Box className="text-left px-4 mb-5" sx={styles}>
                     <Text className="opacity-50 mb-3">ABOUT</Text>
                     <Text>
                         {profile?.aboutMe ||
@@ -219,15 +251,14 @@ const RightSide = ({ profile, balance, ...rest }) => {
                         funny pictures and videos. See more details in my
                         collection.`}
                     </Text>
-                    {/* <Text className="opacity-50 mb-2 mt-6 font-semibold">HOBBYES</Text>
+                    {/* <Text className="opacity-50 mb-2 mt-6 ">HOBBYES</Text>
                     <Text className="text-sm">
                         {profile?.hobbys ||
                             `Hobbies, what's that?!`}
                     </Text> */}
                 </Box>
                 <Divider />
-                <RSideBarIters iterType="stats" data={stats} {...rest} />
-                <RSideBarBalance balance={balance} {...rest} h="10vh" />
+                <RSideBarBalance balance={balance} />
             </Flex>
         </Box>
     );
@@ -238,10 +269,9 @@ const RSideBarIters = ({ iterType, data, ...rest }) => {
             spacing={1}
             my={2}
             sx={styles}
-            justifyContent="space-evenly"
+            justifyContent="left"
             alignItems="center"
             w="100%"
-            h={iterType === "stats" ? "12vh" : "unset"}
         >
             {/* profile.tags */}
             {data.map((iter) =>
@@ -251,15 +281,20 @@ const RSideBarIters = ({ iterType, data, ...rest }) => {
                         key={iter}
                         variant="solid"
                         borderRadius={15}
-                        px={1.5}
+                        px={1}
                         py={0.5}
                         as="i"
-                        bg="gray.800"
+                        bg="transparent"
                         color="invert(bg)"
                     >
                         {iter}
                     </Tag>
-                ) : iterType === "stats" ? (
+                    ) : null
+                    )}
+                </HStack>
+            );
+        };
+                {/* ) : iterType === "stats" ? (
                     <Box fontSize={8} key={iter.title}>
                         <Text opacity={0.5} mb={1} textAlign="center">
                             {iter.title}
@@ -277,61 +312,47 @@ const RSideBarIters = ({ iterType, data, ...rest }) => {
                                 src="https://bit.ly/sage-adebayo"
                             />
                         </AvatarGroup>
-                    </Box>
-                ) : null,
-            )}
-        </HStack>
-    );
-};
+                    </Box> */}
+
 const RSideBarBalance = ({ balance, ...rest }) => {
     return (
-        <Flex
-            textAlign="center"
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            {...rest}
-            w="100%"
-        >
-            <Flex
+        <Box
                 bgImage="/images/balance-bg.svg"
                 bgColor="#ffff0006"
                 bgPos="center"
-                bgSize="contain"
+                bgSize="cover"
                 bgBlendMode="darken"
                 borderRadius="lg"
                 w="100%"
-                direction="row"
-                alignItems="center"
-                justifyContent="flex-start"
-                py={1}
-                my={2}
-            >
-                <Icon mx={6} color="yellow" as={ThunderboltFilled} />
-                <Box>
-                    <Text opacity={0.7}>BALANCE</Text>
-                    <Heading size="sm">{balance || 0}</Heading>{" "}
+                py={3}
+                >
+            <VStack
+               className="content-align-left px-4" 
+            >   
+                <Text className="font-semibold" >Your Balance</Text>
+                <HStack>
+                    <Icon color="yellow" as={ThunderboltFilled} />
+                    <Heading size="md">{balance || 0}</Heading>
                     {/** profile.balance */}
-                </Box>
-                <Box position="absolute" right={7}>
-                    <IconButton
-                        aria-label="send"
-                        isRound
+                </HStack>
+                <HStack>
+                    <Button
+                        borderRadius={20}
                         size="sm"
-                        variant="ghost"
-                        mr={2}
-                        icon={<Icon as={ArrowForwardIcon} />}
-                    ></IconButton>
-                    <IconButton
-                        aria-label="recieve"
-                        isRound
+                        variant="solid"
+                        leftIcon={<ArrowForwardIcon />}
+                        > Send
+                    </Button>
+                    <Button
+                        borderRadius={20}
                         size="sm"
-                        variant="ghost"
-                        icon={<Icon as={ArrowDownIcon} />}
-                    ></IconButton>
-                </Box>
-            </Flex>
-        </Flex>
+                        variant="solid"
+                        leftIcon={<ArrowDownIcon />}
+                        > Receive
+                    </Button>
+                </HStack>
+            </VStack>
+        </Box>
     );
 };
 const LeftSide = ({ collapse, ...rest }) => {
@@ -364,17 +385,18 @@ const LeftSide = ({ collapse, ...rest }) => {
 
     return (
         <Box
-            className="flex flex-col w-full sticky top-20"
+            className="flex flex-col w-full sticky top-10"
 
         >
-            <Heading size="lg">Collections</Heading>
-            <div className="grid grid-rows-4 grid-flow-col gap-4 max-h-80 mt-10">
+            <Heading size="lg" ml={3}>Collections</Heading>
+            <div className="mt-3">
                 {collections.map((item, index) => (
                     <div
                         key={index}
-                        className={`flex flex-col shadow-lg h-36 w-full rounded-xl hover:-translate-y-6 translate-y-0 transition ${item.color} `}
+                        className={`flex flex-col shadow-lg h-32 w-full m-3 rounded-xl hover:-translate-y-6 translate-y-0 transition ${item.color} `}
                     >
-                        <div className="flex flex-row items-center justify-end">
+                        <div className="flex flex-row items-center justify-start">
+                            <Text className="m-3">{item.name}</Text>
                             <Tag
                                 size="xs"
                                 variant="solid"
@@ -389,7 +411,7 @@ const LeftSide = ({ collapse, ...rest }) => {
                                 {item.count}
                             </Tag>
                         </div>
-                        <Text className="m-1 mt-3">{item.name}</Text>
+                        
                     </div>
                 ))}
             </div>
