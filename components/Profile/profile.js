@@ -3,7 +3,7 @@ import React from "react";
 import { Box, useColorModeValue, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
-import Post from "..//Post/post";
+import Post from "../Post/post";
 import { useState } from "react";
 import { nearStore } from "../../stores/near";
 import dynamic from "next/dynamic";

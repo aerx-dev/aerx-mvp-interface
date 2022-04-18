@@ -41,6 +41,12 @@ const nearStore = create((set) => ({
     aexBalance: 0,
     setAexBalance: (aexBalance) => set((state) => ({ aexBalance })),
     removeAexBalance: () => set((state) => ({ aexBalance: 0 })),
+
+    supabaseFeed: null,
+    setSupabaseFeed: (supabaseFeed) => set((state) => ( {supabaseFeed })),
+    removeSupabaseFeed: () => set((state) => ({ supabaseFeed: null })),
+
+    
 }));
 
 export { nearStore };
