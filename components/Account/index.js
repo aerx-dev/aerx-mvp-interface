@@ -94,7 +94,6 @@ const Account = () => {
             extra: JSON.stringify(profile),
         };
 
-        console.log(profileToSave);
         let fetchedImg = ipfsData.fileUrl
             ? ipfsData.fileUrl
             : nearState.profile.profileImg;
@@ -140,7 +139,7 @@ const Account = () => {
             );
             console.log(res);
 
-            profileToSupa(profileToSave, toast)
+            profileToSupa(res, toast)
 
         } catch (e) {
             toast("error", "ProfileNFT could not be minted!", "PNFTsccss");

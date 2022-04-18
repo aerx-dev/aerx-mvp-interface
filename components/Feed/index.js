@@ -32,15 +32,15 @@ const Feed = () => {
     });
 
     // Read the result
-    const { data: postData, fetching, error: postError } = result;
-    if (!postData) {
+    const { data, fetching, error } = result;
+    if (!data) {
         // If there is a server error, you might want to
         // throw an error instead of returning so that the cache is not updated
         // until the next successful request.
-        console.log(`Error! ${postError}`);
+        console.log(`Error! ${error}`);
         //throw new Error(`Failed to fetch posts, received status ${error}`)
     }
-    console.log({ postData: postData });
+    console.log({ postData: data });
 
     return (
         <Layout>

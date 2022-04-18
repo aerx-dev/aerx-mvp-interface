@@ -14,6 +14,20 @@ query {
 }
 `
 
+const GET_POST = `
+query {
+  post: PostNftCollection {
+    edges {
+      post: node {
+        id
+        description
+       
+      }
+    }
+  }
+}
+`
+
 const GET_ALL_PROFILES = `
 query {
   profiles: profileCollection {
@@ -32,4 +46,4 @@ query {
 `
 
 
-export { GET_ALL_POSTS, GET_ALL_PROFILES }
+export { GET_ALL_POSTS,GET_POST, GET_ALL_PROFILES }
