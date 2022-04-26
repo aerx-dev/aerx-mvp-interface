@@ -36,6 +36,7 @@ export default function PlaySlider(props) {
             min={0}
             max={props.duration || 100}
             onChange={(val) => props.setClickedTime(val)}
+            value={(props.current)}
             onMouseMove={(val) => hoverTimeLine(val)}
             onMouseLeave={() => setShowTooltip(false)}
         >
