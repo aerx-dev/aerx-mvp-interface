@@ -18,7 +18,7 @@ export default function CreateProfileForm(props) {
     const inputFile = useRef(null);
     const onButtonClick = () => {
         inputFile.current.click();
-        console.log(props.uploadImg);
+        console.log("acup",props.uploadImg);
     };
 
     // TODO Only show upload BUtton if IPFS is ready
@@ -112,6 +112,7 @@ export default function CreateProfileForm(props) {
                             type="text"
                             onChange={props.update}
                             data-path="username"
+							readOnly
                         />
                     </InputGroup>
                 </FormControl>

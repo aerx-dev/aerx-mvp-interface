@@ -37,10 +37,10 @@ const Feed = () => {
         // If there is a server error, you might want to
         // throw an error instead of returning so that the cache is not updated
         // until the next successful request.
-        console.log(`Error! ${error}`);
+        console.log("feede",`Error! ${error}`);
         //throw new Error(`Failed to fetch posts, received status ${error}`)
     }
-    console.log({ postData: data });
+    console.log("feedpD",{ postData: data });
 
     return (
         <Layout>

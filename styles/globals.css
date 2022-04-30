@@ -30,3 +30,11 @@
         @apply bg-brand;
     }
 }
+@layer utilities{
+	.dippy {
+		display:none!important;
+	}
+	.griddy {
+		display: grid!important;
+	}
+}
