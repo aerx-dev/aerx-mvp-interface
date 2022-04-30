@@ -47,20 +47,20 @@ function Post({ nft, charge}) {
     const iconColor = useColorModeValue("gray.400", "white")
     const nearState = nearStore((state) => state);
     const { isOpen, onOpen, onClose } = useDisclosure();
-
+    const fill = useColorModeValue("gray", "white");
     const [ commentBox , setCommentBox ] = useState(false);
     const comment = () =>{
         setCommentBox(!commentBox)
     }
 
     const styles = {
-        fontFamily: "poppins",
+        fontFamily: "Open Sans",
         backgroundColor: postBg,
         // maxHeight: 430,
         borderRadius: 10,
         padding: 20,
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: 10,
+        marginBottom: 10,
         header: {
             height: 64,
             display: "flex",
@@ -181,12 +181,23 @@ function Post({ nft, charge}) {
                     </Box>
                     <Box>
                         <IconButton
-                            color= {iconColor}
-                            variant="ghost"
-                            size="lg"
-                            icon={<FiNavigation />}
-                            isRound  
-                        />
+                aria-label="add-image"
+                isRound
+                size="xs"
+                variant="ghost"
+                icon={
+                    <Icon
+                        width="19"
+                        height="19"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                    >
+                        <path d="M17.3325 7.77194L17.7568 8.1962L18.181 7.77194L17.7568 7.34768L17.3325 7.77194ZM3.6 16.8246C3.6 12.1563 7.38438 8.37193 12.0527 8.37193V7.17193C6.72164 7.17193 2.4 11.4936 2.4 16.8246H3.6ZM12.0527 8.37193H17.3334V7.17193H12.0527V8.37193ZM13.9848 11.9681L17.7568 8.1962L16.9082 7.34768L13.1363 11.1196L13.9848 11.9681ZM17.7568 7.34768L13.9848 3.57574L13.1363 4.42426L16.9082 8.1962L17.7568 7.34768Z" fill={useColorModeValue("gray", "white")} fill-opacity="0.5"/>
+                    </Icon>
+                }
+                ml={2}
+                opacity={0.7}
+            ></IconButton>
                     </Box>
                 </Footer>
                 <Footer>

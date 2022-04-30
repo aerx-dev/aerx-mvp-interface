@@ -39,7 +39,7 @@ const Account = () => {
     });
 
     useEffect(() => {
-        console.log(nearState.profile)
+        console.log("acns",nearState.profile)
         if (!nearState.profile) {
             setLockPage(false)
             setUpdating(false)
@@ -137,7 +137,7 @@ const Account = () => {
                 " was minted successfully!",
                 "PNFTsccss",
             );
-            console.log(res);
+            console.log("acres",res);
 
             profileToSupa(res, toast)
 

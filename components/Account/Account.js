@@ -14,7 +14,7 @@ import { AtSignIcon } from "@chakra-ui/icons";
 
 
 function AccountData({ profile, t }) {
-    console.log(profile)
+    console.log("ac",profile)
     return (
         <Grid
             templateColumns={[

@@ -21,6 +21,7 @@ import {
     useColorModeValue,
     Input,
     Hide,
+	Show,
     Heading,
     useClipboard,
     Avatar,
@@ -30,7 +31,7 @@ import {
     SearchIcon,
     AddIcon,
     ArrowForwardIcon,
-    ArrowDownIcon,
+    ArrowUpIcon,
 } from "@chakra-ui/icons";
 import { useState, createElement } from "react";
 import PurpleButton from "../../UI/PurpleButton";
@@ -52,21 +53,22 @@ export default function SideBar({ children, bg, state }) {
     console.log(state);
 
     return (
-        <div className="grid grid-cols-12 gap-x-10 mx-10">          
-            <div
+	<div>
+        <div className="grid grid-cols-12 gap-x-10 mx-10 dippy sm:dippy md:griddy">          
+																																																																																														  
+																																																																																	<div
                 className="col-start-1 col-span-3 flex flex-col items-center min-h-full"
                 trigger={null}
             >    
-            <Hide below='md'>
             <RightSide
                     profile={state?.profile}
                     balance={state?.aexBalance}
                     bg={bg}
                     className="sticky top-20 min-h-max min-w-full"
                 />
-            </Hide>      
                 
             </div>
+																																																							
             {/* <ProfileHeader
                     opacity={colorMode === "light" ? 1 : 0.5}
                     filter={filter}
@@ -79,24 +81,35 @@ export default function SideBar({ children, bg, state }) {
                         textAlign: "center",
                         bottom: 0,
                         position: "fixed",
-                        right: "40vw",
                         opacity: 0.7,
                     }}
                 >
                     Aerx ©2022 Created by AERX Labs
                 </Footer>
             </div>
-            <Hide below="md">
                 <div className="col-start-10 col-span-3 flex flex-col items-center">
                     <LeftSide
                         collapse={[isCollapsed, setIsCollapsed]}
                         bg={bg}
                         className="min-w-full"
                     />
-                </div>
-            </Hide>
-            
+                </div>            
         </div>
+		<div className="items-center md:dippy">
+                <Content className="min-w-full">{children}</Content>
+
+                <Footer
+                    style={{
+                        textAlign: "center",
+                        bottom: 0,
+                        position: "fixed",
+                        opacity: 0.7,
+                    }}
+                >
+                    Aerx ©2022 Created by AERX Labs
+                </Footer>
+            </div>
+	</div>
     );
 }
 
@@ -192,9 +205,9 @@ const RightSide = ({ profile, balance, ...rest }) => {
                     </Box>
 
                     <Box
-                        className="z-10 absolute bottom-0 h-1/3 w-full px-2 text-white"
+                        className="z-10 absolute bottom-0 h-2/5 w-full px-2 text-white"
                         bgGradient={bgGradient}
-                        fontFamily="poppins"
+                        fontFamily="Open Sans"
                     >
                         <Text
                             className="h-1/4 mb-2"
@@ -340,14 +353,14 @@ const RSideBarBalance = ({ balance, ...rest }) => {
                         borderRadius={20}
                         size="sm"
                         variant="solid"
-                        leftIcon={<ArrowForwardIcon />}
+                        leftIcon={<ArrowUpIcon />}
                         > Send
                     </Button>
                     <Button
                         borderRadius={20}
                         size="sm"
                         variant="solid"
-                        leftIcon={<ArrowDownIcon />}
+                        leftIcon={<ArrowForwardIcon />}
                         > Receive
                     </Button>
                 </HStack>
@@ -388,7 +401,12 @@ const LeftSide = ({ collapse, ...rest }) => {
             className="flex flex-col w-full sticky top-10"
 
         >
+			<Hide below="lg">
             <Heading size="lg" ml={3}>Collections</Heading>
+			</Hide>
+			<Show below="lg">
+            <Heading size="md" ml={3}>Collections</Heading>
+			</Show>
             <div className="mt-3">
                 {collections.map((item, index) => (
                     <div
@@ -422,6 +440,6 @@ const LeftSide = ({ collapse, ...rest }) => {
 const WalletModal = ({ ...rest }) => {};
 
 const styles = {
-    fontFamily: "poppins",
+    fontFamily: "Open Sans",
     fontSize: 12,
 };

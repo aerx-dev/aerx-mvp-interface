@@ -78,8 +78,7 @@ export default function PlaySlider(props) {
                 isOpen={(!showTooltip  && props.playing)}
                 label={props.convertDurationTrack(props.current)}
             >
-                <SliderThumb
-                />
+                <SliderThumb/>
             </Tooltip>
         </Slider>
     )
