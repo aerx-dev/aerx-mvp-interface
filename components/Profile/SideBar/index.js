@@ -49,6 +49,7 @@ export default function SideBar({ children, bg, state }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const { colorMode } = useColorMode();
     const filter = colorMode === "light" ? "invert(1)" : "invert(0)";
+
     
     console.log(state);
 
@@ -76,16 +77,18 @@ export default function SideBar({ children, bg, state }) {
             <div className="col-start-4 col-span-6 flex flex-col items-center">
                 <Content className="min-w-full">{children}</Content>
 
-                <Footer
+                {/* <Footer
                     style={{
+                        width: "100vw",
                         textAlign: "center",
                         bottom: 0,
                         position: "fixed",
-                        opacity: 0.7,
+                        //opacity: 0.4,
+                        background: "#131414"
                     }}
                 >
                     Aerx ©2022 Created by AERX Labs
-                </Footer>
+                </Footer> */}
             </div>
                 <div className="col-start-10 col-span-3 flex flex-col items-center">
                     <LeftSide
@@ -98,7 +101,7 @@ export default function SideBar({ children, bg, state }) {
 		<div className="items-center md:dippy">
                 <Content className="min-w-full">{children}</Content>
 
-                <Footer
+                {/* <Footer
                     style={{
                         textAlign: "center",
                         bottom: 0,
@@ -107,7 +110,7 @@ export default function SideBar({ children, bg, state }) {
                     }}
                 >
                     Aerx ©2022 Created by AERX Labs
-                </Footer>
+                </Footer> */}
             </div>
 	</div>
     );
@@ -372,64 +375,96 @@ const LeftSide = ({ collapse, ...rest }) => {
     const toggle = () => {
         collapse[1](!collapse[0]);
     };
+    const bg = useColorModeValue("gray.100", "lightblack");
+    const styles = {
+        div1 : {
+            background : "url('/images/1/1.jpg')",
+        },
+        div2 : {
+            background : "url('/images/1/2.jpg')"
+        },
+        div3 : {
+            background : "url('/images/1/3.jpg')"
+        },
+        div4 : {
+            background : "url('/images/1/4.jpg')"
+        },
+    }
 
     const collections = [
         {
             name: "Music",
             count: 345,
-            color: "bg-blue-500",
         },
         {
             name: "Memes",
             count: 95,
-            color: "bg-red-500",
         },
         {
             name: "Art",
             count: 89,
-            color: "bg-green-500",
         },
         {
             name: "Pop",
             count: 63,
-            color: "bg-orange-500",
         },
     ];
 
     return (
         <Box
-            className="flex flex-col w-full sticky top-10"
-
-        >
-			<Hide below="lg">
-            <Heading size="lg" ml={3}>Collections</Heading>
-			</Hide>
-			<Show below="lg">
-            <Heading size="md" ml={3}>Collections</Heading>
-			</Show>
+            className="flex flex-col w-full sticky top-20 rounded-md py-4"
+            bgColor = {bg}
+        >   
+        <HStack className="flex justify-between mr-4">
+            <Hide below="lg">
+                <Heading size="lg" ml={3}>Collections</Heading>
+                <IconButton
+                    type="submit"
+                    aria-label="post"
+                    isRound
+                    size="sm"
+                    icon={<AddIcon />}
+                    bgColor="#6054F0"
+                    color="white"
+                />
+                </Hide>
+                <Show below="lg">
+                <Heading size="md" ml={3}>Collections</Heading>
+                <IconButton
+                    type="submit"
+                    aria-label="post"
+                    isRound
+                    size="xs"
+                    icon={<AddIcon />}
+                    bgColor="#6054F0"
+                    color="white"
+                />
+                </Show>
+                
+        </HStack>
+			
             <div className="mt-3">
                 {collections.map((item, index) => (
-                    <div
-                        key={index}
-                        className={`flex flex-col shadow-lg h-32 w-full m-3 rounded-xl hover:-translate-y-6 translate-y-0 transition ${item.color} `}
-                    >
-                        <div className="flex flex-row items-center justify-start">
-                            <Text className="m-3">{item.name}</Text>
-                            <Tag
-                                size="xs"
-                                variant="solid"
-                                borderRadius={15}
-                                px={1.5}
-                                py={0.5}
-                                mt={2}
-                                bg="#6054F0"
-                                color="invert(bg)"
-                                className="m-1"
-                            >
-                                {item.count}
-                            </Tag>
-                        </div>
-                        
+                    <div key={index} className="flex flex-row relative">
+                            <div className="flex flex-row relative items-center h-32 w-full m-1 z-10 justify-start">
+                                <Text className=" absolute top-5 left-5">{item.name}</Text>
+                                <Tag
+                                    size="xs"
+                                    variant="solid"
+                                    borderRadius={15}
+                                    px={1.5}
+                                    py={0.5}
+                                    bg="#6054F0"
+                                    color="invert(bg)"
+                                    className="absolute left-5"
+                                >
+                                    +{item.count}
+                                </Tag>
+                            </div>
+                            <div className={`flex flex-col absolute shadow-lg h-32 w-11/12 m-3 rounded-lg bg-cover`} style={styles.div4}></div>  
+                            <div className={`flex flex-col absolute shadow-lg h-32 w-10/12 m-3 rounded-lg bg-cover`} style={styles.div3}></div>
+                            <div className={`flex flex-col absolute shadow-lg h-32 w-9/12 m-3 rounded-lg bg-cover`} style={styles.div2}></div>     
+                            <div className={`flex flex-col absolute shadow-lg h-32 w-8/12 m-3 rounded-lg bg-cover`} style={styles.div1}></div>                                           
                     </div>
                 ))}
             </div>
