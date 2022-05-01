@@ -14,6 +14,7 @@
         "cypress": "cypress open",
         "storybook": "start-storybook -p 6006 -s ./public",
         "build-storybook": "build-storybook -s public",
+        "generate-sql-schema": "node scripts/fetchGraphQLSchema.js",
         "prepare": "husky install",
         "codegen": "graphql-codegen",
         "codegen:fetch": "node --no-warnings scripts/fetchGraphQLSchema ",
