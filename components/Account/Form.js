@@ -142,7 +142,6 @@ export default function CreateProfileForm(props) {
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.hobbys")}</FormLabel>
                     <Textarea
-                        type="email"
                         defaultValue={props.profile.hobbys}
                         placeholder="hobbys"
                         onChange={props.update}

@@ -168,7 +168,6 @@ function Header() {
 								_hover={{ bg: "none" }}
 								_active={{ bg: "none" }}
 								rounded="full"
-								variant={"ghost"}
 								
 							/>
 							<MenuList>
