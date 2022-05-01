@@ -45,12 +45,14 @@ function fetchGraphQLSchema(url, options) {
 
       bar.complete();
       return JSON.stringify(schemaJSON, null, 2);
+    })
+    .catch((error) => {
+      console.log("Error", error);
     });
 }
 
-const filePath = path.join(__dirname, "../graphql/schema/", "schema.graphql");
-
-console.log();
+const dirPath = path.join(__dirname, "../graphql/schema/");
+const filePath = path.join(dirPath, "schema.graphql");
 
 console.log(
   supagradient(
@@ -61,9 +63,14 @@ console.log(
 fetchGraphQLSchema(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/graphql/v1`, {
   readable: true,
 }).then((schema) => {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
   fs.writeFileSync(filePath, schema, "utf-8");
   console.log(supagradient(`✨  Saved to ${filePath}`));
   console.log(
     '💡  Be sure to run "yarn run codegen" to generate latest types.'
   );
+}).catch((error) => {
+  console.log("Error building GQL schema", error);
 });

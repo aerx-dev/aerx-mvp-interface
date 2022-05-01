@@ -2,21 +2,32 @@
 
 const GET_ALL_POSTS = `
 query {
-  feed: postCollection {
+  posts: postCollection {
     edges {
       post: node {
         id
+        ownerId
+        title
         description
-       
+        createdAt
+        updatedAt
       }
     }
   }
 }
 `
 
+/* Variables for GET POST
+
+Variables need to be sent as a part of GQL Reqeust
+{
+    "postId": 1
+}
+
+*/
 const GET_POST = `
-query {
-  post: PostNftCollection {
+query GetPostById($postId: Int!) {
+  post: postCollection(filter: { id: { eq: $postId } }) {
     edges {
       post: node {
         id
@@ -32,13 +43,19 @@ const GET_ALL_PROFILES = `
 query {
   profiles: profileCollection {
     edges {
-      profle: node {
+      profile: node {
         id
-        username
-        fullname
-        about_me
-        avatar_url
-
+        hobbys,
+        tokenId,
+        username,
+        fullname,
+        aboutMe,
+        city,
+        country,
+        avatarUrl,
+        extra,
+        createdAt,
+        updatedAt,
       }
     }
   }
@@ -46,4 +63,4 @@ query {
 `
 
 
-export { GET_ALL_POSTS,GET_POST, GET_ALL_PROFILES }
+export { GET_ALL_POSTS, GET_POST, GET_ALL_PROFILES }
