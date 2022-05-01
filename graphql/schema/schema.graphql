@@ -1,0 +1,304 @@
+scalar BigInt
+
+"""
+Boolean expression comparing fields on type "BigInt"
+"""
+input BigIntFilter {
+  eq: BigInt
+  gt: BigInt
+  gte: BigInt
+  lt: BigInt
+  lte: BigInt
+  neq: BigInt
+}
+
+"""
+Boolean expression comparing fields on type "Boolean"
+"""
+input BooleanFilter {
+  eq: Boolean
+  gt: Boolean
+  gte: Boolean
+  lt: Boolean
+  lte: Boolean
+  neq: Boolean
+}
+
+scalar Cursor
+
+scalar Date
+
+"""
+Boolean expression comparing fields on type "Date"
+"""
+input DateFilter {
+  eq: Date
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  neq: Date
+}
+
+scalar Datetime
+
+"""
+Boolean expression comparing fields on type "Datetime"
+"""
+input DatetimeFilter {
+  eq: Datetime
+  gt: Datetime
+  gte: Datetime
+  lt: Datetime
+  lte: Datetime
+  neq: Datetime
+}
+
+"""
+Boolean expression comparing fields on type "Float"
+"""
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  neq: Float
+}
+
+"""
+Boolean expression comparing fields on type "Int"
+"""
+input IntFilter {
+  eq: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+  neq: Int
+}
+
+scalar JSON
+
+"""
+Boolean expression comparing fields on type "JSON"
+"""
+input JSONFilter {
+  eq: JSON
+  neq: JSON
+}
+
+"""The root type for creating and mutating data"""
+type Mutation {
+  """Deletes zero or more records from the collection"""
+  deleteFromprofileCollection(
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: profileFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): profileDeleteResponse!
+
+  """Adds one or more `profileInsertResponse` records to the collection"""
+  insertIntoprofileCollection(objects: [profileInsertInput!]!): profileInsertResponse
+
+  """Updates zero or more records in the collection"""
+  updateprofileCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: profileUpdateInput!
+
+    """Restricts the mutation's impact to records matching the critera"""
+    filter: profileFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): profileUpdateResponse!
+}
+
+"""Defines a per-field sorting order"""
+enum OrderByDirection {
+  AscNullsFirst
+  AscNullsLast
+  DescNullsFirst
+  DescNullsLast
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+"""The root type for querying data"""
+type Query {
+  """A pagable collection of type `profile`"""
+  profileCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: profileFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [profileOrderBy!]
+  ): profileConnection
+}
+
+"""
+Boolean expression comparing fields on type "String"
+"""
+input StringFilter {
+  eq: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  neq: String
+}
+
+scalar Time
+
+"""
+Boolean expression comparing fields on type "Time"
+"""
+input TimeFilter {
+  eq: Time
+  gt: Time
+  gte: Time
+  lt: Time
+  lte: Time
+  neq: Time
+}
+
+scalar UUID
+
+"""
+Boolean expression comparing fields on type "UUID"
+"""
+input UUIDFilter {
+  eq: UUID
+  neq: UUID
+}
+
+type profile {
+  id: BigInt!
+  hobbys: String
+  token_id: String
+  username: String
+  fullname: String
+  about_me: String
+  city: String
+  country: String
+  avatar_url: String
+  extra: String
+  created_at: Datetime
+  updated_at: Datetime
+}
+
+type profileConnection {
+  edges: [profileEdge!]!
+  pageInfo: PageInfo!
+}
+
+type profileDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [profile!]!
+}
+
+type profileEdge {
+  cursor: String!
+  node: profile
+}
+
+input profileFilter {
+  id: BigIntFilter
+  hobbys: StringFilter
+  token_id: StringFilter
+  username: StringFilter
+  fullname: StringFilter
+  about_me: StringFilter
+  city: StringFilter
+  country: StringFilter
+  avatar_url: StringFilter
+  extra: StringFilter
+  created_at: DatetimeFilter
+  updated_at: DatetimeFilter
+}
+
+input profileInsertInput {
+  hobbys: String
+  token_id: String
+  username: String
+  fullname: String
+  about_me: String
+  city: String
+  country: String
+  avatar_url: String
+  extra: String
+  created_at: Datetime
+  updated_at: Datetime
+}
+
+type profileInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [profile!]!
+}
+
+input profileOrderBy {
+  id: OrderByDirection
+  hobbys: OrderByDirection
+  token_id: OrderByDirection
+  username: OrderByDirection
+  fullname: OrderByDirection
+  about_me: OrderByDirection
+  city: OrderByDirection
+  country: OrderByDirection
+  avatar_url: OrderByDirection
+  extra: OrderByDirection
+  created_at: OrderByDirection
+  updated_at: OrderByDirection
+}
+
+input profileUpdateInput {
+  hobbys: String
+  token_id: String
+  username: String
+  fullname: String
+  about_me: String
+  city: String
+  country: String
+  avatar_url: String
+  extra: String
+  created_at: Datetime
+  updated_at: Datetime
+}
+
+type profileUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [profile!]!
+}
