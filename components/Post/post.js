@@ -15,13 +15,16 @@ import {
     SliderFilledTrack,
     SliderThumb,
     //SliderMark,
+    Tag,
     Image as ChakraImage,
     Text,
     Avatar,
     Divider,
     Icon,
     IconButton,
-    Input
+    Input,
+    Show,
+    Hide
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { ThunderboltOutlined, ThunderboltFilled } from "@ant-design/icons";
@@ -57,7 +60,8 @@ function Post({ nft, charge}) {
         fontFamily: "Open Sans",
         backgroundColor: postBg,
         // maxHeight: 430,
-        borderRadius: 10,
+        position: "relative",
+        borderRadius: 5,
         padding: 20,
         marginTop: 10,
         marginBottom: 10,
@@ -80,6 +84,10 @@ function Post({ nft, charge}) {
             height: 64,
             display: "flex",
             alignItems: "center",
+        },
+        tag: {
+            position: "absolute",
+            right: "20px",
         },
     };
 
@@ -115,13 +123,16 @@ function Post({ nft, charge}) {
                         }
                         size="md"
                     />
-                    <Text my={2} ml={2}>{nft?.owner_id || "Pavel dantsev"}</Text>
-                    <TimeAgo
-                        className={`text-[11px] ${
-                            isUserMsg && "order-last pr-1"
-                        } opacity-60`}
-                        datetime={metadata.issued_at}
-                    />
+                    <Box ml={2}>
+                        <Text>{nft?.owner_id || "Pavel dantsev"}</Text>
+                        <TimeAgo 
+                            className={`text-[11px] ${
+                                isUserMsg && "order-last pr-1"
+                            } opacity-60`}
+                            datetime={metadata.issued_at}
+                        />
+                    </Box>
+                    
                     <PurpleButton
                         className="right-0 text-white"
                         leftIcon={<HiShoppingBag />}
@@ -130,6 +141,7 @@ function Post({ nft, charge}) {
                     </PurpleButton>
                 </Header>
                 <Content style={styles.content}>
+                    <Box p={2}>{metadata?.description}</Box>
                     {extra?.media_type === "audio" ||
                     extra?.type === "audio" ? (
                         <SongCard
@@ -140,12 +152,12 @@ function Post({ nft, charge}) {
                             cover={extra?.cover}
                         />
                     ) : (
-                        <Box mb={1}>
+                        <Box my={2}>
                             {metadata?.media && (
                                 <ChakraImage
-                                    maxH={200}
-                                    rounded="lg"
-                                    maxWidth={["100%", "400px", "225px"]}
+                                    //maxH={200}
+                                    //rounded="lg"
+                                    maxWidth={"100%"}
                                     margin="0 auto"
                                     src={metadata?.media}
                                     alt={"contentNftmedia" + tokenId}
@@ -154,7 +166,6 @@ function Post({ nft, charge}) {
                             )}
                         </Box>
                     )}
-                    <Box p={2}>{metadata?.description}</Box>
                 </Content>
                 <Divider />
                 <Footer
@@ -178,26 +189,54 @@ function Post({ nft, charge}) {
                             icon={<IoChatbubbleOutline />}
                             isRound  
                         />
+                        0
                     </Box>
-                    <Box>
+                    <Box opacity={0.7}>
                         <IconButton
-                aria-label="add-image"
-                isRound
-                size="xs"
-                variant="ghost"
-                icon={
-                    <Icon
-                        width="19"
-                        height="19"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                    >
-                        <path d="M17.3325 7.77194L17.7568 8.1962L18.181 7.77194L17.7568 7.34768L17.3325 7.77194ZM3.6 16.8246C3.6 12.1563 7.38438 8.37193 12.0527 8.37193V7.17193C6.72164 7.17193 2.4 11.4936 2.4 16.8246H3.6ZM12.0527 8.37193H17.3334V7.17193H12.0527V8.37193ZM13.9848 11.9681L17.7568 8.1962L16.9082 7.34768L13.1363 11.1196L13.9848 11.9681ZM17.7568 7.34768L13.9848 3.57574L13.1363 4.42426L16.9082 8.1962L17.7568 7.34768Z" fill={useColorModeValue("gray", "white")} fill-opacity="0.5"/>
-                    </Icon>
-                }
-                ml={2}
-                opacity={0.7}
-            ></IconButton>
+                            aria-label="add-image"
+                            isRound
+                            size="md"
+                            variant="ghost"
+                            icon={
+                                <Icon
+                                    width="19"
+                                    height="19"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                >
+                                    <path d="M17.3325 7.77194L17.7568 8.1962L18.181 7.77194L17.7568 7.34768L17.3325 7.77194ZM3.6 16.8246C3.6 12.1563 7.38438 8.37193 12.0527 8.37193V7.17193C6.72164 7.17193 2.4 11.4936 2.4 16.8246H3.6ZM12.0527 8.37193H17.3334V7.17193H12.0527V8.37193ZM13.9848 11.9681L17.7568 8.1962L16.9082 7.34768L13.1363 11.1196L13.9848 11.9681ZM17.7568 7.34768L13.9848 3.57574L13.1363 4.42426L16.9082 8.1962L17.7568 7.34768Z" fill={useColorModeValue("gray", "white")} fill-opacity="0.5"/>
+                                </Icon>
+                                }
+                                ml={2}    
+                        ></IconButton>
+                            0
+                    </Box>
+                    <Box style={styles.tag}>
+                        <IconButton
+                            aria-label="tag"
+                            isRound
+                            size="sm"
+                            icon={<AddIcon />}
+                            variant="ghost"
+                            color="#6054F0"
+                        />
+                        <Tag borderRadius='full' mt={1}>
+                            <Avatar
+                            name="Tag member 1"
+                            src='https://bit.ly/dan-abramov'
+                            size="2xs"
+                            />
+                            <Avatar
+                            name="Tag member 1"
+                            src='https://bit.ly/code-beast'
+                            size="2xs"
+                            /> 
+                            <Avatar
+                            name="Tag member 1"
+                            src='https://bit.ly/ryan-florence'
+                            size="2xs"
+                            />
+                        </Tag>    
                     </Box>
                 </Footer>
                 <Footer>
