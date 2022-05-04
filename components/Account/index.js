@@ -139,7 +139,7 @@ const Account = () => {
             );
             console.log("acres",res);
 
-            profileToSupa(res, toast)
+            profileToSupa(res, profileToSave, toast)
 
         } catch (e) {
             toast("error", "ProfileNFT could not be minted!", "PNFTsccss");
