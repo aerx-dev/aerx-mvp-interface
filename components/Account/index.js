@@ -109,8 +109,8 @@ const Account = () => {
         // }
 
         // 3. send mint request
-        try {
-            var res;
+        var res;
+        try { 
             if (updating) {
                 res = await pnftContract.nft_update_profile(
                     {
