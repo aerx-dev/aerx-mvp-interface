@@ -1,4 +1,4 @@
-import { IconButton, Icon, Box, SkeletonCircle, useColorModeValue } from "@chakra-ui/react";
+import { IconButton, Icon, Box, SkeletonCircle, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import { IoWallet, IoExit } from "react-icons/io5";
 import { loginToken, loginNFT, logout } from "../../lib/auth";
@@ -7,6 +7,7 @@ import { nearStore } from "../../stores/near.js";
 import { getTotalSupply } from "../../lib/tokenContract";
 
 function ConnectWallet() {
+    const { colorMode, toggleColorMode } = useColorMode();
     const { t } = useTranslation("header");
     const [mounted, setMounted] = useState(false);
     const state = nearStore((state) => state);
@@ -39,6 +40,11 @@ function ConnectWallet() {
             _active={{ bg: "none" }}
             rounded="full"
 			variant={"ghost"}
+			filter={
+                                colorMode === "light"
+                                    ? "invert(0.7)"
+			: "none"
+			}
             onClick={() => {
                 loginToken(state);
             }}

@@ -46,3 +46,6 @@ schema.json.example
 sqlQuery.example
 *.json.example
 *.example
+
+# Supabase
+.supabase
