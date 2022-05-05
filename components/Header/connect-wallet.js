@@ -1,6 +1,5 @@
 import { IconButton, Icon, Box, SkeletonCircle, useColorModeValue } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
-import { IoWallet, IoExit } from "react-icons/io5";
 import { loginToken, loginNFT, logout } from "../../lib/auth";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near.js";
