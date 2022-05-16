@@ -1,6 +1,7 @@
 import React from "react";
 import { IconButton, Icon, useColorModeValue } from "@chakra-ui/react";
-import { IoHeartOutline, IoNotificationsOutline } from "react-icons/io5";
+import { ThunderboltOutlined, ThunderboltFilled } from "@ant-design/icons";
+import { IoHeartOutline, IoNotificationsOutline , IoChatbubbleOutline} from "react-icons/io5";
 import { MdCopyAll } from "react-icons/md";
 import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
 
@@ -29,8 +30,7 @@ export const NotificationIcon = () => {
 
 export const CopyButton = () => {
     return (
-        <IconButton 
-            // onClick={prop} 
+        <IconButton  
             variant='ghost'
             colorScheme='gray'
             isRound
@@ -51,6 +51,19 @@ export const AddIconButton = () => {
             bgColor="#6054F0"
             color="white"
             />
+    );
+};
+
+export const TagAddButton = () => {
+    return (
+        <IconButton
+            aria-label="tag"
+            isRound
+            size="sm"
+            icon={<AddIcon />}
+            variant="ghost"
+            color="#6054F0"
+        />
     );
 };
 
@@ -120,6 +133,50 @@ export const AddAudioIcon = () => {
                 </Icon>
             }
         ></IconButton>
+    );
+};
+
+export const ShareIconButton = () => {
+    return (
+        <IconButton
+            isRound
+            size="md"
+            variant="ghost"
+            icon={
+                <Icon
+                    width="19"
+                    height="19"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                >
+                    <path d="M17.3325 7.77194L17.7568 8.1962L18.181 7.77194L17.7568 7.34768L17.3325 7.77194ZM3.6 16.8246C3.6 12.1563 7.38438 8.37193 12.0527 8.37193V7.17193C6.72164 7.17193 2.4 11.4936 2.4 16.8246H3.6ZM12.0527 8.37193H17.3334V7.17193H12.0527V8.37193ZM13.9848 11.9681L17.7568 8.1962L16.9082 7.34768L13.1363 11.1196L13.9848 11.9681ZM17.7568 7.34768L13.9848 3.57574L13.1363 4.42426L16.9082 8.1962L17.7568 7.34768Z" fill={useColorModeValue("gray", "white")} fill-opacity="0.5"/>
+                </Icon>
+                }
+                ml={2}    
+        ></IconButton>
+    );
+};
+
+export const CommentIconButton = () =>{
+    return(
+        <IconButton
+            color = {useColorModeValue("gray.400", "white")}
+            variant="ghost"
+            size="lg"
+            icon={<IoChatbubbleOutline />}
+            isRound  
+        />
+    );
+};
+
+export const ChargeOutlineButton = () => {
+    return(
+        <IconButton
+            as={ThunderboltOutlined}
+            isRound
+            color="yellow"
+            variant="ghost"
+        />
     );
 };
 

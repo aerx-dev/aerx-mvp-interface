@@ -23,14 +23,12 @@ import {
     IconButton,
     Input,
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIconButton, ChargeOutlineButton, CommentIconButton, ShareIconButton, TagAddButton } from "../UI/IconButton";
 import { ThunderboltOutlined, ThunderboltFilled } from "@ant-design/icons";
-import { IoChatbubbleOutline } from "react-icons/io5";
-import { HiShoppingBag } from "react-icons/hi";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import { Layout } from "antd";
-import PurpleButton from "../UI/PurpleButton";
+import { PurpleButton } from "../UI/Buttons";
 import useCustomToast from "../../hooks/useCustomToast";
 import TimeAgo from "timeago-react";
 import SongCard from "../Player/songCard";
@@ -43,7 +41,6 @@ function Post({ nft, charge}) {
     const extra = JSON.parse(nft.metadata?.extra) || null;
     const tokenId = nft.token_id;
     const postBg = useColorModeValue("#edf2f7", "#1E2021");
-    const iconColor = useColorModeValue("gray.400", "white")
     const nearState = nearStore((state) => state);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const fill = useColorModeValue("gray", "white");
@@ -55,7 +52,6 @@ function Post({ nft, charge}) {
     const styles = {
         fontFamily: "Open Sans",
         backgroundColor: postBg,
-        // maxHeight: 430,
         position: "relative",
         borderRadius: 5,
         padding: 20,
@@ -68,8 +64,6 @@ function Post({ nft, charge}) {
             position: "relative",
             gap: 5,
         },
-        // ! prevent too long to read contents from spanning large heights
-        // instead turn to scrollable content container
         content: {
             margin: "0 auto",
             overflowY: "auto",
@@ -128,11 +122,7 @@ function Post({ nft, charge}) {
                             datetime={metadata.issued_at}
                         />
                     </Box>
-                    
-                    <PurpleButton
-                        className="right-0 text-white"
-                        leftIcon={<HiShoppingBag />}
-                    >
+                    <PurpleButton className="right-0 text-white">
                         64 æ
                     </PurpleButton>
                 </Header>
@@ -151,8 +141,6 @@ function Post({ nft, charge}) {
                         <Box my={2}>
                             {metadata?.media && (
                                 <ChakraImage
-                                    //maxH={200}
-                                    //rounded="lg"
                                     maxWidth={"100%"}
                                     margin="0 auto"
                                     src={metadata?.media}
@@ -164,58 +152,12 @@ function Post({ nft, charge}) {
                     )}
                 </Content>
                 <Divider />
-                <Footer
-                    style={styles.footer}
-                    className="flex align-middle gap-2"
-                >
-                    <Box onClick={onOpen}>
-                        <IconButton
-                            as={ThunderboltOutlined}
-                            isRound
-                            color="yellow"
-                            variant="ghost"
-                        />{" "}
-                        {currentCharge}
-                    </Box>
-                    <Box onClick={comment}>
-                        <IconButton
-                            color = {iconColor}
-                            variant="ghost"
-                            size="lg"
-                            icon={<IoChatbubbleOutline />}
-                            isRound  
-                        />
-                        0
-                    </Box>
-                    <Box opacity={0.7}>
-                        <IconButton
-                            aria-label="add-image"
-                            isRound
-                            size="md"
-                            variant="ghost"
-                            icon={
-                                <Icon
-                                    width="19"
-                                    height="19"
-                                    viewBox="0 0 20 20"
-                                    fill="none"
-                                >
-                                    <path d="M17.3325 7.77194L17.7568 8.1962L18.181 7.77194L17.7568 7.34768L17.3325 7.77194ZM3.6 16.8246C3.6 12.1563 7.38438 8.37193 12.0527 8.37193V7.17193C6.72164 7.17193 2.4 11.4936 2.4 16.8246H3.6ZM12.0527 8.37193H17.3334V7.17193H12.0527V8.37193ZM13.9848 11.9681L17.7568 8.1962L16.9082 7.34768L13.1363 11.1196L13.9848 11.9681ZM17.7568 7.34768L13.9848 3.57574L13.1363 4.42426L16.9082 8.1962L17.7568 7.34768Z" fill={useColorModeValue("gray", "white")} fill-opacity="0.5"/>
-                                </Icon>
-                                }
-                                ml={2}    
-                        ></IconButton>
-                            0
-                    </Box>
+                <Footer style={styles.footer} className="flex align-middle gap-2" >
+                    <Box onClick={onOpen}><ChargeOutlineButton/>{" "}{currentCharge}</Box>
+                    <Box onClick={comment}><CommentIconButton />0</Box>
+                    <Box opacity={0.7}><ShareIconButton />0</Box>
                     <Box style={styles.tag}>
-                        <IconButton
-                            aria-label="tag"
-                            isRound
-                            size="sm"
-                            icon={<AddIcon />}
-                            variant="ghost"
-                            color="#6054F0"
-                        />
+                        <TagAddButton/>
                         <Tag borderRadius='full' mt={1}>
                             <Avatar
                             name="Tag member 1"
@@ -253,16 +195,7 @@ function Post({ nft, charge}) {
                                 />
                             
                             <Box>
-                                <IconButton
-                                    type="submit"
-                                    aria-label="post"
-                                    isRound
-                                    size="xs"
-                                    icon={<AddIcon />}
-                                    ml={2}
-                                    bgColor="#6054F0"
-                                    color="white"
-                                /> 
+                                <AddIconButton/>
                             </Box>
                         </Box> : null}
                 </Footer>
