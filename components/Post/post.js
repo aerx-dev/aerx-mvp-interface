@@ -14,7 +14,6 @@ import {
     SliderTrack,
     SliderFilledTrack,
     SliderThumb,
-    //SliderMark,
     Tag,
     Image as ChakraImage,
     Text,
@@ -23,13 +22,10 @@ import {
     Icon,
     IconButton,
     Input,
-    Show,
-    Hide
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { ThunderboltOutlined, ThunderboltFilled } from "@ant-design/icons";
 import { IoChatbubbleOutline } from "react-icons/io5";
-import { FiNavigation } from "react-icons/fi";
 import { HiShoppingBag } from "react-icons/hi";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";

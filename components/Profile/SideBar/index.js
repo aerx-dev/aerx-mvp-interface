@@ -1,40 +1,24 @@
 import { Layout } from "antd";
-import {
-    MenuUnfoldOutlined,
-    MenuFoldOutlined,
-    ThunderboltFilled,
-} from "@ant-design/icons";
-import {RiSendPlaneFill} from "react-icons/ri";
-import { MdOutlineDone , MdCopyAll} from "react-icons/md";
-import {IoNotificationsOutline, IoHeartOutline} from "react-icons/io5";
+import { AddIconButton, CopyButton, HeartIcon , NotificationIcon } from "../../UI/IconButton";
+import {ThunderboltFilled} from "@ant-design/icons";
+import { SendButton , FollowButton , ReceiveIconButton, SendIconButton} from "../../UI/Buttons";
 import {
     Box,
-    Button,
     Divider,
     Flex,
     HStack,
     Icon,
-    IconButton,
     Text,
     Tag,
     useColorMode,
     useColorModeValue,
-    Input,
     Hide,
 	Show,
     Heading,
     useClipboard,
-    Avatar,
     VStack,
 } from "@chakra-ui/react";
-import {
-    SearchIcon,
-    AddIcon,
-    ArrowForwardIcon,
-    ArrowUpIcon,
-} from "@chakra-ui/icons";
 import { useState, createElement } from "react";
-import PurpleButton from "../../UI/PurpleButton";
 import { nearStore } from "../../../stores/near";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -70,25 +54,8 @@ export default function SideBar({ children, bg, state }) {
                 
             </div>
 																																																							
-            {/* <ProfileHeader
-                    opacity={colorMode === "light" ? 1 : 0.5}
-                    filter={filter}
-                /> */}
             <div className="col-start-4 col-span-6 flex flex-col items-center">
                 <Content className="min-w-full">{children}</Content>
-
-                {/* <Footer
-                    style={{
-                        width: "100vw",
-                        textAlign: "center",
-                        bottom: 0,
-                        position: "fixed",
-                        //opacity: 0.4,
-                        background: "#131414"
-                    }}
-                >
-                    Aerx ©2022 Created by AERX Labs
-                </Footer> */}
             </div>
                 <div className="col-start-10 col-span-3 flex flex-col items-center">
                     <LeftSide
@@ -98,58 +65,9 @@ export default function SideBar({ children, bg, state }) {
                     />
                 </div>            
         </div>
-		<div className="items-center md:dippy">
-                <Content className="min-w-full">{children}</Content>
-
-                {/* <Footer
-                    style={{
-                        textAlign: "center",
-                        bottom: 0,
-                        position: "fixed",
-                        opacity: 0.7,
-                    }}
-                >
-                    Aerx ©2022 Created by AERX Labs
-                </Footer> */}
-            </div>
 	</div>
     );
 }
-
-const ProfileHeader = ({ ...rest }) => {
-    return (
-        <Header
-            style={{
-                margin: "0 10% 0",
-                marginTop: 5,
-            }}
-        >
-            <Heading size="lg" mb={2}>
-                Flow
-            </Heading>
-            <Button variant="ghost" styles={styles.marker}>
-                My
-            </Button>
-            <Button variant="ghost" className="opacity-50 text-xs">
-                <Text fontWeight="medium">Favourite</Text>
-            </Button>
-            <Button variant="ghost" className="opacity-50 text-xs">
-                <Text fontWeight="medium">Subscriptions</Text>
-            </Button>
-            <Box className="float-right">
-                <IconButton
-                    aria-label="Search"
-                    isRound
-                    size="xs"
-                    variant="ghost"
-                    icon={<SearchIcon />}
-                    mr={5}
-                    {...rest}
-                />
-            </Box>
-        </Header>
-    );
-};
 
 const RightSide = ({ profile, balance, ...rest }) => {
     const value = "0jx12hbuwc34jcsuhwoc" ;
@@ -190,23 +108,9 @@ const RightSide = ({ profile, balance, ...rest }) => {
                     bgPosition="center"
                 >
                     <Box ml="70%">
-                        <IconButton
-                            mr="-3.5"
-                            icon={<IoHeartOutline />}
-                            color="white"
-                            variant="ghost"
-                            size="lg"
-                            isRound
-                        />
-                        <IconButton
-                            icon={<IoNotificationsOutline />}
-                            color="white"
-                            variant="ghost"
-                            size="lg"
-                            isRound
-                        />
+                        <HeartIcon mr="-3.5"/>
+                        <NotificationIcon />
                     </Box>
-
                     <Box
                         className="z-10 absolute bottom-0 h-2/5 w-full px-2 text-white"
                         bgGradient={bgGradient}
@@ -223,40 +127,16 @@ const RightSide = ({ profile, balance, ...rest }) => {
                             @{profile?.username || "pashq.aerx"}
                         </Text>
                         <RSideBarIters iterType="tags" data={tags} {...rest} />
-                        <HStack className="bottom-0 gap-x-3 my-2" >
-                            <Box>
-                                <Button 
-                                    borderRadius={20}
-                                    bgColor="#6054F0"
-                                    size="sm"
-                                    variant="outline"
-                                    leftIcon={<RiSendPlaneFill />} left={1}>
-                                    Send
-                                </Button>
-                            </Box>
-                            <Box>
-                                <Button
-                                    borderRadius={20}
-                                    bgColor="transparent"
-                                    size="sm"
-                                    variant="outline"
-                                    leftIcon={<MdOutlineDone />}
-                                    > Followed 
-                                </Button>
-                            </Box> 
-                            
+                        <HStack className="bottom-0 gap-x-2 my-2" >
+                            <Box ml={2}><SendButton/></Box>
+                            <Box><FollowButton /></Box>  
                         </HStack>
                         
                     </Box>
                 </Box>
                 <HStack m={3} justifyContent="left">
                     <Text> {value} </Text>
-                    <IconButton 
-                        onClick={onCopy} 
-                        variant='ghost'
-                        colorScheme='gray'
-                        isRound
-                        icon={<MdCopyAll />} ml={2} />
+                    <Box onClick={onCopy}><CopyButton /></Box>
                 </HStack>
                 
                 <Box className="text-left px-4 mb-5" sx={styles}>
@@ -267,11 +147,11 @@ const RightSide = ({ profile, balance, ...rest }) => {
                         funny pictures and videos. See more details in my
                         collection.`}
                     </Text>
-                    {/* <Text className="opacity-50 mb-2 mt-6 ">HOBBYES</Text>
+                    <Text className="opacity-50 mb-2 mt-2 ">HOBBIES</Text>
                     <Text className="text-sm">
                         {profile?.hobbys ||
                             `Hobbies, what's that?!`}
-                    </Text> */}
+                    </Text>
                 </Box>
                 <Divider />
                 <RSideBarBalance balance={balance} />
@@ -310,25 +190,6 @@ const RSideBarIters = ({ iterType, data, ...rest }) => {
                 </HStack>
             );
         };
-                {/* ) : iterType === "stats" ? (
-                    <Box fontSize={8} key={iter.title}>
-                        <Text opacity={0.5} mb={1} textAlign="center">
-                            {iter.title}
-                        </Text>
-                        <Heading size="md" textAlign="center">
-                            {iter.count}
-                        </Heading>
-                        <AvatarGroup size="xs" max={2} my={2}>
-                            <Avatar
-                                name="Ryan Florence"
-                                src="https://bit.ly/ryan-florence"
-                            />
-                            <Avatar
-                                name="Segun Adebayo"
-                                src="https://bit.ly/sage-adebayo"
-                            />
-                        </AvatarGroup>
-                    </Box> */}
 
 const RSideBarBalance = ({ balance, ...rest }) => {
     return (
@@ -349,23 +210,10 @@ const RSideBarBalance = ({ balance, ...rest }) => {
                 <HStack>
                     <Icon color="yellow" as={ThunderboltFilled} />
                     <Heading size="md">{balance || 0}</Heading>
-                    {/** profile.balance */}
                 </HStack>
                 <HStack>
-                    <Button
-                        borderRadius={20}
-                        size="sm"
-                        variant="solid"
-                        leftIcon={<ArrowUpIcon />}
-                        > Send
-                    </Button>
-                    <Button
-                        borderRadius={20}
-                        size="sm"
-                        variant="solid"
-                        leftIcon={<ArrowForwardIcon />}
-                        > Receive
-                    </Button>
+                    <SendIconButton />
+                    <ReceiveIconButton />
                 </HStack>
             </VStack>
         </Box>
@@ -418,27 +266,11 @@ const LeftSide = ({ collapse, ...rest }) => {
         <HStack className="flex justify-between mr-4">
             <Hide below="lg">
                 <Heading size="lg" ml={3}>Collections</Heading>
-                <IconButton
-                    type="submit"
-                    aria-label="post"
-                    isRound
-                    size="sm"
-                    icon={<AddIcon />}
-                    bgColor="#6054F0"
-                    color="white"
-                />
+                    <AddIconButton />
                 </Hide>
                 <Show below="lg">
                 <Heading size="md" ml={3}>Collections</Heading>
-                <IconButton
-                    type="submit"
-                    aria-label="post"
-                    isRound
-                    size="xs"
-                    icon={<AddIcon />}
-                    bgColor="#6054F0"
-                    color="white"
-                />
+                    <AddIconButton />
                 </Show>
                 
         </HStack>
