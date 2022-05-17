@@ -1,4 +1,4 @@
-import { Tag } from "@chakra-ui/react";
+import { Tag , Avatar } from "@chakra-ui/react";
 
 export const InterestTags = ({children, ...rest}) => {
     return (
