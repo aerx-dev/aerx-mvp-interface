@@ -1,11 +1,10 @@
-import { Box, useColorModeValue, useDisclosure, Image as ChakraImage, Text, Avatar, Divider, Input } from "@chakra-ui/react";
+import { Box, useColorModeValue, useDisclosure, Image as ChakraImage, Text, Avatar, Divider} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import { Layout } from "antd";
-import { PurpleButton } from "../UI/Buttons";
+import PostHeader from "./postHeader";
 import ChargeModal from "./chargeModal";
 import InteractionBar from "./interactionBar";
-import TimeAgo from "timeago-react";
 import SongCard from "../Player/songCard";
 
 const { Header, Footer, Content } = Layout;
@@ -17,9 +16,7 @@ function Post({ nft, charge}) {
     const tokenId = nft.token_id;
     const postBg = useColorModeValue("#edf2f7", "#1E2021");
     const nearState = nearStore((state) => state);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const fill = useColorModeValue("gray", "white");
-    
+    const { isOpen, onOpen, onClose } = useDisclosure();    
 
     const styles = {
         fontFamily: "Open Sans",
@@ -29,13 +26,6 @@ function Post({ nft, charge}) {
         padding: 20,
         marginTop: 10,
         marginBottom: 10,
-        header: {
-            height: 64,
-            display: "flex",
-            alignItems: "center",
-            position: "relative",
-            gap: 5,
-        },
         content: {
             margin: "0 auto",
             overflowY: "auto",
@@ -62,33 +52,7 @@ function Post({ nft, charge}) {
     return (
         <>
             <Layout style={styles}>
-                <Header style={styles.header}>
-                    <Avatar
-                        className=" bg-slate-300"
-                        bg="gray.400"
-                        name={nft?.owner_id}
-                        src={
-                            isUserMsg
-                                ? nearState.profile?.profileImg
-                                : metadata?.media ||
-                                  nft?.owner_id || // extra connditions for display data
-                                  "https://bit.ly/dan-abramov"
-                        }
-                        size="md"
-                    />
-                    <Box ml={2}>
-                        <Text>{nft?.owner_id || "Pavel dantsev"}</Text>
-                        <TimeAgo 
-                            className={`text-[11px] ${
-                                isUserMsg && "order-last pr-1"
-                            } opacity-60`}
-                            datetime={metadata.issued_at}
-                        />
-                    </Box>
-                    <PurpleButton className="right-0 text-white">
-                        64 æ
-                    </PurpleButton>
-                </Header>
+                <PostHeader metadata={metadata} isUserMsg={isUserMsg} nft={nft} />
                 <Content style={styles.content}>
                     <Box p={2}>{metadata?.description}</Box>
                     {extra?.media_type === "audio" ||
@@ -121,7 +85,6 @@ function Post({ nft, charge}) {
         </>
     );
 }
-
 
 export default Post;
 
