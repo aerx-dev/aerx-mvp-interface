@@ -1,25 +1,10 @@
 import { useState, useEffect } from "react";
+import { Box, Image as ChakraImage, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
-import ChangeLanguage from "./change-language";
-import ConnectWallet from "./connect-wallet";
-import ToggleMode from "./toggle-mode";
-import {
-    Box,
-    Image as ChakraImage,
-    HStack,
-    useColorMode,
-    useColorModeValue,
-    IconButton,
-	Menu,
-	Icon,
-	MenuButton,
-	MenuList,
-	MenuItem,
-} from "@chakra-ui/react";
+import MobileView from "./mobileView";
+import DesktopView from "./desktopView";
 import useTranslation from "next-translate/useTranslation";
-import { AiOutlineMenu } from "react-icons/ai";
 import { nearStore } from "../../stores/near.js";
-import { AccountIcon, FeedIcon, ProfileIcon } from "../UI/NavbarIcons";
 
 function Header() {
     const { colorMode } = useColorMode();
@@ -52,109 +37,12 @@ function Header() {
                             priority="true"
                             cursor={"pointer"}
                             width={"80px"}
-                            filter={
-                                colorMode === "light"
-                                    ? "brightness(0.45)"
-                                    : "invert(0)"
-                            }
+                            filter={ colorMode === "light" ? "brightness(0.45)" : "invert(0)" }
                         />
                     </Link>
                 </div>
-
-                <HStack
-				 display={["none", "flex", "flex", "flex"]}>
-                    {loggedIn ? (
-                        <Link href="/flow">
-                            <IconButton
-                                fontSize="lg"
-                                _hover={{ bg: "none" }}
-                                _active={{ bg: "none" }}
-                                rounded="full"
-                                variant={"ghost"}
-                                icon={<FeedIcon/>}
-                                >
-                            </IconButton>
-                        </Link>
-                    ) : (
-                        <></>
-                    )}
-
-                    <ToggleMode />
-					{loggedIn ? (
-                        <>
-                            <Link href="/profile">
-                                <IconButton
-                                    fontSize="lg"
-                                    aria-label={t("ariaWallet")}
-                                    _hover={{ bg: "none" }}
-                                    _active={{ bg: "none" }}
-                                    rounded="full"
-									variant={"ghost"}
-									icon={<ProfileIcon/>}
-                                >
-                                </IconButton>
-                            </Link>
-							<Link href="/account">
-                                <IconButton
-                                    fontSize="lg"
-                                    aria-label={t("ariaWallet")}
-                                    _hover={{ bg: "none" }}
-                                    _active={{ bg: "none" }}
-                                    rounded="full"
-									variant={"ghost"}
-									icon={<AccountIcon/>}
-                                >
-                                </IconButton>
-                            </Link>
-                        </>
-                    ) : (
-                        <></>
-                    )}
-                    <ChangeLanguage />
-                    <ConnectWallet />
-                </HStack>
-				
-				
-				<HStack
-				 display={["flex", "none", "none", "none"]}>
-                    <ToggleMode />
-                    <ChangeLanguage />
-                    <ConnectWallet />
-					
-				{loggedIn ? (
-                        <Menu>
-							<MenuButton
-								as={IconButton}
-								aria-label='Menu'
-								icon={<AiOutlineMenu />}
-								variant={"outline"}
-								_hover={{ bg: "none" }}
-								_active={{ bg: "none" }}
-								rounded="full"
-								
-							/>
-							<MenuList>
-							<MenuItem>
-                            <Link href="/flow">
-                                flow
-                            </Link>
-							</MenuItem>
-							<MenuItem>
-                            <Link href="/account">
-                                Account
-                            </Link>
-							</MenuItem>
-							<MenuItem>
-                            <Link href="/profile">
-                                Profile
-                            </Link>
-							</MenuItem>
-							</MenuList>
-                        </Menu>
-                    ) : (
-                        <></>
-                    )}
-                </HStack>				
+                <DesktopView loggedIn={loggedIn}/>
+                <MobileView loggedIn={loggedIn} />					
             </Box>
         </Box>
     );
