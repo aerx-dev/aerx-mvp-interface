@@ -40,7 +40,7 @@ Check out the lastest buld of [AERX](aerx-near.netlify.app).
 
 -   This directory contains the main pages of our application. We have the following pages
     -   Account
-    -   Feed
+    -   Flow
     -   Profile
 
 ### [hooks](./hooks)

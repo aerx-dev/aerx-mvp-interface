@@ -35,7 +35,7 @@ function NFTCard({ bg }) {
     );
 }
 
-const Feed = () => {
+const Flow = () => {
     const nearState = nearStore((state) => state);
     const picBg = useColorModeValue("gray.200", "gray.700");
     const postBg = useColorModeValue("gray.100", "gray.900");
@@ -91,4 +91,4 @@ const Feed = () => {
     );
 };
 
-export default Feed;
+export default Flow;

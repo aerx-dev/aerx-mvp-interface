@@ -67,7 +67,7 @@ function Header() {
 				 display={["none", "flex", "flex", "flex"]}>
                     {loggedIn ? (
                         <>
-                            <Link href="/feed">
+                            <Link href="/flow">
                                 <IconButton
                                     fontSize="lg"
                                     aria-label={t("ariaFeed")}
@@ -172,8 +172,8 @@ function Header() {
 							/>
 							<MenuList>
 							<MenuItem>
-                            <Link href="/feed">
-                                Feed
+                            <Link href="/flow">
+                                flow
                             </Link>
 							</MenuItem>
 							<MenuItem>
