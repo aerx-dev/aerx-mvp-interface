@@ -8,7 +8,7 @@ function NFTCard({ bg }) {
                 display="none"
                 height="320px"
                 rounded="lg"
-                maxWidth={["100%", "400px", "225px"]}
+                maxWidth={"100%"}
                 bg={bg}
                 margin="0 auto"
             ></Box>
