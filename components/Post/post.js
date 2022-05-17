@@ -1,11 +1,10 @@
 import { Box, useColorModeValue, useDisclosure, Image as ChakraImage, Text, Avatar, Divider, Input } from "@chakra-ui/react";
-import { AddIconButton, ChargeOutlineButton, CommentIconButton, ShareIconButton } from "../UI/IconButton";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import { Layout } from "antd";
 import { PurpleButton } from "../UI/Buttons";
 import ChargeModal from "./chargeModal";
-import MemberTag from "./tagmembers";
+import InteractionBar from "./interactionBar";
 import TimeAgo from "timeago-react";
 import SongCard from "../Player/songCard";
 
@@ -20,10 +19,7 @@ function Post({ nft, charge}) {
     const nearState = nearStore((state) => state);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const fill = useColorModeValue("gray", "white");
-    const [ commentBox , setCommentBox ] = useState(false);
-    const comment = () =>{
-        setCommentBox(!commentBox)
-    }
+    
 
     const styles = {
         fontFamily: "Open Sans",
@@ -45,15 +41,6 @@ function Post({ nft, charge}) {
             overflowY: "auto",
             maxH: 400,
             overflowX: "hidden",
-        },
-        footer: {
-            height: 64,
-            display: "flex",
-            alignItems: "center",
-        },
-        tag: {
-            position: "absolute",
-            right: "20px",
         },
     };
 
@@ -128,36 +115,8 @@ function Post({ nft, charge}) {
                     )}
                 </Content>
                 <Divider />
-                <Footer style={styles.footer} className="flex align-middle gap-2" >
-                    <Box onClick={onOpen}><ChargeOutlineButton/>{" "}{currentCharge}</Box>
-                    <Box onClick={comment}><CommentIconButton />0</Box>
-                    <Box opacity={0.7}><ShareIconButton />0</Box>
-                    <MemberTag style={styles.tag}/>
-                </Footer>
-                <Footer>
-                    { commentBox ? 
-                        <Box 
-                            flexDirection="row"
-                            display="flex"
-                            alignItems="center">
-                                <Input
-                                    maxLength={500}
-                                    type="text"
-                                    data-path="text"
-                                    placeholder="comment"
-                                    borderRadius={20}
-                                    size="sm"
-                                    border="none"
-                                    bg={useColorModeValue("white", "#1B1D1E")}
-                                />
-                            
-                            <Box>
-                                <AddIconButton/>
-                            </Box>
-                        </Box> : null}
-                </Footer>
+                <InteractionBar onOpen={onOpen} currentCharge={currentCharge} />
             </Layout>
-
             <ChargeModal nft={nft} state={[isOpen, onClose]} />
         </>
     );

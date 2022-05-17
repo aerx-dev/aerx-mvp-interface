@@ -136,7 +136,7 @@ export const AddAudioIcon = () => {
     );
 };
 
-export const ShareIconButton = () => {
+export const ShareIconButton = ({...rest}) => {
     return (
         <IconButton
             isRound
@@ -152,30 +152,32 @@ export const ShareIconButton = () => {
                     <path d="M17.3325 7.77194L17.7568 8.1962L18.181 7.77194L17.7568 7.34768L17.3325 7.77194ZM3.6 16.8246C3.6 12.1563 7.38438 8.37193 12.0527 8.37193V7.17193C6.72164 7.17193 2.4 11.4936 2.4 16.8246H3.6ZM12.0527 8.37193H17.3334V7.17193H12.0527V8.37193ZM13.9848 11.9681L17.7568 8.1962L16.9082 7.34768L13.1363 11.1196L13.9848 11.9681ZM17.7568 7.34768L13.9848 3.57574L13.1363 4.42426L16.9082 8.1962L17.7568 7.34768Z" fill={useColorModeValue("gray", "white")} fill-opacity="0.5"/>
                 </Icon>
                 }
-                ml={2}    
+            {...rest}    
         ></IconButton>
     );
 };
 
-export const CommentIconButton = () =>{
+export const CommentIconButton = ({...rest}) =>{
     return(
         <IconButton
             color = {useColorModeValue("gray.400", "white")}
             variant="ghost"
             size="lg"
             icon={<IoChatbubbleOutline />}
-            isRound  
+            isRound 
+            {...rest} 
         />
     );
 };
 
-export const ChargeOutlineButton = () => {
+export const ChargeOutlineButton = ({ ...rest}) => {
     return(
         <IconButton
             as={ThunderboltOutlined}
             isRound
             color="yellow"
             variant="ghost"
+            {...rest}
         />
     );
 };
