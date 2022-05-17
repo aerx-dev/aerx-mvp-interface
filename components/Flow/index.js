@@ -20,21 +20,6 @@ const LazyPosts = dynamic(() => import("../Post/post"), {
     ),
 });
 
-function NFTCard({ bg }) {
-    return (
-        <Box>
-            <Box
-                display="none"
-                height="320px"
-                rounded="lg"
-                maxWidth={"100%"}
-                bg={bg}
-                margin="0 auto"
-            ></Box>
-        </Box>
-    );
-}
-
 const Flow = () => {
     const nearState = nearStore((state) => state);
     const picBg = useColorModeValue("gray.200", "gray.700");
@@ -58,34 +43,25 @@ const Flow = () => {
 
     return (
         <Layout>
-            <Box className="p-4 z-10 relative md:px-10">
-                <Grid
-                    templateColumns={["repeat(100%)", "20vw calc(100% - 25vw)"]}
-                    gap="20px"
-                >
-                    <NFTCard bg={picBg} />
-
-                    <Box maxW={640}>
-                        <Box mb={4}>
-                            <NewPost state={nearState} bg={postBg} />
-                        </Box>
-
-                        {nearState.feed
-                            ?.sort(function (a, b) {
-                                return b.token_id - a.token_id;
-                            })
-                            .map((nft) => {
-                                return (
-                                    <LazyPosts
-                                        key={nft.token_id}
-                                        nft={nft}
-
-                                        //charge={getCharge(nft.token_id) || 0}
-                                    />
-                                );
-                            })}
+            <Box className="p-4 z-10 relative md:px-10 flex justify-center">
+                <Box maxW={640}>
+                    <Box mb={4}>
+                        <NewPost state={nearState} bg={postBg} />
                     </Box>
-                </Grid>
+
+                    {nearState.feed
+                        ?.sort(function (a, b) {
+                            return b.token_id - a.token_id;
+                        })
+                        .map((nft) => {
+                            return (
+                                <LazyPosts
+                                    key={nft.token_id}
+                                    nft={nft}
+                                />
+                            );
+                        })}
+                </Box>
             </Box>
         </Layout>
     );
