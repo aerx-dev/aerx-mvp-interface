@@ -1,4 +1,3 @@
-import Link from "next/link";
 import i18Config from "../../i18n.json";
 import useTranslation from "next-translate/useTranslation";
 import setLanguage from "next-translate/setLanguage";
@@ -9,14 +8,8 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
-    MenuDivider,
     IconButton,
 	useColorMode, 
-	Icon,
-	useColorModeValue, 
 } from "@chakra-ui/react";
 
 const { locales } = i18Config;
@@ -35,16 +28,8 @@ export default function ChangeLanguage() {
                 fontSize="sm"
                 as={IconButton}
                 rounded="full"
-				variant={
-                                colorMode === "light"
-                                    ? "ghost"
-			: "solid"
-			}
-				color={
-                                colorMode === "light"
-                                    ? "gray"
-			: "white"
-			}
+				variant={colorMode === "light" ? "ghost" : "solid" }
+				color={ colorMode === "light" ? "gray" : "white" }
             >
                 {lang.toUpperCase()}
             </MenuButton>
@@ -62,14 +47,12 @@ export default function ChangeLanguage() {
                         <b>sp</b>
                     </small>
                 </MenuItem>
-                {/* <MenuItem onClick={async () => await setLanguage('hi_IN')}>hi_IN</MenuItem> */}
                 <MenuItem onClick={async () => await setLanguage("ru")}>
                     {t("russian")}{" "}
                     <small style={{ marginLeft: 8 }}>
                         <b>ru</b>
                     </small>
                 </MenuItem>
-                {/* <MenuItem onClick={async () => await setLanguage('uz_Latn_UZ')}>uz_Latn_UZ</MenuItem> */}
             </MenuList>
         </Menu>
     );
