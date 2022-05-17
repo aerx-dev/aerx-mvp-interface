@@ -2,7 +2,6 @@ import { Box, useColorModeValue, Grid, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import { nearStore } from "../../stores/near";
-import NFTCard from "../Profile/ProfileNFTCard";
 import dynamic from "next/dynamic";
 import { GET_ALL_POSTS } from "../../graphql/queries/queries";
 import { useQuery } from "urql";
@@ -20,6 +19,21 @@ const LazyPosts = dynamic(() => import("../Post/post"), {
         />
     ),
 });
+
+function NFTCard({ bg }) {
+    return (
+        <Box>
+            <Box
+                display="none"
+                height="320px"
+                rounded="lg"
+                maxWidth={"100%"}
+                bg={bg}
+                margin="0 auto"
+            ></Box>
+        </Box>
+    );
+}
 
 const Feed = () => {
     const nearState = nearStore((state) => state);
