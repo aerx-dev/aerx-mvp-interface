@@ -1,7 +1,6 @@
 import { Layout } from "antd";
-import { AddIconButton, CopyButton, HeartIcon , NotificationIcon } from "../../UI/IconButton";
-import {ThunderboltFilled} from "@ant-design/icons";
-import { SendButton , FollowButton , ReceiveIconButton, SendIconButton} from "../../UI/Buttons";
+import { CopyButton, HeartIcon , NotificationIcon } from "../../UI/IconButton";
+import { SendButton , FollowButton } from "../../UI/Buttons";
 import {
     Box,
     Divider,
@@ -12,14 +11,13 @@ import {
     Tag,
     useColorMode,
     useColorModeValue,
-    Hide,
-	Show,
     Heading,
     useClipboard,
     VStack,
 } from "@chakra-ui/react";
 import { useState, createElement } from "react";
 import Collections from "../Collections";
+import BalanceBar from "./balanceBar";
 import { nearStore } from "../../../stores/near";
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -138,7 +136,7 @@ const RightSide = ({ profile, balance, ...rest }) => {
                     </Text>
                 </Box>
                 <Divider />
-                <RSideBarBalance balance={balance} />
+                <BalanceBar balance={balance} />
             </Flex>
         </Box>
     );
@@ -175,36 +173,34 @@ const RSideBarIters = ({ iterType, data, ...rest }) => {
             );
         };
 
-const RSideBarBalance = ({ balance, ...rest }) => {
-    return (
-        <Box
-                bgImage="/images/balance-bg.svg"
-                bgColor="#ffff0006"
-                bgPos="center"
-                bgSize="cover"
-                bgBlendMode="darken"
-                borderRadius="lg"
-                w="100%"
-                py={3}
-                >
-            <VStack
-               className="content-align-left px-4" 
-            >   
-                <Text className="font-semibold" >Your Balance</Text>
-                <HStack>
-                    <Icon color="yellow" as={ThunderboltFilled} />
-                    <Heading size="md">{balance || 0}</Heading>
-                </HStack>
-                <HStack>
-                    <SendIconButton />
-                    <ReceiveIconButton />
-                </HStack>
-            </VStack>
-        </Box>
-    );
-};
-
-const WalletModal = ({ ...rest }) => {};
+// const RSideBarBalance = ({ balance, ...rest }) => {
+//     return (
+//         <Box
+//                 bgImage="/images/balance-bg.svg"
+//                 bgColor="#ffff0006"
+//                 bgPos="center"
+//                 bgSize="cover"
+//                 bgBlendMode="darken"
+//                 borderRadius="lg"
+//                 w="100%"
+//                 py={3}
+//                 >
+//             <VStack
+//                className="content-align-left px-4" 
+//             >   
+//                 <Text className="font-semibold" >Your Balance</Text>
+//                 <HStack>
+//                     <Icon color="yellow" as={ThunderboltFilled} />
+//                     <Heading size="md">{balance || 0}</Heading>
+//                 </HStack>
+//                 <HStack>
+//                     <SendIconButton />
+//                     <ReceiveIconButton />
+//                 </HStack>
+//             </VStack>
+//         </Box>
+//     );
+// };
 
 const styles = {
     fontFamily: "Open Sans",
