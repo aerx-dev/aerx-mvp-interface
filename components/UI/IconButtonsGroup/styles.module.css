@@ -1,7 +1,0 @@
-.iconButtonsGroup {
-    @apply flex gap-3;
-}
-
-.vertical {
-    @apply flex-col;
-}

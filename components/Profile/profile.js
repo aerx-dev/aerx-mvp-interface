@@ -1,4 +1,3 @@
-// import ProfilePage from "../components/ProfilePage";
 import React from "react";
 import { Box, useColorModeValue, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";

@@ -8,7 +8,6 @@ import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
 import { Provider } from 'urql';
 import { supabaseGraphQLClient } from "../lib/supabaseClient";
-// import { useSessionStorage } from "beautiful-react-hooks";
 
 function MyApp({ Component, pageProps }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -17,34 +16,6 @@ function MyApp({ Component, pageProps }) {
     //     false,
     // );
     const nearState = nearStore((state) => state);
-
-    // const toast = useToast();
-
-    // useEffect(() => {
-    //     if (!ipfsIsOnline) {
-    //         // toast({
-    //         //     id: "ipfs1",
-    //         //     status: "info",
-    //         //     duration: 3000,
-    //         //     description: "Starting IPFS node...",
-    //         // });
-    //         var nodeIsOnline;
-    //         if (window.ipfs) {
-    //             nodeIsOnline = window.ipfs.isOnline();
-    //         } else {
-    //             nodeIsOnline = initIfps();
-    //         }
-    //         setIpfsIsOnline(nodeIsOnline);
-    //         console.log("IFPS node is online: ", nodeIsOnline);
-    //         // toast({
-    //         //     id: "ipfs2",
-    //         //     status: "success",
-    //         //     duration: 3000,
-    //         //     description: "IPFS node is online!",
-    //         // });
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [ipfsIsOnline]);
 
     useEffect(() => {
         // due to issue with checkProfile
