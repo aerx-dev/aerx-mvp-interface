@@ -2,9 +2,9 @@
 comment on schema public is '@graphql({"inflect_names": true})';
 
 create table profile(
-    id serial primary key,
+    id serial,
     hobbys text,
-    token_id text not null,
+    token_id text not null primary key,
     username text,
     fullname text,
     about_me text,
@@ -16,17 +16,9 @@ create table profile(
     updated_at timestamp not null
 );
 
-create table account(
-    id serial primary key,
-    address text not null,
-    email varchar(255) not null,
-    created_at timestamp not null,
-    updated_at timestamp not null
-);
-
 create table post(
     id serial primary key,
-    owner_id integer not null references account(id),
+    owner_id text not null references profile(token_id),
     title varchar(255) not null,
     description varchar(255),
     created_at timestamp not null,

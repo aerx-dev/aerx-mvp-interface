@@ -29,7 +29,7 @@ const Account = () => {
     const ipfsData = usePinata(uploadImg, toast);
 
     const [profile, setProfile] = useState({
-        username: nearState.accountId,
+        username: "",
         fullName: "",
         aboutMe: "",
         hobbys: "",
@@ -49,7 +49,6 @@ const Account = () => {
             setProfile((prevProfile) => {
                 return {
                     ...prevProfile,
-                    username: nearState.accountId,
                     ...nearState.profile,
                 };
             });
@@ -76,7 +75,6 @@ const Account = () => {
         setProfile((prevProfile) => {
             return {
                 ...prevProfile,
-                username: nearState.accountId,
                 [path]: val,
             };
         });
@@ -138,8 +136,9 @@ const Account = () => {
                 "PNFTsccss",
             );
             console.log("acres",res);
-
-            profileToSupa(res, profileToSave, toast)
+			console.log("extra",nearState.accountId)
+            profileToSupa(res, profile, profileToSave, toast)
+			
 
         } catch (e) {
             toast("error", "ProfileNFT could not be minted!", "PNFTsccss");
@@ -151,7 +150,6 @@ const Account = () => {
         setProfile(() => {
             return {
                 ...nearState.profile,
-                username: nearState.accountId,
             }
         })
         setUpdating(true)

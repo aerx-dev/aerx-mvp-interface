@@ -10,7 +10,7 @@ import {
     InputLeftElement,
     Image as ChakraImage,
     Grid,
-} from "@chakra-ui/react";
+	} from "@chakra-ui/react";
 import { AtSignIcon } from "@chakra-ui/icons";
 import {  useRef, useState } from "react";
 
@@ -112,7 +112,6 @@ export default function CreateProfileForm(props) {
                             type="text"
                             onChange={props.update}
                             data-path="username"
-							readOnly
                         />
                     </InputGroup>
                 </FormControl>
