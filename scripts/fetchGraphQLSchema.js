@@ -4,7 +4,7 @@ const fs = require("fs");
 const gradient = require("gradient-string");
 const path = require("path");
 const ProgressBar = require("progress");
-const { fetch } = require("cross-undici-fetch");
+const { fetch } = require("undici");
 
 const {
   buildClientSchema,
