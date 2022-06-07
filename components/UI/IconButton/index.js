@@ -1,6 +1,6 @@
 import React from "react";
 import { IconButton, Icon, useColorModeValue } from "@chakra-ui/react";
-import { ThunderboltOutlined, ThunderboltFilled } from "@ant-design/icons";
+import { ThunderboltOutlined, ThunderboltFilled, SearchOutlined} from "@ant-design/icons";
 import { IoHeartOutline, IoNotificationsOutline , IoChatbubbleOutline} from "react-icons/io5";
 import { MdCopyAll } from "react-icons/md";
 import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
@@ -179,6 +179,25 @@ export const ChargeOutlineButton = ({ ...rest}) => {
             variant="ghost"
             {...rest}
         />
+    );
+};
+
+
+export const SearchIconButton = ({...rest}) => {
+    return (
+        <IconButton
+        onClick={() => {
+
+
+            
+        }
+        }
+        as={SearchOutlined}
+        isRound
+        color="gray"
+        variant="ghost"
+        {...rest}
+    />
     );
 };
 

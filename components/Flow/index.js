@@ -1,4 +1,5 @@
 import { Box, useColorModeValue, Grid, Button } from "@chakra-ui/react";
+import SearchProfile from "../SearchProfile";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import { nearStore } from "../../stores/near";
@@ -46,6 +47,7 @@ const Flow = () => {
             <Box className="p-4 z-10 relative md:px-10 flex justify-center">
                 <Box maxW={640}>
                     <Box mb={4}>
+                        <SearchProfile state={nearState} bg={postBg} />
                         <NewPost state={nearState} bg={postBg} />
                     </Box>
 

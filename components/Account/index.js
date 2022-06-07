@@ -119,12 +119,14 @@ const Account = () => {
                     "9990000000000000000011", // attached deposit in yoctoNEAR (optional))
                 );
             } else {
-                res = await pnftContract.nft_mint(
+                res = await pnftContract.mint_profile(
                     {
                         receiver_id: nearState.accountId,
                         token_metadata: profileToSave,
+                       // username: nearState.accountId,
                     },
-                    "300000000000000", // attached GAS (optional)
+
+                    "300000000000000", // attached GAS (optiona)
                     "9990000000000000000011", // attached deposit in yoctoNEAR (optional))
                 );
             }
