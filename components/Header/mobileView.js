@@ -31,7 +31,7 @@ const MobileView = ({loggedIn}) => {
                             Flow
                         </Link>
                         </MenuItem>
-                        <MenuItem>
+                        <MenuItem color="gray" maxWidth={"100px"}>
                         <Link href="/account">
                             Account
                         </Link>
