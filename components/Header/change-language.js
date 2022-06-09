@@ -28,13 +28,13 @@ export default function ChangeLanguage() {
                 fontSize="sm"
                 as={IconButton}
                 rounded="full"
-				variant={colorMode === "light" ? "ghost" : "solid" }
+				variant={colorMode === "light" ? "ghost" : "ghost" }
 				color={ colorMode === "light" ? "gray" : "white" }
             >
                 {lang.toUpperCase()}
             </MenuButton>
 
-            <MenuList maxWidth={"100px"}>
+            <MenuList color={ colorMode === "light" ? "white" : "gray" } maxWidth={"100px"}>
                 <MenuItem onClick={async () => await setLanguage("en")}>
                     {t("english")}{" "}
                     <small style={{ marginLeft: 8 }}>
