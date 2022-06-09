@@ -34,7 +34,7 @@ export default function ChangeLanguage() {
                 {lang.toUpperCase()}
             </MenuButton>
 
-            <MenuList color={ colorMode === "light" ? "white" : "gray" } maxWidth={"100px"}>
+            <MenuList bg={ colorMode === "light" ? "white" : "gray" } color={ colorMode === "light" ? "gray" : "white" } maxWidth={"100px"}>
                 <MenuItem onClick={async () => await setLanguage("en")}>
                     {t("english")}{" "}
                     <small style={{ marginLeft: 8 }}>
