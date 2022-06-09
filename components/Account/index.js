@@ -43,7 +43,7 @@ const Account = () => {
         if (!nearState.profile) {
             setLockPage(false)
             setUpdating(false)
-	    console.log("mint")
+	    console.log("minting")
         } else {
             setLockPage(true)
             setUpdating(true)
