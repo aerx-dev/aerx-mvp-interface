@@ -6,11 +6,11 @@ query {
     edges {
       post: node {
         id
-        ownerId
+        owner_id
         title
         description
-        createdAt
-        updatedAt
+        created_at
+        updated_at
       }
     }
   }
@@ -46,16 +46,16 @@ query {
       profile: node {
         id
         hobbys,
-        tokenId,
+        token_id,
         username,
         fullname,
-        aboutMe,
+        about_me,
         city,
         country,
-        avatarUrl,
+        avatar_url,
         extra,
-        createdAt,
-        updatedAt,
+        created_at,
+        updated_at,
       }
     }
   }
