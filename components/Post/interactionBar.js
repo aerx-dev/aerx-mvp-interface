@@ -5,7 +5,7 @@ import { AddIconButton, ChargeOutlineButton, CommentIconButton, ShareIconButton 
 import MemberTag from "./tagmembers";
 
 const { Header, Footer, Content } = Layout;
-
+const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
 const InteractionBar = ({onOpen, currentCharge}) => {
 
     const styles = {
@@ -47,7 +47,7 @@ const InteractionBar = ({onOpen, currentCharge}) => {
                                 borderRadius={20}
                                 size="sm"
                                 border="none"
-                                bg={useColorModeValue("white", "#1B1D1E")}
+                                bg={bdcolorchanger}
                             />
                         <Box>
                             <AddIconButton/>
