@@ -78,7 +78,7 @@ const ChargeModal = ({ nft, state }) => {
     }
 
     async function chargePost() {
-        const amount = 11;
+        const amount = 5009;
         nearState.tokenContract
             .ft_transfer(
                 {
