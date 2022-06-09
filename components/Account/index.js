@@ -110,7 +110,7 @@ const Account = () => {
         var res;
         try { 
             if (updating) {
-                res = await pnftContract.nft_update_profile(
+                res = await pnftContract.edit_profile(
                     {
                         receiver_id: nearState.accountId,
                         token_metadata: profileToSave,
