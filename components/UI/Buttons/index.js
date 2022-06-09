@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/react";
 import {AddIcon,ArrowForwardIcon, ArrowUpIcon} from "@chakra-ui/icons";
 import {RiSendPlaneFill} from "react-icons/ri";
 import { MdOutlineDone } from "react-icons/md";
-import { HiShoppingBag } from "react-icons/hi";
+import { HiShoppingBag, HiOutlineDocumentSearch} from "react-icons/hi";
 
 export const SendButton = () => {
     return (
@@ -68,3 +68,4 @@ export const PurpleButton = ({children,...rest}) => {
         >{children}</Button>
     );
 }
+

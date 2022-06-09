@@ -3,5 +3,6 @@
     "label": {
         "balance": "Balance"
     },
-    "new": "create new entry"
+    "new": "create new entry",
+    "search": "search for a profile"
 }
