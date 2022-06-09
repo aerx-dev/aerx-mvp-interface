@@ -33,7 +33,9 @@ export default function SideBar({ children, bg, state }) {
             />
         </div>            
         </div>
+	<div className="items-center md:dippy">
+                <Content className="min-w-full">{children}</Content>
+        </div>
 	</div>
     );
 }
-
