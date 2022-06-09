@@ -43,6 +43,7 @@ const Account = () => {
         if (!nearState.profile) {
             setLockPage(false)
             setUpdating(false)
+	    console.log("mint")
         } else {
             setLockPage(true)
             setUpdating(true)
@@ -52,7 +53,7 @@ const Account = () => {
                     ...nearState.profile,
                 };
             });
-
+	    console.log("updating")
         }
     }, [nearState.profile, nearState.accountId])
 
