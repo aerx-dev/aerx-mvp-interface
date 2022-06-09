@@ -25,13 +25,13 @@ const MobileView = ({loggedIn}) => {
                             _active={{ bg: "none" }}
                             rounded="full"                       
                             />
-                        <MenuList>
+                        <MenuList color="gray" maxWidth={"100px"}>
                         <MenuItem>
                         <Link href="/flow">
                             Flow
                         </Link>
                         </MenuItem>
-                        <MenuItem color="gray" maxWidth={"100px"}>
+                        <MenuItem>
                         <Link href="/account">
                             Account
                         </Link>
