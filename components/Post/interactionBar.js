@@ -5,9 +5,9 @@ import { AddIconButton, ChargeOutlineButton, CommentIconButton, ShareIconButton 
 import MemberTag from "./tagmembers";
 
 const { Header, Footer, Content } = Layout;
-const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
-const InteractionBar = ({onOpen, currentCharge}) => {
 
+const InteractionBar = ({onOpen, currentCharge}) => {
+    const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const styles = {
         footer: {
             height: 64,
