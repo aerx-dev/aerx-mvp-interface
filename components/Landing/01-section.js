@@ -1,8 +1,10 @@
 import {
     Box,
-    SimpleGrid,
-    Center,
-    Image as ChakraImage,
+    Grid,
+    GridItem,
+    Flex,
+    CustomImage,
+    Image,
     useColorMode,
     Heading,
     Text,
@@ -13,44 +15,68 @@ function Feature1() {
     const { colorMode } = useColorMode();
     const { t } = useTranslation("landing");
     return (
-        <Box height="500px" position="relative" maxWidth={800} margin="0 auto">
-            <SimpleGrid columns={2} spacing={10}>
-                <Box textAlign="left">
-                    <Center height="100%">
-                        <Box px={8} position="relative">
-                            <ChakraImage
-                                filter={
-                                    colorMode === "light"
-                                        ? "invert(1)"
-                                        : "invert(0)"
-                                }
-                                src="/01.png"
-                                width="140px"
-                                position="absolute"
-                                top={-10}
-                                right={100}
-                            />
-                            <Heading>
-                                {t("features.feature1.description")}
-                            </Heading>
-                            <Text m="2">{t("features.feature1.caption")}</Text>
-                        </Box>
-                    </Center>
-                </Box>
-                <Box height="100%" width="100%">
-                    <ChakraImage src="/multimedia.png" />
-                </Box>
-            </SimpleGrid>
-            <ChakraImage
-                zIndex={-1}
-                src="/grid.png"
-                filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
-                width={400}
-                position="absolute"
-                top={0}
-                right={"20%"}
-            />
-        </Box>
+        <Flex alignItems="center" direction="column" justify="center">
+            <Box>
+                <Grid>
+                    <GridItem>
+                        <Image
+                            src="/monetize.png"
+                            width={300}
+                            height={300}
+                        />
+                    </GridItem>
+                </Grid>
+                <Grid>
+                    <GridItem>
+                        In Aerx, makers can easily monetize content and retain
+                        their ownership rights. Just publish what you have
+                        created: text, video, picture or audio. It doesn't
+                        matter if you are a professional artist who just came up
+                        with a funny meme, an aspiring musician or an author of
+                        interesting texts. Post it and get rewarded if other
+                        users like it.
+                    </GridItem>
+                </Grid>
+            </Box>
+        </Flex>
+        // <Box height="500px" position="relative" maxWidth={800} margin="0 auto">
+        //     <SimpleGrid columns={2} spacing={10}>
+        //         <Box textAlign="left">
+        //             <Center height="100%">
+        //                 <Box px={8} position="relative">
+        //                     <ChakraImage
+        //                         filter={
+        //                             colorMode === "light"
+        //                                 ? "invert(1)"
+        //                                 : "invert(0)"
+        //                         }
+        //                         src="/01.png"
+        //                         width="140px"
+        //                         position="absolute"
+        //                         top={-10}
+        //                         right={100}
+        //                     />
+        //                     <Heading>
+        //                         {t("features.feature1.description")}
+        //                     </Heading>
+        //                     <Text m="2">{t("features.feature1.caption")}</Text>
+        //                 </Box>
+        //             </Center>
+        //         </Box>
+        //         <Box height="100%" width="100%">
+        //             <ChakraImage src="/multimedia.png" />
+        //         </Box>
+        //     </SimpleGrid>
+        //     <ChakraImage
+        //         zIndex={-1}
+        //         src="/grid.png"
+        //         filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
+        //         width={400}
+        //         position="absolute"
+        //         top={0}
+        //         right={"20%"}
+        //     />
+        // </Box>
     );
 }
 

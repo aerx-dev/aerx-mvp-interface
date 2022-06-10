@@ -7,13 +7,6 @@ function Features() {
         <Box as="section" pt={50}>
             <Feature1 />
             <Feature2 />
-<<<<<<< HEAD
-            {/* <Feature3 />
-            <Feature4 />
-            <Feature5 />
-            <Feature6 /> */}
-=======
->>>>>>> 4f4052d78797b164992c9664772b86eb6f4130ea
         </Box>
     );
 }
