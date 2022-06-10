@@ -76,7 +76,7 @@ const Account = () => {
                 console.log("Pictype : ", picType);
             } else {
                 toast("error",
-                    "Picture type not supported. Supported types are" + expectedType  + ".","Images",
+                    "Picture type not supported. Supported types are " + expectedType  + " .","Images",
                 );
             }
         }
