@@ -53,7 +53,7 @@ const Account = () => {
         }
     }, [nearState.profile, nearState.accountId]);
 
-    function profileImageChange(event) {
+    function profileImageChange(event,toast) {
         const { files } = event.target;
         const expectedType = [
             "jpg",
