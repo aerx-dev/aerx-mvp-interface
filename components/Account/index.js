@@ -70,13 +70,16 @@ const Account = () => {
             const picname = files[0].name;
             let picPart = picname.split(".");
             const picType = picPart[picPart.length - 1];
-            var imagingtype = expectedType.toString()
+            console.log("Pictype : ", picType);
             if (expectedType.includes(picType)) {
                 setUploadImg(files[0]);
-                console.log("Pictype : ", picType);
             } else {
-                toast("error",
-                    "Picture type not supported. Supported types are " + expectedType  + " .","Images",
+                toast(
+                    "error",
+                    "Picture type not supported. Supported types are " +
+                        expectedType +
+                        " .",
+                    "Images",
                 );
             }
         }
@@ -132,33 +135,46 @@ const Account = () => {
                 );
                 toast(
                     "success",
-                    "Your AERX ProfileNFT username: " +
+                    "Your AERX ProfilNFT username: " +
                         last_info.token_id +
                         " was changed to: " +
                         user_info.token_id +
-                        "successfully along side other details.", 
+                        "successfully along side other details" +
                         "PNFTsccss",
                 );
             } else {
-                console.log("Minting.....");
-                await pnftContract.mint_profile(
-                    {
-                        username: profile.username,
-                        token_metadata: profileToSave,
-                    },
+                console.log("Updating Connection status....");
+                let connection_status =
+                    await nearState.tokenContract.update_connection_status();
+                if (connection_status) {
+                    console.log("Minting.....");
+                    await pnftContract.mint_profile(
+                        {
+                            username: profile.username,
+                            token_metadata: profileToSave,
+                        },
 
-                    "300000000000000", // attached GAS (optional)
-                );
-                user_info = await pnftContract.user_by_acct_id({
-                    account_id: nearState.accountId,
-                });
-                toast(
-                    "success",
-                    "Your AERX ProfileNFT username: " +
-                        user_info.token_id +
-                        " was minted successfully!",
-                    "PNFTsccss",
-                );
+                        "300000000000000", // attached GAS (optional)
+                    );
+                    user_info = await pnftContract.user_by_acct_id({
+                        account_id: nearState.accountId,
+                    });
+                    toast(
+                        "success",
+                        "Your AERX ProfileNFT username: " +
+                            user_info.token_id +
+                            " was minted successfully!",
+                        "PNFTsccss",
+                    );
+                } else {
+                    toast(
+                        "error",
+                        "Can't get connection status for: " +
+                            nearState.accountId +
+                            " try again",
+                        "connection",
+                    );
+                }
             }
 
             console.log("acres", user_info);
@@ -167,10 +183,10 @@ const Account = () => {
         } catch (e) {
             toast(
                 "error",
-                "ProfileNFT could not be minted or edited!",
+                "ProfileNFT could not be minted or editted!",
                 "PNFTsccss",
             );
-            console.log("NFT could not be minted or edited! Error: ", e);
+            console.log("NFT could not be minted or editted! Error: ", e);
         }
     }
 
@@ -182,7 +198,6 @@ const Account = () => {
         });
         setUpdating(true);
         setLockPage(false);
-        // nearState.setProfile(null);
     }
 
     return (
@@ -225,3 +240,4 @@ const Account = () => {
 };
 
 export default Account;
+
