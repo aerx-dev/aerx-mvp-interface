@@ -77,7 +77,7 @@ const Account = () => {
             } else {
                 toast(
                     "Picture type not supported. Supported types are:" +
-                        imagingtype + ".",
+                        expectedType.toString() + ".",
                 );
             }
         }
