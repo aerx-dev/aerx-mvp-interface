@@ -76,7 +76,7 @@ const Account = () => {
                 console.log("Pictype : ", picType);
             } else {
                 toast("error",
-                    "Picture type not supported. Supported types are" + expectedType ".","Images",
+                    "Picture type not supported. Supported types are" + expectedType  + ".","Images",
                 );
             }
         }
@@ -132,11 +132,11 @@ const Account = () => {
                 );
                 toast(
                     "success",
-                    "Your AERX ProfilNFT username: " +
+                    "Your AERX ProfileNFT username: " +
                         last_info.token_id +
                         " was changed to: " +
                         user_info.token_id +
-                        "successfully along side other details" +
+                        "successfully along side other details.", 
                         "PNFTsccss",
                 );
             } else {
@@ -154,7 +154,7 @@ const Account = () => {
                 });
                 toast(
                     "success",
-                    "Your AERX ProfilNFT username: " +
+                    "Your AERX ProfileNFT username: " +
                         user_info.token_id +
                         " was minted successfully!",
                     "PNFTsccss",
@@ -167,10 +167,10 @@ const Account = () => {
         } catch (e) {
             toast(
                 "error",
-                "ProfileNFT could not be minted or editted!",
+                "ProfileNFT could not be minted or edited!",
                 "PNFTsccss",
             );
-            console.log("NFT could not be minted or editted! Error: ", e);
+            console.log("NFT could not be minted or edited! Error: ", e);
         }
     }
 
