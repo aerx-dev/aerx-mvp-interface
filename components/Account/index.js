@@ -146,6 +146,7 @@ const Account = () => {
                 console.log("Updating Connection status....");
                 let connection_status =
                     await nearState.tokenContract.update_connection_status();
+                console.log("connection status :", connection_status);
                 if (connection_status) {
                     console.log("Minting.....");
                     await pnftContract.mint_profile(
