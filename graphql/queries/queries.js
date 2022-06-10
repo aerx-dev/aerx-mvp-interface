@@ -38,27 +38,6 @@ query GetPostById($postId: Int!) {
   }
 }
 `
-/* Variables for GET POST OWNER_ID
-
-Variables need to be sent as a part of GQL Reqeust
-{
-    "owner_id": 1
-}
-
-*/
-const GET_POST_OWNER = `
-query GetPostById($owner_id: Int!) {
-  post: postCollection(filter: { id: { eq: $owner_id } }) {
-    edges {
-      post: node {
-        owner_id
-        description
-       
-      }
-    }
-  }
-}
-`
 
 const GET_ALL_PROFILES = `
 query {
@@ -84,4 +63,4 @@ query {
 `
 
 
-export { GET_ALL_POSTS, GET_POST, GET_POST_OWNER, GET_ALL_PROFILES }
+export { GET_ALL_POSTS, GET_POST, GET_ALL_PROFILES }
