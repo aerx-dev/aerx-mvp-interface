@@ -62,6 +62,7 @@ const Account = () => {
             let picPart = picname.split(".");
             const picType = picPart[picPart.length - 1];
             console.log("Pictype : ",picType);
+            let i
             for (i in expectedType) {
                 let expected = i;
                 if (picType == expected) {
