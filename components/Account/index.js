@@ -53,7 +53,7 @@ const Account = () => {
         }
     }, [nearState.profile, nearState.accountId]);
 
-    function profileImageChange(event,toast) {
+    function profileImageChange(event) {
         const { files } = event.target;
         const expectedType = [
             "jpg",
@@ -75,8 +75,8 @@ const Account = () => {
                 setUploadImg(files[0]);
                 console.log("Pictype : ", picType);
             } else {
-                toast(
-                    "Picture type not supported. Supported types are",
+                toast("error",
+                    "Picture type not supported. Supported types are" + expectedType ".","Images",
                 );
             }
         }
