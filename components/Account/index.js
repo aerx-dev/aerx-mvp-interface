@@ -70,13 +70,14 @@ const Account = () => {
             const picname = files[0].name;
             let picPart = picname.split(".");
             const picType = picPart[picPart.length - 1];
-            console.log("Pictype : ", picType);
+            var imagingtype = expectedType.toString()
             if (expectedType.includes(picType)) {
                 setUploadImg(files[0]);
+                console.log("Pictype : ", picType);
             } else {
                 toast(
                     "Picture type not supported. Supported types are:" +
-                        expectedType,
+                        imagingtype + ".",
                 );
             }
         }
