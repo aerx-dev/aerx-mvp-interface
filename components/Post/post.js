@@ -37,7 +37,7 @@ function Post({ nft, charge}) {
     const [currentCharge, setCurrentCharge] = useState();
     useEffect(() => {
         async function getCharge() {
-            var res = await nearState.cnftContract.get_charge({
+            var res = await nearState.pnftContract.get_charge({
                 token_id: nft.token_id.toString(),
             });
 

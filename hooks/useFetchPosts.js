@@ -8,8 +8,8 @@ export default function useFetchPosts() {
     const nearState = nearStore((state) => state);
 
     async function refreshPosts() {
-        if (nearState.cnftContract) {
-            const responseFeed = await nearState.cnftContract?.nft_tokens();
+        if (nearState.pnftContract) {
+            const responseFeed = await nearState.pnftContract?.nft_tokens();
             if (responseFeed) {
                 nearState.setFeed(responseFeed.reverse());
             }

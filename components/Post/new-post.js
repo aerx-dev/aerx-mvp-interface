@@ -67,7 +67,7 @@ function NewPost({ bg }) {
         console.log(body);
         console.log("Post to save: ", postToSave);
         try {
-            const res = await nearState.cnftContract.nft_mint(
+            const res = await nearState.pnftContract.mint_post(
                 {
                     receiver_id: nearState.accountId,
                     token_metadata: postToSave,
