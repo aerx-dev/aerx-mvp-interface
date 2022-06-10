@@ -75,7 +75,8 @@ const Account = () => {
                 setUploadImg(files[0]);
             } else {
                 toast(
-                    `Picture type is not supported, supported types: ${expectedType}`,
+                    "Picture type not supported. Supported types are:" +
+                        expectedType,
                 );
             }
         }
