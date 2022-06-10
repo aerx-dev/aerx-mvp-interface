@@ -55,21 +55,28 @@ const Account = () => {
 
     function profileImageChange(event) {
         const { files } = event.target;
-        const expectedType = ['jpg', 'png', 'apng', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'gif'];
+        const expectedType = [
+            "jpg",
+            "png",
+            "apng",
+            "jpeg",
+            "jfif",
+            "pjpeg",
+            "pjp",
+            "gif",
+        ];
         if (files && files.length) {
             console.log("Files : ", files);
             const picname = files[0].name;
             let picPart = picname.split(".");
             const picType = picPart[picPart.length - 1];
-            console.log("Pictype : ",picType);
-            let i
-            for (i in expectedType) {
-                let expected = i;
-                if (picType == expected) {
-                    setUploadImg(files[0]);
-                } else {
-                    toast("Picture type not supported");
-                }
+            console.log("Pictype : ", picType);
+            if (expectedType.includes(picType)) {
+                setUploadImg(files[0]);
+            } else {
+                toast(
+                    `Picture type is not supported, supported types: ${expectedType}`,
+                );
             }
         }
     }
