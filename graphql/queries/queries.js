@@ -5,12 +5,12 @@ query {
   posts: postCollection {
     edges {
       post: node {
-        id
-        owner_id
-        title
-        description
-        created_at
-        updated_at
+        id,
+        owner_id,
+        title,
+        description,
+        created_at,
+        updated_at,
       }
     }
   }
@@ -30,8 +30,8 @@ query GetPostById($postId: Int!) {
   post: postCollection(filter: { id: { eq: $postId } }) {
     edges {
       post: node {
-        id
-        description
+        id,
+        description,
        
       }
     }
