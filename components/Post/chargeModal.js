@@ -67,7 +67,7 @@ const ChargeModal = ({ nft, state }) => {
 
     async function setCharge(_tokenId, _charge) {
         try {
-            await nearState.cnftContract.set_charge({
+            await nearState.pnftContract.set_charge({
                 token_id: _tokenId.toString(),
                 charge: _charge.toString(),
             });
