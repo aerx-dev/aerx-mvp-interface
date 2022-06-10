@@ -60,7 +60,7 @@ const Account = () => {
 		 console.log("editing")
 	} else {
 		 console.log("openminting")
-	},
+	}
     function profileImageChange(event) {
         const { files } = event.target;
         if (files && files.length) {
