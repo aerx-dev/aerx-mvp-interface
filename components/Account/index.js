@@ -55,7 +55,7 @@ const Account = () => {
 
     function profileImageChange(event) {
         const { files } = event.target;
-        const expectedType = [jpg, png, apng, jpeg, jfif, pjpeg, pjp, gif];
+        const expectedType = ['jpg', 'png', 'apng', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'gif'];
         if (files && files.length) {
             console.log("Files : ", files);
             const picname = files[0].name;
