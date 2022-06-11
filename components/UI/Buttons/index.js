@@ -10,7 +10,7 @@ export const SendButton = () => {
         <Button
             borderRadius={20}
             bgColor="#6054F0"
-            size="sm"
+            size="md"
             variant="outline"
             leftIcon={<RiSendPlaneFill />} 
 >
@@ -25,7 +25,7 @@ export const FollowButton = () => {
             borderRadius={20}
             bgColor="transparent"
 			_hover={{ color:"black", bgColor:"#E2E8F0" }}
-            size="sm"
+            size="md"
             variant="outline"
             leftIcon={<MdOutlineDone />}
             > Followed 
@@ -38,7 +38,7 @@ export const ReceiveIconButton = () => {
     return (
         <Button
             borderRadius={20}
-            size="sm"
+            size="md"
 			_hover={{ color:"black", bgColor:"#E2E8F0" }}
             variant="solid"
 			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
@@ -53,7 +53,7 @@ export const SendIconButton = () => {
     return (
         <Button
             borderRadius={20}
-            size="sm"
+            size="md"
 			_hover={{ color:"black", bgColor:"#E2E8F0" }}
             variant="solid"
 			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
