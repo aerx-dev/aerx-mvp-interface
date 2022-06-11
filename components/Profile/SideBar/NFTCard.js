@@ -35,7 +35,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                     bgPosition="center"
                 >
                     <Box
-                        className="z-10 absolute bottom-0 h-2/5 w-full px-2 text-white"
+                        className="z-10 absolute bottom-0 h-1/3 w-full px-2 text-white"
                         bgGradient={bgGradient}
                         fontFamily="Open Sans"
                     >
