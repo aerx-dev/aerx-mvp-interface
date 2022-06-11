@@ -24,7 +24,7 @@ export const FollowButton = () => {
         <Button
             borderRadius={20}
             bgColor="transparent"
-	    _hover={{ color:"black", bgColor:"#E2E8F0"}}
+			_hover={{ color:"black", bgColor:"#E2E8F0" }}
             size="sm"
             variant="outline"
             leftIcon={<MdOutlineDone />}
@@ -39,7 +39,8 @@ export const ReceiveIconButton = () => {
         <Button
             borderRadius={20}
             size="sm"
-            variant={colorMode === "light" ? "solid" : "outline" }
+            variant="solid"
+			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
             leftIcon={<ArrowForwardIcon />}
             > Receive
         </Button>
@@ -52,7 +53,8 @@ export const SendIconButton = () => {
         <Button
             borderRadius={20}
             size="sm"
-            variant={colorMode === "light" ? "solid" : "outline" }
+            variant="solid"
+			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
             leftIcon={<ArrowUpIcon />}
             > Send
         </Button>
