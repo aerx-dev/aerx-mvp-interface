@@ -54,14 +54,13 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                             <Box ml={2}><SendButton/></Box>
                             <Box><FollowButton /></Box>  
                         </HStack>
-						<HStack m={3} justifyContent="left">
-							<Text> {value} </Text>
-							<Box onClick={onCopy}><CopyButton /></Box>
-						</HStack>
-							
+                        
                     </Box>
                 </Box>
-                
+                <HStack m={3} justifyContent="left">
+                    <Text> {value} </Text>
+                    <Box onClick={onCopy}><CopyButton /></Box>
+                </HStack>
                 
                 <Box className="text-left px-4 mb-5" sx={styles}>
                     <Text className="opacity-50 mb-3">ABOUT</Text>
