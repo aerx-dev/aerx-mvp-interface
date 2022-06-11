@@ -24,6 +24,7 @@ export const FollowButton = () => {
         <Button
             borderRadius={20}
             bgColor="transparent"
+			_hover={{ color:"black" }}
             size="sm"
             variant="outline"
             leftIcon={<MdOutlineDone />}
@@ -33,11 +34,12 @@ export const FollowButton = () => {
 }
 
 export const ReceiveIconButton = () => {
+    const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Button
             borderRadius={20}
             size="sm"
-            variant="solid"
+            variant={colorMode === "light" ? "solid" : "outline" }
             leftIcon={<ArrowForwardIcon />}
             > Receive
         </Button>
@@ -45,11 +47,12 @@ export const ReceiveIconButton = () => {
 }
 
 export const SendIconButton = () => {
+    const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Button
             borderRadius={20}
             size="sm"
-            variant="solid"
+            variant={colorMode === "light" ? "solid" : "outline" }
             leftIcon={<ArrowUpIcon />}
             > Send
         </Button>
@@ -68,4 +71,3 @@ export const PurpleButton = ({children,...rest}) => {
         >{children}</Button>
     );
 }
-
