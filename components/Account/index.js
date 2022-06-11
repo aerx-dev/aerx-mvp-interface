@@ -139,7 +139,7 @@ const Account = () => {
                         last_info.token_id +
                         " was changed to: " +
                         user_info.token_id +
-                        "successfully along side other details" +
+                        " successfully along side other details.",
                         "PNFTsccss",
                 );
             } else {
@@ -152,7 +152,7 @@ const Account = () => {
                 if (connection_status) {
                     console.log("Minting.....");
                     console.log("3", nearState.accountId)
-                    await pnftContract.mint_profile(
+                    await nearState.profiletokenContract.mint_profile(
                         {
                             username: profile.username,
                             token_metadata: profileToSave,
@@ -244,4 +244,3 @@ const Account = () => {
 };
 
 export default Account;
-
