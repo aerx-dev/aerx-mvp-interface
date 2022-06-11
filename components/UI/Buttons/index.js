@@ -24,7 +24,7 @@ export const FollowButton = () => {
         <Button
             borderRadius={20}
             bgColor="transparent"
-			_hover={{ color:"black" }}
+	    _hover={{ color:"black", variant:"solid"}}
             size="sm"
             variant="outline"
             leftIcon={<MdOutlineDone />}
