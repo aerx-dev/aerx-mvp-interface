@@ -39,6 +39,7 @@ export const ReceiveIconButton = () => {
         <Button
             borderRadius={20}
             size="sm"
+			_hover={{ color:"black", bgColor:"#E2E8F0" }}
             variant="solid"
 			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
             leftIcon={<ArrowForwardIcon />}
@@ -53,6 +54,7 @@ export const SendIconButton = () => {
         <Button
             borderRadius={20}
             size="sm"
+			_hover={{ color:"black", bgColor:"#E2E8F0" }}
             variant="solid"
 			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
             leftIcon={<ArrowUpIcon />}
