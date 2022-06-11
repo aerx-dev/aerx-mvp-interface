@@ -14,7 +14,7 @@ const BalanceBar = ({ balance, ...rest }) => {
             w="100%"
             py={3}
 			borderTopRadius	="0"
-			borderTopColor="#e5e7eb66"
+			borderTopColor="grey"
 			borderTopWidth="1px"
 			
             >
