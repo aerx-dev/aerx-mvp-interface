@@ -17,11 +17,12 @@ const BalanceBar = ({ balance, ...rest }) => {
             <VStack
                className="content-align-left px-4" 
 			   align="baseline"
+			   fontSize="2.5vh"
             >   
                 <Text className="font-semibold" >Your Balance</Text>
                 <HStack>
                     <Icon color="yellow" as={ThunderboltFilled} />
-                    <Heading size="md">{balance || 0}</Heading>
+                    <Heading size="md" fontSize="2.5vh">{balance || 0}</Heading>
                 </HStack>
                 <HStack>
                     <SendIconButton />
