@@ -6,7 +6,7 @@ import { SendButton , FollowButton } from "../../UI/Buttons";
 
 const styles = {
     fontFamily: "Open Sans",
-    fontSize: 12,
+    fontSize: 2.5vh,
 };
 
 const NFTCard = ({ profile, balance, ...rest }) => {
@@ -63,7 +63,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                 </HStack>
                 
                 <Box className="text-left px-4 mb-5" sx={styles}>
-                    <Text className="opacity-50 mb-3">ABOUT</Text>
+                    <Text className="opacity-50 mb-3 font-semibold">ABOUT</Text>
                     <Text overflowWrap="anywhere">
                         {profile?.aboutMe}
                     </Text>
