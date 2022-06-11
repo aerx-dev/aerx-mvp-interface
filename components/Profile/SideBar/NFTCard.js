@@ -23,7 +23,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
 
     return (
         <Box className="border-1 fixed max-h-screen " {...rest}>
-            <Flex className="align-middle justify-between" direction="column" overflowWrap="anywhere">
+            <Flex className="align-middle justify-between" direction="column" minH="81vh" overflowWrap="anywhere">
                 <Box
                     className="rounded-t-lg w-full relative "
                     height="45vh"
