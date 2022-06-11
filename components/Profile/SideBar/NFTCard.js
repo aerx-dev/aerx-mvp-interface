@@ -68,7 +68,6 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                         {profile?.aboutMe}
                     </Text>
                 </Box>
-                <Divider />
                 <BalanceBar balance={balance} />
             </Flex>
         </Box>
