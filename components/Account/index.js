@@ -175,7 +175,7 @@ const Account = () => {
                         "error",
                         "Can't get connection status for: " +
                             nearState.accountId +
-                            " try again",
+                            " try again.",
                         "connection",
                     );
                 }
