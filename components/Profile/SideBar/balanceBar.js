@@ -13,6 +13,10 @@ const BalanceBar = ({ balance, ...rest }) => {
             borderRadius="lg"
             w="100%"
             py={3}
+			borderTopStartRadius="0"
+			borderTopColor="#e5e7eb66"
+			borderTopWidth="1"
+			
             >
             <VStack
                className="content-align-left px-4" 
