@@ -23,7 +23,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
 
     return (
         <Box className="border-1 fixed max-h-screen " {...rest}>
-            <Flex className="align-middle justify-between" direction="column" overflow-wrap="anywhere">
+            <Flex className="align-middle justify-between" direction="column" overflowWrap="anywhere">
                 <Box
                     className="rounded-t-lg w-full relative "
                     height="45vh"
@@ -64,7 +64,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                 
                 <Box className="text-left px-4 mb-5" sx={styles}>
                     <Text className="opacity-50 mb-3">ABOUT</Text>
-                    <Text overflow-wrap="anywhere">
+                    <Text overflowWrap="anywhere">
                         {profile?.aboutMe}
                     </Text>
                 </Box>
