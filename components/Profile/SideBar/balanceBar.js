@@ -16,6 +16,7 @@ const BalanceBar = ({ balance, ...rest }) => {
             >
             <VStack
                className="content-align-left px-4" 
+			   align="baseline"
             >   
                 <Text className="font-semibold" >Your Balance</Text>
                 <HStack>
