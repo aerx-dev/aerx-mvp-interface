@@ -6,7 +6,7 @@ import { SendButton , FollowButton } from "../../UI/Buttons";
 
 const styles = {
     fontFamily: "Open Sans",
-    fontSize: 2.5vh,
+    fontSize: "2.5vh",
 };
 
 const NFTCard = ({ profile, balance, ...rest }) => {
