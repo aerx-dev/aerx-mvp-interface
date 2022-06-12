@@ -69,7 +69,7 @@ function NewPost({ bg }) {
             issued_at: new Date().toISOString(),
             extra: JSON.stringify(body),
         };
-        console.log(body);
+        console.log("body",body);
         console.log("Post to save: ", postToSave);
         try {
             const res = await nearState.pnftContract.mint_post(
@@ -80,7 +80,7 @@ function NewPost({ bg }) {
                 "300000000000000", // attached GAS (optional)
                 "9660000000000000000111", // attached deposit in yoctoNEAR (optional))
             );
-            console.log(res);
+            console.log("res1post",res);
             toast(
                 "success",
                 "AERX PostNFT nr." + res.token_id + " minted successfully!",
@@ -135,7 +135,7 @@ function NewPost({ bg }) {
                     media_extension: fileType,
                 };
             });
-            console.log(body);
+            console.log("body2post",body);
             setUploadFile(() => event.target.files[0]);
         }
     }
