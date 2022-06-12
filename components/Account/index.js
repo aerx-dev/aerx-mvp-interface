@@ -143,29 +143,27 @@ const Account = () => {
                         "PNFTsccss",
                 );
             } else {
-                if (connection_status) {
-                    console.log("Minting.....");
-                    await pnftContract.mint_profile(
-                        {
-                            user_id: nearState.accountId,
-                            username: profile.username,
-                            token_metadata: profileToSave,
-                        },
+                console.log("Minting.....");
+                await pnftContract.mint_profile(
+                    {
+                        user_id: nearState.accountId,
+                        username: profile.username,
+                        token_metadata: profileToSave,
+                    },
 
-                        "300000000000000", //attached Gas
-                        "1300000000000000000000", // attached Yocto amount
-                    );
-                    user_info = await pnftContract.nft_token({
-                        token_id: profile.username,
-                    });
-                    toast(
-                        "success",
-                        "Your AERX ProfileNFT with username: " +
-                            user_info.token_id +
-                            " was minted successfully!",
-                        "PNFTsccss",
-                    );
-                }
+                    "300000000000000", //attached Gas
+                    "1300000000000000000000", // attached Yocto amount
+                );
+                user_info = await pnftContract.nft_token({
+                    token_id: profile.username,
+                });
+                toast(
+                    "success",
+                    "Your AERX ProfileNFT with username: " +
+                        user_info.token_id +
+                        " was minted successfully!",
+                    "PNFTsccss",
+                );
             }
             console.log("acres", user_info);
             console.log("extra", nearState.accountId);
@@ -230,3 +228,4 @@ const Account = () => {
 };
 
 export default Account;
+
