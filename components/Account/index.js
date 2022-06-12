@@ -127,7 +127,7 @@ const Account = () => {
                         new_username: profile.username,
                         new_details: profileToSave,
                     },
-                    "10000000000000", // attached GAS (optional)
+                    "23000000000000", // attached GAS (optional)
                 );
                 toast(
                     "success",
