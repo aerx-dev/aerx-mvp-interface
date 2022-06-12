@@ -21,7 +21,7 @@ const LazySider = dynamic(() => import("./SideBar"), {
     ),
 });
 
-const Profile = () => {
+const Profile = async () => {
     const nearState = nearStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
 
