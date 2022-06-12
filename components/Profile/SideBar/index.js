@@ -8,7 +8,7 @@ const { Header, Sider, Content, Footer } = Layout;
 export default function SideBar({ children, bg, state }) {
 
     const [isCollapsed, setIsCollapsed] = useState(false);    
-    console.log(state);
+    console.log("state",state);
 
     return (
 	<div>
