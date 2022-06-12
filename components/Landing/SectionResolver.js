@@ -3,10 +3,32 @@ import {
     Flex,
     Grid,
     GridItem,
+    Heading,
     Image as CustomImage,
-    Heading as CustomHeading,
-    Text
+    Text,
 } from "@chakra-ui/react";
+import Image from "next/image"
+
+const CustomHeading = ({children, isCenter, styled}) => {
+    return (
+        <Heading fontWeight={"bold"} mb={4} fontSize={[30, 30, 35, 40]}>
+            {children}
+            <Flex
+                className="heading-italic"
+                as="span"
+                justifyContent={isCenter && ["center", "center", "flex-start"]}
+                alignItems="center"
+                gap={2}
+                fontSize="1.5em"
+                fontWeight="extrabold"
+                color="#8D00FF"
+            >
+                <Image src="/star.svg" width={50} height={50} />
+                {styled}
+            </Flex>
+        </Heading>
+    );
+};
 
 const SectionResolver = ({
     children,
@@ -26,13 +48,14 @@ const SectionResolver = ({
     return (
         <Grid
             overflow={overflow}
+            templateColumns="repeat(2, 1fr)"
             py={[4, 8, 10]}
             textAlign={["center", "center", "left"]}
         >
             <GridItem
                 position="relative"
                 order={options.imgOrder}
-                colSpan={imgSpan ?? [12, 12, 6]}
+                colSpan={1}
             >
                 <Box
                     display={rtl ? "none" : "block"}
@@ -43,11 +66,8 @@ const SectionResolver = ({
                     left={-200}
                     top={0}
                 >
-                    <CustomImage
-                        src="/blue.png"
-                        width={600}
-                        height={600}
-                    />flex flex-col
+                    <CustomImage src="/blue.png" width={600} height={600} />
+                    flex flex-col
                 </Box>
                 <Box>
                     <CustomImage
@@ -62,7 +82,7 @@ const SectionResolver = ({
             <GridItem
                 maxW="500px"
                 order={options.textOrder}
-                colSpan={bodySpan ?? [12, 12, 6]}
+                colSpan={1}
             >
                 <CustomHeading isCenter styled={styledHeading}>
                     {heading}

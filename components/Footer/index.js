@@ -3,9 +3,9 @@ import Link from "next/link";
 import {
     Box,
     useColorMode,
-    Grid,
-    GridItem,
-    Image as ChakraImage,
+    Flex,
+    StylizedButton,
+    Input,
     HStack,
     SimpleGrid,
     Text,
@@ -13,20 +13,82 @@ import {
 import EmailCapture from "../Landing/email-capture";
 import { IoLogoDiscord, IoLogoTwitter } from "react-icons/io5";
 import useTranslation from "next-translate/useTranslation";
+import SectionResolver from "../Landing/SectionResolver";
+import CustomImage from "./CustomImage";
+
+const socials = [
+    {
+        icon: "discord",
+        url: "https://discord.gg/UqU39muz",
+    },
+    {
+        icon: "telegram",
+        url: "https://t.me/aerx_int",
+    },
+];
 
 function Footer() {
     const { t } = useTranslation("footer");
     const { colorMode } = useColorMode();
 
     return (
-        <Grid>
-            <GridItem>
-                <Box></Box>
-            </GridItem>
-            <GridItem>
-                <Box></Box>
-            </GridItem>
-        </Grid>
+        <>
+            <SectionResolver
+                heading={"Be part of the team"}
+                styledHeading="Right now"
+                image="/images/team.png"
+                body={[
+                    `Kindly subscribe to our email news letter to get amazing information.`,
+                ]}
+                imgSpan={[12, 12, 5]}
+                bodySpan={[12, 12, 7]}
+                overflow="hidden"
+            >
+                <Flex
+                    maxW="450px"
+                    mt={4}
+                    mb={2}
+                    px={4}
+                    py={2}
+                    alignItems="center"
+                    borderRadius="full"
+                    border="1px"
+                    borderColor="#DEDEDE"
+                >
+                    <Input
+                        border="none"
+                        fontSize={[16, 20]}
+                        placeholder="Enter your email here"
+                        _focus={{
+                            boxShadow: 0,
+                        }}
+                    />
+                    <StylizedButton
+                        padding={0}
+                        borderRadius="full"
+                        height="14"
+                        width="14"
+                    >
+                        <img src="/arrow-btn.svg" />
+                    </StylizedButton>
+                </Flex>
+                <Flex gap={3}>
+                    {socials.map((social, i) => (
+                        <a
+                            key={i}
+                            href={social.url}
+                            rel="noreferrer"
+                            target="_blank"
+                        >
+                            <CustomImage
+                                src={`/${social.icon}.svg`}
+                                alt={social.icon}
+                            />
+                        </a>
+                    ))}
+                </Flex>
+            </SectionResolver>
+        </>
         // <Box as="footer" pt="25rem">
         //     <SimpleGrid columns={2} spacing={10}>
         //         <Box textAlign={"center"}>
