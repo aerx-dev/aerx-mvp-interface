@@ -36,7 +36,7 @@ const toPercent = (num) => num + '%'
           <Box position="relative">
           {
               dots.map((dot,i)=>(
-                <Box position="absolute" borderRadius="full" bg={dot.color} top={dot.top} left={dot.left} w={dot.radius} h={dot.radius} />
+                <Box position="absolute" key="id" borderRadius="full" bg={dot.color} top={dot.top} left={dot.left} w={dot.radius} h={dot.radius} />
               ))
           }
           {children}

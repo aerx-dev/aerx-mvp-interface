@@ -11,19 +11,19 @@ import Image from "next/image"
 
 const CustomHeading = ({children, isCenter, styled}) => {
     return (
-        <Heading fontWeight={"bold"} mb={4} fontSize={[30, 30, 35, 40]}>
+        <Heading fontWeight={"bold"} mb={4} fontSize={[30, 30, 35, 40]} color="#322E65">
             {children}
             <Flex
                 className="heading-italic"
-                as="span"
                 justifyContent={isCenter && ["center", "center", "flex-start"]}
                 alignItems="center"
                 gap={2}
-                fontSize="1.5em"
+                as="i"
+                fontSize="1em"
                 fontWeight="extrabold"
                 color="#8D00FF"
             >
-                <Image src="/star.svg" width={50} height={50} />
+                <Image src="/star.svg"  width={50} height={50} />
                 {styled}
             </Flex>
         </Heading>
