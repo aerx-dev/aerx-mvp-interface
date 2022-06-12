@@ -7,7 +7,6 @@ import CreateProfileForm from "./Form";
 import usePinata from "../../hooks/usePinata";
 import useCustomToast from "../../hooks/useCustomToast";
 import AccountData from "./Account";
-import { pinFileToIPFS } from "../../lib/ipfsPinata";
 import { profileToSupa } from "../../lib/supabaseClient";
 
 const Account = () => {
@@ -122,16 +121,17 @@ const Account = () => {
         var last_info;
         try {
             if (updating) {
-                last_info = await pnftContract.user_by_acct_id({
-                    account_id: nearState.accountId,
+                last_info = await pnftContract.nft_token({
+                    token_id: profile.username,
                 });
                 console.log("Editing.....");
                 user_info = await pnftContract.edit_profile(
                     {
+                        user_id: nearState.accountId,
                         new_username: profile.username,
-                        content: profileToSave,
+                        new_details: profileToSave,
                     },
-                    "300000000000000", // attached GAS (optional)
+                    "100000000000000", // attached GAS (optional)
                 );
                 toast(
                     "success",
@@ -139,48 +139,34 @@ const Account = () => {
                         last_info.token_id +
                         " was changed to: " +
                         user_info.token_id +
-                        " successfully along side other details.",
+                        "successfully along side other details" +
                         "PNFTsccss",
                 );
             } else {
-                console.log("Updating Connection status....");
-                console.log("1", nearState.accountId)
-                let connection_status =
-                    await nearState.tokenContract.update_connection_status();
-                console.log("2", nearState.accountId)
-                console.log("connection status :", connection_status);
                 if (connection_status) {
                     console.log("Minting.....");
-                    console.log("3", nearState.accountId)
-                    await nearState.profiletokenContract.mint_profile(
+                    await pnftContract.mint_profile(
                         {
+                            user_id: nearState.accountId,
                             username: profile.username,
                             token_metadata: profileToSave,
                         },
 
-                        "300000000000000", // attached GAS (optional)
+                        "300000000000000", //attached Gas
+                        "1300000000000000000000", // attached Yocto amount
                     );
-                    user_info = await pnftContract.user_by_acct_id({
-                        account_id: nearState.accountId,
+                    user_info = await pnftContract.nft_token({
+                        token_id: profile.username,
                     });
                     toast(
                         "success",
-                        "Your AERX ProfileNFT username: " +
+                        "Your AERX ProfileNFT with username: " +
                             user_info.token_id +
                             " was minted successfully!",
                         "PNFTsccss",
                     );
-                } else {
-                    toast(
-                        "error",
-                        "Can't get connection status for: " +
-                            nearState.accountId +
-                            " try again.",
-                        "connection",
-                    );
                 }
             }
-
             console.log("acres", user_info);
             console.log("extra", nearState.accountId);
             profileToSupa(user_info, profile, profileToSave, toast);
@@ -206,7 +192,7 @@ const Account = () => {
 
     return (
         <Layout>
-            <Box className="px-4 md:px-10 dippycontent" py={2}>
+            <Box className="px-4 md:px-10 max-w-screen-xl" py={2}>
                 <Box className="drop-shadow-xl flex">
                     <Heading as="h1" mb={3}>
                         {t("title")}
