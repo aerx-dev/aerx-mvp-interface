@@ -45,12 +45,12 @@
 	}
 
 	.dippyscroll::-webkit-scrollbar {
-		width: 10x;
+		width: 10px;
 	}
 
-	#dippyscroll::-webkit-scrollbar-thumb {
- 	background: inherit;
-	filter: invert(1);
+	.dippyscroll::-webkit-scrollbar-thumb {
+ 		background: inherit;
+		filter: invert(1);
 	}
 	@media (max-width: 1080px) {
     		.dippynav {
