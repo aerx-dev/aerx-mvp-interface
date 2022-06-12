@@ -13,7 +13,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
     
     const value = "0jx12hbuwc34jc" ;
     const { hasCopied, onCopy } = useClipboard(value);
-    console.log(balance);
+    console.log("balance",balance);
     const picBg = useColorModeValue("white", "gray.300");
     const bgGradient = useColorModeValue(
         "linear(#edf2f700, #edf2f720 15%, gray.100 90%)",
