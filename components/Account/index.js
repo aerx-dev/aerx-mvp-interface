@@ -206,7 +206,7 @@ const Account = () => {
 
     return (
         <Layout>
-            <Box className="px-4 md:px-10 max-w-screen-xl" py={2}>
+            <Box className="px-4 md:px-10 dippycontent" py={2}>
                 <Box className="drop-shadow-xl flex">
                     <Heading as="h1" mb={3}>
                         {t("title")}
