@@ -6,7 +6,12 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 import useCustomToast from "../../hooks/useCustomToast";
-import { AddAudioIcon, AddIconButton , AddImageIcon, RepeatIconButton } from "../UI/IconButton";
+import {
+    AddAudioIcon,
+    AddIconButton,
+    AddImageIcon,
+    RepeatIconButton,
+} from "../UI/IconButton";
 import usePinata from "../../hooks/usePinata";
 import { useState, useEffect, useRef } from "react";
 import { nearStore } from "../../stores/near";
@@ -46,9 +51,10 @@ function NewPost({ bg }) {
                     "BalanceId",
                 );
             }
-        })(); // IIFE
+        })();
+        // IIFE
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [nearState, formatted]);
 
     async function createPost() {
         if (!body.text) {
@@ -185,16 +191,24 @@ function NewPost({ bg }) {
                 bg={useColorModeValue("white", "#1B1D1E")}
             />
 
-            <Box onClick={onAudioClick} ml={3}><AddAudioIcon/></Box>
-            <Box onClick={onImgClick} ml={2} opacity={0.7}><AddImageIcon/></Box>
+            <Box onClick={onAudioClick} ml={3}>
+                <AddAudioIcon />
+            </Box>
+            <Box onClick={onImgClick} ml={2} opacity={0.7}>
+                <AddImageIcon />
+            </Box>
             <Box display="none">
                 <input ref={inputAudio} onChange={fileChange} type="file" />
             </Box>
-            <Box onClick={refresh}><RepeatIconButton/></Box>
+            <Box onClick={refresh}>
+                <RepeatIconButton />
+            </Box>
             <Box display="none">
                 <input ref={inputImg} onChange={fileChange} type="file" />
             </Box>
-            <Box onClick={createPost} ml={3}><AddIconButton /></Box>
+            <Box onClick={createPost} ml={3}>
+                <AddIconButton />
+            </Box>
         </Box>
     );
 }
