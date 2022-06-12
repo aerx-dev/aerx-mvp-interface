@@ -41,7 +41,7 @@
 		overflow-y: auto!important;
 	}
 	.dippyscroll::-webkit-scrollbar-track {
-  		background: inherit;
+  		background: transparent;
 	}
 
 	.dippyscroll::-webkit-scrollbar {
@@ -49,8 +49,7 @@
 	}
 
 	.dippyscroll::-webkit-scrollbar-thumb {
- 		background: inherit;
-		filter: invert(1);
+ 		background: #6054f0;
 	}
 	@media (max-width: 1080px) {
     		.dippynav {
