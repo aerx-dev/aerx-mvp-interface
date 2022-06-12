@@ -8,12 +8,12 @@ import { Box } from "@chakra-ui/react";
 export default function Home() {
     return (
         <Layout>
-            <Box className="flex flex-col">
+            <Box position="relative" maxW="80vw" zIndex={10} mx="auto">
                 <HeroSection />
-                <Features />
-                <Team />
-                <Channel />
-                <Footer />
+                {/* <Features /> */}
+                {/* <Team /> */}
+                {/* <Channel /> */}
+                {/* <Footer /> */}
             </Box>
         </Layout>
     );
