@@ -127,7 +127,7 @@ const Account = () => {
                         new_username: profile.username,
                         new_details: profileToSave,
                     },
-                    "100000000000000", // attached GAS (optional)
+                    "10000000000000", // attached GAS (optional)
                 );
                 toast(
                     "success",
@@ -145,7 +145,7 @@ const Account = () => {
                         token_metadata: profileToSave,
                     },
 
-                    "300000000000000", //attached Gas
+                    "30000000000000", //attached Gas
                     "1300000000000000000000", // attached Yocto amount
                 );
                 user_info = await pnftContract.nft_token({
@@ -158,11 +158,11 @@ const Account = () => {
                         " was minted successfully!",
                     "PNFTsccss",
                 );
-                window.location.origin + "/flow";
             }
             console.log("acres", user_info);
             console.log("extra", nearState.accountId);
             profileToSupa(user_info, profile, profileToSave, toast);
+            window.location.replace(window.location.origin + "/profile");
         } catch (e) {
             toast(
                 "error",
@@ -223,5 +223,6 @@ const Account = () => {
 };
 
 export default Account;
+
 
 
