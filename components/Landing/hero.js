@@ -23,7 +23,7 @@ function HeroSection() {
                 <Grid
                     minH="500px"
                     position="relative"
-                    py={[4, 8, 10]}
+                    py={30}
                     templateColumns="repeat(2, 1fr)"
                     mx="auto"
                     textAlign={["center", "center", "left"]}
@@ -51,16 +51,15 @@ function HeroSection() {
                             />
                         </Box>
                     </GridItem>
-                    <GridItem order={[2, 2, 1]} colSpan={1}>
-                        <Heading fontSize={["2xl", "2xl", "5xl"]} color="#322E65">
+                    <GridItem order={[2, 2, 1]} pt={10} colSpan={1}>
+                        <Heading
+                            fontSize={["2xl", "2xl", "5xl"]}
+                            color="#322E65"
+                        >
                             Welcome to aerx
                         </Heading>
                         <Text fontSize="lg" paddingTop={1} paddingBottom="20">
-                            <Box
-                                as="i"
-                                color="#322E65"
-                                paddingBottom="20"
-                            >
+                            <Box as="i" color="#322E65" paddingBottom="20">
                                 web 3 social media platform
                             </Box>{" "}
                             <br />
