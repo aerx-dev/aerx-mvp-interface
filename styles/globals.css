@@ -37,24 +37,36 @@
 	.griddy {
 		display: grid!important;
 	}
+	#dippyscroll::-webkit-scrollbar-track {
+  		background: inherit;
+	}
+
+	#dippyscroll::-webkit-scrollbar {
+		width: 10x;
+	}
+
+	#dippyscroll::-webkit-scrollbar-thumb {
+ 	background: inherit;
+	filter: invert(1);
+	}
 	@media (max-width: 1080px) {
-    .dippynav {
-        max-width: 100%;
-        margin:0 auto;
-    }
-    .dippycontent{
-	    max-width: 100%;
-	    margin:0 auto;
+    		.dippynav {
+        		max-width: 100%;
+        		margin:0 auto;
+    		}
+    		.dippycontent{
+	   		 max-width: 100%;
+	   		 margin:0 auto;
 		}
-}
+	}
 	@media (min-width: 1081px) {
-    .dippynav {
-        max-width: 80%;
-        margin:0 auto;
-    }
-    .dippycontent{
-	    max-width: 85%;
-	    margin:0 auto;
+    		.dippynav {
+       			max-width: 80%;
+        		margin:0 auto;
+    		}
+    		.dippycontent{
+	    		max-width: 85%;
+	    		margin:0 auto;
 		}
-}
+	}
 }
