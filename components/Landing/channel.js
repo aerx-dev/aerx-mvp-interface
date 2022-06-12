@@ -18,7 +18,7 @@ function Channel() {
         >
             <Center mt={20} mb={10}>
                 <Box px={8} position="relative">
-                    <Heading>The Project Channel</Heading>
+                    <Heading>About the Project</Heading>
                 </Box>
             </Center>
 
