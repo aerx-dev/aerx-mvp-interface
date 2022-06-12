@@ -51,10 +51,9 @@ function NewPost({ bg }) {
                     "BalanceId",
                 );
             }
-        })();
-        // IIFE
+        })(); // IIFE
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nearState, formatted]);
+    }, []);
 
     async function createPost() {
         if (!body.text) {
