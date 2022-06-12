@@ -3,42 +3,39 @@ import {
     Grid,
     GridItem,
     Flex,
-    CustomImage,
+    Text,
     Image,
     useColorMode,
     Heading,
-    Text,
 } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
+import SectionResolver from "./SectionResolver";
 
-function Feature1() {
+function Feature1({ isCenter, overflow, imgSpan, rtl }) {
     const { colorMode } = useColorMode();
     const { t } = useTranslation("landing");
+    const options = {
+        imgOrder: rtl && [1, 1, 2],
+        textOrder: rtl && [2, 2, 1],
+    };
+
     return (
-        <Flex alignItems="center" direction="column" justify="center">
-            <Box>
-                <Grid>
-                    <GridItem>
-                        <Image
-                            src="/monetize.png"
-                            width={300}
-                            height={300}
-                        />
-                    </GridItem>
-                </Grid>
-                <Grid>
-                    <GridItem>
-                        In Aerx, makers can easily monetize content and retain
-                        their ownership rights. Just publish what you have
-                        created: text, video, picture or audio. It doesn't
-                        matter if you are a professional artist who just came up
-                        with a funny meme, an aspiring musician or an author of
-                        interesting texts. Post it and get rewarded if other
-                        users like it.
-                    </GridItem>
-                </Grid>
-            </Box>
-        </Flex>
+        <>
+            <SectionResolver
+                heading={"Monitize your ideas"}
+                styledHeading="Easily"
+                image="/monetize.png"
+                body={[
+                    `In Aerx, makers can easily monetize content and retain their
+          ownership rights.`,
+                    `Just publish what you have created: text, video, picture or audio.
+          It doesn't matter if you are a professional artist who just
+          came up with a funny meme, an aspiring musician or an author of
+          interesting texts. Post it and get rewarded if other users like
+          it.`,
+                ]}
+            />
+        </>
         // <Box height="500px" position="relative" maxWidth={800} margin="0 auto">
         //     <SimpleGrid columns={2} spacing={10}>
         //         <Box textAlign="left">

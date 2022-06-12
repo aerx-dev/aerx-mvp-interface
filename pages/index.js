@@ -8,10 +8,10 @@ import { Box } from "@chakra-ui/react";
 export default function Home() {
     return (
         <Layout>
-            <Box className="flex flex-col">
+            <Box position="relative" maxW="100vw" zIndex={10}>
                 <HeroSection />
                 <Features />
-                <Team />
+                {/* <Team /> */}
                 <Channel />
                 <Footer />
             </Box>
