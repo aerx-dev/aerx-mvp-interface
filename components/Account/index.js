@@ -118,12 +118,8 @@ const Account = () => {
 
         // 3. send mint request
         var user_info;
-        var last_info;
         try {
             if (updating) {
-                last_info = await pnftContract.nft_token({
-                    token_id: profile.username,
-                });
                 console.log("Editing.....");
                 user_info = await pnftContract.edit_profile(
                     {
@@ -135,9 +131,7 @@ const Account = () => {
                 );
                 toast(
                     "success",
-                    "Your AERX ProfilNFT username: " +
-                        last_info.token_id +
-                        " was changed to: " +
+                    "Your AERX ProfileNFT username was changed to : " +
                         user_info.token_id +
                         "successfully along side other details" +
                         "PNFTsccss",
@@ -164,6 +158,7 @@ const Account = () => {
                         " was minted successfully!",
                     "PNFTsccss",
                 );
+                window.location.origin + "/flow";
             }
             console.log("acres", user_info);
             console.log("extra", nearState.accountId);
@@ -228,4 +223,5 @@ const Account = () => {
 };
 
 export default Account;
+
 
