@@ -20,10 +20,6 @@ export default function CreateProfileForm(props) {
         inputFile.current.click();
         console.log("acup", props.uploadImg);
     };
-setInterval(acupd, 15000);
-            function acupd() {
-              console.log("acup", props.uploadImg);
-                }
     // TODO Only show upload BUtton if IPFS is ready
     const [uploadReady, setUploadReady] = useState(true);
 
