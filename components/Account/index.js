@@ -133,7 +133,7 @@ const Account = () => {
                     "success",
                     "Your AERX ProfileNFT username was changed to : " +
                         user_info.token_id +
-                        "successfully along side other details" +
+                        " successfully along side other details" +
                         "PNFTsccss",
                 );
             } else {
