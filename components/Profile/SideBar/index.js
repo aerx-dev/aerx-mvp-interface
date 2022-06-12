@@ -12,7 +12,7 @@ export default function SideBar({ children, bg, state }) {
 
     return (
 	<div>
-        <div className="grid grid-cols-12 gap-x-10 mx-10 dippy sm:dippy md:griddy">																																																																																																																																		<div
+        <div className="grid grid-cols-12 gap-x-10 mx-10 dippy dippycontent sm:dippy md:griddy">																																																																																																																																		<div
                 className="col-start-1 col-span-3 flex flex-col items-center min-h-full"
                 trigger={null}
             >    

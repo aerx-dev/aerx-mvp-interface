@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, useColorMode } from "@chakra-ui/react";
 import {AddIcon,ArrowForwardIcon, ArrowUpIcon} from "@chakra-ui/icons";
 import {RiSendPlaneFill} from "react-icons/ri";
 import { MdOutlineDone } from "react-icons/md";
@@ -10,7 +10,7 @@ export const SendButton = () => {
         <Button
             borderRadius={20}
             bgColor="#6054F0"
-            size="sm"
+            size="md"
             variant="outline"
             leftIcon={<RiSendPlaneFill />} 
 >
@@ -24,7 +24,8 @@ export const FollowButton = () => {
         <Button
             borderRadius={20}
             bgColor="transparent"
-            size="sm"
+			_hover={{ color:"black", bgColor:"#E2E8F0" }}
+            size="md"
             variant="outline"
             leftIcon={<MdOutlineDone />}
             > Followed 
@@ -33,11 +34,14 @@ export const FollowButton = () => {
 }
 
 export const ReceiveIconButton = () => {
+    const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Button
             borderRadius={20}
-            size="sm"
+            size="md"
+			_hover={{ color:"black", bgColor:"#E2E8F0" }}
             variant="solid"
+			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
             leftIcon={<ArrowForwardIcon />}
             > Receive
         </Button>
@@ -45,11 +49,14 @@ export const ReceiveIconButton = () => {
 }
 
 export const SendIconButton = () => {
+    const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Button
             borderRadius={20}
-            size="sm"
+            size="md"
+			_hover={{ color:"black", bgColor:"#E2E8F0" }}
             variant="solid"
+			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
             leftIcon={<ArrowUpIcon />}
             > Send
         </Button>
@@ -68,4 +75,3 @@ export const PurpleButton = ({children,...rest}) => {
         >{children}</Button>
     );
 }
-

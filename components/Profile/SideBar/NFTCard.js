@@ -11,7 +11,7 @@ const styles = {
 
 const NFTCard = ({ profile, balance, ...rest }) => {
     
-    const value = "0jx12hbuwc34jcsuhwoc" ;
+    const value = "0jx12hbuwc34jc" ;
     const { hasCopied, onCopy } = useClipboard(value);
     console.log(balance);
     const picBg = useColorModeValue("white", "gray.300");
@@ -23,7 +23,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
 
     return (
         <Box className="border-1 fixed max-h-screen " {...rest}>
-            <Flex className="align-middle justify-between" direction="column">
+            <Flex className="align-middle justify-between" direction="column" minH="81vh" maxH="82vh" overflowWrap="anywhere">
                 <Box
                     className="rounded-t-lg w-full relative "
                     height="45vh"
@@ -34,12 +34,8 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                     bgRepeat="no-repeat"
                     bgPosition="center"
                 >
-                    <Box ml="70%">
-                        <HeartIcon mr="-3.5"/>
-                        <NotificationIcon />
-                    </Box>
                     <Box
-                        className="z-10 absolute bottom-0 h-2/5 w-full px-2 text-white"
+                        className="z-10 absolute bottom-0 h-1/3 w-full px-2 text-white"
                         bgGradient={bgGradient}
                         fontFamily="Open Sans"
                     >
@@ -67,16 +63,11 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                 </HStack>
                 
                 <Box className="text-left px-4 mb-5" sx={styles}>
-                    <Text className="opacity-50 mb-3">ABOUT</Text>
-                    <Text>
+                    <Text className="opacity-50 mb-3 font-semibold" fontSize="1.8vh">ABOUT</Text>
+                    <Text overflowWrap="anywhere">
                         {profile?.aboutMe}
                     </Text>
-                    <Text className="opacity-50 mb-2 mt-2 ">HOBBIES</Text>
-                    <Text className="text-sm">
-                        {profile?.hobbys}
-                    </Text>
                 </Box>
-                <Divider />
                 <BalanceBar balance={balance} />
             </Flex>
         </Box>
