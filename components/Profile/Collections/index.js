@@ -38,6 +38,38 @@ const Collections = ({ collapse, ...rest }) => {
             name: "Pop",
             count: 63,
         },
+	{
+            name: "Music",
+            count: 345,
+        },
+        {
+            name: "Memes",
+            count: 95,
+        },
+        {
+            name: "Art",
+            count: 89,
+        },
+        {
+            name: "Pop",
+            count: 63,
+        },
+	{
+            name: "Music",
+            count: 345,
+        },
+        {
+            name: "Memes",
+            count: 95,
+        },
+        {
+            name: "Art",
+            count: 89,
+        },
+        {
+            name: "Pop",
+            count: 63,
+        },
     ];
 
     return (
