@@ -22,7 +22,7 @@ function Feature1({ isCenter, overflow, imgSpan, rtl }) {
     return (
         <>
             <SectionResolver
-                heading={"Monitize your ideas"}
+                heading={"Monetize your ideas"}
                 styledHeading="Easily"
                 image="/monetize.png"
                 body={[

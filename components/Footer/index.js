@@ -69,7 +69,7 @@ function Footer() {
                         height="14"
                         width="14"
                     >
-                        <img src="/arrow-btn.svg" />
+                        <Image src="/arrow-btn.svg" alt="arrow" />
                     </StylizedButton>
                 </Flex>
                 <Flex gap={3}>
