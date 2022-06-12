@@ -89,7 +89,7 @@ const Collections = ({ collapse, ...rest }) => {
                 
         </HStack>
 			
-            <div className="mt-3" overflowY="auto">
+            <div className="mt-3" style="overflow-y: auto;">
                 {collections.map((item, index) => (
                     <div key={index} className="flex flex-row relative">
                             <div className="flex flex-row relative items-center h-32 w-full m-1 z-10 justify-start">
