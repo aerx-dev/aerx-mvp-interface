@@ -37,4 +37,24 @@
 	.griddy {
 		display: grid!important;
 	}
+	@media (max-width: 1080px) {
+    .dippynav {
+        max-width: 100%;
+        margin:0 auto;
+    }
+    .dippycontent{
+	    max-width: 100%;
+	    margin:0 auto;
+		}
+}
+	@media (min-width: 1081px) {
+    .dippynav {
+        max-width: 80%;
+        margin:0 auto;
+    }
+    .dippycontent{
+	    max-width: 85%;
+	    margin:0 auto;
+		}
+}
 }
