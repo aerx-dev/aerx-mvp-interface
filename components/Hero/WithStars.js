@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useState,useEffect } from "react";
-import CustomImage from "../CustomImage";
+import CustomImage from "./CustomImage";
 
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
