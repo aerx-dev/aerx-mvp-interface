@@ -4,16 +4,13 @@ import useTranslation from "next-translate/useTranslation";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import CreateProfileForm from "./Form";
-// import useIPFS from "../../hooks/useIPFS";
-import usePinata from "../../hooks/usePinata"
+import usePinata from "../../hooks/usePinata";
 import useCustomToast from "../../hooks/useCustomToast";
 import AccountData from "./Account";
-import { pinFileToIPFS } from "../../lib/ipfsPinata"
 import { profileToSupa } from "../../lib/supabaseClient";
 
 const Account = () => {
     // The profile picture which will go into the NFT
-
     const { t } = useTranslation("account");
     const picBg = useColorModeValue("gray.200", "gray.700");
     const nearState = nearStore((state) => state);
@@ -39,34 +36,51 @@ const Account = () => {
     });
 
     useEffect(() => {
-        console.log("acns",nearState.profile)
+        console.log("acns", nearState.profile);
         if (!nearState.profile) {
-            setLockPage(false)
-            setUpdating(false)
-	    console.log("minting")
+            setLockPage(false);
+            setUpdating(false);
         } else {
-            setLockPage(true)
-            setUpdating(true)
+            setLockPage(true);
+            setUpdating(true);
             setProfile((prevProfile) => {
                 return {
                     ...prevProfile,
                     ...nearState.profile,
                 };
             });
-	    console.log("updating")
         }
-    }, [nearState.profile, nearState.accountId])
+    }, [nearState.profile, nearState.accountId]);
 
     function profileImageChange(event) {
         const { files } = event.target;
+        const expectedType = [
+            "jpg",
+            "png",
+            "apng",
+            "jpeg",
+            "jfif",
+            "pjpeg",
+            "pjp",
+            "gif",
+        ];
         if (files && files.length) {
-            console.log("Files : ", files)
-            // // TODO assert that it is a image file
-            // const filename = files[0].name;
-            // var parts = filename.split(".");
-            // const fileType = parts[parts.length - 1];
-            // console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
-            setUploadImg(files[0]);
+            console.log("Files : ", files);
+            const picname = files[0].name;
+            let picPart = picname.split(".");
+            const picType = picPart[picPart.length - 1];
+            console.log("Pictype : ", picType);
+            if (expectedType.includes(picType)) {
+                setUploadImg(files[0]);
+            } else {
+                toast(
+                    "error",
+                    "Picture type not supported. Supported types are " +
+                        expectedType +
+                        " .",
+                    "Images",
+                );
+            }
         }
     }
 
@@ -85,7 +99,7 @@ const Account = () => {
         e.preventDefault();
         let profileToSave = {
             title: profile.fullName,
-            username: nearState.accountId,
+            username: profile.username,
             description: "AERX ProfileNFT for " + profile.fullName,
             media: ipfsData.fileUrl,
             media_hash: ipfsData.urlSha256,
@@ -101,90 +115,100 @@ const Account = () => {
             ...profile,
             profileImg: fetchedImg,
         });
-        // TODO correct metadata
-        // 2. Check if user is registered for tokens. This should happen in the contract.
-        // if (nearState.tokenContract) {
-        //     registerUserIfNotRegistered(nearState);
-        // }
 
         // 3. send mint request
-        var res;
-        try { 
+        var user_info;
+        var last_info;
+        try {
             if (updating) {
-                res = await pnftContract.edit_profile(
+                last_info = await pnftContract.nft_token({
+                    token_id: profile.username,
+                });
+                console.log("Editing.....");
+                user_info = await pnftContract.edit_profile(
                     {
-                        receiver_id: nearState.accountId,
-                        token_metadata: profileToSave,
+                        user_id: nearState.accountId,
+                        new_username: profile.username,
+                        new_details: profileToSave,
                     },
-                    "300000000000000", // attached GAS (optional)
-                    "9990000000000000000011", // attached deposit in yoctoNEAR (optional))
+                    "100000000000000", // attached GAS (optional)
+                );
+                toast(
+                    "success",
+                    "Your AERX ProfilNFT username: " +
+                        last_info.token_id +
+                        " was changed to: " +
+                        user_info.token_id +
+                        "successfully along side other details" +
+                        "PNFTsccss",
                 );
             } else {
-                res = await pnftContract.mint_profile(
+                console.log("Minting.....");
+                await pnftContract.mint_profile(
                     {
-                        receiver_id: nearState.accountId,
+                        user_id: nearState.accountId,
+                        username: profile.username,
                         token_metadata: profileToSave,
-                       // username: nearState.accountId,
                     },
 
-                    "300000000000000", // attached GAS (optiona)
-                    "9990000000000000000011", // attached deposit in yoctoNEAR (optional))
+                    "300000000000000", //attached Gas
+                    "1300000000000000000000", // attached Yocto amount
+                );
+                user_info = await pnftContract.nft_token({
+                    token_id: profile.username,
+                });
+                toast(
+                    "success",
+                    "Your AERX ProfileNFT with username: " +
+                        user_info.token_id +
+                        " was minted successfully!",
+                    "PNFTsccss",
                 );
             }
+            console.log("acres", user_info);
+            console.log("extra", nearState.accountId);
+            profileToSupa(user_info, profile, profileToSave, toast);
+        } catch (e) {
             toast(
-                "success",
-                "Your AERX ProfilNFT id: " +
-                res.token_id +
-                " was minted successfully!",
+                "error",
+                "ProfileNFT could not be minted or editted!",
                 "PNFTsccss",
             );
-            console.log("acres",res);
-			console.log("extra",nearState.accountId)
-            profileToSupa(res, profile, profileToSave, toast)
-			
-
-        } catch (e) {
-            toast("error", "ProfileNFT could not be minted!", "PNFTsccss");
-            console.log("NFT could not be minted! Error: ", e);
+            console.log("NFT could not be minted or editted! Error: ", e);
         }
     }
 
-    async function onBurn() {
+    async function onEdit() {
         setProfile(() => {
             return {
                 ...nearState.profile,
-            }
-        })
-        setUpdating(true)
-        setLockPage(false)
-        // nearState.setProfile(null);
+            };
+        });
+        setUpdating(true);
+        setLockPage(false);
     }
 
     return (
         <Layout>
-            <Box
-                className="px-4 md:px-10 max-w-screen-xl"
-                py={2}
-            >
+            <Box className="px-4 md:px-10 max-w-screen-xl" py={2}>
                 <Box className="drop-shadow-xl flex">
                     <Heading as="h1" mb={3}>
                         {t("title")}
                     </Heading>
-                    {lockPage &&
+                    {lockPage && (
                         <Button
                             className=" ml-auto"
                             colorScheme="blue"
-                            onClick={onBurn}
+                            onClick={onEdit}
                         >
                             Update Profile
                         </Button>
-                    }
+                    )}
                 </Box>
                 {lockPage ? (
-                    <Box >
+                    <Box>
                         <Box alignContent="safe center">
                             <AccountData profile={profile} t={t} />
-
                         </Box>
                     </Box>
                 ) : (
@@ -204,3 +228,4 @@ const Account = () => {
 };
 
 export default Account;
+
