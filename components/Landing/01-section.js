@@ -1,7 +1,6 @@
 import {
     Box,
     SimpleGrid,
-    
     Center,
     Image as ChakraImage,
     useColorMode,
