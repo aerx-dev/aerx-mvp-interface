@@ -20,7 +20,7 @@ export default function CreateProfileForm(props) {
         inputFile.current.click();
         console.log("acup", props.uploadImg);
     };
-setInterval(acups, 15000);
+setInterval(acupd, 15000);
             function acupd() {
               console.log("acup", props.uploadImg);
                 }
