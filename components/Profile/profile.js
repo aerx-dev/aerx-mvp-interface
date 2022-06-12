@@ -30,7 +30,6 @@ const Profile = async () => {
     if (nearState.profile && profileLoaded === false) {
         setProfileLoaded(true);
     }
-    console.log(formatted);
 
     return (
         <Layout>
