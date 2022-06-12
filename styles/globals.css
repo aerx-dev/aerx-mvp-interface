@@ -51,7 +51,7 @@
 	.dippyscroll::-webkit-scrollbar-thumb {
  		background: #6054f0;
 	}
-	@media (max-width: 1080px) {
+	@media (max-width: 1440px) {
     		.dippynav {
         		max-width: 100%;
         		margin:0 auto;
@@ -61,7 +61,7 @@
 	   		 margin:0 auto;
 		}
 	}
-	@media (min-width: 1081px) {
+	@media (min-width: 1401px) {
     		.dippynav {
        			max-width: 80%;
         		margin:0 auto;
