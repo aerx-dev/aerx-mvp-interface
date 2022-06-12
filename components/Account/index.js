@@ -135,9 +135,7 @@ const Account = () => {
                 );
                 toast(
                     "success",
-                    "Your AERX ProfilNFT username: " +
-                        last_info.token_id +
-                        " was changed to: " +
+                    "Your AERX ProfileNFT username was changed to : " +
                         user_info.token_id +
                         "successfully along side other details" +
                         "PNFTsccss",
