@@ -37,11 +37,14 @@
 	.griddy {
 		display: grid!important;
 	}
-	#dippyscroll::-webkit-scrollbar-track {
+	.dippyscroll{
+		overflow-y: auto!important;
+	}
+	.dippyscroll::-webkit-scrollbar-track {
   		background: inherit;
 	}
 
-	#dippyscroll::-webkit-scrollbar {
+	.dippyscroll::-webkit-scrollbar {
 		width: 10x;
 	}
 
