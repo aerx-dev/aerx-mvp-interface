@@ -75,7 +75,7 @@ const Collections = ({ collapse, ...rest }) => {
     return (
         <Box
             className="flex flex-col w-full sticky top-20 rounded-md py-4"
-            bgColor = {bg}
+            bgColor = {bg} minH="81vh" maxH="82vh"
         >   
         <HStack className="flex justify-between mr-4">
             <Hide below="lg">
@@ -89,7 +89,7 @@ const Collections = ({ collapse, ...rest }) => {
                 
         </HStack>
 			
-            <div className="mt-3">
+            <div className="mt-3" overflowY="auto">
                 {collections.map((item, index) => (
                     <div key={index} className="flex flex-row relative">
                             <div className="flex flex-row relative items-center h-32 w-full m-1 z-10 justify-start">
