@@ -10,20 +10,19 @@ import {
     InputLeftElement,
     Image as ChakraImage,
     Grid,
-	} from "@chakra-ui/react";
+} from "@chakra-ui/react";
 import { AtSignIcon } from "@chakra-ui/icons";
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function CreateProfileForm(props) {
     const inputFile = useRef(null);
     const onButtonClick = () => {
         inputFile.current.click();
-        console.log("acup",props.uploadImg);
+        console.log("acup", props.uploadImg);
     };
 
     // TODO Only show upload BUtton if IPFS is ready
     const [uploadReady, setUploadReady] = useState(true);
-
 
     return (
         <Grid
@@ -62,7 +61,7 @@ export default function CreateProfileForm(props) {
                         )}
                     </Box>
 
-                    {uploadReady ?
+                    {uploadReady ? (
                         <Button
                             size="sm"
                             colorScheme={props.uploadImg ? "gray" : "pink"}
@@ -73,9 +72,9 @@ export default function CreateProfileForm(props) {
                                 ? props.t("label.change")
                                 : props.t("label.upload")}
                         </Button>
-                        :
+                    ) : (
                         <Button> IFPS loading ... </Button>
-                    }
+                    )}
 
                     <Box height={0} width={0} opacity={0}>
                         <input
@@ -116,17 +115,6 @@ export default function CreateProfileForm(props) {
                     </InputGroup>
                 </FormControl>
 
-                {/* <FormControl mb={2}>
-                    <FormLabel>{props.t("label.email")}</FormLabel>
-                    <Input
-                        type="text"
-                        defaultValue={props.profile.email}
-                        placeholder="email"
-                        onChange={props.update}
-                        data-path="email"
-                    />
-                </FormControl> */}
-
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.aboutMe")}</FormLabel>
                     <Textarea
@@ -157,16 +145,6 @@ export default function CreateProfileForm(props) {
                         data-path="city"
                     />
                 </FormControl>
-
-                {/* <FormControl mb={2}>
-                    <FormLabel>{props.t("label.state")}</FormLabel>
-                    <Input
-                        placeholder="State/Province"
-                        defaultValue={props.profile.state}
-                        onChange={props.update}
-                        data-path="state"
-                    />
-                </FormControl> */}
 
                 <FormControl mb={2}>
                     <FormLabel>{props.t("label.country")}</FormLabel>

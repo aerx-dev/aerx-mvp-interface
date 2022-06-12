@@ -17,21 +17,21 @@ import NextImage from "next/image";
 // `;
 
 const CustomImage = ({
-//   width,
-//   maxWidth,
-//   initial,
-//   animate,
-//   onAnimationComplete,
-//   layoutId,
+  width,
+  maxWidth,
+  initial,
+  animate,
+  onAnimationComplete,
+  layoutId,
   ...rest
 }) => {
   return (
     <
-    //   width={width}
-    //   initial={initial}
-    //   animate={animate}
-    //   onAnimationComplete={onAnimationComplete}
-    //   layoutId={layoutId}
+      // width={width}
+      // initial={initial}
+      // animate={animate}
+      // onAnimationComplete={onAnimationComplete}
+      // layoutId={layoutId}
     >
       <NextImage layout="fill" {...rest} />
     </>
