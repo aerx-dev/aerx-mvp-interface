@@ -46,6 +46,7 @@ function HeroSection() {
                         colSpan={1}
                         colStart="auto"
                         height="auto"
+                        alignItems={"center"}
                     >
                         <Box>
                             <CustomImage
@@ -62,19 +63,21 @@ function HeroSection() {
                             colorScheme={
                                 colorMode === "light" ? "#322E65" : "#000"
                             }
+                            display="flex"
+                            alignItems="center"
                         >
-                            Welcome to aerx
+                            {t("heroSection.title")}
                         </Heading>
-                        <Text fontSize="2xl" paddingTop={1} paddingBottom="20">
-                            <Box
-                                as="i"
-                                colorScheme={
-                                    colorMode === "light" ? "#322E65" : "#000"
-                                }
-                                opacity={0.8}
-                                paddingBottom="20"
-                            >
-                                web 3 social media platform
+                        <Text
+                            fontSize="2xl"
+                            paddingTop={1}
+                            colorScheme={
+                                colorMode === "light" ? "#322E65" : "#000"
+                            }
+                            paddingBottom="20"
+                        >
+                            <Box as="i" opacity={0.8} paddingBottom="20">
+                                {t("heroSection.subheading")}
                             </Box>{" "}
                             <br />
                         </Text>
@@ -82,11 +85,12 @@ function HeroSection() {
                             paddingBottom="5"
                             // width="316px"
                             fontSize={"3xl"}
-                            colorScheme={colorMode === "light" ? "#322E65" : "#000"}
+                            colorScheme={
+                                colorMode === "light" ? "#322E65" : "#000"
+                            }
                             opacity={0.5}
                         >
-                            Aerx is a social media platform with a fundamentally
-                            new approach to monetization of user content
+                            {t("heroSection.caption")}
                         </Text>
                         <Button
                             mt={4}
@@ -96,74 +100,12 @@ function HeroSection() {
                             color="white"
                             borderRadius={50}
                         >
-                            Get Started
+                            {t("heroSection.buttonText")}
                         </Button>
                     </GridItem>
                 </Grid>
             </WithDots>
         </WithStar>
-        // <Box as="section" pt={100}>
-        //     <Box position="relative">
-        //         <ChakraImage
-        //             zIndex={-1}
-        //             src="/mesh.png"
-        //             filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
-        //             width="100%"
-        //             position="absolute"
-        //             top="-200px"
-        //         />
-        //     </Box>
-        //     <Heading textAlign={"center"} size="4xl" mb={2} fontWeight="bold">
-        //         {t("heroSection.title")}
-
-        //         <ChakraImage
-        //             src={
-        //                 colorMode === "light"
-        //                     ? "/images/dark-logo.svg"
-        //                     : "/images/white-logo.svg"
-        //             }
-        //             alt={t("logoAlt")}
-        //             className="rounded-sm"
-        //             layout="responsive"
-        //             priority="true"
-        //             display="inline"
-        //             cursor={"pointer"}
-        //             width={"150px"}
-        //             position="relative"
-        //             bottom="2px"
-        //             marginLeft="12px"
-        //         />
-        //     </Heading>
-
-        //     <Box position="relative">
-        //         <ChakraImage
-        //             zIndex={-1}
-        //             src="/orb.svg"
-        //             filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
-        //             width={700}
-        //             position="absolute"
-        //             top="-150px"
-        //             right={"25%"}
-        //         />
-        //     </Box>
-
-        //     <Heading textAlign={"center"}>
-        //         {t("heroSection.subheading")}
-        //     </Heading>
-        //     <Text textAlign={"center"} m="2">
-        //         {t("heroSection.caption")}
-        //     </Text>
-
-        //     <Box textAlign="center" display="none">
-        //         <Button
-        //             variant="outline"
-        //             _hover={{ bg: "none" }}
-        //             _active={{ bg: "none" }}
-        //         >
-        //             {t("heroSection.buttonText")}
-        //         </Button>
-        //     </Box>
-        // </Box>
     );
 }
 
