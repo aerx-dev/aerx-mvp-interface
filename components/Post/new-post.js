@@ -79,7 +79,7 @@ function NewPost({ bg }) {
                 },
                 "300000000000000", // attached GAS
             );
-            console.log(post);
+            console.log("just minted",minted_post);
             toast(
                 "success",
                 "AERX ContentNFT with id : " +
@@ -88,10 +88,11 @@ function NewPost({ bg }) {
                 "CNFTsccss",
             );
 
-            postToSave.tokenId = minted_post.token_id;
+            /*postToSave.tokenId = minted_post.token_id;
             postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.token_id;
-            postToSupa(postToSave, toast);
+            postToSupa(postToSave, toast);*/
+            await getBalance(nearState);
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
