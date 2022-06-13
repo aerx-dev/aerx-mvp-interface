@@ -98,7 +98,7 @@ function NewPost({ bg }) {
                 user_id: nearState.accountId,
                 post_id: all_post.length,
             });
-            console.log("allpost",all_post);
+            console.log("mintedpost",minted_post);
             postToSave.tokenId = minted_post.token_id;
             postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.token_id;
