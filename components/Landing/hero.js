@@ -8,10 +8,10 @@ import {
     useColorMode,
     Text,
 } from "@chakra-ui/react";
-
+// import Image from "next"
 import useTranslation from "next-translate/useTranslation";
-import WithStar from "../Hero/WithStars"
-import WithDots from "../Hero/WithDots"
+import WithStar from "../Hero/WithStars";
+import WithDots from "../Hero/WithDots";
 import CustomImage from "../Hero/CustomImage";
 
 function HeroSection() {
@@ -25,6 +25,7 @@ function HeroSection() {
                     position="relative"
                     templateColumns="repeat(2, 1fr)"
                     mx="auto"
+                    padding={20}
                     textAlign={["center", "center", "left"]}
                 >
                     <Box
@@ -39,27 +40,32 @@ function HeroSection() {
                     {/* <Box position={"absolute"} top={-20} left={50}>
             <CustomImage src="/images/decoration/blue.png" width={600} height={600} />
             </Box> */}
-                    <GridItem position="relative" order={[1, 1, 2]} colSpan={1}>
+                    <GridItem
+                        position="relative"
+                        order={[1, 1, 2]}
+                        colSpan={1}
+                        colStart="auto"
+                        height="auto"
+                    >
                         <Box>
                             <CustomImage
-                                style={{
-                                    maxHeight: 200,
-                                }}
-                                src={"/saly-1.png"}
+                                position="relative"
+                                objectFit="contain"
+
+                                src="/saly-1.png"
                                 alt="girl in rocket 3d"
                             />
                         </Box>
                     </GridItem>
                     <GridItem order={[2, 2, 1]} colSpan={1} paddingTop={10}>
-                        <Heading fontSize={["2xl", "2xl", "5xl"]} color="#322E65">
+                        <Heading
+                            fontSize={["2xl", "2xl", "5xl"]}
+                            color="#322E65"
+                        >
                             Welcome to aerx
                         </Heading>
                         <Text fontSize="lg" paddingTop={1} paddingBottom="20">
-                            <Box
-                                as="i"
-                                color="#322E65"
-                                paddingBottom="20"
-                            >
+                            <Box as="i" color="#322E65" paddingBottom="20">
                                 web 3 social media platform
                             </Box>{" "}
                             <br />

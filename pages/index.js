@@ -10,7 +10,7 @@ export default function Home() {
         <Layout>
             <Box position="relative" maxW="80vw" zIndex={10} mx="auto">
                 <HeroSection />
-                {/* <Features /> */}
+                <Features />
                 {/* <Team /> */}
                 {/* <Channel /> */}
                 {/* <Footer /> */}
