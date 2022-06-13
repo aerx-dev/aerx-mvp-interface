@@ -7,11 +7,17 @@ import {
     Image as CustomImage,
     Text,
 } from "@chakra-ui/react";
-import Image from "next/image"
+import { useColorMode } from "@chakra-ui/system";
+import Image from "next/image";
 
-const CustomHeading = ({children, isCenter, styled}) => {
+const CustomHeading = ({ children, isCenter, styled }) => {
     return (
-        <Heading fontWeight={"bold"} mb={4} fontSize={[30, 30, 35, 40]} color="#322E65">
+        <Heading
+            fontWeight={"bold"}
+            mb={4}
+            fontSize={[30, 30, 35, 40]}
+            color="#322E65"
+        >
             {children}
             <Flex
                 className="heading-italic"
@@ -23,7 +29,7 @@ const CustomHeading = ({children, isCenter, styled}) => {
                 fontWeight="extrabold"
                 color="#8D00FF"
             >
-                <Image src="/star.svg"  width={50} height={50} />
+                <Image src="/star.svg" width={50} height={50} />
                 {styled}
             </Flex>
         </Heading>
@@ -45,6 +51,8 @@ const SectionResolver = ({
         imgOrder: rtl && [1, 1, 2],
         textOrder: rtl && [2, 2, 1],
     };
+    const { colorMode } = useColorMode();
+
     return (
         <Grid
             overflow={overflow}
@@ -52,11 +60,7 @@ const SectionResolver = ({
             padding={100}
             textAlign={["center", "center", "left"]}
         >
-            <GridItem
-                position="relative"
-                order={options.imgOrder}
-                colSpan={1}
-            >
+            <GridItem position="relative" order={options.imgOrder} colSpan={1}>
                 <Box
                     display={rtl ? "none" : "block"}
                     style={{
@@ -67,7 +71,6 @@ const SectionResolver = ({
                     top={0}
                 >
                     <CustomImage src="/blue.png" width={600} height={600} />
-                    
                 </Box>
                 <Box>
                     <CustomImage
@@ -85,13 +88,21 @@ const SectionResolver = ({
                 colSpan={1}
                 padding={10}
                 marginTop={25}
-            >   
-                <CustomHeading isCenter styled={styledHeading}>
+            >
+                <CustomHeading isCenter styled={styledHeading} >
                     {heading}
                 </CustomHeading>
                 <Flex fontSize={[18, 20]} flexDirection="column" gap={2}>
                     {body?.map((text, i) => (
-                        <Text key={i}>{text}</Text>
+                        <Text
+                            key={i}
+                            colorScheme={
+                                colorMode === "light" ? "#322E65" : "#000"
+                            }
+                            opacity={0.7}
+                        >
+                            {text}
+                        </Text>
                     ))}
                 </Flex>
 

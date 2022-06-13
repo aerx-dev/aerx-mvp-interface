@@ -72,7 +72,7 @@ function Footer() {
                         borderRadius="full"
                         height="14"
                         width="14"
-                        backgroundColor={colorMode === "light" ? "#DEDEDE" : "#8D00FF"}
+                        backgroundColor={"#8D00FF"}
                     >
                         <CustomImage src="/arrow-btn.svg" />
                     </Button>
