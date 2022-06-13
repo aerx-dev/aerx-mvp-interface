@@ -67,7 +67,7 @@ const SectionResolver = ({
                     top={0}
                 >
                     <CustomImage src="/blue.png" width={600} height={600} />
-                    flex flex-col
+                    
                 </Box>
                 <Box>
                     <CustomImage
@@ -88,7 +88,7 @@ const SectionResolver = ({
                     {heading}
                 </CustomHeading>
                 <Flex fontSize={[18, 20]} flexDirection="column" gap={2}>
-                    {body.map((text, i) => (
+                    {body?.map((text, i) => (
                         <Text key={i}>{text}</Text>
                     ))}
                 </Flex>
