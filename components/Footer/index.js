@@ -4,6 +4,7 @@ import {
     Box,
     useColorMode,
     Flex,
+    Button,
     Input,
     StylizedButton,
     Image as CustomImage,
@@ -26,7 +27,7 @@ const socials = [
             url: "https://t.me/aerx_int",
         },
     ];
-    
+
 function Footer() {
     const { t } = useTranslation("footer");
     const { colorMode } = useColorMode();
@@ -38,6 +39,7 @@ function Footer() {
             <SectionResolver
                 heading={"Be part of the team"}
                 styledHeading="Right now"
+                padding="20px"
                 image="/team.png"
                 body={[
                     `Kindly subscribe to our email newsletter to get amazing information.`,
@@ -65,14 +67,15 @@ function Footer() {
                             boxShadow: 0,
                         }}
                     />
-                    <StylizedButton
+                    <Button
                         padding={0}
                         borderRadius="full"
                         height="14"
                         width="14"
+                        backgroundColor={colorMode === "light" ? "#DEDEDE" : "#8D00FF"}
                     >
                         <CustomImage src="/arrow-btn.svg" />
-                    </StylizedButton>
+                    </Button>
                 </Flex>
                 <Flex gap={3}>
                     {socials.map((social, i) => (

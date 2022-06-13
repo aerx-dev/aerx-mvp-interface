@@ -49,7 +49,7 @@ const SectionResolver = ({
         <Grid
             overflow={overflow}
             templateColumns="repeat(2, 1fr)"
-            py={[4, 8, 10]}
+            padding={100}
             textAlign={["center", "center", "left"]}
         >
             <GridItem
