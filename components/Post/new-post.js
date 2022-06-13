@@ -80,7 +80,7 @@ function NewPost({ bg }) {
                 "30000000000000", // attached GAS
                 "1300000000000000000000", // attached deposit in yoctoNEAR
             );
-            console.log("dipoll":post);
+            console.log("dipoll",post);
             toast(
                 "success",
                 "AERX ContentNFT with id : " +
