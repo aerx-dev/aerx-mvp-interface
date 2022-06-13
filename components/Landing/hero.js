@@ -36,10 +36,6 @@ function HeroSection() {
                     >
                         <CustomImage src="/blue.png" width={600} height={600} />
                     </Box>
-
-                    {/* <Box position={"absolute"} top={-20} left={50}>
-            <CustomImage src="/images/decoration/blue.png" width={600} height={600} />
-            </Box> */}
                     <GridItem
                         position="relative"
                         order={[1, 1, 2]}
@@ -83,7 +79,6 @@ function HeroSection() {
                         </Text>
                         <Text
                             paddingBottom="5"
-                            // width="316px"
                             fontSize={"3xl"}
                             colorScheme={
                                 colorMode === "light" ? "#322E65" : "#000"
