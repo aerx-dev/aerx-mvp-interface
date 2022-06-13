@@ -58,18 +58,33 @@ function HeroSection() {
                     </GridItem>
                     <GridItem order={[2, 2, 1]} colSpan={1} paddingTop={10}>
                         <Heading
-                            fontSize={["2xl", "2xl", "5xl"]}
-                            
+                            fontSize={"6xl"}
+                            colorScheme={
+                                colorMode === "light" ? "#322E65" : "#000"
+                            }
                         >
                             Welcome to aerx
                         </Heading>
-                        <Text fontSize="lg" paddingTop={1} paddingBottom="20">
-                            <Box as="i" colorScheme="#322E65" paddingBottom="20">
+                        <Text fontSize="2xl" paddingTop={1} paddingBottom="20">
+                            <Box
+                                as="i"
+                                colorScheme={
+                                    colorMode === "light" ? "#322E65" : "#000"
+                                }
+                                opacity={0.8}
+                                paddingBottom="20"
+                            >
                                 web 3 social media platform
                             </Box>{" "}
                             <br />
                         </Text>
-                        <Text paddingBottom="5" width="316px" colorScheme="#322E65">
+                        <Text
+                            paddingBottom="5"
+                            // width="316px"
+                            fontSize={"3xl"}
+                            colorScheme={colorMode === "light" ? "#322E65" : "#000"}
+                            opacity={0.5}
+                        >
                             Aerx is a social media platform with a fundamentally
                             new approach to monetization of user content
                         </Text>
