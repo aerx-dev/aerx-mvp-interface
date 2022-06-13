@@ -53,7 +53,7 @@ function HeroSection() {
                             />
                         </Box>
                     </GridItem>
-                    <GridItem order={[2, 2, 1]} colSpan={1} paddingTop={10}>
+                    <GridItem order={[2, 2, 1]} colSpan={1} paddingTop={8}>
                         <Heading
                             fontSize={"6xl"}
                             colorScheme={
