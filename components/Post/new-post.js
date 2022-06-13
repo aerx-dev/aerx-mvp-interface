@@ -79,7 +79,7 @@ function NewPost({ bg }) {
                     user_id: nearState.accountId,
                     token_metadata: postToSave,
                 },
-                "300000000000000", // attached GAS
+                "30000000000000", // attached GAS
                 "1300000000000000000000", // attached deposit in yoctoNEAR
             );
             console.log(post);
@@ -90,7 +90,7 @@ function NewPost({ bg }) {
                     "was minted successfully!",
                 "CNFTsccss",
             );
-            all_post = await nearState.pnftContract.nft_tokens_for_owner({
+            /*all_post = await nearState.pnftContract.nft_tokens_for_owner({
                 account_id: nearState.accountId,
             });
             console.log("allpost",all_post);
@@ -102,7 +102,7 @@ function NewPost({ bg }) {
             postToSave.tokenId = minted_post.token_id;
             postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.token_id;
-            postToSupa(postToSave, toast);
+            postToSupa(postToSave, toast);*/
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
