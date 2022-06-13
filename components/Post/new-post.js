@@ -71,10 +71,8 @@ function NewPost({ bg }) {
         };
         console.log(body);
         console.log("Post to save: ", postToSave);
-        var all_post;
-        var minted_post;
         try {
-            const post = await nearState.pnftContract.mint_post(
+            const minted_post = await nearState.pnftContract.mint_post(
                 {
                     user_id: nearState.accountId,
                     token_metadata: postToSave,
@@ -85,23 +83,15 @@ function NewPost({ bg }) {
             toast(
                 "success",
                 "AERX ContentNFT with id : " +
-                    post.token_id +
+                    minted_post.token_id +
                     "was minted successfully!",
                 "CNFTsccss",
             );
-            all_post = await nearState.pnftContract.nft_tokens_for_owner({
-                account_id: nearState.accountId,
-            });
-            console.log("allpost",all_post);
-            minted_post = await nearState.pnftContract.post_details({
-                user_id: nearState.accountId,
-                post_id: all_post.length,
-            });
-            console.log("mintedpost",minted_post);
-            /* postToSave.tokenId = minted_post.token_id;
+
+            postToSave.tokenId = minted_post.token_id;
             postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.token_id;
-            postToSupa(postToSave, toast);*/
+            postToSupa(postToSave, toast);
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
