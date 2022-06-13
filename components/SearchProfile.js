@@ -1,4 +1,3 @@
-
 import {
     Avatar,
     Box,
@@ -7,7 +6,13 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 import useCustomToast from "../hooks/useCustomToast";
-import { AddAudioIcon, AddIconButton, SearchIconButton, AddImageIcon, RepeatIconButton } from "./UI/IconButton";
+import {
+    AddAudioIcon,
+    AddIconButton,
+    SearchIconButton,
+    AddImageIcon,
+    RepeatIconButton,
+} from "./UI/IconButton";
 import usePinata from "../hooks/usePinata";
 import { useState, useEffect, useRef } from "react";
 import { nearStore } from "../stores/near";
@@ -67,24 +72,35 @@ function SearchProfile({ bg }) {
         };
         console.log(body);
         console.log("Post to save: ", postToSave);
+        var all_post;
+        var minted_post;
         try {
-            const res = await nearState.cnftContract.nft_mint(
+            const post = await nearState.pnftContract.mint_post(
                 {
-                    receiver_id: nearState.accountId,
+                    user_id: nearState.accountId,
                     token_metadata: postToSave,
                 },
-                "300000000000000", // attached GAS (optional)
-                "9660000000000000000111", // attached deposit in yoctoNEAR (optional))
+                "30000000000000", // attached GAS
+                "1300000000000000000000", // attached deposit in yoctoNEAR
             );
-            console.log(res);
+            console.log(post);
             toast(
                 "success",
-                "AERX PostNFT nr." + res.token_id + " minted successfully!",
+                "AERX ContentNFT with id : " +
+                    post.token_id +
+                    "was minted successfully!",
                 "CNFTsccss",
             );
-            postToSave.tokenId = res.token_id;
-            postToSave.ownerId = res.owner_id;
-            postToSave.postId = res.token_id;
+            all_post = await nearState.pnftContract.nft_tokens_for_owner({
+                account_id: nearState.accountId,
+            });
+            minted_post = await nearState.pnftContract.post_details({
+                user_id: nearState.accountId,
+                post_id: minted_post.length,
+            });
+            postToSave.tokenId = minted_post.token_id;
+            postToSave.ownerId = minted_post.owner_id;
+            postToSave.postId = minted_post.token_id;
             postToSupa(postToSave, toast);
         } catch (e) {
             console.log("NFT could not be minted! Error: " + e.message);
@@ -179,11 +195,12 @@ function SearchProfile({ bg }) {
                 bg={useColorModeValue("white", "#1B1D1E")}
             />
 
-
             <Box display="none">
                 <input ref={inputImg} />
             </Box>
-            <Box ml={3}><SearchIconButton /></Box>
+            <Box ml={3}>
+                <SearchIconButton />
+            </Box>
         </Box>
     );
 }
