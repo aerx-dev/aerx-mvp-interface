@@ -69,32 +69,34 @@ function NewPost({ bg }) {
             issued_at: new Date().toISOString(),
             extra: JSON.stringify(body),
         };
-        console.log("body",body);
+        console.log(body);
         console.log("Post to save: ", postToSave);
         try {
-            const res = await nearState.pnftContract.mint_post(
+            const post = await nearState.pnftContract.mint_post(
                 {
-                    receiver_id: nearState.accountId,
+                    user_id: nearState.accountId,
                     token_metadata: postToSave,
                 },
-                "300000000000000", // attached GAS (optional)
-                "9660000000000000000111", // attached deposit in yoctoNEAR (optional))
+                "30000000000000", // attached GAS
+                "1300000000000000000000", // attached deposit in yoctoNEAR
             );
-            console.log("res1post",res);
+            console.log(res);
             toast(
                 "success",
-                "AERX PostNFT nr." + res.token_id + " minted successfully!",
+                "AERX ContentNFT with id : " +
+                    post.token_id +
+                    "was minted successfully!",
                 "CNFTsccss",
             );
-            postToSave.tokenId = res.token_id;
-            postToSave.ownerId = res.owner_id;
-            postToSave.postId = res.token_id;
+            postToSave.tokenId = post.token_id;
+            postToSave.ownerId = post.owner_id;
+            postToSave.postId = post.token_id;
             postToSupa(postToSave, toast);
         } catch (e) {
-            console.log("NFT could not be minted! Error: " + e.message);
+            console.log("Post could not be minted! Error: " + e.message);
             toast(
                 "error",
-                "NFT could not be minted! Error: " + e.message,
+                "Post could not be minted! Error: " + e.message,
                 "CNFTerror",
             );
         }
@@ -135,7 +137,7 @@ function NewPost({ bg }) {
                     media_extension: fileType,
                 };
             });
-            console.log("body2post",body);
+            console.log(body);
             setUploadFile(() => event.target.files[0]);
         }
     }
@@ -150,14 +152,6 @@ function NewPost({ bg }) {
             };
         });
     }
-
-    // ! since refresh is a function itself it can be called directly once
-    // to avoid it running more than once inside a useEffects
-    // function clickRefresh() {
-    //     if (!refresh) {
-    //         setRefresh(true);
-    //     }
-    // }
 
     return (
         <Box
