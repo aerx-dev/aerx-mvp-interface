@@ -10,13 +10,13 @@ import {
 import { useColorMode } from "@chakra-ui/system";
 import Image from "next/image";
 
-const CustomHeading = ({ children, isCenter, styled }) => {
+const CustomHeading = ({ children, isCenter, styled, colorMode }) => {
     return (
         <Heading
             fontWeight={"bold"}
             mb={4}
             fontSize={[30, 30, 35, 40]}
-            color="#322E65"
+            colorScheme={colorMode === "light" ? "#322E65" : "#000"}
         >
             {children}
             <Flex
@@ -89,7 +89,7 @@ const SectionResolver = ({
                 padding={10}
                 marginTop={25}
             >
-                <CustomHeading isCenter styled={styledHeading} >
+                <CustomHeading isCenter styled={styledHeading}>
                     {heading}
                 </CustomHeading>
                 <Flex fontSize={[18, 20]} flexDirection="column" gap={2}>
