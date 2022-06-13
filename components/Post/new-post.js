@@ -90,7 +90,7 @@ function NewPost({ bg }) {
                     "was minted successfully!",
                 "CNFTsccss",
             );
-            /*all_post = await nearState.pnftContract.nft_tokens_for_owner({
+            all_post = await nearState.pnftContract.nft_tokens_for_owner({
                 account_id: nearState.accountId,
             });
             console.log("allpost",all_post);
@@ -99,7 +99,7 @@ function NewPost({ bg }) {
                 post_id: all_post.length,
             });
             console.log("mintedpost",minted_post);
-            postToSave.tokenId = minted_post.token_id;
+            /* postToSave.tokenId = minted_post.token_id;
             postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.token_id;
             postToSupa(postToSave, toast);*/
