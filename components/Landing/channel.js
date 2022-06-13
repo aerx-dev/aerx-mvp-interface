@@ -18,14 +18,16 @@ function Channel() {
         >
             <Center mt={20} mb={10}>
                 <Box px={8} position="relative">
-                    <Heading>The Project Channel</Heading>
+                    <Heading fontSize="6xl">About project</Heading>
                 </Box>
             </Center>
 
             <Box height="100%" width="100%">
                 <ChakraImage
                     src="/Frame.png"
-                    filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
+                    backgroundColor="#8D00FF"
+                    borderRadius="2xl"
+                    // filter={colorMode === "light" ? "invert(1)" : "invert(0)"}
                 />
             </Box>
         </Box>

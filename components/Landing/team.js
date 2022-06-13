@@ -45,6 +45,10 @@ function Team() {
             name: "Sajal",
             image: "/sajal.png",
         },
+        {
+            name: "Amos",
+            image: "/amos.png",
+        }
     ];
     return (
         <Box as="section" mb={50}>

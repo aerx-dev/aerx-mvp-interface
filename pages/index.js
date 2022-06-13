@@ -13,7 +13,7 @@ export default function Home() {
                 <Features />
                 <Team />
                 <Channel />
-                <Footer />
+                {/* <Footer /> */}
             </Box>
         </Layout>
     );
