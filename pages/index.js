@@ -11,7 +11,7 @@ export default function Home() {
             <Box position="relative" maxW="80vw" zIndex={10} mx="auto">
                 <HeroSection />
                 <Features />
-                <Team />
+                {/* <Team /> */}
                 <Channel />
                 <Footer />
             </Box>
