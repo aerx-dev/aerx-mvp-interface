@@ -8,18 +8,19 @@ function ToggleMode() {
     const { t } = useTranslation("header");
 
     return (
-        <IconButton
-            onClick={toggleColorMode}
-            aria-label={t("ariaToggle")}
-            fontSize="lg"
-            _hover={{ bg: "none" }}
-            _active={{ bg: "none" }}
-            rounded="full"
-			variant={"ghost"}
-			filter={colorMode === "light" ? "invert(0.7)" : "none" }
-        >
-            {colorMode === "light" ? <IoMoon /> : <LightIcon/> }
-        </IconButton>
+        <></>
+        // <IconButton
+        //     onClick={toggleColorMode}
+        //     aria-label={t("ariaToggle")}
+        //     fontSize="lg"
+        //     _hover={{ bg: "none" }}
+        //     _active={{ bg: "none" }}
+        //     rounded="full"
+		// 	variant={"ghost"}
+		// 	filter={colorMode === "light" ? "invert(0.7)" : "none" }
+        // >
+        //     {colorMode === "light" ? <IoMoon /> : <LightIcon/> }
+        // </IconButton>
     );
 }
 
