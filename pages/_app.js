@@ -9,7 +9,6 @@ import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
 import { Provider } from 'urql';
 import { supabaseGraphQLClient } from "../lib/supabaseClient";
-import { checkToken } from "../lib/auth";
 
 function MyApp({ Component, pageProps }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +43,7 @@ function MyApp({ Component, pageProps }) {
         // making sure than the checkprofile happens after pnft is set to state
         if (!isLoading) {
             (async () => {
-                await  checkToken(nearState);
+                await  getBalance(nearState);
             })();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
