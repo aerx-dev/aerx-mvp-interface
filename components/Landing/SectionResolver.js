@@ -70,7 +70,7 @@ const SectionResolver = ({
                     left={-200}
                     top={0}
                 >
-                    <CustomImage src="/blue.png" width={600} height={600} />
+                    <CustomImage src="/blue.png" layout="fill" />
                 </Box>
                 <Box>
                     <CustomImage

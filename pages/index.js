@@ -1,5 +1,5 @@
 import { HeroSection, Features, Team } from "../components/Landing";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout2";
 import styles from "../styles/Home.module.css";
 import Channel from "../components/Landing/channel";
 import Footer from "../components/Footer";
