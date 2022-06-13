@@ -92,7 +92,10 @@ function NewPost({ bg }) {
             postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.token_id;
             postToSupa(postToSave, toast);*/
-            await getBalance(nearState);
+            setInterval(reloadingPage, 3000);
+            function reloadingPage() {
+               window.location.reload();
+                }
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
