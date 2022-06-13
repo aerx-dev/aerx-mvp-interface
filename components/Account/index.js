@@ -162,7 +162,7 @@ const Account = () => {
             console.log("acres", user_info);
             console.log("extra", nearState.accountId);
             profileToSupa(user_info, profile, profileToSave, toast);
-            setInterval(supabaseDelay, 10000);
+            setInterval(supabaseDelay, 5000);
             function supabaseDelay() {
                window.location.replace(window.location.origin + "/profile");
                 }
