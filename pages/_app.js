@@ -38,7 +38,7 @@ function MyApp({ Component, pageProps }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading, nearState.accountId, nearState.pnftContract]);
 
-    useEffect(() => {
+    /*useEffect(() => {
         // run checkprofile only after connection is initialized.
         // making sure than the checkprofile happens after pnft is set to state
         if (!isLoading) {
@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps }) {
             })();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoading, nearState.accountId, nearState.tokenContract]);
+    }, [isLoading, nearState.accountId, nearState.tokenContract]);*/
 
     return (
         <Provider value={supabaseGraphQLClient}>
