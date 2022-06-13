@@ -18,12 +18,10 @@ function MyApp({ Component, pageProps }) {
     // );
     const nearState = nearStore((state) => state);
 
-   useEffect(() => {
+    useEffect(() => {
         // due to issue with checkProfile
         if (isLoading) {
-            initNearConnection(nearState).then(() => {
-                getBalance(nearState);
-            })
+            initNearConnection(nearState);
             setIsLoading(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,6 +38,16 @@ function MyApp({ Component, pageProps }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading, nearState.accountId, nearState.pnftContract]);
 
+    useEffect(() => {
+        // run checkprofile only after connection is initialized.
+        // making sure than the checkprofile happens after pnft is set to state
+        if (!isLoading) {
+            (async () => {
+                await  getBalance(nearState);
+            })();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading, nearState.accountId, nearState.pnftContract, nearState.tokenContract]);
 
     return (
         <Provider value={supabaseGraphQLClient}>
