@@ -72,32 +72,22 @@ function SearchProfile({ bg }) {
         };
         console.log(body);
         console.log("Post to save: ", postToSave);
-        var all_post;
-        var minted_post;
         try {
-            const post = await nearState.pnftContract.mint_post(
+            const minted_post = await nearState.pnftContract.mint_post(
                 {
                     user_id: nearState.accountId,
                     token_metadata: postToSave,
                 },
-                "30000000000000", // attached GAS
-                "1300000000000000000000", // attached deposit in yoctoNEAR
+                "300000000000000", // attached GAS
             );
             console.log(post);
             toast(
                 "success",
                 "AERX ContentNFT with id : " +
-                    post.token_id +
+                    minted_post.token_id +
                     "was minted successfully!",
                 "CNFTsccss",
             );
-            all_post = await nearState.pnftContract.nft_tokens_for_owner({
-                account_id: nearState.accountId,
-            });
-            minted_post = await nearState.pnftContract.post_details({
-                user_id: nearState.accountId,
-                post_id: minted_post.length,
-            });
             postToSave.tokenId = minted_post.token_id;
             postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.token_id;
