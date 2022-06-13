@@ -18,7 +18,7 @@ const nearStore = create((set) => ({
     setTokenContract: (tokenContract) => set((state) => ({ tokenContract })),
     removeTokenContract: () => set((state) => ({ tokenContract: null })),
 
-	profiletokenContract: null,
+    profiletokenContract: null,
     setProfileTokenContract: (profiletokenContract) => set((state) => ({ profiletokenContract })),
     removeProfileTokenContract: () => set((state) => ({ profiletokenContract: null })),
 
