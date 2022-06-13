@@ -51,7 +51,6 @@ function HeroSection() {
                             <CustomImage
                                 position="relative"
                                 objectFit="contain"
-
                                 src="/saly-1.png"
                                 alt="girl in rocket 3d"
                             />
@@ -60,7 +59,7 @@ function HeroSection() {
                     <GridItem order={[2, 2, 1]} colSpan={1} paddingTop={10}>
                         <Heading
                             fontSize={["2xl", "2xl", "5xl"]}
-                            color="#322E65"
+                            
                         >
                             Welcome to aerx
                         </Heading>
