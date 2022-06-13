@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import { ChakraProvider } from "@chakra-ui/react";
 import { initNearConnection, initIfps, checkProfile } from "../lib/auth";
+import {  getBalance } from "../lib/tokenContract";
 import { nearStore } from "../stores/near.js";
 import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
@@ -36,6 +37,17 @@ function MyApp({ Component, pageProps }) {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading, nearState.accountId, nearState.pnftContract]);
+
+    useEffect(() => {
+        // run checkprofile only after connection is initialized.
+        // making sure than the checkprofile happens after pnft is set to state
+        if (!isLoading) {
+            (async () => {
+                await  getBalance(nearState);
+            })();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading, nearState.accountId, nearState.tokenContract]);
 
     return (
         <Provider value={supabaseGraphQLClient}>
