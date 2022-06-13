@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps }) {
             })();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isLoading]);
+    }, [isLoading, nearState.accountId, nearState.tokenContract]);
 
     return (
         <Provider value={supabaseGraphQLClient}>
