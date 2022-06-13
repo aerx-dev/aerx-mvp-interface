@@ -83,7 +83,9 @@ const SectionResolver = ({
                 maxW="500px"
                 order={options.textOrder}
                 colSpan={1}
-            >
+                padding={10}
+                marginTop={25}
+            >   
                 <CustomHeading isCenter styled={styledHeading}>
                     {heading}
                 </CustomHeading>
