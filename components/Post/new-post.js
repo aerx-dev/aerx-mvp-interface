@@ -80,7 +80,7 @@ function NewPost({ bg }) {
                     token_metadata: postToSave,
                 },
                 "30000000000000", // attached GAS
-                "1300000000000000000000", // attached deposit in yoctoNEAR
+                "1300000000000000000", // attached deposit in yoctoNEAR
             );
             console.log(post);
             toast(
