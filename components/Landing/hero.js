@@ -64,12 +64,12 @@ function HeroSection() {
                             Welcome to aerx
                         </Heading>
                         <Text fontSize="lg" paddingTop={1} paddingBottom="20">
-                            <Box as="i" color="#322E65" paddingBottom="20">
+                            <Box as="i" colorScheme="#322E65" paddingBottom="20">
                                 web 3 social media platform
                             </Box>{" "}
                             <br />
                         </Text>
-                        <Text paddingBottom="5" width="316px" color="#322E65">
+                        <Text paddingBottom="5" width="316px" colorScheme="#322E65">
                             Aerx is a social media platform with a fundamentally
                             new approach to monetization of user content
                         </Text>
