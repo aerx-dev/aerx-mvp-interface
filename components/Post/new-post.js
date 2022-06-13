@@ -93,10 +93,12 @@ function NewPost({ bg }) {
             all_post = await nearState.pnftContract.nft_tokens_for_owner({
                 account_id: nearState.accountId,
             });
+            console.log("allpost",all_post);
             minted_post = await nearState.pnftContract.post_details({
                 user_id: nearState.accountId,
                 post_id: all_post.length,
             });
+            console.log("allpost",all_post);
             postToSave.tokenId = minted_post.token_id;
             postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.token_id;
