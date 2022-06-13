@@ -18,11 +18,11 @@ function MyApp({ Component, pageProps }) {
     // );
     const nearState = nearStore((state) => state);
 
-    useEffect(() => {
+   useEffect(() => {
         // due to issue with checkProfile
         if (isLoading) {
-            initNearConnection(nearState).then((e) => {
-                console.log("init return :", e);
+            initNearConnection(nearState).then(() => {
+                getBalance(nearState);
             })
             setIsLoading(false);
         }
