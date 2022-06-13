@@ -88,12 +88,10 @@ function NewPost({ bg }) {
                 "CNFTsccss",
             );
 
-            postToSave.ownerId = minted_post.owner_id;
+            /*postToSave.ownerId = minted_post.owner_id;
             postToSave.postId = minted_post.post_id;
             postToSupa(postToSave, toast);*/
-            setInterval(reloadingPage, 3000);
-            function reloadingPage() {
-               window.location.reload();
+            await getBalance(nearState);
                 }
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
