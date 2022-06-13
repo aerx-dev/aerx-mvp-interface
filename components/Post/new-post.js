@@ -83,14 +83,13 @@ function NewPost({ bg }) {
             toast(
                 "success",
                 "AERX ContentNFT with id : " +
-                    minted_post.token_id +
+                    minted_post.post_id +
                     "was minted successfully!",
                 "CNFTsccss",
             );
 
-            /*postToSave.tokenId = minted_post.token_id;
             postToSave.ownerId = minted_post.owner_id;
-            postToSave.postId = minted_post.token_id;
+            postToSave.postId = minted_post.post_id;
             postToSupa(postToSave, toast);*/
             setInterval(reloadingPage, 3000);
             function reloadingPage() {
