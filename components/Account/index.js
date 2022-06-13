@@ -127,7 +127,7 @@ const Account = () => {
                         new_username: profile.username,
                         new_details: profileToSave,
                     },
-                    "23000000000000", // attached GAS (optional)
+                    "30000000000000", // attached GAS (optional)
                 );
                 toast(
                     "success",
@@ -145,7 +145,7 @@ const Account = () => {
                         token_metadata: profileToSave,
                     },
 
-                    "30000000000000", //attached Gas
+                    "300000000000000", //attached Gas
                     "1300000000000000000000", // attached Yocto amount
                 );
                 user_info = await pnftContract.nft_token({
