@@ -79,7 +79,7 @@ function NewPost({ bg }) {
                     user_id: nearState.accountId,
                     token_metadata: postToSave,
                 },
-                "30000000000000", // attached GAS
+                "50000000000000", // attached GAS
                 "1300000000000000000000", // attached deposit in yoctoNEAR
             );
             console.log(post);
