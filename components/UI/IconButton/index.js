@@ -77,7 +77,6 @@ export const RepeatIconButton = () => {
             opacity={0.6}
             icon={<RepeatIcon />}
             ml={3}
-            display="none"
             />
     );
 };
