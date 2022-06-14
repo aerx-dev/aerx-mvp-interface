@@ -15,7 +15,7 @@ import {
 import usePinata from "../../hooks/usePinata";
 import { useState, useEffect, useRef } from "react";
 import { nearStore } from "../../stores/near";
-import { getBalance } from "../../lib/tokenContract";
+import { getBalance, fetchpostsData } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
 import { supabase, postToSupa } from "../../lib/supabaseClient";
@@ -45,6 +45,7 @@ function NewPost({ bg }) {
         (async () => {
             if (nearState.tokenContract) {
                 let { formatted } = await getBalance(nearState);
+                await fetchpostsData(nearState);
                 toast(
                     "info",
                     "Your balance is " + formatted + " AEX$",
@@ -92,7 +93,7 @@ function NewPost({ bg }) {
             postToSave.postId = minted_post.post_id;
             postToSupa(postToSave, toast);*/
             await getBalance(nearState);
-            await {refresh};
+            await fetchpostsData(nearState);
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
