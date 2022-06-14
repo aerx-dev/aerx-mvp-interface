@@ -29,6 +29,7 @@ const ChargeModal = ({ nft, state }) => {
     const sliderTrackBg = useColorModeValue("yellow.100", "yellow.100");
     const sliderThumbColor = useColorModeValue("gray.900", "gray.900");
     const postBg = useColorModeValue("#d182ffda", "#171923");
+    const chrageBalance = nearState?.aexBalance || 0
 
     const toast = useCustomToast();
     const [sliderValue, setSliderValue] = useState(0);
@@ -126,6 +127,7 @@ const ChargeModal = ({ nft, state }) => {
                             aria-label="pay-slider"
                             colorScheme={"yellow"}
                             defaultValue={0}
+                            max={chrageBalance}
                         >
                             <SliderTrack bg={sliderTrackBg}>
                                 <SliderFilledTrack bg={sliderTrack} />
