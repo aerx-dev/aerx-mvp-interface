@@ -1,6 +1,6 @@
 // custom hook for IPFS
 import { useEffect, useState } from "react";
-import { pinFileToIPFS, unpinPinata } from "../lib/ipfsPinata";
+import { pinFileToIPFS } from "../lib/ipfsPinata";
 import { upload } from "../lib/crust";
 
 
