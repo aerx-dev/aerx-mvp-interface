@@ -46,7 +46,6 @@ function NewPost({ bg }) {
         (async () => {
             if (nearState.tokenContract) {
                 let { formatted } = await getBalance(nearState);
-                await refreshPosts;
                 toast(
                     "info",
                     "Your balance is " + formatted + " AEX$",
