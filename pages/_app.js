@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
 import { Provider } from 'urql';
-import useFetchPosts from "../../hooks/useFetchPosts";
+import {refreshPosts} from "../../hooks/useFetchPosts";
 import { supabaseGraphQLClient } from "../lib/supabaseClient";
 
 function MyApp({ Component, pageProps }) {
@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps }) {
         // making sure than the checkprofile happens after pnft is set to state
         if (!isLoading) {
             (async () => {
-               const refreshPost = await useFetchPosts();
+                await refreshPosts();
             })();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
