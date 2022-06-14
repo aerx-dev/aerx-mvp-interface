@@ -45,6 +45,7 @@ function NewPost({ bg }) {
         (async () => {
             if (nearState.tokenContract) {
                 let { formatted } = await getBalance(nearState);
+                const refresh = await useFetchPosts();
                 toast(
                     "info",
                     "Your balance is " + formatted + " AEX$",
@@ -92,6 +93,7 @@ function NewPost({ bg }) {
             postToSave.postId = minted_post.post_id;
             postToSupa(postToSave, toast);*/
             await getBalance(nearState);
+            await useFetchPosts();
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
@@ -193,7 +195,7 @@ function NewPost({ bg }) {
             <Box display="none">
                 <input ref={inputAudio} onChange={fileChange} type="file" />
             </Box>
-            <Box onClick={refresh}>
+            <Box display="none" onClick={refresh}>
                 <RepeatIconButton />
             </Box>
             <Box display="none">
