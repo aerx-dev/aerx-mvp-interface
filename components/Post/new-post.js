@@ -18,6 +18,7 @@ import { nearStore } from "../../stores/near";
 import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
+import {refreshPosts} from "../../hooks/useFetchPosts";
 import { supabase, postToSupa } from "../../lib/supabaseClient";
 
 function NewPost({ bg }) {
@@ -45,7 +46,7 @@ function NewPost({ bg }) {
         (async () => {
             if (nearState.tokenContract) {
                 let { formatted } = await getBalance(nearState);
-                const refresh = await useFetchPosts();
+                await refreshPosts;
                 toast(
                     "info",
                     "Your balance is " + formatted + " AEX$",
