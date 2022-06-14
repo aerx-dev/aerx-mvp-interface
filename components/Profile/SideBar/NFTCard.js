@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, HStack, Text, useColorModeValue, useClipboard } from "@chakra-ui/react";
 import BalanceBar from "./balanceBar";
-import { nearStore } from "../../stores/near";
+import { nearStore } from "../../../stores/near";
 import { InterestTags } from "../../UI/Tags";
 import { CopyButton, HeartIcon , NotificationIcon } from "../../UI/IconButton";
 import { SendButton , FollowButton } from "../../UI/Buttons";
