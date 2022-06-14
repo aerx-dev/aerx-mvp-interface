@@ -1,5 +1,6 @@
 import { Box, Divider, Flex, HStack, Text, useColorModeValue, useClipboard } from "@chakra-ui/react";
 import BalanceBar from "./balanceBar";
+import { nearStore } from "../../stores/near";
 import { InterestTags } from "../../UI/Tags";
 import { CopyButton, HeartIcon , NotificationIcon } from "../../UI/IconButton";
 import { SendButton , FollowButton } from "../../UI/Buttons";
@@ -10,8 +11,8 @@ const styles = {
 };
 
 const NFTCard = ({ profile, balance, ...rest }) => {
-    
-    const value = "0jx12hbuwc34jc" ;
+    const nearState = nearStore((state) => state);
+    const value = nearState.accountId || "0jx12hbuwc34jc" ;
     const { hasCopied, onCopy } = useClipboard(value);
     console.log("balance",balance);
     const picBg = useColorModeValue("white", "gray.300");
