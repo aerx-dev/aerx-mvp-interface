@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
 import { Provider } from 'urql';
+import useFetchPosts from "../../hooks/useFetchPosts";
 import { supabaseGraphQLClient } from "../lib/supabaseClient";
 
 function MyApp({ Component, pageProps }) {
@@ -48,6 +49,18 @@ function MyApp({ Component, pageProps }) {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoading, nearState.accountId, nearState.tokenContract]);
+    
+    useEffect(() => {
+        // run checkprofile only after connection is initialized.
+        // making sure than the checkprofile happens after pnft is set to state
+        if (!isLoading) {
+            (async () => {
+                await useFetchPosts();
+            })();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isLoading, nearState.accountId, nearState.pnftContract]);
+
 
     return (
         <Provider value={supabaseGraphQLClient}>
