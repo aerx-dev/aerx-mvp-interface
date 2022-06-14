@@ -4,11 +4,10 @@ import { Box , Input, useColorModeValue } from "@chakra-ui/react";
 import { AddIconButton, ChargeOutlineButton, CommentIconButton, ShareIconButton } from "../UI/IconButton";
 import MemberTag from "./tagmembers";
 import { nearStore } from "../../stores/near";
-import { setCharge } from "./chargeModal";
 
 const { Header, Footer, Content } = Layout;
 
-const InteractionBar = ({onOpen, currentCharge}) => {
+const InteractionBar = ({ nft, onOpen, currentCharge}) => {
     const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const nearState = nearStore((state) => state);
     const styles = {
@@ -49,9 +48,9 @@ const InteractionBar = ({onOpen, currentCharge}) => {
             )
             .catch((e) => {
                 console.log("Charge failed!", e);
+                console.log("nft.owner_id", nft.owner_id);
                 toast("error", "Charge failed!", "ChargeIderr");
             });
-        //.then(() => setCharge(nft.tokenId, newAmount));
         }
     }
 
