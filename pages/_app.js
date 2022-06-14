@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
 import { Provider } from 'urql';
-import {refreshPosts} from "../hooks/useFetchPosts";
+import {useFetchPosts} from "../hooks/useFetchPosts";
 import { supabaseGraphQLClient } from "../lib/supabaseClient";
 
 function MyApp({ Component, pageProps }) {
@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps }) {
     //     false,
     // );
     const nearState = nearStore((state) => state);
+    const refreshpostData = useFetchPosts();
 
     useEffect(() => {
         // due to issue with checkProfile
@@ -55,7 +56,7 @@ function MyApp({ Component, pageProps }) {
         // making sure than the checkprofile happens after pnft is set to state
         if (!isLoading) {
             (async () => {
-                await refreshPosts();
+                await refreshpostData;
             })();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
