@@ -55,7 +55,7 @@ function MyApp({ Component, pageProps }) {
         // making sure than the checkprofile happens after pnft is set to state
         if (!isLoading) {
             (async () => {
-                await useFetchPosts();
+               const refreshPost = await useFetchPosts();
             })();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
