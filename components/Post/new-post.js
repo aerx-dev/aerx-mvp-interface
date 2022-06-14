@@ -92,7 +92,7 @@ function NewPost({ bg }) {
             postToSave.postId = minted_post.post_id;
             postToSupa(postToSave, toast);*/
             await getBalance(nearState);
-            await refresh;
+            await {refresh};
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
