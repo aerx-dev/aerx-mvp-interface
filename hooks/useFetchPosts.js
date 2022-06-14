@@ -9,7 +9,12 @@ export default function useFetchPosts() {
 
     async function refreshPosts() {
         if (nearState.pnftContract) {
-            const responseFeed = await nearState.pnftContract?.nft_tokens();
+            const responseFeed = await nearState.pnftContract?.get_all_posts(
+                {
+                    user_id: nearState.accountId,
+                },
+                "300000000000000",
+            );
             console.log("All posts :", responseFeed);
             if (responseFeed) {
                 nearState.setFeed(responseFeed.reverse());
