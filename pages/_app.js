@@ -18,9 +18,7 @@ function MyApp({ Component, pageProps }) {
     //     false,
     // );
     const nearState = nearStore((state) => state);
-    function refreshpostDatafn() {
     const refreshpostData = useFetchPosts();
-    }
     
     useEffect(() => {
         // due to issue with checkProfile
@@ -58,7 +56,7 @@ function MyApp({ Component, pageProps }) {
         // making sure than the checkprofile happens after pnft is set to state
         if (!isLoading) {
             (async () => {
-                await refreshpostDatafn();
+                await {refreshpostData};
             })();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
