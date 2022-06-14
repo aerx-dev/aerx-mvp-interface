@@ -18,7 +18,6 @@ import { nearStore } from "../../stores/near";
 import { getBalance } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
-import {refreshPosts} from "../../hooks/useFetchPosts";
 import { supabase, postToSupa } from "../../lib/supabaseClient";
 
 function NewPost({ bg }) {
@@ -195,7 +194,7 @@ function NewPost({ bg }) {
             <Box display="none">
                 <input ref={inputAudio} onChange={fileChange} type="file" />
             </Box>
-            <Box display="none" onClick={refresh}>
+            <Box onClick={refresh}>
                 <RepeatIconButton />
             </Box>
             <Box display="none">
