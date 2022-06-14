@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import { ChakraProvider } from "@chakra-ui/react";
 import { initNearConnection, initIfps, checkProfile } from "../lib/auth";
-import {  getBalance } from "../lib/tokenContract";
+import {  getBalance, fetchpostsData } from "../lib/tokenContract";
 import { nearStore } from "../stores/near.js";
 import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
@@ -18,7 +18,6 @@ function MyApp({ Component, pageProps }) {
     //     false,
     // );
     const nearState = nearStore((state) => state);
-    const refreshpostData = useFetchPosts();
     
     useEffect(() => {
         // due to issue with checkProfile
@@ -56,7 +55,7 @@ function MyApp({ Component, pageProps }) {
         // making sure than the checkprofile happens after pnft is set to state
         if (!isLoading) {
             (async () => {
-                await {refreshpostData};
+                await  fetchpostsData(nearState);
             })();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
