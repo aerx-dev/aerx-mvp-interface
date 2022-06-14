@@ -28,7 +28,7 @@ const InteractionBar = ({onOpen, currentCharge}) => {
     return (
         <>
             <Footer style={styles.footer} className="flex align-middle gap-2" >
-                <ChargeOutlineButton onClick={onOpen}/>{currentCharge}
+                <ChargeOutlineButton onClick={chargePost}/>{currentCharge}
                 <CommentIconButton onClick={comment}/>0
                 <ShareIconButton opacity={0.7} ml={2}/>0
                 <MemberTag style={styles.tag}/>
