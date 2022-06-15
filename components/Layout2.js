@@ -3,7 +3,7 @@ import Head from "next/head";
 
 export default function Layout({ children }) {
     return (
-        <div>
+        <div className="forced-light-mode-dippy-fix">
             <Head>
                 <title>aerx</title>
                 <meta
