@@ -11,8 +11,8 @@ export default function Layout({ children }) {
                     content="initial-scale=1.0, width=device-width"
                 />
             </Head>
-            <Header />
-            <main>{children}</main>
+            <Header className="forced-light-mode-dippy-fix" />
+            <main className="forced-light-mode-dippy-fix">{children}</main>
         </div>
     );
 }
