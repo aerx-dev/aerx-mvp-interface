@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Image as ChakraImage, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { Box, Image as ChakraImage, useColorMode, useColorModeValue, HStack} from "@chakra-ui/react";
 import Link from "next/link";
 import MobileView from "./mobileView";
 import DesktopView from "./desktopView";
