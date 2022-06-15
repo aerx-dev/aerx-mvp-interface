@@ -17,6 +17,7 @@ function Feature1() {
         <>
             <SectionResolver
                 heading={"Monitize your ideas"}
+                id="feature1"
                 styledHeading="Easily"
                 image="/monetize.png"
                 body={[
