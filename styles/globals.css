@@ -51,6 +51,11 @@
 	.dippyscroll::-webkit-scrollbar-thumb {
  		background: #6054f0;
 	}
+	.forced-light-mode-dippy-fix {
+		color: #131414!important;
+    		background: #ffffff!important;
+   	 	transition-property: background-color;
+	}
 	@media (max-width: 1440px) {
     		.dippynav {
         		max-width: 100%;
