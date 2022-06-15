@@ -13,7 +13,7 @@ const DesktopView = ({loggedIn}) =>{
         <HStack
         display={["none", "flex", "flex", "flex"]}>
            {loggedIn ? (
-               <Link href="/flow">
+               <Link href={{pathname: '/flow'}}>
                    <IconButton
                        fontSize="lg"
                        _hover={{ bg: "none" }}
@@ -24,7 +24,7 @@ const DesktopView = ({loggedIn}) =>{
                        >
                    </IconButton>
                </Link>
-                   <Link href="/profile">
+                   <Link href={{pathname: '/profile'}}>
                        <IconButton
                            fontSize="lg"
                            aria-label={t("ariaWallet")}
@@ -36,7 +36,7 @@ const DesktopView = ({loggedIn}) =>{
                        >
                        </IconButton>
                    </Link>
-                   <Link href="/account">
+                   <Link href={{pathname: '/account'}}>
                        <IconButton
                            fontSize="lg"
                            aria-label={t("ariaWallet")}
