@@ -24,7 +24,6 @@ const DesktopView = ({loggedIn}) =>{
                        >
                    </IconButton>
                </Link>
-             
                    <Link href="/profile">
                        <IconButton
                            fontSize="lg"
@@ -50,7 +49,7 @@ const DesktopView = ({loggedIn}) =>{
                        </IconButton>
                    </Link>
                
-                <ChangeLanguage />
+           <ChangeLanguage />
            <ConnectWallet />
            ) : (
                 <Button
