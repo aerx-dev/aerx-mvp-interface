@@ -27,7 +27,7 @@ function Header() {
             className="sticky top-0 z-50 w-full bg-transparent py-4 px-4  md:px-10"
         >
             <Box className="flex flex-row items-center justify-center dippynav w-full">
-                <div className="flex-1">
+                <div className="flex flex-1">
                     <Link href={{ pathname: "/" }}>
                         <ChakraImage
                             src="/logo.svg"
@@ -40,6 +40,21 @@ function Header() {
                             filter={ colorMode === "light" ? "brightness(0.45)" : "invert(0)" }
                         />
                     </Link>
+                    <HStack
+        display={["none", "flex", "flex", "flex"]}>
+            <>
+               <Link href={{pathname: '/flow'}} passHref>
+                   hfhfhfj
+               </Link>
+                   <Link href={{pathname: '/profile'}} passHref>
+                       HOME
+                   </Link>
+                   <Link href={{pathname: '/account'}} passHref>
+                       Feature
+                   </Link>
+                </>
+          
+       </HStack>
                 </div>
                 <DesktopView loggedIn={loggedIn}/>
                 <MobileView loggedIn={loggedIn} />					
