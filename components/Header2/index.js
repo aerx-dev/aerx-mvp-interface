@@ -27,7 +27,7 @@ function Header() {
             className="sticky top-0 z-50 w-full bg-transparent py-4 px-4  md:px-10"
         >
             <Box className="flex flex-row items-center justify-center dippynav w-full">
-                <div gap='24px' className="flex flex-1">
+                <div  className="flex flex-1 gap-6">
                     <Link href={{ pathname: "/" }}>
                         <ChakraImage
                             src="/logo.svg"
@@ -41,7 +41,8 @@ function Header() {
                         />
                     </Link>
                     <HStack
-        display={["none", "flex", "flex", "flex"]}>
+        display={["none", "flex", "flex", "flex"]}
+            gap='24px'>
             <>
                <Link href={{pathname: '/flow'}} passHref>
                    Home
