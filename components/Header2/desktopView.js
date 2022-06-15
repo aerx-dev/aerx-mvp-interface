@@ -1,4 +1,4 @@
-import { HStack, IconButton, useColorMode } from "@chakra-ui/react";
+import { HStack, IconButton, useColorMode, Button} from "@chakra-ui/react";
 import { AccountIcon, FeedIcon, ProfileIcon } from "../UI/NavbarIcons";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
@@ -14,7 +14,7 @@ const DesktopView = ({loggedIn}) =>{
         display={["none", "flex", "flex", "flex"]}>
            {loggedIn ? (
             <>
-               <Link href={{pathname: '/flow'}}>
+               <Link href={{pathname: '/flow'}} passHref>
                    <IconButton
                        fontSize="lg"
                        _hover={{ bg: "none" }}
@@ -25,7 +25,7 @@ const DesktopView = ({loggedIn}) =>{
                        >
                    </IconButton>
                </Link>
-                   <Link href={{pathname: '/profile'}}>
+                   <Link href={{pathname: '/profile'}} passHref>
                        <IconButton
                            fontSize="lg"
                            aria-label={t("ariaWallet")}
@@ -37,7 +37,7 @@ const DesktopView = ({loggedIn}) =>{
                        >
                        </IconButton>
                    </Link>
-                   <Link href={{pathname: '/account'}}>
+                   <Link href={{pathname: '/account'}} passHref>
                        <IconButton
                            fontSize="lg"
                            aria-label={t("ariaWallet")}
