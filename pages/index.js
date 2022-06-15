@@ -8,8 +8,8 @@ import { Box, LightMode } from "@chakra-ui/react";
 export default function Home() {
     return (
         <LightMode>
-        <Layout className="forced-light-mode-dippy-fix">
-            <Box position="relative" maxW="80vw" zIndex={10} mx="auto" className="forced-light-mode-dippy-fix">
+        <Layout>
+            <Box position="relative" maxW="80vw" zIndex={10} mx="auto" >
                 <HeroSection />
                 <Features />
                 {/* <Team /> */}
