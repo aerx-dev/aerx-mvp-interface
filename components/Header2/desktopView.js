@@ -13,6 +13,7 @@ const DesktopView = ({loggedIn}) =>{
         <HStack
         display={["none", "flex", "flex", "flex"]}>
            {loggedIn ? (
+            <>
                <Link href={{pathname: '/flow'}}>
                    <IconButton
                        fontSize="lg"
@@ -51,6 +52,7 @@ const DesktopView = ({loggedIn}) =>{
                
            <ChangeLanguage />
            <ConnectWallet />
+                               </>
            ) : (
                 <Button
                 bgColor={colorMode === "light" ? "#8D00FF" : "#8D00FF" }
