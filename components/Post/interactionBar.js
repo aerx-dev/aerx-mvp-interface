@@ -16,6 +16,10 @@ const { Header, Footer, Content } = Layout;
 const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const nearState = nearStore((state) => state);
+    const [commentbody, setCommentbody] = useState({
+        text: "",
+        media_type: "text",
+    });
     const styles = {
         footer: {
             height: 64,
@@ -49,6 +53,55 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
         delay: 500,
     };
     const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
+    
+    function commentUpdate(e) {
+        const path = e.currentTarget.dataset.path;
+        const val = e.currentTarget.value;
+        setCommentbody((prevCommentbody) => {
+            return {
+                ...prevCommentbody,
+                [path]: val,
+            };
+        });
+    }
+    
+    async function createComment() {
+        if (!commentbody.text) {
+            toast("warning", "Comment cannot be empty!", "feedpage");
+            return;
+        }
+
+        let commentToSave = {
+            commentbody.text,
+            };
+        console.log(body);
+        console.log("Comment to save: ", commentToSave);
+        try {
+            const minted_comment = await nearState.pnftContract.mint_comment(
+                {
+                    user_id: nearState.accountId,
+                    token_metadata: commentToSave,
+                },
+                "300000000000000", // attached GAS
+            );
+            console.log("just minted",minted_comment);
+            toast(
+                "success",
+                "AERX ContentNFT with id : " +
+                    minted_comment.comment_id +
+                    "was minted successfully!",
+                "CNFTsccss",
+            );
+
+        } catch (e) {
+            console.log("Comment could not be minted! Error: " + e.message);
+            toast(
+                "error",
+                "Comment could not be minted! Error: " + e.message,
+                "CNFTerror",
+            );
+        }
+    }
 
     async function clickchargePost() {
         if (nearState?.aexBalance == 0) {
@@ -85,6 +138,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 {commentBox ? (
                     <Box flexDirection="row" display="flex" alignItems="center">
                         <Input
+                            onChange={commentUpdate}
                             maxLength={500}
                             type="text"
                             data-path="text"
@@ -94,7 +148,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             border="none"
                             bg={bdcolorchanger}
                         />
-                        <Box>
+                        <Box onClick={createPost} >
                             <AddIconButton />
                         </Box>
                     </Box>
