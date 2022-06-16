@@ -28,16 +28,15 @@ const InteractionBar = ({ nft, onOpen, currentCharge}) => {
         setCommentBox(!commentBox)
     }
     const [longPressCount, setlongPressCount] = useState(0)
-  const [clickCount, setClickCount] = useState(0)
 
   const onLongPress = () => {
     console.log('longpress is triggered');
-    setlongPressCount(longPressCount + 1)
+    onOpen();
   };
 
   const onClick = () => {
-    console.log('click is triggered')
-    setClickCount(clickCount + 1)
+    console.log('click is triggered');
+    clickchargePost();
   }
 
   const defaultOptions = {
