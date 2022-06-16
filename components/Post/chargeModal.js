@@ -59,7 +59,7 @@ const ChargeModal = ({ nft, state }) => {
             throw error;
         } else {
             console.log(" post successfully updated to Supabase"),
-              //  "supaSuccess";
+              "supaSuccess";
             // redirect back to feed
         }
     }
@@ -81,7 +81,7 @@ const ChargeModal = ({ nft, state }) => {
                 {
                     charger_id: nearState.accountId,
                     post_id: parseInt(nft.post_id),
-                    amount:"1000000000000000000000000",
+                    amount: String(sliderValue()) + "000000000000000000000000",
                 },
                 "300000000000000", // attached GAS (optional)
             )
