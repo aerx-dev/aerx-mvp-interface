@@ -44,7 +44,7 @@ const Profile = () => {
                                 (nft) => nft.owner_id === nearState.accountId,
                             )
                             .map((nft) => {
-                                return <Post key={nft.token_id} nft={nft} />;
+                                return <Post key={nft.post_id} nft={nft} />;
                             })
                     ) : (
                         <></>
