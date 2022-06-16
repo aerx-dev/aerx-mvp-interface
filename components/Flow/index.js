@@ -52,7 +52,7 @@ const Flow = () => {
                     </Box>
 
                     {nearState.feed
-                        ?.sort(function (a, b) {return b.metadata.issued_at - a.metadata.issued_at})
+                        ?.sort(function (a, b) {return new Date(b.metadata.issued_at) - new Date(a.metadata.issued_at)})
                         .map((nft) => {
                             return (
                                 <LazyPosts
