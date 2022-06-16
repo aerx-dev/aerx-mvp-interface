@@ -21,7 +21,6 @@ import { useState } from "react";
 import { nearStore } from "../../stores/near";
 
 const ChargeModal = ({ nft, state }) => {
-
     const [isOpen, onClose] = state;
     const nearState = nearStore((state) => state);
 
@@ -29,11 +28,10 @@ const ChargeModal = ({ nft, state }) => {
     const sliderTrackBg = useColorModeValue("yellow.100", "yellow.100");
     const sliderThumbColor = useColorModeValue("gray.900", "gray.900");
     const postBg = useColorModeValue("#d182ffda", "#171923");
-    const chrageBalance = nearState?.aexBalance || 0
-    
+    const chrageBalance = nearState?.aexBalance || 0;
+
     const toast = useCustomToast();
     const [sliderValue, setSliderValue] = useState(0);
-
 
     function updateSlider(e) {
         setSliderValue(e);
@@ -79,20 +77,15 @@ const ChargeModal = ({ nft, state }) => {
     }
 
     async function chargePost() {
-        const amount = 5009;
         nearState.tokenContract
-            .ft_transfer(
+            .charge(
                 {
-                    receiver_id: nft.owner_id,
-                    amount: amount.toString(),
-                    memo:
-                        "Charge :zap: from " +
-                        nearState?.accountId +
-                        " for your AEXpost id." +
-                        nft.token_id,
+                    charger_id: nearState.accountId,
+                    post_id: nft.post_id,
+                    amount:
+                        sliderValue().to_string() + "000000000000000000000000",
                 },
                 "300000000000000", // attached GAS (optional)
-                1, // attached deposit in yoctoNEAR (optional)
             )
             .catch((e) => {
                 console.log("Charge failed!", e);
