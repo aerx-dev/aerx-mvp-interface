@@ -13,7 +13,7 @@ import useLongPress from "./useLongPress";
 
 const { Header, Footer, Content } = Layout;
 
-const InteractionBar = ({ nft, onOpen, currentCharge }) => {
+const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const nearState = nearStore((state) => state);
     const styles = {
@@ -77,7 +77,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge }) => {
             <Footer style={styles.footer} className="flex align-middle gap-2">
                 <ChargeOutlineButton {...longPressEvent} />
                 {currentCharge}
-                <CommentIconButton onClick={comment} />0
+                <CommentIconButton onClick={comment} />{currentComment}
                 <ShareIconButton opacity={0.7} ml={2} />0
                 <MemberTag style={styles.tag} />
             </Footer>
