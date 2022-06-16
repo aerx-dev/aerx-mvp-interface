@@ -5,7 +5,7 @@ import ChangeLanguage from "./change-language";
 import ConnectWallet from "./connect-wallet";
 import { loginToken, logout } from "../../lib/auth";
 import { nearStore } from "../../stores/near.js";
-
+import useTranslation from "next-translate/useTranslation";
 
 const MobileView = ({loggedIn}) => {
     const { t } = useTranslation("header");  
