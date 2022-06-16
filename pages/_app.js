@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
 import { Provider } from 'urql';
-import useFetchPosts from "../hooks/useFetchPosts";
 import { supabaseGraphQLClient } from "../lib/supabaseClient";
 
 function MyApp({ Component, pageProps }) {
