@@ -18,6 +18,7 @@ const MobileView = ({loggedIn}) => {
                 
                 
             {loggedIn ? (
+             <>
              <ChangeLanguage />
                 <ConnectWallet />
                     <Menu>
@@ -48,6 +49,7 @@ const MobileView = ({loggedIn}) => {
                         </MenuItem>
                         </MenuList>
                     </Menu>
+                   </>
                 ) : (
                      <Button
                 bgColor={colorMode === "light" ? "#8D00FF" : "#8D00FF" }
