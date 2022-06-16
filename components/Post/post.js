@@ -35,6 +35,7 @@ function Post({ nft, charge}) {
     };
 
     const [currentCharge, setCurrentCharge] = useState();
+    const [currentComment, setCurrentComment] = useState();
     useEffect(() => {
         async function getCharge() {
             var res = nft.total_charges.toString();
@@ -44,7 +45,16 @@ function Post({ nft, charge}) {
         }
         getCharge();
     }, [nearState, nft.total_charges, isOpen]);
+    
+    useEffect(() => {
+        async function getComment() {
+            var res = nft.total_comments.toString();
 
+            setCurrentCharge(res);
+            // return res;
+        }
+        getCharge();
+    }, [nearState, nft.total_comments, isOpen]);
     const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
 
     return (
@@ -77,7 +87,7 @@ function Post({ nft, charge}) {
                     )}
                 </Content>
                 <Divider />
-                <InteractionBar nft={nft} onOpen={onOpen} currentCharge={currentCharge} />
+                <InteractionBar nft={nft} onOpen={onOpen} currentCharge={currentCharge} currentComment={currentComment} />
             </Layout>
             <ChargeModal nft={nft} state={[isOpen, onClose]} />
         </>
