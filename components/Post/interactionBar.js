@@ -59,7 +59,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge }) => {
                 .charge(
                     {
                         charger_id: nearState.accountId,
-                        post_id: parse_int(nft.post_id),
+                        post_id: parseInt(nft.post_id),
                         amount: amount.toString(),
                     },
                     "300000000000000", // attached GAS (optional)
