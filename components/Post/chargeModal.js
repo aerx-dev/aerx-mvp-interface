@@ -81,7 +81,7 @@ const ChargeModal = ({ nft, state }) => {
             .charge(
                 {
                     charger_id: nearState.accountId,
-                    post_id: parse_int(nft.post_id),
+                    post_id: parseInt(nft.post_id),
                     amount:
                         sliderValue().to_string() + "000000000000000000000000",
                 },
