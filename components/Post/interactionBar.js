@@ -55,7 +55,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge }) => {
             return;
         } else {
             const amount = 1000000000000000000000000n;
-            nearState.tokenContract
+            nearState.pnftContract
                 .charge(
                     {
                         charger_id: nearState.accountId,
