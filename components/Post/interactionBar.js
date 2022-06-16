@@ -4,6 +4,7 @@ import { Box , Input, useColorModeValue } from "@chakra-ui/react";
 import { AddIconButton, ChargeOutlineButton, CommentIconButton, ShareIconButton } from "../UI/IconButton";
 import MemberTag from "./tagmembers";
 import { nearStore } from "../../stores/near";
+import useLongPress from "./useLongPress";
 
 const { Header, Footer, Content } = Layout;
 
@@ -26,6 +27,25 @@ const InteractionBar = ({ nft, onOpen, currentCharge}) => {
     const comment = () =>{
         setCommentBox(!commentBox)
     }
+    const [longPressCount, setlongPressCount] = useState(0)
+  const [clickCount, setClickCount] = useState(0)
+
+  const onLongPress = () => {
+    console.log('longpress is triggered');
+    setlongPressCount(longPressCount + 1)
+  };
+
+  const onClick = () => {
+    console.log('click is triggered')
+    setClickCount(clickCount + 1)
+  }
+
+  const defaultOptions = {
+    shouldPreventDefault: true,
+    delay: 500,
+  };
+  const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
+
     
     async function clickchargePost() {
         if (nearState?.aexBalance == 0){
@@ -57,7 +77,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge}) => {
     return (
         <>
             <Footer style={styles.footer} className="flex align-middle gap-2" >
-                <ChargeOutlineButton onClick={clickchargePost}/>{currentCharge}
+                <ChargeOutlineButton {...longPressEvent}/>{currentCharge}
                 <CommentIconButton onClick={comment}/>0
                 <ShareIconButton opacity={0.7} ml={2}/>0
                 <MemberTag style={styles.tag}/>
