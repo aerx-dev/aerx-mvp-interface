@@ -3,7 +3,6 @@ import Link from "next/link";
 import { AiOutlineMenu } from "react-icons/ai";
 import ChangeLanguage from "./change-language";
 import ConnectWallet from "./connect-wallet";
-import ToggleMode from "./toggle-mode";
 import { loginToken, logout } from "../../lib/auth";
 import { nearStore } from "../../stores/near.js";
 
@@ -33,17 +32,17 @@ const MobileView = ({loggedIn}) => {
                             />
                         <MenuList color="gray" maxWidth={"100px"}>
                         <MenuItem>
-                        <Link href="/flow">
+                        <Link  href={{pathname: '/flow'}} passHref>
                             Flow
                         </Link>
                         </MenuItem>
                         <MenuItem>
-                        <Link href="/account">
+                        <Link  href={{pathname: '/account'}} passHref>
                             Account
                         </Link>
                         </MenuItem>
                         <MenuItem>
-                        <Link href="/profile">
+                        <Link  href={{pathname: '/profile'}} passHref>
                             Profile
                         </Link>
                         </MenuItem>
