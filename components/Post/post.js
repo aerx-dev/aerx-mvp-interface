@@ -37,15 +37,13 @@ function Post({ nft, charge}) {
     const [currentCharge, setCurrentCharge] = useState();
     useEffect(() => {
         async function getCharge() {
-            var res = await nearState.pnftContract.get_charge({
-                token_id: nft.token_id.toString(),
-            });
+            var res = nft.total_charges.toString();
 
             setCurrentCharge(res);
             // return res;
         }
         getCharge();
-    }, [nearState, nft.token_id, isOpen]);
+    }, [nearState, nft.total_charges, isOpen]);
 
     const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
 
