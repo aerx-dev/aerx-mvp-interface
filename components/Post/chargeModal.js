@@ -90,6 +90,7 @@ const ChargeModal = ({ nft, state }) => {
                 toast("error", "Charge failed!", "ChargeIderr");
             });
         //.then(() => setCharge(nft.tokenId, newAmount));
+        setSliderValue(0);
         onClose();
     }
 
