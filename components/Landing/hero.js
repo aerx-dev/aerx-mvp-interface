@@ -17,14 +17,7 @@ import CustomImage from "../Hero/CustomImage";
 function HeroSection() {
     const { t } = useTranslation("landing");
     const { colorMode } = useColorMode();
-    const styles = {
-        body: {    
-            color: "#131414!important",
-            background: "#ffffff!important",
-            "transition-property": "background-color",
 
-        },
-    };
     return (
         <WithStar>
             <WithDots>
