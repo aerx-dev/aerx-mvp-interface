@@ -77,7 +77,7 @@ const ChargeModal = ({ nft, state }) => {
     }
 
     async function chargePost() {
-        nearState.tokenContract
+        nearState.pnftContract
             .charge(
                 {
                     charger_id: nearState.accountId,
