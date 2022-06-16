@@ -72,7 +72,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
         }
 
         let commentToSave = {
-            commentbody.text,
+            commentbody.text
             };
         console.log(body);
         console.log("Comment to save: ", commentToSave);
@@ -148,7 +148,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             border="none"
                             bg={bdcolorchanger}
                         />
-                        <Box onClick={createPost} >
+                        <Box onClick={createComment} >
                             <AddIconButton />
                         </Box>
                     </Box>
