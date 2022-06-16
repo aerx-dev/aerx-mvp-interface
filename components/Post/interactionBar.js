@@ -72,7 +72,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
         }
 
         let commentToSave = {
-            commentbody.text
+            description: commentbody.text,
             };
         console.log(body);
         console.log("Comment to save: ", commentToSave);
