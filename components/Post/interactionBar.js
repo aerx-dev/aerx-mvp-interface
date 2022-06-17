@@ -7,6 +7,7 @@ import {
     CommentIconButton,
     ShareIconButton,
 } from "../UI/IconButton";
+import useCustomToast from "../../hooks/useCustomToast";
 import MemberTag from "./tagmembers";
 import { nearStore } from "../../stores/near";
 import useLongPress from "./useLongPress";
@@ -16,6 +17,7 @@ const { Header, Footer, Content } = Layout;
 const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const nearState = nearStore((state) => state);
+    const toast = useCustomToast();
     const [commentbody, setCommentbody] = useState({
         text: "",
         media_type: "text",
@@ -82,13 +84,6 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 },
                 "300000000000000", // attached GAS
             );
-            console.log("just minted",minted_comment);
-            toast(
-                "success",
-                "AERX Comment was minted successfully!",
-                "CNFTsccss",
-            );
-
         } catch (e) {
             console.log("Comment could not be minted! Error: " + e.message);
             toast(
