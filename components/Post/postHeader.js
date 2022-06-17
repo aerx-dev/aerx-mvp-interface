@@ -17,8 +17,8 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
             gap: 5,
         }
     };
-    const pft ={currentProfile};
-    console.log('hbh',pft.currentProfile.metadata.media);
+    
+    console.log('hbh',{currentProfile}.currentProfile?.metadata.media);
     
     const nearState = nearStore((state) => state);
 
@@ -31,7 +31,7 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
                 src={
                     isUserMsg
                         ? nearState.profile?.profileImg
-                        : metadata?.media ||
+                        : metadata?.media ||{currentProfile}.currentProfile?.metadata?.media ||
                             nft?.owner_id || // extra connditions for display data
                             "https://bit.ly/dan-abramov"
                 }
