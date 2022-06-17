@@ -43,7 +43,7 @@ function Header() {
                         />
                     </Link>
                 </div>
-                <div className="flex-1">
+                <div className="flex flex-1">
                     <SearchProfile state={state} bg={postBg} />
                 </div>
                 <DesktopView loggedIn={loggedIn}/>
