@@ -31,9 +31,7 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
                 src={
                     isUserMsg
                         ? nearState.profile?.profileImg
-                        : metadata?.media ||{currentProfile}.currentProfile?.metadata?.media ||
-                            nft?.owner_id || // extra connditions for display data
-                            "https://bit.ly/dan-abramov"
+                        : metadata?.media ||{currentProfile}.currentProfile?.metadata?.media
                 }
                 size="md"
             />
