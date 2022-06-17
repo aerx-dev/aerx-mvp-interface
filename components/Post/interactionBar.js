@@ -73,7 +73,6 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
 
        
         console.log(commentbody);
-        console.log("Comment to save: ", commentToSave);
         try {
             const minted_comment = await nearState.pnftContract.comment(
                 {
