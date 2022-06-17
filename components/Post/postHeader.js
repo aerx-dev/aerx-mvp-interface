@@ -18,7 +18,8 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
         }
     };
     const pft ={currentProfile};
-    console.log('hbh',pft.currentProfile);
+    const pftcc = pft.currentProfile;
+    console.log('hbh',pftcc);
     
     const nearState = nearStore((state) => state);
 
