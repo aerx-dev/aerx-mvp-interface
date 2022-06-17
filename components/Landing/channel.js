@@ -12,7 +12,7 @@ function Channel() {
         <Box
             height="500px"
             position="relative"
-            maxWidth={800}
+            maxWidth="95%"
             margin="0 auto"
             as="section"
         >

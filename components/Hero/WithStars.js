@@ -26,7 +26,7 @@ const StarComponent = ({ top, left, radius }) => (
 
       useEffect(() => {
         const stars = [];
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 6; i++) {
           stars.push({
             top: positions.top[i],
             left: positions.left[i],

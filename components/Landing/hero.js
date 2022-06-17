@@ -45,7 +45,7 @@ function HeroSection() {
                         height="auto"
                         alignItems={"center"}
                     >
-                        <Box>
+                        <Box bgGradient={"linear(to-l, #7928CA, #FF0080)"}>
                             <CustomImage
                                 position="relative"
                                 objectFit="contain"

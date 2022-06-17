@@ -57,7 +57,6 @@ const SectionResolver = ({
         <Grid
             overflow={overflow}
             templateColumns="repeat(2, 1fr)"
-            padding={100}
             textAlign={["center", "center", "left"]}
         >
             <GridItem position="relative" order={options.imgOrder} colSpan={1}>
@@ -69,6 +68,7 @@ const SectionResolver = ({
                     position={"absolute"}
                     left={-200}
                     top={0}
+                    
                 >
                     <CustomImage src="/blue.png" layout="fill" />
                 </Box>
