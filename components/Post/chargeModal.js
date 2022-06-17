@@ -21,7 +21,6 @@ import { useState } from "react";
 import { nearStore } from "../../stores/near";
 
 const ChargeModal = ({ nft, state }) => {
-
     const [isOpen, onClose] = state;
     const nearState = nearStore((state) => state);
 
@@ -29,17 +28,16 @@ const ChargeModal = ({ nft, state }) => {
     const sliderTrackBg = useColorModeValue("yellow.100", "yellow.100");
     const sliderThumbColor = useColorModeValue("gray.900", "gray.900");
     const postBg = useColorModeValue("#d182ffda", "#171923");
-    const chrageBalance = nearState?.aexBalance || 0
-    
+    const chrageBalance = nearState?.aexBalance || 0;
+
     const toast = useCustomToast();
     const [sliderValue, setSliderValue] = useState(0);
-
 
     function updateSlider(e) {
         setSliderValue(e);
     }
 
-    async function getTotalCharges(_tokenId, _charge) {
+   /* async function getTotalCharges(_tokenId, _charge) {
         // Get the post using the tokenId from supabase
         const { data, error } = await supabase
             .from("postnft")
@@ -61,45 +59,30 @@ const ChargeModal = ({ nft, state }) => {
             throw error;
         } else {
             console.log(" post successfully updated to Supabase"),
-                "supaSuccess";
+              "supaSuccess";
             // redirect back to feed
         }
-    }
+    }*/
 
-    async function setCharge(_tokenId, _charge) {
-        try {
-            await nearState.pnftContract.set_charge({
-                token_id: _tokenId.toString(),
-                charge: _charge.toString(),
-            });
-            toast("success", "Charged " + _charge + "AEX$", "ChargeIderr");
-        } catch (e) {
-            console.log("set charge failed!", e);
-        }
-    }
 
     async function chargePost() {
-        const amount = 5009;
-        nearState.tokenContract
-            .ft_transfer(
+        nearState.pnftContract.charge(
                 {
-                    receiver_id: nft.owner_id,
-                    amount: amount.toString(),
-                    memo:
-                        "Charge :zap: from " +
-                        nearState?.accountId +
-                        " for your AEXpost id." +
-                        nft.token_id,
+                    charger_id: nearState.accountId,
+                    post_id: parseInt(nft.post_id),
+                    amount: String(sliderValue + "000000000000000000000000"),
                 },
                 "300000000000000", // attached GAS (optional)
-                1, // attached deposit in yoctoNEAR (optional)
             )
             .catch((e) => {
                 console.log("Charge failed!", e);
                 toast("error", "Charge failed!", "ChargeIderr");
             });
         //.then(() => setCharge(nft.tokenId, newAmount));
+        setSliderValue(0);
         onClose();
+        toast("success", "Charged " + _charge + "AEX$", "ChargeIderr");
+
     }
 
     return (

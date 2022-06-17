@@ -6,7 +6,7 @@ import { Box, Text, Avatar } from "@chakra-ui/react";
 
 const { Header, Footer, Content } = Layout;
 
-const PostHeader = ({metadata, isUserMsg, nft}) => {
+const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
 
     const styles = {
         header: {
@@ -17,6 +17,8 @@ const PostHeader = ({metadata, isUserMsg, nft}) => {
             gap: 5,
         }
     };
+    
+    console.log('hbh',{currentProfile}.currentProfile?.metadata.media);
     
     const nearState = nearStore((state) => state);
 
@@ -29,7 +31,7 @@ const PostHeader = ({metadata, isUserMsg, nft}) => {
                 src={
                     isUserMsg
                         ? nearState.profile?.profileImg
-                        : metadata?.media ||
+                        : metadata?.media ||{currentProfile}.currentProfile?.metadata?.media ||
                             nft?.owner_id || // extra connditions for display data
                             "https://bit.ly/dan-abramov"
                 }

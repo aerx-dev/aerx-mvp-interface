@@ -35,24 +35,49 @@ function Post({ nft, charge}) {
     };
 
     const [currentCharge, setCurrentCharge] = useState();
+    const [currentComment, setCurrentComment] = useState();
     useEffect(() => {
         async function getCharge() {
-            var res = await nearState.pnftContract.get_charge({
-                token_id: nft.token_id.toString(),
-            });
+            var res = nft.total_charges.toString();
 
             setCurrentCharge(res);
             // return res;
         }
         getCharge();
-    }, [nearState, nft.token_id, isOpen]);
+    }, [nearState, nft.total_charges, isOpen]);
+    
+    useEffect(() => {
+        async function getComment() {
+            var re = nft.total_comments.toString();
 
+            setCurrentComment(re);
+        }
+        getComment();
+    }, [nearState, nft.total_comments, isOpen]);
     const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
+    
+    const [currentProfile, setCurrentProfile] = useState();
+    useEffect(() => {
+        async function get_current_profile() {
+            if(nft.owner_id === nearState.accountId){
+                return
+            } else {
+            var res = await nearState.pnftContract.profile_by_id({
+                user_id: nearState.accountId,
+                user_to_find_id: nft.owner_id,
+            });
+
+            setCurrentProfile(res);
+            // return res;
+            }
+        }
+        get_current_profile();
+    }, [nearState, nearState.accountId, nft.owner_id, isOpen]);
 
     return (
         <>
             <Layout style={styles}>
-                <PostHeader metadata={metadata} isUserMsg={isUserMsg} nft={nft} />
+                <PostHeader metadata={metadata} currentProfile={currentProfile} isUserMsg={isUserMsg} nft={nft} />
                 <Content style={styles.content}>
                     <Box p={2}>{metadata?.description}</Box>
                     {extra?.media_type === "audio" ||
@@ -79,7 +104,7 @@ function Post({ nft, charge}) {
                     )}
                 </Content>
                 <Divider />
-                <InteractionBar nft={nft} onOpen={onOpen} currentCharge={currentCharge} />
+                <InteractionBar nft={nft} onOpen={onOpen} currentCharge={currentCharge} currentComment={currentComment} />
             </Layout>
             <ChargeModal nft={nft} state={[isOpen, onClose]} />
         </>
