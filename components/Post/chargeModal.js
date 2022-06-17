@@ -37,7 +37,7 @@ const ChargeModal = ({ nft, state }) => {
         setSliderValue(e);
     }
 
-    async function getTotalCharges(_tokenId, _charge) {
+   /* async function getTotalCharges(_tokenId, _charge) {
         // Get the post using the tokenId from supabase
         const { data, error } = await supabase
             .from("postnft")
@@ -62,19 +62,8 @@ const ChargeModal = ({ nft, state }) => {
               "supaSuccess";
             // redirect back to feed
         }
-    }
+    }*/
 
-    async function setCharge(_tokenId, _charge) {
-        try {
-            await nearState.pnftContract.set_charge({
-                token_id: _tokenId.toString(),
-                charge: _charge.toString(),
-            });
-            toast("success", "Charged " + _charge + "AEX$", "ChargeIderr");
-        } catch (e) {
-            console.log("set charge failed!", e);
-        }
-    }
 
     async function chargePost() {
         nearState.pnftContract.charge(
@@ -90,7 +79,10 @@ const ChargeModal = ({ nft, state }) => {
                 toast("error", "Charge failed!", "ChargeIderr");
             });
         //.then(() => setCharge(nft.tokenId, newAmount));
+        setSliderValue(0);
         onClose();
+        toast("success", "Charged " + _charge + "AEX$", "ChargeIderr");
+
     }
 
     return (
