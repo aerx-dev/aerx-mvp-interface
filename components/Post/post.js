@@ -59,6 +59,9 @@ function Post({ nft, charge}) {
     const [currentProfile, setCurrentProfile] = useState();
     useEffect(() => {
         async function get_current_profile() {
+            if(nft.owner_id === nearState.accountId){
+                return
+            } else {
             var res = await nearState.pnftContract.profile_by_id({
                 user_id: nearState.accountId,
                 user_to_find_id: nft.owner_id,
@@ -66,6 +69,7 @@ function Post({ nft, charge}) {
 
             setCurrentProfile(res);
             // return res;
+            }
         }
         get_current_profile();
     }, [nearState, nearState.accountId, nft.owner_id, isOpen]);
