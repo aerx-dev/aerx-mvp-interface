@@ -12,6 +12,7 @@ function Header() {
     const { t } = useTranslation("header");
     const bg = useColorModeValue("#ffffffdd", "gray.800");
     const state = nearStore((state) => state);
+    const postBg = useColorModeValue("gray.100", "gray.900");
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
