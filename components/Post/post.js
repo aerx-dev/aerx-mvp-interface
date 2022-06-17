@@ -55,6 +55,20 @@ function Post({ nft, charge}) {
         getComment();
     }, [nearState, nft.total_comments, isOpen]);
     const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
+    
+    const [currentProfile, setCurrentProfile] = useState();
+    useEffect(() => {
+        async function get_current_profile() {
+            var res = await nearState.pnftContract.profile_by_id({
+                user_id: nearState.accountId,
+                user_to_find_id: nft.owner_id,
+            });
+
+            setCurrentProfile(res);
+            // return res;
+        }
+        get_current_profile();
+    }, [nearState, nearState.accountId, nft.owner_id, isOpen]);
 
     return (
         <>
