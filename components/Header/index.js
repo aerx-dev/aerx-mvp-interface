@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Box, Image as ChakraImage, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
+import SearchProfile from "../SearchProfile";
 import MobileView from "./mobileView";
 import DesktopView from "./desktopView";
 import useTranslation from "next-translate/useTranslation";
@@ -40,6 +41,9 @@ function Header() {
                             filter={ colorMode === "light" ? "brightness(0.45)" : "invert(0)" }
                         />
                     </Link>
+                </div>
+                <div className="flex-1">
+                    <SearchProfile state={nearState} bg={postBg} />
                 </div>
                 <DesktopView loggedIn={loggedIn}/>
                 <MobileView loggedIn={loggedIn} />					
