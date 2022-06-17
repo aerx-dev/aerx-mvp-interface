@@ -86,8 +86,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             console.log("just minted",minted_comment);
             toast(
                 "success",
-                "AERX Comment"
-                    "was minted successfully!",
+                "AERX Comment was minted successfully!",
                 "CNFTsccss",
             );
 
