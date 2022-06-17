@@ -11,7 +11,7 @@ const { Header, Footer, Content } = Layout;
 
 function Post({ nft, charge}) {
 
-    const metadatas = nft.metadata;
+    const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
     const tokenId = nft.token_id;
     const postBg = useColorModeValue("#edf2f7", "#1E2021");
@@ -73,13 +73,13 @@ function Post({ nft, charge}) {
     return (
         <>
             <Layout style={styles}>
-                <PostHeader metadatas={metadatas} currentProfile={currentProfile} isUserMsg={isUserMsg} nft={nft} />
+                <PostHeader metadata={metadata} currentProfile={currentProfile} isUserMsg={isUserMsg} nft={nft} />
                 <Content style={styles.content}>
-                    <Box p={2}>{metadatas?.description}</Box>
+                    <Box p={2}>{metadata?.description}</Box>
                     {extra?.media_type === "audio" ||
                     extra?.type === "audio" ? (
                         <SongCard
-                            url={metadatas?.media}
+                            url={metadata?.media}
                             artist={extra?.artist}
                             title={extra?.title}
                             duration={extra?.duration}
@@ -87,11 +87,11 @@ function Post({ nft, charge}) {
                         />
                     ) : (
                         <Box my={2}>
-                            {metadatas?.media && (
+                            {metadata?.media && (
                                 <ChakraImage
                                     maxWidth={"100%"}
                                     margin="0 auto"
-                                    src={metadatas?.media}
+                                    src={metadata?.media}
                                     alt={"contentNftmedia" + tokenId}
                                     objectFit="contain"
                                 />
