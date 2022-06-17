@@ -6,7 +6,7 @@ import { Box, Text, Avatar } from "@chakra-ui/react";
 
 const { Header, Footer, Content } = Layout;
 
-const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
+const PostHeader = ({metadatas, isUserMsg, currentProfile, nft}) => {
 
     const styles = {
         header: {
@@ -19,7 +19,7 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
     };
     const pft ={currentProfile};
     const pftcc = pft.currentProfile;
-    console.log('hbh',pftcc);
+    console.log('hbh',pftcc.metadata);
     
     const nearState = nearStore((state) => state);
 
@@ -32,7 +32,7 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
                 src={
                     isUserMsg
                         ? nearState.profile?.profileImg
-                        : metadata?.media ||
+                        : metadatas?.media ||
                             nft?.owner_id || // extra connditions for display data
                             "https://bit.ly/dan-abramov"
                 }
@@ -44,7 +44,7 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
                     className={`text-[11px] ${
                         isUserMsg && "order-last pr-1"
                     } opacity-60`}
-                    datetime={metadata.issued_at}
+                    datetime={metadatas.issued_at}
                 />
             </Box>
             <PurpleButton className="right-0 text-white">
