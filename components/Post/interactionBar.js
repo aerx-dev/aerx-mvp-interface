@@ -54,7 +54,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     };
     const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
     
-  /*  function commentUpdate(e) {
+    function commentUpdate(e) {
         const path = e.currentTarget.dataset.path;
         const val = e.currentTarget.value;
         setCommentbody((prevCommentbody) => {
@@ -71,24 +71,22 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             return;
         }
 
-        let commentToSave = {
-            description: commentbody.text,
-            };
-        console.log(body);
+       
+        console.log(commentbody);
         console.log("Comment to save: ", commentToSave);
         try {
-            const minted_comment = await nearState.pnftContract.mint_comment(
+            const minted_comment = await nearState.pnftContract.comment(
                 {
-                    user_id: nearState.accountId,
-                    token_metadata: commentToSave,
+                    commenter_id: nearState.accountId,
+                    comment: String(commentbody.text),
+                    post_id: parseInt(nft.post_id),
                 },
                 "300000000000000", // attached GAS
             );
             console.log("just minted",minted_comment);
             toast(
                 "success",
-                "AERX ContentNFT with id : " +
-                    minted_comment.comment_id +
+                "AERX Comment"
                     "was minted successfully!",
                 "CNFTsccss",
             );
@@ -102,7 +100,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             );
         }
     }
-*/
+
     async function clickchargePost() {
         if (nearState?.aexBalance == 0) {
             return;
