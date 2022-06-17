@@ -73,7 +73,7 @@ function Post({ nft, charge}) {
     return (
         <>
             <Layout style={styles}>
-                <PostHeader metadata={metadata} isUserMsg={isUserMsg} nft={nft} />
+                <PostHeader metadata={metadata} currentProfile={currentProfile} isUserMsg={isUserMsg} nft={nft} />
                 <Content style={styles.content}>
                     <Box p={2}>{metadata?.description}</Box>
                     {extra?.media_type === "audio" ||
