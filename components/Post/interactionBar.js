@@ -54,7 +54,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     };
     const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
     
-    function commentUpdate(e) {
+  /*  function commentUpdate(e) {
         const path = e.currentTarget.dataset.path;
         const val = e.currentTarget.value;
         setCommentbody((prevCommentbody) => {
@@ -102,7 +102,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             );
         }
     }
-
+*/
     async function clickchargePost() {
         if (nearState?.aexBalance == 0) {
             return;
