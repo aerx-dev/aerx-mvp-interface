@@ -48,12 +48,11 @@ function Post({ nft, charge}) {
     
     useEffect(() => {
         async function getComment() {
-            var res = nft.total_comments.toString();
+            var re = nft.total_comments.toString();
 
-            setCurrentCharge(res);
-            // return res;
+            setCurrentComment(re);
         }
-        getCharge();
+        getComment();
     }, [nearState, nft.total_comments, isOpen]);
     const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
 
