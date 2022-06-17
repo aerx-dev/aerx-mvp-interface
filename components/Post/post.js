@@ -59,7 +59,7 @@ function Post({ nft, charge}) {
     const [currentProfile, setCurrentProfile] = useState();
     useEffect(() => {
         async function get_current_profile() {
-            if(nft.owner_id === nearState.accountId){
+            if(nft.owner_id === nearState.accountId || 'aerx.testnet' ){
                 return
             } else {
             var res = await nearState.pnftContract.profile_by_id({
