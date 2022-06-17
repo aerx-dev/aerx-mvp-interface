@@ -6,7 +6,7 @@ import { Box, Text, Avatar } from "@chakra-ui/react";
 
 const { Header, Footer, Content } = Layout;
 
-const PostHeader = ({metadata, isUserMsg, nft}) => {
+const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
 
     const styles = {
         header: {
@@ -17,6 +17,8 @@ const PostHeader = ({metadata, isUserMsg, nft}) => {
             gap: 5,
         }
     };
+    const pft ={currentProfile};
+    console.log('hbh',pft)
     
     const nearState = nearStore((state) => state);
 
