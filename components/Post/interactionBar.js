@@ -18,7 +18,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const nearState = nearStore((state) => state);
     const toast = useCustomToast();
-    const commentFeed= nft.comment.reverse();
+    const commentFeed= nft.comments.reverse();
     const [commentbody, setCommentbody] = useState({
         text: "",
         media_type: "text",
