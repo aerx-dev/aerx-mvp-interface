@@ -11,10 +11,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-export async function getServerSideProps({ params }) {
-  const profiledid = params.profiledid;
-  
- console.log('pp',profiled);
-  return 
-}
