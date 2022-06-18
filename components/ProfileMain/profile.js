@@ -22,7 +22,7 @@ const LazySider = dynamic(() => import("./SideBar"), {
 });
 /*Moses fix the idea it is currently causing a break*/
 //const Profile = async () => {
-const Profile = () => {
+const Profile = ({profiledid}) => {
     const nearState = nearStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
 
@@ -41,7 +41,7 @@ const Profile = () => {
                     {nearState?.feed && nearState?.accountId ? (
                         nearState.feed
                             .filter(
-                                (nft) => nft.owner_id === nearState.accountId,
+                                (nft) => nft.owner_id === profiledid,
                             )
                             .map((nft) => {
                                 return <Post key={nft.post_id} nft={nft} />;
