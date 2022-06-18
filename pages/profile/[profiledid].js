@@ -2,28 +2,19 @@ import { nearStore } from "../../stores/near.js";
 import { useState } from "react";
 import Profile from "../../components/Profile";
 import { Box } from "@chakra-ui/react";
-
-export default function ProfileViewer({ profiled, profiledid }) {
- return (
+const ProfilePage = () => {
+    return (
         <Box>
             <Profile />
         </Box>
-    )
-}
+    );
+};
 
+export default ProfilePage;
 
 export async function getServerSideProps({ params }) {
-  const nearState = nearStore((state) => state);
   const profiledid = params.profiledid;
-  const profiled = await nearState.pnftContract.profile_by_id({
-                user_id: nearState.accountId,
-                user_to_find_id: {profiledid},
-            }).then(res => res.json());
+  
  console.log('pp',profiled);
-  return {
-    props: {
-      profiledid,
-      profiled
-    }
-  }
+  return 
 }
