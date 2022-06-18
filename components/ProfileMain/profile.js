@@ -31,6 +31,9 @@ const Profile = ({profiledid}) => {
     if (nearState.profile && profileLoaded === false) {
         setProfileLoaded(true);
     }
+        console.log('profiledid',{profiledid}.profiledid?.profiledid);
+       // console.log('profiledid2',profiledid());
+
 
     return (
         <Layout>
@@ -41,7 +44,7 @@ const Profile = ({profiledid}) => {
                     {nearState?.feed && nearState?.accountId ? (
                         nearState.feed
                             .filter(
-                                (nft) => nft.owner_id === profiledid,
+                                (nft) => nft.owner_id === {profiledid}.profiledid?.profiledid,
                             )
                             .map((nft) => {
                                 return <Post key={nft.post_id} nft={nft} />;
