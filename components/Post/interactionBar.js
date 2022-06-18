@@ -124,9 +124,13 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     console.log('commentfeed',commentFeed);
 
     return (
+        
         <>
+        {nft.owner_id === nearState.accountId || nft.owner_id ===  "Aerx.testnet" || Number.isInteger(nft.post_id) == false ? (
+                null ) : (
+            <>
             <Footer style={styles.footer} className="flex align-middle gap-2">
-                <ChargeOutlineButton {...longPressEvent} />
+         <ChargeOutlineButton {...longPressEvent} />
                 {currentCharge}
                 <CommentIconButton onClick={comment} />{currentComment}
                 <ShareIconButton opacity={0.7} ml={2} />0
@@ -152,7 +156,8 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                     </Box>
                 ) : null}
             </Footer>
-        </>
+        </>)}
+       </>
     );
 };
 
