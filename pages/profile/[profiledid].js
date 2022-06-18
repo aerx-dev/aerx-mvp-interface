@@ -17,8 +17,9 @@ export async function getServerSideProps({ params }) {
   const profiledid = params.profiledid;
   const profiled = await nearState.pnftContract.profile_by_id({
                 user_id: nearState.accountId,
-                user_to_find_id: profiledid,
+                user_to_find_id: {profiledid},
             }).then(res => res.json());
+ console.log('pp',profiled);
   return {
     props: {
       profiledid,
