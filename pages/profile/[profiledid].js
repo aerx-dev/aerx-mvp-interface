@@ -1,6 +1,6 @@
 import { nearStore } from "../../stores/near.js";
 import { useState } from "react";
-import Profile from "../../components/Profile";
+import Profile from "../../components/ProfileMain";
 import { Box } from "@chakra-ui/react";
 const ProfilePage = () => {
     return (
