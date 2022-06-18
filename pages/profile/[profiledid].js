@@ -11,7 +11,7 @@ const ProfilePage = () => {
 };
 export async function getServerSideProps() {
   // Fetch data from external API
-  const nearState = nearStore((state) => state);
+  const nearState = nearStore((state) => state)
     
   const res = await nearState.pnftContract.profile_by_id({
                 user_id: 'dipo1.testnet',
