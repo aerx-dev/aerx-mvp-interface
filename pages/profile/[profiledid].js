@@ -3,13 +3,13 @@ import { useState } from "react";
 import Profile from "../../components/Profile";
 import { Box } from "@chakra-ui/react";
 
-export default ProfileViewer({ profiled, profiledid }) {
+export default function ProfileViewer({ profiled, profiledid }) {
  return (
         <Box>
             <Profile />
         </Box>
-    );
-};
+    )
+}
 
 
 export async function getServerSideProps({ params }) {
