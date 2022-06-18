@@ -14,7 +14,7 @@ export async function getServerSideProps() {
   const nearState = nearStore((state) => state);
     
   const res = await nearState.pnftContract.profile_by_id({
-                user_id: nearState.accountId,
+                user_id: 'dipo1.testnet',
                 user_to_find_id: 'dipo1.testnet',
             })
   const data = await res.json()
