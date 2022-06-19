@@ -12,9 +12,11 @@ const styles = {
 
 const NFTCard = ({ profile, balance, ...rest }) => {
     const nearState = nearStore((state) => state);
-    const value = nearState.accountId || "0jx12hbuwc34jc" ;
+    const value = profile?.owner_id || "0jx12hbuwc34jc" ;
     const { hasCopied, onCopy } = useClipboard(value);
     console.log("balance",balance);
+    const infoCollect = profile?.metadata.extra ? JSON.parse(profile.metadata.extra) : null;
+    console.log("info",infoCollect);
     const picBg = useColorModeValue("white", "gray.300");
     const bgGradient = useColorModeValue(
         "linear(#edf2f700, #edf2f720 15%, gray.100 90%)",
@@ -29,7 +31,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                     className="rounded-t-lg w-full relative "
                     height="45vh"
                     bg={picBg}
-                    bgImage={profile?.profileImg || "/images/pavel.png"}
+                    bgImage={profile?.metadata.media|| "/images/pavel.png"}
                     position="relative"
                     bgSize="cover"
                     bgRepeat="no-repeat"
@@ -45,10 +47,10 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                             fontWeight="bold"
                             fontSize="2xl"
                         >
-                            {profile?.fullName || "Pavel Dantsev"}
+                                {infoCollect?.username || "Pavel Dantsev"}
                         </Text>
                         <Text sx={styles} fontWeight="medium">
-                            @{profile?.username || "pashq.aerx"}
+                            @{profile?.token_id || "pashq.aerx"}
                         </Text>
                         <ProfileTags iterType="tags" data={tags} {...rest} />
                         <HStack className="bottom-0 gap-x-2 my-2" >
@@ -66,7 +68,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                 <Box className="text-left px-4 mb-5" sx={styles}>
                     <Text className="opacity-50 mb-3 font-semibold" fontSize="1.8vh">ABOUT</Text>
                     <Text overflowWrap="anywhere">
-                        {profile?.aboutMe}
+                        {infoCollect?.aboutMe}
                     </Text>
                 </Box>
                 <BalanceBar balance={balance} />
