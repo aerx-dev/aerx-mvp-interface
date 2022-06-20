@@ -34,7 +34,7 @@ const SearchHeader = ({isUserMsg, currentProfile, nft}) => {
                 size="md"
             />
             <Box ml={2}>
-                <Text>{' '}<link href='/profile/{nft || "Pavel dantsev"}'>{nft || "Pavel dantsev"}</link></Text>
+                <Text>{' '}<link href='/profile/{nft}'>{nft || "Pavel dantsev"}</link></Text>
                 
             </Box>
         </Header>
