@@ -25,7 +25,7 @@ const LazySider = dynamic(() => import("./SideBar"), {
 const Search = ({searched}) => {
     const nearState = nearStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
-    const car = {currentSearchProfile:['loading']};
+    const car = {'currentSearchProfile':['loading']};
     setCurrentSearchProfile(car);
 
     const bg = useColorModeValue("gray.100", "lightblack");
