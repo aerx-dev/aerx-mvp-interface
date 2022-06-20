@@ -3,7 +3,7 @@ import { Box, useColorModeValue, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import Searchpost from "../Post/searchPost";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import dynamic from "next/dynamic";
 
@@ -33,39 +33,40 @@ const Search = ({searched}) => {
     }
     const [currentSearchProfile, setCurrentSearchProfile] = useState();
 
-    /*useEffect(() => {
+    useEffect(() => {
         async function get_current_search_profile() {
             
             var res = await nearState.pnftContract.get_user_ids({
-                user_id: {searched}.searched?.searched,
+                user_id: {searched}.searched,
                 
             });
+            
 
             setCurrentSearchProfile(res);
             // return res;
             
         }
         get_current_search_profile();
-    }, [nearState, nearState.accountId, {searched}.searched])
-    console.log('searchprofile',{currentSearchProfile});*/
-    console.log('searchprofile2',{searched});
+    }, [nearState, nearState.accountId, nearState.pnftContract]);
+    console.log('searchprofile',{currentSearchProfile});
+    console.log('searchprofile2',{searched}.searched);
 
-/*{currentSearchProfile && nearState?.accountId ? (
-                        currentSearchProfile
-                            .filter(
-                                (nft) => nft.owner_id === nearState.accountId,
-                            )
-                            .map((nft) => {
-                                return <Searchpost key={nft.post_id} nft={nft} />;
-                            })
-                    ) : (
-                        <></>
-                    )}*/
+
     return (
         <Layout>
             <LazySider bg={bg} state={nearState}>
                 <Box>
                     <NewPost state={nearState} bg={bg} />
+                        {{currentSearchProfile}.currentSearchProfile
+                        ?.sort()
+                        .map((nft) => {
+                            return (
+                                <Searchpost
+                                    key={nft}
+                                    nft={nft}
+                                />
+                            );
+                        })}
 
                     
                 </Box>
