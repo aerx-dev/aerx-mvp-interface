@@ -25,7 +25,8 @@ const LazySider = dynamic(() => import("./SideBar"), {
 const Search = ({searched}) => {
     const nearState = nearStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
-    
+    const car = {currentSearchProfile:['loading']};
+    setCurrentSearchProfile(car);
 
     const bg = useColorModeValue("gray.100", "lightblack");
 
@@ -36,7 +37,7 @@ const Search = ({searched}) => {
 
     useEffect(() => {
         async function get_current_search_profile() {
-            if({searched}.searched ===  "undefined" && nearState.accountId == "null" && nearState.pnftContract == 'null'  ){
+            if({searched}.searched ===  "undefined" && nearState.accountId == "null" && nearState.pnftContract == null  ){
                 return
             } else {
             
