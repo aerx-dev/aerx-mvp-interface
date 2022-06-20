@@ -8,9 +8,6 @@ const { Header, Footer, Content } = Layout;
 
 function Searchpost({ nft, charge}) {
 
-    const metadata = nft.metadata;
-    const extra = JSON.parse(nft.metadata?.extra) || null;
-    const tokenId = nft.token_id;
     const postBg = useColorModeValue("#edf2f7", "#1E2021");
     const nearState = nearStore((state) => state);
     const { isOpen, onOpen, onClose } = useDisclosure();    
@@ -32,22 +29,20 @@ function Searchpost({ nft, charge}) {
     };
 
 
-    const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
+    const isUserMsg = nft === nearState.accountId ? true : false;
     
     const [currentProfile, setCurrentProfile] = useState();
     useEffect(() => {
         async function get_current_profile() {
-            if(nft.owner_id === nearState.accountId || nft.owner_id ===  "Aerx.testnet" ){
-                return
-            } else {
+            
             var res = await nearState.pnftContract.profile_by_id({
                 user_id: nearState.accountId,
-                user_to_find_id: nft.owner_id,
+                user_to_find_id: nft,
             });
 
             setCurrentProfile(res);
             // return res;
-            }
+            
         }
         get_current_profile();
     }, [nearState, nearState.accountId, nft.owner_id, isOpen]);
@@ -55,7 +50,7 @@ function Searchpost({ nft, charge}) {
     return (
         <>
             <Layout style={styles}>
-                <SearchHeader metadata={metadata} currentProfile={currentProfile} isUserMsg={isUserMsg} nft={nft} />
+                <SearchHeader currentProfile={currentProfile} isUserMsg={isUserMsg} nft={nft} />
             </Layout>
         </>
     );

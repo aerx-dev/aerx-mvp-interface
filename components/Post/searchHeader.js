@@ -4,7 +4,7 @@ import { Box, Text, Avatar } from "@chakra-ui/react";
 
 const { Header, Footer, Content } = Layout;
 
-const SearchHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
+const SearchHeader = ({isUserMsg, currentProfile, nft}) => {
 
     const styles = {
         header: {
@@ -25,11 +25,11 @@ const SearchHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
             <Avatar
                 className=" bg-slate-300"
                 bg="gray.400"
-                name={nft?.owner_id}
+                name={nft}
                 src={
                     isUserMsg
                         ? nearState.profile?.profileImg
-                        : metadata?.media ||{currentProfile}.currentProfile?.metadata?.media
+                        :  {currentProfile}.currentProfile?.metadata?.media
                 }
                 size="md"
             />
