@@ -40,7 +40,7 @@ const Search = ({searched}) => {
                 return
             } else {
             
-            var res = await nearState.pnftContract.get_user_ids({
+            var res = await nearState.pnftContract?.get_user_ids({
                 user_id: {searched}.searched,
                 
             });
