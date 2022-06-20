@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import dynamic from "next/dynamic";
 
-// important! lazy loads the profile components initially
+// important! lazy loads the profile components initially.
 const LazySider = dynamic(() => import("./SideBar"), {
     loading: () => (
         <Button
