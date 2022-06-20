@@ -33,7 +33,7 @@ const Search = ({searched}) => {
     }
     const [currentSearchProfile, setCurrentSearchProfile] = useState();
 
-    useEffect(() => {
+    /*useEffect(() => {
         async function get_current_search_profile() {
             
             var res = await nearState.pnftContract.get_user_ids({
@@ -47,15 +47,10 @@ const Search = ({searched}) => {
         }
         get_current_search_profile();
     }, [nearState, nearState.accountId, {searched}.searched])
+    console.log('searchprofile',{currentSearchProfile});*/
+    console.log('searchprofile2',{searched});
 
-
-    return (
-        <Layout>
-            <LazySider bg={bg} state={nearState}>
-                <Box>
-                    <NewPost state={nearState} bg={bg} />
-
-                    {currentSearchProfile && nearState?.accountId ? (
+/*{currentSearchProfile && nearState?.accountId ? (
                         currentSearchProfile
                             .filter(
                                 (nft) => nft.owner_id === nearState.accountId,
@@ -65,7 +60,14 @@ const Search = ({searched}) => {
                             })
                     ) : (
                         <></>
-                    )}
+                    )}*/
+    return (
+        <Layout>
+            <LazySider bg={bg} state={nearState}>
+                <Box>
+                    <NewPost state={nearState} bg={bg} />
+
+                    
                 </Box>
             </LazySider>
         </Layout>
