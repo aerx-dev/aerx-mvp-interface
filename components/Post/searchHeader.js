@@ -34,7 +34,7 @@ const SearchHeader = ({isUserMsg, currentProfile, nft}) => {
                 size="md"
             />
             <Box ml={2}>
-                <Text>{nft?.owner_id || "Pavel dantsev"}</Text>
+                <Text>{nft || "Pavel dantsev"}</Text>
                 
             </Box>
         </Header>
