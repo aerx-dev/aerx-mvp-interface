@@ -51,7 +51,7 @@ const Search = ({searched}) => {
             }
         }
         get_current_search_profile();
-    }, [nearState, nearState.accountId, nearState.pnftContract]);
+    }, [nearState, nearState.accountId, nearState.pnftContract,nearState.profile]);
     console.log('searchprofile',{currentSearchProfile});
     console.log('searchprofile2',{searched}.searched);
 
