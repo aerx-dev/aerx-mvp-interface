@@ -37,7 +37,7 @@ const Search = ({searched}) => {
         async function get_current_search_profile() {
             
             var res = await nearState.pnftContract.get_user_ids({
-                user_id: {searched}.searched,
+                user_id: {searched}.searched ||'Aerx.testnet',
                 
             });
             
