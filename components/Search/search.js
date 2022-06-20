@@ -37,7 +37,7 @@ const Search = ({searched}) => {
         async function get_current_search_profile() {
             
             var res = await nearState.pnftContract.get_user_ids({
-                user_id: {searched}.searched ||'Aerx.testnet',
+                user_id: {searched}.searched,
                 
             });
             
@@ -47,7 +47,7 @@ const Search = ({searched}) => {
             
         }
         get_current_search_profile();
-    }, [nearState, nearState.accountId, nearState.pnftContract]);
+    }, [nearState, nearState.accountId, nearState.pnftContract,{searched}.searched)]);
     console.log('searchprofile',{currentSearchProfile});
     console.log('searchprofile2',{searched}.searched);
 
