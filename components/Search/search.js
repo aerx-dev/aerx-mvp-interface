@@ -36,7 +36,7 @@ const Search = ({searched}) => {
 
     useEffect(() => {
         async function get_current_search_profile() {
-            if({searched}.searched ===  "undefined" && nearState.accountId ==="undefined" && nearState.pnftContract == false  ){
+            if({searched}.searched ===  "undefined" && nearState.accountId ==="undefined" && nearState.pnftContract == 'null'  ){
                 return
             } else {
             
