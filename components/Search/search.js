@@ -3,7 +3,7 @@ import { Box, useColorModeValue, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import Searchpost from "../Post/searchPost";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import dynamic from "next/dynamic";
 
@@ -33,11 +33,11 @@ const Search = ({searched}) => {
     }
     const [currentSearchProfile, setCurrentSearchProfile] = useState();
 
-    /*useEffect(() => {
+    useEffect(() => {
         async function get_current_search_profile() {
             
             var res = await nearState.pnftContract.get_user_ids({
-                user_id: {searched}.searched?.searched,
+                user_id: {searched}.searched,
                 
             });
 
@@ -47,7 +47,7 @@ const Search = ({searched}) => {
         }
         get_current_search_profile();
     }, [nearState, nearState.accountId, {searched}.searched])
-    console.log('searchprofile',{currentSearchProfile});*/
+    console.log('searchprofile',{currentSearchProfile});
     console.log('searchprofile2',{searched}.searched);
 
 /*{currentSearchProfile && nearState?.accountId ? (
