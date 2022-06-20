@@ -48,7 +48,7 @@ const Search = ({searched}) => {
         get_current_search_profile();
     }, [nearState, nearState.accountId, {searched}.searched])
     console.log('searchprofile',{currentSearchProfile});*/
-    console.log('searchprofile2',{searched});
+    console.log('searchprofile2',{searched}.searched);
 
 /*{currentSearchProfile && nearState?.accountId ? (
                         currentSearchProfile
