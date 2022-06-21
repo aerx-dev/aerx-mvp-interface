@@ -97,13 +97,9 @@ function NewPost({ bg }) {
             update(e) {
         const path = e.currentTarget.dataset.path;
         const val = '';
-        setBody((prevBody) => {
-            return {
-                ...prevBody,
-                [path]: val,
-            };
-        });
-    }
+        setBody({ text: "",
+        media_type: "text",
+    });
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
