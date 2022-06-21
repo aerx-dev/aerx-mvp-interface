@@ -2,8 +2,8 @@ import TimeAgo from "timeago-react";
 import { PurpleButton } from "../UI/Buttons";
 import { Layout } from "antd";
 import { nearStore } from "../../stores/near";
-import { Box, Text, Avatar } from "@chakra-ui/react";
-
+import { Box, Text, Avatar, Link } from "@chakra-ui/react";
+import NextLink from "next/link";
 const { Header, Footer, Content } = Layout;
 
 const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
@@ -36,7 +36,7 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
                 size="md"
             />
             <Box ml={2}>
-                <Text>{nft?.owner_id || "Pavel dantsev"}</Text>
+                <NextLink href={`/profile/${encodeURIComponent(nft?.owner_id)}`} passHref><Link>{nft?.owner_id}</Link></NextLink>
                 <TimeAgo 
                     className={`text-[11px] ${
                         isUserMsg && "order-last pr-1"
