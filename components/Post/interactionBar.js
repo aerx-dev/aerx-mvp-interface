@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Box, Input, useColorModeValue } from "@chakra-ui/react";
 import {
     AddIconButton,
@@ -10,6 +10,7 @@ import {
 import useCustomToast from "../../hooks/useCustomToast";
 import MemberTag from "./tagmembers";
 import { nearStore } from "../../stores/near";
+import { fetchpostsData } from "../../lib/tokenContract";
 import useLongPress from "./useLongPress";
 
 const { Header, Footer, Content } = Layout;
@@ -19,6 +20,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const nearState = nearStore((state) => state);
     const toast = useCustomToast();
     const commentFeed= nft.comments.reverse();
+    const ref = useRef();
     const [commentbody, setCommentbody] = useState({
         text: "",
         media_type: "text",
@@ -90,6 +92,8 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 "Comment posted",
                 "CNFTpost",
             );
+            await fetchpostsData(nearState);
+            ref.current.value = "";
         } catch (e) {
             console.log("Comment could not be minted! Error: " + e.message);
             toast(
@@ -150,6 +154,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             placeholder="comment"
                             borderRadius={20}
                             size="sm"
+                            ref={ref}
                             border="none"
                             bg={bdcolorchanger}
                         />
