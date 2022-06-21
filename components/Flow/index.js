@@ -1,5 +1,4 @@
 import { Box, useColorModeValue, Grid, Button } from "@chakra-ui/react";
-import SearchProfile from "../SearchProfile";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
 import { nearStore } from "../../stores/near";
