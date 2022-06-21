@@ -181,7 +181,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             <AddIconButton />
                         </Box>
                     </Box>
-                    <CommentHeader currentCommentProfile={currentCommentProfile} commentfeed={commentfeed} />
+                    <CommentHeader currentCommentProfile={currentCommentProfile} commentFeed={commentFeed} />
                         </Box>
                 ) : null}
             </Footer>
