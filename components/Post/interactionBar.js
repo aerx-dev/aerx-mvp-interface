@@ -10,6 +10,7 @@ import {
 import useCustomToast from "../../hooks/useCustomToast";
 import MemberTag from "./tagmembers";
 import { nearStore } from "../../stores/near";
+import { fetchpostsData } from "../../lib/tokenContract";
 import useLongPress from "./useLongPress";
 
 const { Header, Footer, Content } = Layout;
@@ -91,7 +92,8 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 "Comment posted",
                 "CNFTpost",
             );
-            ref.current.value = "";
+            await fetchpostsData(nearState);
+            refs.current.value = "";
         } catch (e) {
             console.log("Comment could not be minted! Error: " + e.message);
             toast(
