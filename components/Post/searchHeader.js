@@ -1,6 +1,7 @@
 import { Layout } from "antd";
 import { nearStore } from "../../stores/near";
 import { Box, Text, Avatar, Link } from "@chakra-ui/react";
+import NextLink from "next/link";
 
 const { Header, Footer, Content } = Layout;
 
@@ -34,7 +35,10 @@ const SearchHeader = ({isUserMsg, currentProfile, nft}) => {
                 size="md"
             />
             <Box ml={2}>
-                <Text>{nft || "Pavel dantsev"}</Text>
+                <Text>{' '}<NextLink href={{
+            pathname: '/profile/[slug]',
+            query: { slug: {nft || "Pavel dantsev"}},
+          }} passHref><link>{nft || "Pavel dantsev"}</link></Text>
                 
             </Box>
         </Header>
