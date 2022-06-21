@@ -36,7 +36,7 @@ function SearchProfile({ bg }) {
         }
         try
         {
-            window.location.origin + "/search?id=" + sbody.text
+            window.location.replace(window.location.origin + "/search?id=" + sbody.text);
            
         }
         catch (e) {
