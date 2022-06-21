@@ -4,6 +4,7 @@ import { nearStore } from "../../stores/near";
 import { Layout } from "antd";
 import PostHeader from "./postHeader";
 import ChargeModal from "./chargeModal";
+import { Big } from "big.js"
 import InteractionBar from "./interactionBar";
 import SongCard from "../Player/songCard";
 
@@ -38,7 +39,9 @@ function Post({ nft, charge}) {
     const [currentComment, setCurrentComment] = useState();
     useEffect(() => {
         async function getCharge() {
-            var res = nft.total_charges.toString();
+            var blncd = new Big(nft.total_charges || 0);
+            var resd= blncd.div("10e23").toFixed();
+            var res = resd.toString();
 
             setCurrentCharge(res);
             // return res;
