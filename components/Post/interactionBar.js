@@ -163,7 +163,6 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             </Footer>
             <Footer>
                 {commentBox ? (
-                 <Box flexDirection="column" display="flex" >
                     <Box flexDirection="row" display="flex" alignItems="center">
                         <Input
                             onChange={commentUpdate}
@@ -181,8 +180,6 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             <AddIconButton />
                         </Box>
                     </Box>
-                    <CommentHeader currentCommentProfile={currentCommentProfile} key={commentFeed} commentFeed={commentFeed} />
-                        </Box>
                 ) : null}
             </Footer>
         </>)}
