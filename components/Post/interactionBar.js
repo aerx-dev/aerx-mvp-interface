@@ -42,23 +42,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const comment = () => {
         setCommentBox(!commentBox);
     };
-     const [currentCommentProfile, setCurrentCommentProfile] = useState();
-    useEffect(() => {
-        async function get_current_comment_profile() {
-            if(commentFeed.owner_id ===  "Aerx.testnet" ){
-                return
-            } else {
-            var res = await nearState.pnftContract.profile_by_id({
-                user_id: nearState.accountId,
-                user_to_find_id: commentFeed.owner_id,
-            });
 
-            setCurrentCommentProfile(res);
-            // return res;
-            }
-        }
-        get_current_comment_profile();
-    }, [nearState, nearState.accountId, commentFeed.owner_id]);
     const [longPressCount, setlongPressCount] = useState(0);
 
     const onLongPress = () => {
