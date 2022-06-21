@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Box, Input, useColorModeValue } from "@chakra-ui/react";
 import {
     AddIconButton,
@@ -19,6 +19,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const nearState = nearStore((state) => state);
     const toast = useCustomToast();
     const commentFeed= nft.comments.reverse();
+    const refs = useRef();
     const [commentbody, setCommentbody] = useState({
         text: "",
         media_type: "text",
@@ -90,6 +91,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 "Comment posted",
                 "CNFTpost",
             );
+            ref.current.value = "";
         } catch (e) {
             console.log("Comment could not be minted! Error: " + e.message);
             toast(
@@ -150,6 +152,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             placeholder="comment"
                             borderRadius={20}
                             size="sm"
+                            refs={refs}
                             border="none"
                             bg={bdcolorchanger}
                         />
