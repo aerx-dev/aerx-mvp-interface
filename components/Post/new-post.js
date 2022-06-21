@@ -64,7 +64,7 @@ function NewPost({ bg }) {
         }
 
         let postToSave = {
-            title: "AERX ContentNFT for " + nearState.accountId,
+            title: "AERX PostNFT for " + nearState.accountId,
             description: body.text,
             media: ipfsData.fileUrl,
             media_hash: ipfsData.urlSha256,
