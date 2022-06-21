@@ -36,7 +36,7 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
                 size="md"
             />
             <Box ml={2}>
-                <NextLink href={`/profile/${encodeURIComponent(nft?.owner_id)}`} passHref><Link>{nft?.owner_id}</Link></NextLink>
+                <Text>{' '}<NextLink href={`/profile/${encodeURIComponent(nft?.owner_id)}`} passHref><Link>{nft?.owner_id}</Link></NextLink>{' '}</Text>
                 <TimeAgo 
                     className={`text-[11px] ${
                         isUserMsg && "order-last pr-1"
