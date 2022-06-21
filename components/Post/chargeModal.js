@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import useCustomToast from "../../hooks/useCustomToast";
 import { useState } from "react";
+import { fetchpostsData } from "../../lib/tokenContract";
 import { nearStore } from "../../stores/near";
 
 const ChargeModal = ({ nft, state }) => {
@@ -73,11 +74,13 @@ const ChargeModal = ({ nft, state }) => {
                 },
                 "300000000000000", // attached GAS (optional)
             )
+        
             .catch((e) => {
                 console.log("Charge failed!", e);
                 toast("error", "Charge failed!", "ChargeIderr");
             });
         //.then(() => setCharge(nft.tokenId, newAmount));
+        await fetchpostsData(nearState);
         setSliderValue(0);
         onClose();
         toast("success", "Charged " + _charge + "AEX$", "ChargeIderr");
