@@ -35,7 +35,7 @@ const SearchHeader = ({isUserMsg, currentProfile, nft}) => {
                 size="md"
             />
             <Box ml={2}>
-                <Text><link>{nft}</link></Text>
+                <Link>{nft}</Link>
                 
             </Box>
         </Header>
