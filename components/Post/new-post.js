@@ -30,6 +30,7 @@ function NewPost({ bg }) {
     const [uploadFile, setUploadFile] = useState();
     // Ipsf hook with details and upload hook.
     const ipfsData = usePinata(uploadFile, toast);
+    const ref = useRef()
 
     const [body, setBody] = useState({
         text: "",
@@ -94,11 +95,9 @@ function NewPost({ bg }) {
             postToSupa(postToSave, toast);*/
             await getBalance(nearState);
             await fetchpostsData(nearState);
-        setBody((prevBody) => {
-            return {
-                ...prevBody,
-                value: "", };
-        });
+            const reset = () => {
+    ref.current.value = "";
+  };
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
@@ -186,6 +185,7 @@ function NewPost({ bg }) {
                 placeholder={t("new")}
                 borderRadius={20}
                 filter={filter}
+                ref={ref}
                 size="sm"
                 border="none"
                 bg={useColorModeValue("white", "#1B1D1E")}
