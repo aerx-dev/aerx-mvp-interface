@@ -8,17 +8,17 @@ const MemberTag = ({...rest}) => {
             <Tag mt={1} borderRadius="full" >
                 <Avatar
                 name="Tag member 1"
-                src='/images/Hello.svg'
+                src='/images/Hello.png'
                 size="2xs"
                 />
                 <Avatar
                 name="Tag member 1"
-                src='/images/Laugh.svg'
+                src='/images/Laugh.png'
                 size="2xs"
                 /> 
                 <Avatar
                 name="Tag member 1"
-                src='/images/To-tears.svg'
+                src='/images/To-tears.png'
                 size="2xs"
                 />
             </Tag>
