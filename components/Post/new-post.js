@@ -94,9 +94,6 @@ function NewPost({ bg }) {
             postToSupa(postToSave, toast);*/
             await getBalance(nearState);
             await fetchpostsData(nearState);
-            update(e) {
-        const path = e.currentTarget.dataset.path;
-        const val = '';
         setBody({ text: "",
         media_type: "text",
     });
