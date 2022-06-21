@@ -35,7 +35,7 @@ function Searchpost({ nft, charge}) {
     useEffect(() => {
         async function get_current_profile() {
             
-            var res = await nearState.pnftContract.profile_by_id({
+            var res = await nearState.pnftContract?.profile_by_id({
                 user_id: nearState.accountId,
                 user_to_find_id: nft,
             });
