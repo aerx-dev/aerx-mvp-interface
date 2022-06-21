@@ -198,9 +198,6 @@ function NewPost({ bg }) {
             <Box display="none">
                 <input ref={inputAudio} onChange={fileChange} type="file" />
             </Box>
-            <Box onClick={refresh}>
-                <RepeatIconButton />
-            </Box>
             <Box display="none">
                 <input ref={inputImg} onChange={fileChange} type="file" />
             </Box>
