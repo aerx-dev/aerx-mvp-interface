@@ -35,7 +35,7 @@ function Searchpost({ nft, charge}) {
     useEffect(() => {
         async function get_current_profile() {
             
-            var res = await nearState.pnftContract.profile_by_id({
+            var res = await nearState.pnftContract?.profile_by_id({
                 user_id: nearState.accountId,
                 user_to_find_id: nft,
             });
@@ -45,7 +45,7 @@ function Searchpost({ nft, charge}) {
             
         }
         get_current_profile();
-    }, [nearState, nearState.accountId, nft.owner_id, isOpen]);
+    }, [nearState, nearState.accountId, nft, isOpen]);
 
     return (
         <>
