@@ -175,7 +175,6 @@ export const ChargeOutlineButton = ({ ...rest}) => {
         <IconButton
             as={ThunderboltOutlined}
             isRound
-            color="yellow"
             variant="ghost"
             {...rest}
         />
