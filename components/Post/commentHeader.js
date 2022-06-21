@@ -5,7 +5,7 @@ import { Box, Text, Avatar, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 const { Header, Footer, Content } = Layout;
 
-const CommentHeader = ({ commentfeed, currentCommentProfile }) => {
+const CommentHeader = ({ commentFeed, currentCommentProfile }) => {
 
     const styles = {
         header: {
