@@ -36,12 +36,8 @@ function SearchProfile({ bg }) {
         }
         try
         {
-            router.push({
-                    pathname: "/search",
-                    query: {
-                      id: sbody.text
-                    }
-                  });
+            window.location.origin + "/search?id=" + sbody.text;
+           
         }
         catch (e) {
             console.log("search Error! Error: " + e.message);
