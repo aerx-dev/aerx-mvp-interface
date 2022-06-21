@@ -104,7 +104,7 @@ function Post({ nft, charge}) {
                     )}
                 </Content>
                 <Divider />
-                <InteractionBar nft={nft} onOpen={onOpen} currentCharge={currentCharge} currentProfile={currentProfile} currentComment={currentComment} />
+                <InteractionBar nft={nft} onOpen={onOpen} currentCharge={currentCharge} currentComment={currentComment} />
             </Layout>
             <ChargeModal nft={nft} state={[isOpen, onClose]} />
         </>
