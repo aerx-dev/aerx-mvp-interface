@@ -61,7 +61,7 @@ const Search = ({searched}) => {
             <LazySider bg={bg} state={nearState}>
                 <Box>
                     <NewPost state={nearState} bg={bg} />
-                        {{currentSearchProfile}.currentSearchProfile
+                        {{currentSearchProfile}?.currentSearchProfile
                         ?.sort()
                         .map((nft) => {
                             return (
