@@ -35,7 +35,7 @@ const SearchHeader = ({isUserMsg, currentProfile, nft}) => {
                 size="md"
             />
             <Box ml={2}>
-                <NextLink href=={`/profile/${encodeURIComponent(nft)}`} passHref><Link>{nft}</Link></NextLink>
+                <NextLink href={`/profile/${encodeURIComponent(nft)}`} passHref><Link>{nft}</Link></NextLink>
                 
             </Box>
         </Header>
