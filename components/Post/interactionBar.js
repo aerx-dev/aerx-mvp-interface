@@ -10,7 +10,7 @@ import {
 import useCustomToast from "../../hooks/useCustomToast";
 import MemberTag from "./tagmembers";
 import { nearStore } from "../../stores/near";
-import commentHeader from "./commentHeader";
+import CommentHeader from "./commentHeader";
 import { fetchpostsData } from "../../lib/tokenContract";
 import useLongPress from "./useLongPress";
 
