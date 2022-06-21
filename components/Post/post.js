@@ -82,7 +82,9 @@ function Post({ nft, charge}) {
             <Layout style={styles}>
                 <PostHeader metadata={metadata} currentProfile={currentProfile} isUserMsg={isUserMsg} nft={nft} />
                 <Content style={styles.content}>
-                    <Box p={2}>{metadata?.description}</Box>
+                    {nft.owner_id ==  "Aerx.testnet" || Number.isInteger(parseInt(nft?.post_id)) == false ? (
+                <Box p={2}>{metadata?.title}</Box> ) :(
+                    <Box p={2}>{metadata?.description}</Box>)}
                     {extra?.media_type === "audio" ||
                     extra?.type === "audio" ? (
                         <SongCard
