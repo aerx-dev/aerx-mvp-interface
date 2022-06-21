@@ -93,7 +93,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 "CNFTpost",
             );
             await fetchpostsData(nearState);
-            refs.current.value = "";
+            ref.current.value = "";
         } catch (e) {
             console.log("Comment could not be minted! Error: " + e.message);
             toast(
@@ -154,7 +154,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             placeholder="comment"
                             borderRadius={20}
                             size="sm"
-                            refs={refs}
+                            ref={refs}
                             border="none"
                             bg={bdcolorchanger}
                         />
