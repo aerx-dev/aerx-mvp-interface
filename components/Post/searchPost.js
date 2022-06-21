@@ -45,7 +45,7 @@ function Searchpost({ nft, charge}) {
             
         }
         get_current_profile();
-    }, [nearState, nearState.accountId, nft.owner_id, isOpen]);
+    }, [nearState, nearState.accountId, nft, isOpen]);
 
     return (
         <>
