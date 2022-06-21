@@ -127,8 +127,9 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                     console.log("nft.owner_id", nft.owner_id);
                     toast("error", "Charge failed!", "ChargeIderr");
                 });
-            await fetchpostsData(nearState);
             toast("success", "Charge Successfull 1 aex token sent!", "ChargeIdSucc");
+            await fetchpostsData(nearState);
+
         }
     }
     console.log('commentfeed',commentFeed);
