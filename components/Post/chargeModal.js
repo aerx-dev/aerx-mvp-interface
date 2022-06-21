@@ -80,10 +80,12 @@ const ChargeModal = ({ nft, state }) => {
                 toast("error", "Charge failed!", "ChargeIderr");
             });
         //.then(() => setCharge(nft.tokenId, newAmount));
-        await fetchpostsData(nearState);
+        
+        toast("success", "Charged " + sliderValue + "AEX$", "ChargeIderr");
         setSliderValue(0);
         onClose();
-        toast("success", "Charged " + _charge + "AEX$", "ChargeIderr");
+        await fetchpostsData(nearState)
+        
 
     }
 
