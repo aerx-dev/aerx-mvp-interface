@@ -30,14 +30,23 @@ function SearchProfile({ bg }) {
 
 
     async function searchenter() {
-        try{
+        if (!sbody.text) {
+            toast("warning", "search cannot be empty!", "searchpage");
+            return;
+        }
+        try
+        {
             router.push({
                     pathname: "/search",
                     query: {
                       id: sbody.text
                     }
                   });
-        };
+        }
+        catch (e) {
+            console.log("search Error! Error: " + e.message);
+           
+        }
 
     }
 
