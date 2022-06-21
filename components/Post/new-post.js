@@ -95,9 +95,7 @@ function NewPost({ bg }) {
             postToSupa(postToSave, toast);*/
             await getBalance(nearState);
             await fetchpostsData(nearState);
-            const reset = () => {
-    ref.current.value = "";
-  };
+            ref.current.value = "";
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
