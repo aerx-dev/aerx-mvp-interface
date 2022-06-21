@@ -35,10 +35,7 @@ const SearchHeader = ({isUserMsg, currentProfile, nft}) => {
                 size="md"
             />
             <Box ml={2}>
-                <NextLink href={{
-            pathname: '/profile/[slug]',
-            query: { slug: {nft}},
-          }} passHref><Link>{nft}</Link></NextLink>
+                <NextLink href=={`/profile/${encodeURIComponent(nft)}`} passHref><Link>{nft}</Link></NextLink>
                 
             </Box>
         </Header>
