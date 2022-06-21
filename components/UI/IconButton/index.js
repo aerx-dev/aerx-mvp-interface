@@ -1,9 +1,10 @@
 import React from "react";
 import { IconButton, Icon, useColorModeValue } from "@chakra-ui/react";
-import { ThunderboltOutlined, ThunderboltFilled, SearchOutlined} from "@ant-design/icons";
+import { ThunderboltFilled, SearchOutlined} from "@ant-design/icons";
 import { IoHeartOutline, IoNotificationsOutline , IoChatbubbleOutline} from "react-icons/io5";
 import { MdCopyAll } from "react-icons/md";
 import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
+import ThunderboltOutlined from "../../../public/thunderoutline.svg"
 
 
 export const HeartIcon = () => {
@@ -174,7 +175,6 @@ export const ChargeOutlineButton = ({ ...rest}) => {
         <IconButton
             as={ThunderboltOutlined}
             isRound
-            color="yellow"
             variant="ghost"
             {...rest}
         />
