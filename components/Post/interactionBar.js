@@ -96,6 +96,10 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             );
             await fetchpostsData(nearState);
             ref.current.value = "";
+            setCommentbody({
+        text: "",
+        media_type: "text",
+    });
         } catch (e) {
             console.log("Comment could not be minted! Error: " + e.message);
             toast(
