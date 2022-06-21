@@ -20,7 +20,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const nearState = nearStore((state) => state);
     const toast = useCustomToast();
     const commentFeed= nft.comments.reverse();
-    const refs = useRef();
+    const ref = useRef();
     const [commentbody, setCommentbody] = useState({
         text: "",
         media_type: "text",
@@ -154,7 +154,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             placeholder="comment"
                             borderRadius={20}
                             size="sm"
-                            ref={refs}
+                            ref={ref}
                             border="none"
                             bg={bdcolorchanger}
                         />
