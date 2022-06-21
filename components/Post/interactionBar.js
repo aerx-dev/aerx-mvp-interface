@@ -136,14 +136,15 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                     },
                     "300000000000000", // attached GAS (optional)
                 )
-                        await fetchpostsData(nearState);
-             toast("success", "Charge Successfull 1 aex token sent!", "ChargeIdSucc");
+                        
 
                 .catch((e) => {
                     console.log("Charge failed!", e);
                     console.log("nft.owner_id", nft.owner_id);
                     toast("error", "Charge failed!", "ChargeIderr");
                 });
+            await fetchpostsData(nearState);
+            toast("success", "Charge Successfull 1 aex token sent!", "ChargeIdSucc");
         }
     }
     console.log('commentfeed',commentFeed);
