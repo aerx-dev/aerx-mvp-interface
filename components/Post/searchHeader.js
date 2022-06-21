@@ -37,7 +37,7 @@ const SearchHeader = ({isUserMsg, currentProfile, nft}) => {
             <Box ml={2}>
                 <NextLink href={{
             pathname: '/profile/[slug]',
-            query: { slug: 'gg'},
+            query: { slug: {nft}},
           }} passHref><Link>{nft}</Link></NextLink>
                 
             </Box>
