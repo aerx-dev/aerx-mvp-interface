@@ -98,9 +98,9 @@ const Account = () => {
     async function handleSave(e) {
         e.preventDefault();
         let profileToSave = {
-            title: profile.fullName,
+            title: "AERX ProfileNFT for " + profile.username,
             username: profile.username,
-            description: "AERX ProfileNFT for " + profile.fullName,
+            description: profile.aboutMe,
             media: ipfsData.fileUrl,
             media_hash: ipfsData.urlSha256,
             issued_at: new Date().toISOString(),
