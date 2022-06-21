@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Box, Input, useColorModeValue } from "@chakra-ui/react";
 import {
     AddIconButton,
@@ -10,6 +10,7 @@ import {
 import useCustomToast from "../../hooks/useCustomToast";
 import MemberTag from "./tagmembers";
 import { nearStore } from "../../stores/near";
+import commentHeader from "./commentHeader";
 import { fetchpostsData } from "../../lib/tokenContract";
 import useLongPress from "./useLongPress";
 
@@ -41,6 +42,23 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const comment = () => {
         setCommentBox(!commentBox);
     };
+     const [currentCommentProfile, setCurrentCommentProfile] = useState();
+    useEffect(() => {
+        async function get_current_comment_profile() {
+            if(commentFeed.owner_id ===  "Aerx.testnet" ){
+                return
+            } else {
+            var res = await nearState.pnftContract.profile_by_id({
+                user_id: nearState.accountId,
+                user_to_find_id: commentFeed.owner_id,
+            });
+
+            setCurrentCommentProfile(res);
+            // return res;
+            }
+        }
+        get_current_comment_profile();
+    }, [nearState, nearState.accountId, commentFeed.owner_id, isOpen]);
     const [longPressCount, setlongPressCount] = useState(0);
 
     const onLongPress = () => {
@@ -145,6 +163,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             </Footer>
             <Footer>
                 {commentBox ? (
+                 <Box flexDirection="column" display="flex" >
                     <Box flexDirection="row" display="flex" alignItems="center">
                         <Input
                             onChange={commentUpdate}
@@ -162,6 +181,8 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                             <AddIconButton />
                         </Box>
                     </Box>
+                    <CommentHeader currentCommentProfile={currentCommentProfile} commentfeed={commentfeed} />
+                        </Box>
                 ) : null}
             </Footer>
         </>)}
