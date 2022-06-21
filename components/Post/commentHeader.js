@@ -30,12 +30,12 @@ const CommentHeader = ({ commentFeed, currentCommentProfile }) => {
             <Avatar
                 className=" bg-slate-300"
                 bg="gray.400"
-                name={commentfeed?.owner_id}
+                name={commentFeed?.owner_id}
                 
                 size="md"
             />
             <Box ml={2}>
-                <Text>{' '}<NextLink href={`/profile/${encodeURIComponent(commentfeed?.owner_id)}`} passHref><Link>{commentfeed?.owner_id}</Link></NextLink>{' '}</Text>
+                <Text>{' '}<NextLink href={`/profile/${encodeURIComponent(commentFeed?.owner_id)}`} passHref><Link>{commentFeed?.owner_id}</Link></NextLink>{' '}</Text>
             </Box>
             
         </Footer>
