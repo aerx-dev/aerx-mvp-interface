@@ -58,7 +58,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             }
         }
         get_current_comment_profile();
-    }, [nearState, nearState.accountId, commentFeed.owner_id, isOpen]);
+    }, [nearState, nearState.accountId, commentFeed.owner_id]);
     const [longPressCount, setlongPressCount] = useState(0);
 
     const onLongPress = () => {
