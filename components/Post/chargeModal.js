@@ -15,7 +15,7 @@ import {
     SliderThumb,
     Icon,
 } from "@chakra-ui/react";
-import { ThunderboltFilled } from "@ant-design/icons";
+import ThunderboltFilled from "../../public/thunderfill.svg";
 import useCustomToast from "../../hooks/useCustomToast";
 import { useState } from "react";
 import { nearStore } from "../../stores/near";
@@ -101,7 +101,7 @@ const ChargeModal = ({ nft, state }) => {
                 <ModalBody>
                     <Box className="py-2 flex pr-2">
                         <Box className="mr-4 text-2xl">
-                            <Icon as={ThunderboltFilled} color="yellow" />
+                            <Icon as={ThunderboltFilled} />
                         </Box>
 
                         <Slider
