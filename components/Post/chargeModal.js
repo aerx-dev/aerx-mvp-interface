@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import useCustomToast from "../../hooks/useCustomToast";
 import { useState } from "react";
-import { fetchpostsData } from "../../lib/tokenContract";
+import { getBalance, fetchpostsData } from "../../lib/tokenContract";
 import { nearStore } from "../../stores/near";
 
 const ChargeModal = ({ nft, state }) => {
@@ -37,32 +37,6 @@ const ChargeModal = ({ nft, state }) => {
         setSliderValue(e);
     }
 
-   /* async function getTotalCharges(_tokenId, _charge) {
-        // Get the post using the tokenId from supabase
-        const { data, error } = await supabase
-            .from("postnft")
-            .select("id, totalCharged")
-            .eq("id", _tokenId);
-        console.log("data received from supabase", data);
-        const newTotalCharge = data.totalCharged + _charge;
-        // Update the post total charge on the db before setting the charge
-        // on page reload
-        setCharge(_tokenId, newTotalCharge);
-
-        if (error) {
-            toast(
-                "error",
-                "Post could not be fetched from Supabase! Error: " +
-                    error.message,
-                "supaErr",
-            );
-            throw error;
-        } else {
-            console.log(" post successfully updated to Supabase"),
-              "supaSuccess";
-            // redirect back to feed
-        }
-    }*/
 
 
     async function chargePost() {
@@ -84,7 +58,8 @@ const ChargeModal = ({ nft, state }) => {
         toast("success", "Charged " + sliderValue + "AEX$", "ChargeIderr");
         setSliderValue(0);
         onClose();
-        await fetchpostsData(nearState)
+        await fetchpostsData(nearState);
+        await getBalance(nearState);
         
 
     }
