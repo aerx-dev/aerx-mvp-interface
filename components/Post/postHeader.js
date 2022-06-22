@@ -31,7 +31,7 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
                 src={
                     isUserMsg
                         ? nearState.profile?.profileImg
-                        : metadata?.media ||{currentProfile}.currentProfile?.metadata?.media
+                        : {currentProfile}.currentProfile?.metadata?.media
                 }
                 size="md"
             />
