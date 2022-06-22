@@ -11,7 +11,7 @@ import useCustomToast from "../../hooks/useCustomToast";
 import MemberTag from "./tagmembers";
 import { nearStore } from "../../stores/near";
 import CommentHeader from "./commentHeader";
-import { fetchpostsData } from "../../lib/tokenContract";
+import { getBalance, fetchpostsData } from "../../lib/tokenContract";
 import useLongPress from "./useLongPress";
 
 const { Header, Footer, Content } = Layout;
@@ -95,6 +95,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 "CNFTpost",
             );
             await fetchpostsData(nearState);
+            await getBalance(nearState);
             ref.current.value = "";
             setCommentbody({
         text: "",
@@ -133,6 +134,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 });
             toast("success", "Charge Successfull 1 aex token sent!", "ChargeIdSucc");
             await fetchpostsData(nearState);
+            await getBalance(nearState);
 
         }
     }
