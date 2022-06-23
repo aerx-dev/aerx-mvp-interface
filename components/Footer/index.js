@@ -39,7 +39,7 @@ function Footer() {
             <SectionResolver
                 heading={"Be part of the team"}
                 styledHeading="Right now"
-                padding="20px"
+                paddingTop={20}
                 image="/team.png"
                 body={[
                     `Kindly subscribe to our email newsletter to get amazing information.`,

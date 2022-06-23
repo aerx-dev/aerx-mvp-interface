@@ -10,9 +10,10 @@ function Channel() {
     const { colorMode } = useColorMode();
     return (
         <Box
-            height="500px"
+            height="auto"
             position="relative"
             maxWidth="95%"
+            paddingBottom={20}
             margin="0 auto"
             as="section"
         >
