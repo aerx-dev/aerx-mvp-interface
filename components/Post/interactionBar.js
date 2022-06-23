@@ -149,8 +149,8 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 null ) : (
             <>
             <Footer style={styles.footer} className="flex align-middle gap-2">
-         {nft?.owner_id == nearState?.accountId  ? ( {parseFloat({currentCharge}) == 0 ? (
-                <ChargeOutlineButton /> ):( <ChargeButton />)}) : 
+         {nft?.owner_id == nearState?.accountId  ? ( if (parseFloat({currentCharge}) == 0){ 
+                <ChargeOutlineButton /> }else{ <ChargeButton />}) : 
         ( {parseFloat({currentCharge}) == 0 ? ( <ChargeOutlineButton {...longPressEvent} />):(<ChargeOutlineButton {...longPressEvent} />)})}
                 {currentCharge}
                 <CommentIconButton onClick={comment} />{currentComment}
