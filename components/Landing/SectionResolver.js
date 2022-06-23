@@ -15,7 +15,7 @@ const CustomHeading = ({ children, isCenter, styled, colorMode }) => {
         <Heading
             fontWeight={"bold"}
             mb={4}
-            fontSize={[30, 30, 35, 40]}
+            fontSize={["5xl", ""]}
             colorScheme={colorMode === "light" ? "#322E65" : "#000"}
         >
             {children}
@@ -25,7 +25,7 @@ const CustomHeading = ({ children, isCenter, styled, colorMode }) => {
                 alignItems="center"
                 gap={2}
                 as="i"
-                fontSize="1em"
+                fontSize="4rem"
                 fontWeight="extrabold"
                 color="#8D00FF"
             >
@@ -83,7 +83,7 @@ const SectionResolver = ({
                 </Box>
             </GridItem>
             <GridItem
-                maxW="500px"
+                maxW="auto"
                 order={options.textOrder}
                 colSpan={1}
                 padding={10}

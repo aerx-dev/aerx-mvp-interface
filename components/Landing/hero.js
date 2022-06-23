@@ -26,7 +26,7 @@ function HeroSection() {
                     position="relative"
                     templateColumns="repeat(2, 1fr)"
                     mx="auto"
-                    padding={20}
+                    padding={8}
                     textAlign={["center", "center", "left"]}
                 >
                     <Box
