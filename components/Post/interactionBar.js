@@ -141,6 +141,8 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     }
     console.log('commentfeed',commentFeed);
     console.log('test',Number.isInteger(parseInt(nft?.post_id)));
+        console.log('test3',parseFloat(currentCharge));
+
 
     return (
         
