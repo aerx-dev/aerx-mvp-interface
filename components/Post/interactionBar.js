@@ -148,10 +148,10 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
         {nft.owner_id ==  "Aerx.testnet" || Number.isInteger(parseInt(nft?.post_id)) == false ? (
                 null ) : (
             <>
-            <Footer style={styles.footer} className="flex align-middle gap-2">
-         {nft?.owner_id == nearState?.accountId  ? ( if (parseFloat({currentCharge}) == 0){ 
-                <ChargeOutlineButton /> }else{ <ChargeButton />}) : 
-        ( {parseFloat({currentCharge}) == 0 ? ( <ChargeOutlineButton {...longPressEvent} />):(<ChargeOutlineButton {...longPressEvent} />)})}
+             <Footer style={styles.footer} className="flex align-middle gap-2">
+         {nft?.owner_id == nearState?.accountId  ? (<>{parseFloat(currentCharge) == 0 || parseFloat(currentCharge) == null ? (
+                <ChargeOutlineButton /> ):( <ChargeButton />)}</>) : 
+        (<>{parseFloat(currentCharge) == 0 || parseFloat(currentCharge) == null ? ( <ChargeOutlineButton {...longPressEvent} />):(<ChargeOutlineButton {...longPressEvent} />)}</>)}
                 {currentCharge}
                 <CommentIconButton onClick={comment} />{currentComment}
                 <ShareIconButton opacity={0.7} ml={2} />0
