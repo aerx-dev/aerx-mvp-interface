@@ -18,7 +18,7 @@ Check out the lastest buld of [AERX](aerx-near.netlify.app).
 
 1. `git clone https://github.com/AERX-dev/aerx-frontend-near.git`
 2. `cd aerx-frontend-near`
-3. `npm install`
+3. `npm install --force`
 4. `npm run dev`
 
 ### Prerequisites
