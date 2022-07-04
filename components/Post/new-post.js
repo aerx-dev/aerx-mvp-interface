@@ -18,7 +18,6 @@ import { nearStore } from "../../stores/near";
 import { getBalance, fetchpostsData } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
-import { supabase, postToSupa } from "../../lib/supabaseClient";
 
 function NewPost({ bg }) {
     const nearState = nearStore((state) => state);
@@ -90,9 +89,6 @@ function NewPost({ bg }) {
                 "CNFTsccss",
             );
 
-            /*postToSave.ownerId = minted_post.owner_id;
-            postToSave.postId = minted_post.post_id;
-            postToSupa(postToSave, toast);*/
             await getBalance(nearState);
             await fetchpostsData(nearState);
             ref.current.value = "";
