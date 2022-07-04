@@ -7,8 +7,6 @@ import { nearStore } from "../stores/near.js";
 import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
-import { Provider } from 'urql';
-import { supabaseGraphQLClient } from "../lib/supabaseClient";
 
 function MyApp({ Component, pageProps }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +60,6 @@ function MyApp({ Component, pageProps }) {
 
 
     return (
-        <Provider value={supabaseGraphQLClient}>
             <ChakraProvider
                 theme={myTheme}
             >
@@ -71,7 +68,6 @@ function MyApp({ Component, pageProps }) {
                 </ThemeProvider>
             </ChakraProvider>
 
-        </Provider>
 
     );
 }
