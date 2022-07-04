@@ -12,7 +12,7 @@
         "start": "next start",
         "lint": "next lint",
         "cypress": "cypress open",
-        "prepare": "husky install",
+        "prepare": "husky install"
     },
     "dependencies": {
         "@ant-design/icons": "^4.7.0",
