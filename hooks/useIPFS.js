@@ -9,11 +9,11 @@ export default function useIPFS(file, toast) {
         urlSha256: null,
     });
 
-    var shajs = require('sha.js')
+    var shajs = require("sha.js");
 
     useEffect(() => {
         async function fileUpload() {
-            console.log(file)
+            console.log(file);
             const filename = file.name;
 
             var parts = filename.split(".");
@@ -24,8 +24,10 @@ export default function useIPFS(file, toast) {
             try {
                 const res = await window.ipfs.add(file);
                 // Createthe url and get the sha256 base64 hash of the url
-                const _fileUrl = "https://ipfs.io/ipfs/" + res.path
-                const _urlHash = new shajs.sha256().update(_fileUrl).digest('base64')
+                const _fileUrl = "https://ipfs.io/ipfs/" + res.path;
+                const _urlHash = new shajs.sha256()
+                    .update(_fileUrl)
+                    .digest("base64");
                 setIpfsData((prevIpfs) => {
                     return {
                         ...prevIpfs,
@@ -35,9 +37,13 @@ export default function useIPFS(file, toast) {
                     };
                 });
                 var res2 = await window.ipfs.pin.add(res.path);
-                console.log("IPFS pin:", res2)
-                toast("success", "File deployed to IPFS! Url: " + _fileUrl, "ipfsSccss");
-            } catch(e) {
+                console.log("IPFS pin:", res2);
+                toast(
+                    "success",
+                    "File deployed to IPFS! Url: " + _fileUrl,
+                    "ipfsSccss",
+                );
+            } catch (e) {
                 toast("error", "IPFS not ready: " + e.message, "ipfsError");
                 console.log("IPFS not ready: ", e);
             }
