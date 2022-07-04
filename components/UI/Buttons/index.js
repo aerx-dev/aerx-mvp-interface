@@ -58,7 +58,6 @@ export const ReceiveIconButton = () => {
             bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
             leftIcon={<ArrowForwardIcon />}
         >
-            {""}
         </Button>
     );
 };
@@ -74,8 +73,21 @@ export const SendIconButton = () => {
             bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
             leftIcon={<ArrowUpIcon />}
         >
-            {" "}
-            Send
+        </Button>
+    );
+};
+
+export const SwapIconButton = () => {
+    const { colorMode, toggleColorMode } = useColorMode();
+    return (
+        <Button
+            borderRadius={20}
+            size="md"
+            _hover={{ color: "black", bgColor: "#E2E8F0" }}
+            variant="solid"
+            bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
+            leftIcon={<HiRefresh />}
+        >
         </Button>
     );
 };
