@@ -1,5 +1,5 @@
 import { Box, VStack, Icon, Heading, Text, HStack } from "@chakra-ui/react";
-import { ReceiveIconButton, SendIconButton } from "../../UI/Buttons";
+import { ReceiveIconButton, SendIconButton, SwapIconButton } from "../../UI/Buttons";
 
 const BalanceBar = ({ balance, ...rest }) => {
     return (
@@ -39,9 +39,12 @@ const BalanceBar = ({ balance, ...rest }) => {
                         {balance || 0}
                     </Heading>
                 </HStack>
-                <HStack>
+                <HStack
+                        justifyContent="space-evenly"
+                >
                     <SendIconButton />
                     <ReceiveIconButton />
+                        <SwapIconButton />
                 </HStack>
             </VStack>
         </Box>
