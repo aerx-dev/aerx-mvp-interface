@@ -53,6 +53,7 @@ export const ReceiveIconButton = () => {
         <Button
             borderRadius={20}
             size="md"
+            width="100%"
             _hover={{ color: "black", bgColor: "#E2E8F0" }}
             variant="solid"
             bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
@@ -68,6 +69,7 @@ export const SendIconButton = () => {
         <Button
             borderRadius={20}
             size="md"
+            width="100%"
             _hover={{ color: "black", bgColor: "#E2E8F0" }}
             variant="solid"
             bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
@@ -83,6 +85,7 @@ export const SwapIconButton = () => {
         <Button
             borderRadius={20}
             size="md"
+            width="100%"
             _hover={{ color: "black", bgColor: "#E2E8F0" }}
             variant="solid"
             bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
