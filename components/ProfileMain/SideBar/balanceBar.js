@@ -41,6 +41,7 @@ const BalanceBar = ({ balance, ...rest }) => {
                 </HStack>
                 <HStack
                         justifyContent="space-evenly"
+                        width="100%"
                 >
                     <SendIconButton />
                     <ReceiveIconButton />
