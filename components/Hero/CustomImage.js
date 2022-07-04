@@ -1,4 +1,3 @@
-
 import NextImage from "next/image";
 // import styled from "@emotion/styled";
 // import { motion } from "framer-motion";
@@ -17,25 +16,25 @@ import NextImage from "next/image";
 // `;
 
 const CustomImage = ({
-  width,
-  maxWidth,
-  initial,
-  animate,
-  onAnimationComplete,
-  layoutId,
-  ...rest
+    width,
+    maxWidth,
+    initial,
+    animate,
+    onAnimationComplete,
+    layoutId,
+    ...rest
 }) => {
-  return (
-    <
-      // width={width}
-      // initial={initial}
-      // animate={animate}
-      // onAnimationComplete={onAnimationComplete}
-      // layoutId={layoutId}
-    >
-      <NextImage layout="fill" {...rest} />
-    </>
-  );
+    return (
+        <
+            // width={width}
+            // initial={initial}
+            // animate={animate}
+            // onAnimationComplete={onAnimationComplete}
+            // layoutId={layoutId}
+        >
+            <NextImage layout="fill" {...rest} />
+        </>
+    );
 };
 
 // Next js has a good image optimization but we don't have the flexible stylings.

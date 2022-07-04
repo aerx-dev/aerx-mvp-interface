@@ -30,50 +30,50 @@
         @apply bg-brand;
     }
 }
-@layer utilities{
-	.dippy {
-		display:none!important;
-	}
-	.griddy {
-		display: grid!important;
-	}
-	.dippyscroll{
-		overflow-y: auto!important;
-	}
-	.dippyscroll::-webkit-scrollbar-track {
-  		background: transparent;
-	}
+@layer utilities {
+    .dippy {
+        display: none !important;
+    }
+    .griddy {
+        display: grid !important;
+    }
+    .dippyscroll {
+        overflow-y: auto !important;
+    }
+    .dippyscroll::-webkit-scrollbar-track {
+        background: transparent;
+    }
 
-	.dippyscroll::-webkit-scrollbar {
-		width: 10px;
-	}
+    .dippyscroll::-webkit-scrollbar {
+        width: 10px;
+    }
 
-	.dippyscroll::-webkit-scrollbar-thumb {
- 		background: #6054f0;
-	}
-	.forced-light-mode-dippy-fix {
-		color: #131414!important;
-    		background: #ffffff!important;
-   	 	transition-property: background-color;
-	}
-	@media (max-width: 1440px) {
-    		.dippynav {
-        		max-width: 100%;
-        		margin:0 auto;
-    		}
-    		.dippycontent{
-	   		 max-width: 100%;
-	   		 margin:0 auto;
-		}
-	}
-	@media (min-width: 1401px) {
-    		.dippynav {
-       			max-width: 80%;
-        		margin:0 auto;
-    		}
-    		.dippycontent{
-	    		max-width: 85%;
-	    		margin:0 auto;
-		}
-	}
+    .dippyscroll::-webkit-scrollbar-thumb {
+        background: #6054f0;
+    }
+    .forced-light-mode-dippy-fix {
+        color: #131414 !important;
+        background: #ffffff !important;
+        transition-property: background-color;
+    }
+    @media (max-width: 1440px) {
+        .dippynav {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .dippycontent {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+    }
+    @media (min-width: 1401px) {
+        .dippynav {
+            max-width: 80%;
+            margin: 0 auto;
+        }
+        .dippycontent {
+            max-width: 85%;
+            margin: 0 auto;
+        }
+    }
 }

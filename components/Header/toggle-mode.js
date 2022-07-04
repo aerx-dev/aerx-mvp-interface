@@ -15,10 +15,10 @@ function ToggleMode() {
             _hover={{ bg: "none" }}
             _active={{ bg: "none" }}
             rounded="full"
-			variant={"ghost"}
-			filter={colorMode === "light" ? "invert(0.7)" : "none" }
+            variant={"ghost"}
+            filter={colorMode === "light" ? "invert(0.7)" : "none"}
         >
-            {colorMode === "light" ? <IoMoon /> : <LightIcon/> }
+            {colorMode === "light" ? <IoMoon /> : <LightIcon />}
         </IconButton>
     );
 }

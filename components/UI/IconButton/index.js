@@ -1,43 +1,46 @@
 import React from "react";
 import { IconButton, Icon, useColorModeValue } from "@chakra-ui/react";
-import { SearchOutlined} from "@ant-design/icons";
-import { IoHeartOutline, IoNotificationsOutline , IoChatbubbleOutline} from "react-icons/io5";
+import { SearchOutlined } from "@ant-design/icons";
+import {
+    IoHeartOutline,
+    IoNotificationsOutline,
+    IoChatbubbleOutline,
+} from "react-icons/io5";
 import { MdCopyAll } from "react-icons/md";
 import { AddIcon, RepeatIcon } from "@chakra-ui/icons";
-import ThunderboltOutlined from "../../../public/thunderoutline.svg"
-
+import ThunderboltOutlined from "../../../public/thunderoutline.svg";
 
 export const HeartIcon = () => {
     return (
-        <IconButton 
-            icon={<IoHeartOutline/>}
+        <IconButton
+            icon={<IoHeartOutline />}
             variant="ghost"
             size="lg"
             isRound
-            />
+        />
     );
 };
 
 export const NotificationIcon = () => {
     return (
-        <IconButton 
-            icon={<IoNotificationsOutline/>}
+        <IconButton
+            icon={<IoNotificationsOutline />}
             variant="ghost"
             size="lg"
             isRound
-            />
+        />
     );
 };
 
 export const CopyButton = () => {
     return (
-        <IconButton  
-            variant='ghost'
-            colorScheme='gray'
+        <IconButton
+            variant="ghost"
+            colorScheme="gray"
             isRound
-            icon={<MdCopyAll />} 
-            ml={2} 
-            />
+            icon={<MdCopyAll />}
+            ml={2}
+        />
     );
 };
 
@@ -51,7 +54,7 @@ export const AddIconButton = () => {
             icon={<AddIcon />}
             bgColor="#6054F0"
             color="white"
-            />
+        />
     );
 };
 
@@ -78,7 +81,7 @@ export const RepeatIconButton = () => {
             opacity={0.6}
             icon={<RepeatIcon />}
             ml={3}
-            />
+        />
     );
 };
 
@@ -90,7 +93,7 @@ export const AddImageIcon = () => {
             size="xs"
             variant="ghost"
             icon={
-                <Icon width="19" height="19" viewBox="0 0 19 19" fill="none" >
+                <Icon width="19" height="19" viewBox="0 0 19 19" fill="none">
                     <path
                         d="M7.03409 4.80137C7.34519 3.48302 8.55499 2.5 10 2.5C11.445 2.5 12.6548 3.48302 12.9659 4.80137L13.0959 4.82783C15.0836 5.2324 16.6665 6.69859 17.1846 8.61505C17.6051 10.1707 17.6051 11.8063 17.1846 13.362C16.6665 15.2785 15.0836 16.7447 13.0959 17.1492L12.7161 17.2265C10.9246 17.5912 9.07538 17.5912 7.28394 17.2265L6.90411 17.1492C4.9164 16.7447 3.3335 15.2785 2.81542 13.362C2.39486 11.8063 2.39486 10.1707 2.81542 8.61504C3.3335 6.69859 4.9164 5.2324 6.90411 4.82783L7.03409 4.80137Z"
                         stroke={useColorModeValue("gray", "white")}
@@ -106,25 +109,19 @@ export const AddImageIcon = () => {
                     />
                 </Icon>
             }
-            
         ></IconButton>
     );
 };
 
 export const AddAudioIcon = () => {
-    return(
+    return (
         <IconButton
             aria-label="add-audio"
             isRound
             size="xs"
             variant="ghost"
             icon={
-                <Icon
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                >
+                <Icon width="18" height="18" viewBox="0 0 18 18" fill="none">
                     <path
                         fill={useColorModeValue("gray", "white")}
                         fillOpacity="0.3"
@@ -136,97 +133,138 @@ export const AddAudioIcon = () => {
     );
 };
 
-export const ShareIconButton = ({...rest}) => {
+export const ShareIconButton = ({ ...rest }) => {
     return (
         <IconButton
             isRound
             size="md"
             variant="ghost"
             icon={
-                <Icon
-                    width="19"
-                    height="19"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                >
-                    <path d="M17.3325 7.77194L17.7568 8.1962L18.181 7.77194L17.7568 7.34768L17.3325 7.77194ZM3.6 16.8246C3.6 12.1563 7.38438 8.37193 12.0527 8.37193V7.17193C6.72164 7.17193 2.4 11.4936 2.4 16.8246H3.6ZM12.0527 8.37193H17.3334V7.17193H12.0527V8.37193ZM13.9848 11.9681L17.7568 8.1962L16.9082 7.34768L13.1363 11.1196L13.9848 11.9681ZM17.7568 7.34768L13.9848 3.57574L13.1363 4.42426L16.9082 8.1962L17.7568 7.34768Z" fill={useColorModeValue("gray", "white")} fillOpacity="0.5"/>
+                <Icon width="19" height="19" viewBox="0 0 20 20" fill="none">
+                    <path
+                        d="M17.3325 7.77194L17.7568 8.1962L18.181 7.77194L17.7568 7.34768L17.3325 7.77194ZM3.6 16.8246C3.6 12.1563 7.38438 8.37193 12.0527 8.37193V7.17193C6.72164 7.17193 2.4 11.4936 2.4 16.8246H3.6ZM12.0527 8.37193H17.3334V7.17193H12.0527V8.37193ZM13.9848 11.9681L17.7568 8.1962L16.9082 7.34768L13.1363 11.1196L13.9848 11.9681ZM17.7568 7.34768L13.9848 3.57574L13.1363 4.42426L16.9082 8.1962L17.7568 7.34768Z"
+                        fill={useColorModeValue("gray", "white")}
+                        fillOpacity="0.5"
+                    />
                 </Icon>
-                }
-            {...rest}    
+            }
+            {...rest}
         ></IconButton>
     );
 };
 
-export const CommentIconButton = ({...rest}) =>{
-    return(
+export const CommentIconButton = ({ ...rest }) => {
+    return (
         <IconButton
-            color = {useColorModeValue("gray.400", "white")}
+            color={useColorModeValue("gray.400", "white")}
             variant="ghost"
             size="lg"
             icon={<IoChatbubbleOutline />}
-            isRound 
-            {...rest} 
-        />
-    );
-};
-
-export const ChargeOutlineButton = ({ ...rest}) => {
-    return(
-        <IconButton
             isRound
-            variant="ghost"
-            icon={<Icon width="16px" height="16px" viewBox="0 0 24 24" fill="none" >
-<path d="M18.7864 12.5907C18.8463 12.468 19.0275 12.0506 18.7834 11.5873L18.7834 11.5873C18.5393 11.124 18.0927 11.0373 17.9575 11.0174C17.8339 10.9992 17.6969 10.9997 17.6361 11C17.6301 11 17.6248 11 17.6204 11H13.8571L13.8571 2.64532C13.8571 2.63683 13.8572 2.62779 13.8572 2.61827C13.8573 2.51467 13.8576 2.35395 13.8403 2.21844C13.8307 2.14353 13.8061 1.98398 13.7199 1.81338C13.6177 1.61114 13.4165 1.37539 13.0828 1.27197C12.7491 1.16854 12.4498 1.2492 12.2511 1.35818C12.0835 1.45011 11.9731 1.56781 11.9228 1.62417C11.8319 1.72613 11.7412 1.85883 11.6827 1.94436C11.6774 1.95222 11.6723 1.95969 11.6675 1.96669L5.38997 11.1214C5.38746 11.125 5.38447 11.1294 5.38105 11.1343C5.34643 11.1843 5.26848 11.297 5.21363 11.4093C5.15366 11.532 4.97254 11.9494 5.21661 12.4127C5.46068 12.876 5.90733 12.9627 6.04247 12.9826C6.16606 13.0008 6.30307 13.0003 6.36393 13C6.36994 13 6.37521 13 6.37965 13H10.1429L10.1429 21.3547C10.1429 21.3632 10.1428 21.3722 10.1428 21.3817C10.1427 21.4853 10.1424 21.646 10.1597 21.7816C10.1693 21.8565 10.1939 22.016 10.2801 22.1866C10.3823 22.3889 10.5835 22.6246 10.9172 22.728C11.2509 22.8315 11.5502 22.7508 11.7489 22.6418C11.9165 22.5499 12.0269 22.4322 12.0772 22.3758C12.1681 22.2739 12.2588 22.1412 12.3173 22.0556C12.3226 22.0478 12.3277 22.0403 12.3325 22.0333L18.61 12.8786C18.6125 12.875 18.6155 12.8706 18.619 12.8657C18.6536 12.8156 18.7315 12.703 18.7864 12.5907Z" stroke="#FFE600" strokeWidth="2"/>
-</Icon>}
             {...rest}
         />
     );
 };
 
-export const ChargeButton = ({ ...rest}) => {
-    return(
-        <IconButton
-            isRound
-            variant="ghost"
-            icon={<Icon width="24px" height="24px" viewBox="0 0 20 27" fill="none" >
-<g filter="url(#filter0_d_163_1478)">
-<path d="M11.2143 9.5L11.2143 2.6241C11.2143 2.61679 11.2143 2.60938 11.2143 2.60189C11.2144 2.49398 11.2144 2.36836 11.2014 2.26823C11.1944 2.21392 11.1787 2.12137 11.1305 2.02673C11.0742 1.91638 10.9684 1.79548 10.7974 1.74067C10.6264 1.68586 10.47 1.72275 10.3601 1.77985C10.2658 1.82883 10.1993 1.89502 10.162 1.93511C10.0932 2.00904 10.0202 2.1113 9.95757 2.19915C9.95322 2.20525 9.94892 2.21128 9.94467 2.21723L10.2108 2.4073L9.94467 2.21723L4.81902 9.39313C4.8159 9.39751 4.81262 9.40208 4.80922 9.40683C4.76946 9.46233 4.71199 9.54253 4.67321 9.61811C4.63193 9.69859 4.53214 9.9245 4.66082 10.1746C4.7895 10.4246 5.03133 10.4747 5.12081 10.4879C5.20485 10.5003 5.30353 10.5001 5.37179 10.5C5.37764 10.5 5.38327 10.5 5.38864 10.5H8.78574L8.78572 17.3759C8.78572 17.3832 8.78571 17.3906 8.78571 17.3981C8.78565 17.506 8.78557 17.6316 8.79856 17.7318C8.8056 17.7861 8.82132 17.8786 8.86954 17.9733C8.92578 18.0836 9.03158 18.2045 9.20261 18.2593C9.37365 18.3141 9.53001 18.2773 9.63991 18.2201C9.73416 18.1712 9.80074 18.105 9.83804 18.0649C9.90681 17.991 9.97976 17.8887 10.0424 17.8009C10.0468 17.7948 10.0511 17.7887 10.0553 17.7828L15.181 10.6069C15.1841 10.6025 15.1874 10.5979 15.1908 10.5932C15.2305 10.5377 15.288 10.4575 15.3268 10.3819C15.3681 10.3014 15.4679 10.0755 15.3392 9.82545C15.2105 9.5754 14.9687 9.52529 14.8792 9.51212C14.7951 9.49974 14.6965 9.49988 14.6282 9.49998C14.6224 9.49999 14.6167 9.5 14.6114 9.5H11.2143ZM9.10584 17.3838C9.10338 17.3864 9.10368 17.3858 9.10666 17.3829C9.10636 17.3832 9.10609 17.3835 9.10584 17.3838ZM9.79025 17.6031C9.7902 17.6028 9.79015 17.6024 9.7901 17.6019L9.79025 17.6031ZM10.8942 2.6162C10.8966 2.61355 10.8963 2.61417 10.8933 2.61709C10.8936 2.61677 10.8939 2.61647 10.8942 2.6162ZM10.2099 2.39807C10.2092 2.39396 10.2093 2.39328 10.2098 2.39688L10.2099 2.39807Z" fill="#FFE500" stroke="#FFE600"/>
-</g>
-<defs>
-<filter id="filter0_d_163_1478" x="-4" y="0" width="28" height="28" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-<feFlood floodOpacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="4"/>
-<feGaussianBlur stdDeviation="2"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_163_1478"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_163_1478" result="shape"/>
-</filter>
-</defs>
-</Icon>}
-            {...rest}
-        />
-    );
-};
-
-export const SearchIconButton = ({...rest}) => {
+export const ChargeOutlineButton = ({ ...rest }) => {
     return (
         <IconButton
-        onClick={() => {
-
-
-            
-        }
-        }
-        as={SearchOutlined}
-        isRound
-        color="gray"
-        variant="ghost"
-        {...rest}
-    />
+            isRound
+            variant="ghost"
+            icon={
+                <Icon
+                    width="16px"
+                    height="16px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                >
+                    <path
+                        d="M18.7864 12.5907C18.8463 12.468 19.0275 12.0506 18.7834 11.5873L18.7834 11.5873C18.5393 11.124 18.0927 11.0373 17.9575 11.0174C17.8339 10.9992 17.6969 10.9997 17.6361 11C17.6301 11 17.6248 11 17.6204 11H13.8571L13.8571 2.64532C13.8571 2.63683 13.8572 2.62779 13.8572 2.61827C13.8573 2.51467 13.8576 2.35395 13.8403 2.21844C13.8307 2.14353 13.8061 1.98398 13.7199 1.81338C13.6177 1.61114 13.4165 1.37539 13.0828 1.27197C12.7491 1.16854 12.4498 1.2492 12.2511 1.35818C12.0835 1.45011 11.9731 1.56781 11.9228 1.62417C11.8319 1.72613 11.7412 1.85883 11.6827 1.94436C11.6774 1.95222 11.6723 1.95969 11.6675 1.96669L5.38997 11.1214C5.38746 11.125 5.38447 11.1294 5.38105 11.1343C5.34643 11.1843 5.26848 11.297 5.21363 11.4093C5.15366 11.532 4.97254 11.9494 5.21661 12.4127C5.46068 12.876 5.90733 12.9627 6.04247 12.9826C6.16606 13.0008 6.30307 13.0003 6.36393 13C6.36994 13 6.37521 13 6.37965 13H10.1429L10.1429 21.3547C10.1429 21.3632 10.1428 21.3722 10.1428 21.3817C10.1427 21.4853 10.1424 21.646 10.1597 21.7816C10.1693 21.8565 10.1939 22.016 10.2801 22.1866C10.3823 22.3889 10.5835 22.6246 10.9172 22.728C11.2509 22.8315 11.5502 22.7508 11.7489 22.6418C11.9165 22.5499 12.0269 22.4322 12.0772 22.3758C12.1681 22.2739 12.2588 22.1412 12.3173 22.0556C12.3226 22.0478 12.3277 22.0403 12.3325 22.0333L18.61 12.8786C18.6125 12.875 18.6155 12.8706 18.619 12.8657C18.6536 12.8156 18.7315 12.703 18.7864 12.5907Z"
+                        stroke="#FFE600"
+                        strokeWidth="2"
+                    />
+                </Icon>
+            }
+            {...rest}
+        />
     );
 };
 
+export const ChargeButton = ({ ...rest }) => {
+    return (
+        <IconButton
+            isRound
+            variant="ghost"
+            icon={
+                <Icon
+                    width="24px"
+                    height="24px"
+                    viewBox="0 0 20 27"
+                    fill="none"
+                >
+                    <g filter="url(#filter0_d_163_1478)">
+                        <path
+                            d="M11.2143 9.5L11.2143 2.6241C11.2143 2.61679 11.2143 2.60938 11.2143 2.60189C11.2144 2.49398 11.2144 2.36836 11.2014 2.26823C11.1944 2.21392 11.1787 2.12137 11.1305 2.02673C11.0742 1.91638 10.9684 1.79548 10.7974 1.74067C10.6264 1.68586 10.47 1.72275 10.3601 1.77985C10.2658 1.82883 10.1993 1.89502 10.162 1.93511C10.0932 2.00904 10.0202 2.1113 9.95757 2.19915C9.95322 2.20525 9.94892 2.21128 9.94467 2.21723L10.2108 2.4073L9.94467 2.21723L4.81902 9.39313C4.8159 9.39751 4.81262 9.40208 4.80922 9.40683C4.76946 9.46233 4.71199 9.54253 4.67321 9.61811C4.63193 9.69859 4.53214 9.9245 4.66082 10.1746C4.7895 10.4246 5.03133 10.4747 5.12081 10.4879C5.20485 10.5003 5.30353 10.5001 5.37179 10.5C5.37764 10.5 5.38327 10.5 5.38864 10.5H8.78574L8.78572 17.3759C8.78572 17.3832 8.78571 17.3906 8.78571 17.3981C8.78565 17.506 8.78557 17.6316 8.79856 17.7318C8.8056 17.7861 8.82132 17.8786 8.86954 17.9733C8.92578 18.0836 9.03158 18.2045 9.20261 18.2593C9.37365 18.3141 9.53001 18.2773 9.63991 18.2201C9.73416 18.1712 9.80074 18.105 9.83804 18.0649C9.90681 17.991 9.97976 17.8887 10.0424 17.8009C10.0468 17.7948 10.0511 17.7887 10.0553 17.7828L15.181 10.6069C15.1841 10.6025 15.1874 10.5979 15.1908 10.5932C15.2305 10.5377 15.288 10.4575 15.3268 10.3819C15.3681 10.3014 15.4679 10.0755 15.3392 9.82545C15.2105 9.5754 14.9687 9.52529 14.8792 9.51212C14.7951 9.49974 14.6965 9.49988 14.6282 9.49998C14.6224 9.49999 14.6167 9.5 14.6114 9.5H11.2143ZM9.10584 17.3838C9.10338 17.3864 9.10368 17.3858 9.10666 17.3829C9.10636 17.3832 9.10609 17.3835 9.10584 17.3838ZM9.79025 17.6031C9.7902 17.6028 9.79015 17.6024 9.7901 17.6019L9.79025 17.6031ZM10.8942 2.6162C10.8966 2.61355 10.8963 2.61417 10.8933 2.61709C10.8936 2.61677 10.8939 2.61647 10.8942 2.6162ZM10.2099 2.39807C10.2092 2.39396 10.2093 2.39328 10.2098 2.39688L10.2099 2.39807Z"
+                            fill="#FFE500"
+                            stroke="#FFE600"
+                        />
+                    </g>
+                    <defs>
+                        <filter
+                            id="filter0_d_163_1478"
+                            x="-4"
+                            y="0"
+                            width="28"
+                            height="28"
+                            filterUnits="userSpaceOnUse"
+                            colorInterpolationFilters="sRGB"
+                        >
+                            <feFlood
+                                floodOpacity="0"
+                                result="BackgroundImageFix"
+                            />
+                            <feColorMatrix
+                                in="SourceAlpha"
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                result="hardAlpha"
+                            />
+                            <feOffset dy="4" />
+                            <feGaussianBlur stdDeviation="2" />
+                            <feComposite in2="hardAlpha" operator="out" />
+                            <feColorMatrix
+                                type="matrix"
+                                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                            />
+                            <feBlend
+                                mode="normal"
+                                in2="BackgroundImageFix"
+                                result="effect1_dropShadow_163_1478"
+                            />
+                            <feBlend
+                                mode="normal"
+                                in="SourceGraphic"
+                                in2="effect1_dropShadow_163_1478"
+                                result="shape"
+                            />
+                        </filter>
+                    </defs>
+                </Icon>
+            }
+            {...rest}
+        />
+    );
+};
 
-
+export const SearchIconButton = ({ ...rest }) => {
+    return (
+        <IconButton
+            onClick={() => {}}
+            as={SearchOutlined}
+            isRound
+            color="gray"
+            variant="ghost"
+            {...rest}
+        />
+    );
+};

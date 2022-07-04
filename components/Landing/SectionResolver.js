@@ -68,7 +68,6 @@ const SectionResolver = ({
                     position={"absolute"}
                     left={-200}
                     top={0}
-                    
                 >
                     <CustomImage src="/blue.png" layout="fill" />
                 </Box>

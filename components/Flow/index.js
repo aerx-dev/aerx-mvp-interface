@@ -32,14 +32,14 @@ const Flow = () => {
                     </Box>
 
                     {nearState.feed
-                        ?.sort(function (a, b) {return new Date(b.metadata.issued_at) - new Date(a.metadata.issued_at)})
-                        .map((nft) => {
+                        ?.sort(function (a, b) {
                             return (
-                                <LazyPosts
-                                    key={nft.token_id}
-                                    nft={nft}
-                                />
+                                new Date(b.metadata.issued_at) -
+                                new Date(a.metadata.issued_at)
                             );
+                        })
+                        .map((nft) => {
+                            return <LazyPosts key={nft.token_id} nft={nft} />;
                         })}
                 </Box>
             </Box>

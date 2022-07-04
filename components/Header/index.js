@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { Box, Image as ChakraImage, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import {
+    Box,
+    Image as ChakraImage,
+    useColorMode,
+    useColorModeValue,
+} from "@chakra-ui/react";
 import Link from "next/link";
 import SearchProfile from "../SearchProfile";
 import MobileView from "./mobileView";
@@ -39,15 +44,19 @@ function Header() {
                             priority="true"
                             cursor={"pointer"}
                             width={"80px"}
-                            filter={ colorMode === "light" ? "brightness(0.45)" : "invert(0)" }
+                            filter={
+                                colorMode === "light"
+                                    ? "brightness(0.45)"
+                                    : "invert(0)"
+                            }
                         />
                     </Link>
                 </div>
                 <div className="flex flex-1">
                     <SearchProfile state={state} bg={postBg} />
                 </div>
-                <DesktopView loggedIn={loggedIn}/>
-                <MobileView loggedIn={loggedIn} />					
+                <DesktopView loggedIn={loggedIn} />
+                <MobileView loggedIn={loggedIn} />
             </Box>
         </Box>
     );

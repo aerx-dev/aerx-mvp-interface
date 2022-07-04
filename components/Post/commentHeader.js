@@ -6,7 +6,6 @@ import NextLink from "next/link";
 const { Header, Footer, Content } = Layout;
 
 const CommentHeader = ({ commentFeed, currentCommentProfile }) => {
-
     const styles = {
         header: {
             height: 64,
@@ -14,9 +13,9 @@ const CommentHeader = ({ commentFeed, currentCommentProfile }) => {
             alignItems: "center",
             position: "relative",
             gap: 5,
-        }
+        },
     };
-    
+
     //console.log('hbh',{currentProfile}.currentProfile?.metadata.media);
     /*src={
                     isUserMsg
@@ -31,15 +30,23 @@ const CommentHeader = ({ commentFeed, currentCommentProfile }) => {
                 className=" bg-slate-300"
                 bg="gray.400"
                 name={commentFeed?.owner_id}
-                
                 size="md"
             />
             <Box ml={2}>
-                <Text>{' '}<NextLink href={`/profile/${encodeURIComponent(commentFeed?.owner_id)}`} passHref><Link>{commentFeed?.owner_id}</Link></NextLink>{' '}</Text>
+                <Text>
+                    {" "}
+                    <NextLink
+                        href={`/profile/${encodeURIComponent(
+                            commentFeed?.owner_id,
+                        )}`}
+                        passHref
+                    >
+                        <Link>{commentFeed?.owner_id}</Link>
+                    </NextLink>{" "}
+                </Text>
             </Box>
-            
         </Footer>
-    )
-}
+    );
+};
 
 export default CommentHeader;

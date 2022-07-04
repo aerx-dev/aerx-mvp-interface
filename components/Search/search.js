@@ -22,10 +22,9 @@ const LazySider = dynamic(() => import("./SideBar"), {
 });
 /*Moses fix the idea it is currently causing a break*/
 //const Profile = async () => {
-const Search = ({searched}) => {
+const Search = ({ searched }) => {
     const nearState = nearStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
-    
 
     const bg = useColorModeValue("gray.100", "lightblack");
 
@@ -36,43 +35,32 @@ const Search = ({searched}) => {
 
     useEffect(() => {
         async function get_current_search_profile() {
-            if({searched}.searched ===  "undefined"){
-                return
+            if ({ searched }.searched === "undefined") {
+                return;
             } else {
-            
-            var res = await nearState.pnftContract?.get_user_ids({
-                user_id: {searched}.searched,
-                
-            });
-            
+                var res = await nearState.pnftContract?.get_user_ids({
+                    user_id: { searched }.searched,
+                });
 
-            setCurrentSearchProfile(res);
-            // return res;
+                setCurrentSearchProfile(res);
+                // return res;
             }
         }
         get_current_search_profile();
     }, [nearState, nearState.accountId, nearState.pnftContract]);
-    console.log('searchprofile',{currentSearchProfile});
-    console.log('searchprofile2',{searched}.searched);
-
+    console.log("searchprofile", { currentSearchProfile });
+    console.log("searchprofile2", { searched }.searched);
 
     return (
         <Layout>
             <LazySider bg={bg} state={nearState}>
                 <Box>
                     <NewPost state={nearState} bg={bg} />
-                        {{currentSearchProfile}?.currentSearchProfile
+                    {{ currentSearchProfile }?.currentSearchProfile
                         ?.sort()
                         .map((nft) => {
-                            return (
-                                <Searchpost
-                                    key={nft}
-                                    nft={nft}
-                                />
-                            );
+                            return <Searchpost key={nft} nft={nft} />;
                         })}
-
-                    
                 </Box>
             </LazySider>
         </Layout>

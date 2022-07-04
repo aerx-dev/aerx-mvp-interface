@@ -1,4 +1,10 @@
-import { IconButton, Icon, Box, SkeletonCircle, useColorModeValue } from "@chakra-ui/react";
+import {
+    IconButton,
+    Icon,
+    Box,
+    SkeletonCircle,
+    useColorModeValue,
+} from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
 import { loginToken, logout } from "../../lib/auth";
 import { useState, useEffect } from "react";
@@ -9,7 +15,6 @@ function ConnectWallet() {
     const { t } = useTranslation("header");
     const [mounted, setMounted] = useState(false);
     const state = nearStore((state) => state);
-
 
     useEffect(() => {
         setMounted(true);
@@ -36,14 +41,12 @@ function ConnectWallet() {
             _hover={{ bg: "none" }}
             _active={{ bg: "none" }}
             rounded="full"
-			variant={"ghost"}
-			
+            variant={"ghost"}
             onClick={() => {
                 loginToken(state);
             }}
-			icon={<WalletSignedIn/>}
-            >
-        </IconButton>
+            icon={<WalletSignedIn />}
+        ></IconButton>
     ) : (
         <IconButton
             fontSize="lg"
@@ -51,13 +54,12 @@ function ConnectWallet() {
             _hover={{ bg: "none" }}
             _active={{ bg: "none" }}
             rounded="full"
-			variant={"ghost"}
+            variant={"ghost"}
             onClick={() => {
                 logout(state);
             }}
-			icon={<WalletSignedOut/>}
-        >
-        </IconButton>
+            icon={<WalletSignedOut />}
+        ></IconButton>
     );
 }
 

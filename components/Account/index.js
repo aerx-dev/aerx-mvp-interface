@@ -162,9 +162,8 @@ const Account = () => {
             console.log("extra", nearState.accountId);
             setInterval(supabaseDelay, 2000);
             function supabaseDelay() {
-               window.location.replace(window.location.origin + "/profile");
-                }
-            
+                window.location.replace(window.location.origin + "/profile");
+            }
         } catch (e) {
             toast(
                 "error",
@@ -225,6 +224,3 @@ const Account = () => {
 };
 
 export default Account;
-
-
-

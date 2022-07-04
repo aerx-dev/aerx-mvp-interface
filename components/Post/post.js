@@ -1,23 +1,30 @@
-import { Box, useColorModeValue, useDisclosure, Image as ChakraImage, Text, Avatar, Divider} from "@chakra-ui/react";
+import {
+    Box,
+    useColorModeValue,
+    useDisclosure,
+    Image as ChakraImage,
+    Text,
+    Avatar,
+    Divider,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { nearStore } from "../../stores/near";
 import { Layout } from "antd";
 import PostHeader from "./postHeader";
 import ChargeModal from "./chargeModal";
-import { Big } from "big.js"
+import { Big } from "big.js";
 import InteractionBar from "./interactionBar";
 import SongCard from "../Player/songCard";
 
 const { Header, Footer, Content } = Layout;
 
-function Post({ nft, charge}) {
-
+function Post({ nft, charge }) {
     const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
     const tokenId = nft.token_id;
     const postBg = useColorModeValue("#edf2f7", "#1E2021");
     const nearState = nearStore((state) => state);
-    const { isOpen, onOpen, onClose } = useDisclosure();    
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const styles = {
         fontFamily: "Open Sans",
@@ -40,7 +47,7 @@ function Post({ nft, charge}) {
     useEffect(() => {
         async function getCharge() {
             var blncd = new Big(nft.total_charges || 0);
-            var resd= blncd.div("10e23").toFixed();
+            var resd = blncd.div("10e23").toFixed();
             var res = resd.toString();
 
             setCurrentCharge(res);
@@ -48,7 +55,7 @@ function Post({ nft, charge}) {
         }
         getCharge();
     }, [nearState, nft.total_charges, isOpen]);
-    
+
     useEffect(() => {
         async function getComment() {
             var re = nft.total_comments.toString();
@@ -58,20 +65,23 @@ function Post({ nft, charge}) {
         getComment();
     }, [nearState, nft.total_comments, isOpen]);
     const isUserMsg = nft.owner_id === nearState.accountId ? true : false;
-    
+
     const [currentProfile, setCurrentProfile] = useState();
     useEffect(() => {
         async function get_current_profile() {
-            if(nft.owner_id === nearState.accountId || nft.owner_id ===  "Aerx.testnet" ){
-                return
+            if (
+                nft.owner_id === nearState.accountId ||
+                nft.owner_id === "Aerx.testnet"
+            ) {
+                return;
             } else {
-            var res = await nearState.pnftContract.profile_by_id({
-                user_id: nearState.accountId,
-                user_to_find_id: nft.owner_id,
-            });
+                var res = await nearState.pnftContract.profile_by_id({
+                    user_id: nearState.accountId,
+                    user_to_find_id: nft.owner_id,
+                });
 
-            setCurrentProfile(res);
-            // return res;
+                setCurrentProfile(res);
+                // return res;
             }
         }
         get_current_profile();
@@ -80,11 +90,19 @@ function Post({ nft, charge}) {
     return (
         <>
             <Layout style={styles}>
-                <PostHeader metadata={metadata} currentProfile={currentProfile} isUserMsg={isUserMsg} nft={nft} />
+                <PostHeader
+                    metadata={metadata}
+                    currentProfile={currentProfile}
+                    isUserMsg={isUserMsg}
+                    nft={nft}
+                />
                 <Content style={styles.content}>
-                    {nft.owner_id ==  "Aerx.testnet" || Number.isInteger(parseInt(nft?.post_id)) == false ? (
-                <Box p={2}>{metadata?.title}</Box> ) :(
-                    <Box p={2}>{metadata?.description}</Box>)}
+                    {nft.owner_id == "Aerx.testnet" ||
+                    Number.isInteger(parseInt(nft?.post_id)) == false ? (
+                        <Box p={2}>{metadata?.title}</Box>
+                    ) : (
+                        <Box p={2}>{metadata?.description}</Box>
+                    )}
                     {extra?.media_type === "audio" ||
                     extra?.type === "audio" ? (
                         <SongCard
@@ -109,7 +127,12 @@ function Post({ nft, charge}) {
                     )}
                 </Content>
                 <Divider />
-                <InteractionBar nft={nft} onOpen={onOpen} currentCharge={currentCharge} currentComment={currentComment} />
+                <InteractionBar
+                    nft={nft}
+                    onOpen={onOpen}
+                    currentCharge={currentCharge}
+                    currentComment={currentComment}
+                />
             </Layout>
             <ChargeModal nft={nft} state={[isOpen, onClose]} />
         </>
@@ -117,4 +140,3 @@ function Post({ nft, charge}) {
 }
 
 export default Post;
-

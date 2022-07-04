@@ -1,10 +1,8 @@
-import React from 'react'
-import {Circle} from "@chakra-ui/react"
+import React from "react";
+import { Circle } from "@chakra-ui/react";
 
 const PlayButton = () => {
-  return (
-    <Circle>PlayButton</Circle>
-  )
-}
+    return <Circle>PlayButton</Circle>;
+};
 
-export default PlayButton
+export default PlayButton;

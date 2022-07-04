@@ -1,6 +1,6 @@
-import { Tag , Avatar } from "@chakra-ui/react";
+import { Tag, Avatar } from "@chakra-ui/react";
 
-export const InterestTags = ({children, ...rest}) => {
+export const InterestTags = ({ children, ...rest }) => {
     return (
         <Tag
             size="xs"
@@ -12,5 +12,5 @@ export const InterestTags = ({children, ...rest}) => {
         >
             {children}
         </Tag>
-    )
-}
+    );
+};

@@ -6,8 +6,7 @@ import { Box, Text, Avatar, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 const { Header, Footer, Content } = Layout;
 
-const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
-
+const PostHeader = ({ metadata, isUserMsg, currentProfile, nft }) => {
     const styles = {
         header: {
             height: 64,
@@ -15,11 +14,11 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
             alignItems: "center",
             position: "relative",
             gap: 5,
-        }
+        },
     };
-    
-    console.log('hbh',{currentProfile}.currentProfile?.metadata.media);
-    
+
+    console.log("hbh", { currentProfile }.currentProfile?.metadata.media);
+
     const nearState = nearStore((state) => state);
 
     return (
@@ -31,24 +30,30 @@ const PostHeader = ({metadata, isUserMsg, currentProfile, nft}) => {
                 src={
                     isUserMsg
                         ? nearState.profile?.profileImg
-                        : {currentProfile}.currentProfile?.metadata?.media
+                        : { currentProfile }.currentProfile?.metadata?.media
                 }
                 size="md"
             />
             <Box ml={2}>
-                <Text>{' '}<NextLink href={`/profile/${encodeURIComponent(nft?.owner_id)}`} passHref><Link>{nft?.owner_id}</Link></NextLink>{' '}</Text>
-                <TimeAgo 
+                <Text>
+                    {" "}
+                    <NextLink
+                        href={`/profile/${encodeURIComponent(nft?.owner_id)}`}
+                        passHref
+                    >
+                        <Link>{nft?.owner_id}</Link>
+                    </NextLink>{" "}
+                </Text>
+                <TimeAgo
                     className={`text-[11px] ${
                         isUserMsg && "order-last pr-1"
                     } opacity-60`}
                     datetime={metadata.issued_at}
                 />
             </Box>
-            <PurpleButton className="right-0 text-white">
-                64 æ
-            </PurpleButton>
+            <PurpleButton className="right-0 text-white">64 æ</PurpleButton>
         </Header>
-    )
-}
+    );
+};
 
 export default PostHeader;

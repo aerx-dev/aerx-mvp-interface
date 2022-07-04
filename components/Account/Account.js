@@ -12,9 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { AtSignIcon } from "@chakra-ui/icons";
 
-
 function AccountData({ profile, t }) {
-    console.log("ac",profile)
+    console.log("ac", profile);
     return (
         <Grid
             templateColumns={[
@@ -38,7 +37,7 @@ function AccountData({ profile, t }) {
                     width={["100%", "400px", "225px"]}
                     mb={2}
                 >
-                    {profile?.profileImg && 
+                    {profile?.profileImg && (
                         <Image
                             height="320px"
                             rounded="lg"
@@ -48,13 +47,17 @@ function AccountData({ profile, t }) {
                             alt="profileImgPreview"
                             objectFit="cover"
                         />
-}
+                    )}
                 </Box>
             </Box>
             <Box>
                 <FormControl mb={2}>
                     <FormLabel>{t("label.fullName")}</FormLabel>
-                    <Input type="text" defaultValue={profile.fullName} readOnly />
+                    <Input
+                        type="text"
+                        defaultValue={profile.fullName}
+                        readOnly
+                    />
                 </FormControl>
 
                 <FormControl mb={2}>
@@ -73,12 +76,20 @@ function AccountData({ profile, t }) {
 
                 <FormControl mb={2}>
                     <FormLabel>{t("label.aboutMe")}</FormLabel>
-                    <Textarea type="text" defaultValue={profile.aboutMe} readOnly />
+                    <Textarea
+                        type="text"
+                        defaultValue={profile.aboutMe}
+                        readOnly
+                    />
                 </FormControl>
 
                 <FormControl mb={2}>
                     <FormLabel>{t("label.hobbys")}</FormLabel>
-                    <Textarea type="text" defaultValue={profile.hobbys} readOnly />
+                    <Textarea
+                        type="text"
+                        defaultValue={profile.hobbys}
+                        readOnly
+                    />
                 </FormControl>
 
                 <FormControl mb={2}>
@@ -88,10 +99,14 @@ function AccountData({ profile, t }) {
 
                 <FormControl mb={2}>
                     <FormLabel>{t("label.country")}</FormLabel>
-                    <Input type="text" defaultValue={profile.country} readOnly />
+                    <Input
+                        type="text"
+                        defaultValue={profile.country}
+                        readOnly
+                    />
                 </FormControl>
             </Box>
-        </Grid >
+        </Grid>
     );
 }
 

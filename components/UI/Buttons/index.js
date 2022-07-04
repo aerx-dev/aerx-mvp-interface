@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, useColorMode } from "@chakra-ui/react";
-import {AddIcon,ArrowForwardIcon, ArrowUpIcon} from "@chakra-ui/icons";
-import {RiSendPlaneFill} from "react-icons/ri";
+import { AddIcon, ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons";
+import { RiSendPlaneFill } from "react-icons/ri";
 import { MdOutlineDone } from "react-icons/md";
-import { HiShoppingBag, HiOutlineDocumentSearch} from "react-icons/hi";
+import { HiShoppingBag, HiOutlineDocumentSearch } from "react-icons/hi";
 
 export const SendButton = () => {
     return (
@@ -12,26 +12,28 @@ export const SendButton = () => {
             bgColor="#6054F0"
             size="md"
             variant="outline"
-            leftIcon={<RiSendPlaneFill />} 
->
+            leftIcon={<RiSendPlaneFill />}
+        >
             Send
         </Button>
     );
-}
+};
 
 export const FollowButton = () => {
     return (
         <Button
             borderRadius={20}
             bgColor="transparent"
-			_hover={{ color:"black", bgColor:"#E2E8F0" }}
+            _hover={{ color: "black", bgColor: "#E2E8F0" }}
             size="md"
             variant="outline"
             leftIcon={<MdOutlineDone />}
-            > Followed 
+        >
+            {" "}
+            Followed
         </Button>
-    )
-}
+    );
+};
 
 export const ReceiveIconButton = () => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -39,14 +41,16 @@ export const ReceiveIconButton = () => {
         <Button
             borderRadius={20}
             size="md"
-			_hover={{ color:"black", bgColor:"#E2E8F0" }}
+            _hover={{ color: "black", bgColor: "#E2E8F0" }}
             variant="solid"
-			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
+            bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
             leftIcon={<ArrowForwardIcon />}
-            > Receive
+        >
+            {" "}
+            Receive
         </Button>
     );
-}
+};
 
 export const SendIconButton = () => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -54,16 +58,18 @@ export const SendIconButton = () => {
         <Button
             borderRadius={20}
             size="md"
-			_hover={{ color:"black", bgColor:"#E2E8F0" }}
+            _hover={{ color: "black", bgColor: "#E2E8F0" }}
             variant="solid"
-			bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714" }
+            bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
             leftIcon={<ArrowUpIcon />}
-            > Send
+        >
+            {" "}
+            Send
         </Button>
     );
-}
+};
 
-export const PurpleButton = ({children,...rest}) => {
+export const PurpleButton = ({ children, ...rest }) => {
     return (
         <Button
             borderRadius={20}
@@ -72,6 +78,8 @@ export const PurpleButton = ({children,...rest}) => {
             position="absolute"
             leftIcon={<HiShoppingBag />}
             {...rest}
-        >{children}</Button>
+        >
+            {children}
+        </Button>
     );
-}
+};

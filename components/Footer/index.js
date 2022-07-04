@@ -18,21 +18,19 @@ import useTranslation from "next-translate/useTranslation";
 import SectionResolver from "../Landing/SectionResolver";
 
 const socials = [
-        {
-            icon: "discord",
-            url: "https://discord.gg/UqU39muz",
-        },
-        {
-            icon: "telegram",
-            url: "https://t.me/aerx_int",
-        },
-    ];
+    {
+        icon: "discord",
+        url: "https://discord.gg/UqU39muz",
+    },
+    {
+        icon: "telegram",
+        url: "https://t.me/aerx_int",
+    },
+];
 
 function Footer() {
     const { t } = useTranslation("footer");
     const { colorMode } = useColorMode();
-
-    
 
     return (
         <>

@@ -29,7 +29,7 @@ function NewPost({ bg }) {
     const [uploadFile, setUploadFile] = useState();
     // Ipsf hook with details and upload hook.
     const ipfsData = usePinata(uploadFile, toast);
-    const ref = useRef()
+    const ref = useRef();
 
     const [body, setBody] = useState({
         text: "",
@@ -80,7 +80,7 @@ function NewPost({ bg }) {
                 },
                 "300000000000000", // attached GAS
             );
-            console.log("just minted",minted_post);
+            console.log("just minted", minted_post);
             toast(
                 "success",
                 "AERX ContentNFT with id : " +
@@ -93,9 +93,9 @@ function NewPost({ bg }) {
             await fetchpostsData(nearState);
             ref.current.value = "";
             setBody({
-        text: "",
-        media_type: "text",
-    });
+                text: "",
+                media_type: "text",
+            });
         } catch (e) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(

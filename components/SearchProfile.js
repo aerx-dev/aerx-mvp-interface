@@ -1,12 +1,6 @@
-import {
-    Box,
-    Input,
-    useColorMode,
-    useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Input, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import useCustomToast from "../hooks/useCustomToast";
-import {
-    SearchIconButton } from "./UI/IconButton";
+import { SearchIconButton } from "./UI/IconButton";
 import usePinata from "../hooks/usePinata";
 import { useState, useEffect, useRef } from "react";
 import { nearStore } from "../stores/near";
@@ -27,27 +21,22 @@ function SearchProfile({ bg }) {
     const filter = colorMode === "light" ? "invert(0)" : "invert(0)";
     const fill = useColorModeValue("gray", "white");
 
-
-
     async function searchenter() {
         if (!sbody.text) {
             toast("warning", "search cannot be empty!", "searchpage");
             return;
         }
-        try
-        {
-            window.location.replace(window.location.origin + "/search?id=" + sbody.text);
-           
-        }
-        catch (e) {
+        try {
+            window.location.replace(
+                window.location.origin + "/search?id=" + sbody.text,
+            );
+        } catch (e) {
             console.log("search Error! Error: " + e.message);
-           
         }
-
     }
 
     // Reffs to the content data
-   
+
     function update(e) {
         const path = e.currentTarget.dataset.path;
         const val = e.currentTarget.value;

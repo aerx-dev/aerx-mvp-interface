@@ -21,7 +21,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const nearState = nearStore((state) => state);
     const toast = useCustomToast();
-    const commentFeed= nft.comments.reverse();
+    const commentFeed = nft.comments.reverse();
     const ref = useRef();
     const [commentbody, setCommentbody] = useState({
         text: "",
@@ -61,7 +61,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
         delay: 500,
     };
     const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
-    
+
     function commentUpdate(e) {
         const path = e.currentTarget.dataset.path;
         const val = e.currentTarget.value;
@@ -72,14 +72,13 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
             };
         });
     }
-    
+
     async function createComment() {
         if (!commentbody.text) {
             toast("warning", "Comment cannot be empty!", "feedpage");
             return;
         }
 
-       
         console.log(commentbody);
         try {
             const minted_comment = await nearState.pnftContract.comment(
@@ -90,18 +89,14 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 },
                 "300000000000000", // attached GAS
             );
-            toast(
-                "success",
-                "Comment posted",
-                "CNFTpost",
-            );
+            toast("success", "Comment posted", "CNFTpost");
             await fetchpostsData(nearState);
             await getBalance(nearState);
             ref.current.value = "";
             setCommentbody({
-        text: "",
-        media_type: "text",
-    });
+                text: "",
+                media_type: "text",
+            });
         } catch (e) {
             console.log("Comment could not be minted! Error: " + e.message);
             toast(
@@ -126,62 +121,85 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                     },
                     "300000000000000", // attached GAS (optional)
                 )
-                        
 
                 .catch((e) => {
                     console.log("Charge failed!", e);
                     console.log("nft.owner_id", nft.owner_id);
                     toast("error", "Charge failed!", "ChargeIderr");
                 });
-            toast("success", "Charge Successfull 1 aex token sent!", "ChargeIdSucc");
+            toast(
+                "success",
+                "Charge Successfull 1 aex token sent!",
+                "ChargeIdSucc",
+            );
             await fetchpostsData(nearState);
             await getBalance(nearState);
-
         }
     }
-    console.log('commentfeed',commentFeed);
-    console.log('test',Number.isInteger(parseInt(nft?.post_id)));
-        console.log('test3',parseFloat(currentCharge));
-
+    console.log("commentfeed", commentFeed);
+    console.log("test", Number.isInteger(parseInt(nft?.post_id)));
+    console.log("test3", parseFloat(currentCharge));
 
     return (
-        
         <>
-        {nft.owner_id ==  "Aerx.testnet" || Number.isInteger(parseInt(nft?.post_id)) == false ? (
-                null ) : (
-            <>
-             <Footer style={styles.footer} className="flex align-middle gap-2">
-         {nft?.owner_id == nearState?.accountId  ? (<>{parseFloat(currentCharge) == 0 ? (
-                <ChargeOutlineButton /> ):( <ChargeButton />)}</>) : 
-        (<>{parseFloat(currentCharge) == 0 ? ( <ChargeOutlineButton {...longPressEvent} />):(<ChargeButton {...longPressEvent} />)}</>)}
-                {currentCharge}
-                <CommentIconButton onClick={comment} />{currentComment}
-                <ShareIconButton opacity={0.7} ml={2} />0
-                <MemberTag style={styles.tag} />
-            </Footer>
-            <Footer>
-                {commentBox ? (
-                    <Box flexDirection="row" display="flex" alignItems="center">
-                        <Input
-                            onChange={commentUpdate}
-                            maxLength={500}
-                            type="text"
-                            data-path="text"
-                            placeholder="comment"
-                            borderRadius={20}
-                            size="sm"
-                            ref={ref}
-                            border="none"
-                            bg={bdcolorchanger}
-                        />
-                        <Box onClick={createComment} >
-                            <AddIconButton />
-                        </Box>
-                    </Box>
-                ) : null}
-            </Footer>
-        </>)}
-       </>
+            {nft.owner_id == "Aerx.testnet" ||
+            Number.isInteger(parseInt(nft?.post_id)) == false ? null : (
+                <>
+                    <Footer
+                        style={styles.footer}
+                        className="flex align-middle gap-2"
+                    >
+                        {nft?.owner_id == nearState?.accountId ? (
+                            <>
+                                {parseFloat(currentCharge) == 0 ? (
+                                    <ChargeOutlineButton />
+                                ) : (
+                                    <ChargeButton />
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                {parseFloat(currentCharge) == 0 ? (
+                                    <ChargeOutlineButton {...longPressEvent} />
+                                ) : (
+                                    <ChargeButton {...longPressEvent} />
+                                )}
+                            </>
+                        )}
+                        {currentCharge}
+                        <CommentIconButton onClick={comment} />
+                        {currentComment}
+                        <ShareIconButton opacity={0.7} ml={2} />0
+                        <MemberTag style={styles.tag} />
+                    </Footer>
+                    <Footer>
+                        {commentBox ? (
+                            <Box
+                                flexDirection="row"
+                                display="flex"
+                                alignItems="center"
+                            >
+                                <Input
+                                    onChange={commentUpdate}
+                                    maxLength={500}
+                                    type="text"
+                                    data-path="text"
+                                    placeholder="comment"
+                                    borderRadius={20}
+                                    size="sm"
+                                    ref={ref}
+                                    border="none"
+                                    bg={bdcolorchanger}
+                                />
+                                <Box onClick={createComment}>
+                                    <AddIconButton />
+                                </Box>
+                            </Box>
+                        ) : null}
+                    </Footer>
+                </>
+            )}
+        </>
     );
 };
 

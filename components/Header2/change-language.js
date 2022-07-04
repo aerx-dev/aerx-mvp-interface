@@ -9,7 +9,7 @@ import {
     MenuList,
     MenuItem,
     IconButton,
-	useColorMode, 
+    useColorMode,
 } from "@chakra-ui/react";
 
 const { locales } = i18Config;
@@ -19,7 +19,6 @@ export default function ChangeLanguage() {
     const { asPath } = useRouter();
     const { colorMode, toggleColorMode } = useColorMode();
 
-
     return (
         <Menu size="xs">
             <MenuButton
@@ -28,13 +27,13 @@ export default function ChangeLanguage() {
                 fontSize="sm"
                 as={IconButton}
                 rounded="full"
-				variant={colorMode === "light" ? "ghost" : "ghost" }
-				color={ colorMode === "light" ? "gray" : "white" }
+                variant={colorMode === "light" ? "ghost" : "ghost"}
+                color={colorMode === "light" ? "gray" : "white"}
             >
                 {lang.toUpperCase()}
             </MenuButton>
 
-            <MenuList  color="gray" maxWidth={"100px"}>
+            <MenuList color="gray" maxWidth={"100px"}>
                 <MenuItem onClick={async () => await setLanguage("en")}>
                     {t("english")}{" "}
                     <small style={{ marginLeft: 8 }}>
