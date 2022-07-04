@@ -3,7 +3,7 @@ import { Button, useColorMode } from "@chakra-ui/react";
 import { AddIcon, ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { RiSendPlaneFill } from "react-icons/ri";
 import { MdOutlineDone } from "react-icons/md";
-import { HiShoppingBag, HiOutlineDocumentSearch } from "react-icons/hi";
+import { HiShoppingBag, HiOutlineDocumentSearch, HiRefresh } from "react-icons/hi";
 
 export const SendButton = () => {
     return (
@@ -14,7 +14,19 @@ export const SendButton = () => {
             variant="outline"
             leftIcon={<RiSendPlaneFill />}
         >
-            Send
+        </Button>
+    );
+};
+
+export const SwapButton = () => {
+    return (
+        <Button
+            borderRadius={20}
+            bgColor="#6054F0"
+            size="md"
+            variant="outline"
+            leftIcon={<HiRefresh />}
+        >
         </Button>
     );
 };
@@ -46,8 +58,7 @@ export const ReceiveIconButton = () => {
             bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
             leftIcon={<ArrowForwardIcon />}
         >
-            {" "}
-            Receive
+            {""}
         </Button>
     );
 };
