@@ -18,9 +18,15 @@ const nearStore = create((set) => ({
     setTokenContract: (tokenContract) => set((state) => ({ tokenContract })),
     removeTokenContract: () => set((state) => ({ tokenContract: null })),
 
-    profiletokenContract: null,
-    setProfileTokenContract: (profiletokenContract) => set((state) => ({ profiletokenContract })),
-    removeProfileTokenContract: () => set((state) => ({ profiletokenContract: null })),
+    profileContract: null,
+    setProfileWithUserAsSigner: (profileContract) =>
+        set((state) => ({ profileContract })),
+    removeProfileWithUserAsSigner: () =>
+        set((state) => ({ profileContract: null })),
+
+    DexContract: null,
+    setDexContract: (DexContract) => set((state) => ({ DexContract })),
+    removeDexContract: () => set((state) => ({ DexContract: null })),
 
     pnftContract: null,
     setPNFTContract: (pnftContract) => set((state) => ({ pnftContract })),
@@ -41,7 +47,6 @@ const nearStore = create((set) => ({
     aexBalance: 0,
     setAexBalance: (aexBalance) => set((state) => ({ aexBalance })),
     removeAexBalance: () => set((state) => ({ aexBalance: 0 })),
-    
 }));
 
 export { nearStore };
