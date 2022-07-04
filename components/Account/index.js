@@ -7,7 +7,6 @@ import CreateProfileForm from "./Form";
 import usePinata from "../../hooks/usePinata";
 import useCustomToast from "../../hooks/useCustomToast";
 import AccountData from "./Account";
-import { profileToSupa } from "../../lib/supabaseClient";
 
 const Account = () => {
     // The profile picture which will go into the NFT
@@ -161,8 +160,7 @@ const Account = () => {
             }
             console.log("acres", user_info);
             console.log("extra", nearState.accountId);
-            profileToSupa(user_info, profile, profileToSave, toast);
-            setInterval(supabaseDelay, 5000);
+            setInterval(supabaseDelay, 2000);
             function supabaseDelay() {
                window.location.replace(window.location.origin + "/profile");
                 }
