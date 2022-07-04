@@ -14,19 +14,8 @@ export const SendButton = () => {
             variant="outline"
             leftIcon={<RiSendPlaneFill />}
         >
-        </Button>
-    );
-};
-
-export const SwapButton = () => {
-    return (
-        <Button
-            borderRadius={20}
-            bgColor="#6054F0"
-            size="md"
-            variant="outline"
-            leftIcon={<HiRefresh />}
-        >
+                {" "}
+            Send
         </Button>
     );
 };
