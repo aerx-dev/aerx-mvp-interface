@@ -1,5 +1,7 @@
 import { Box, VStack, Icon, Heading, Text, HStack } from "@chakra-ui/react";
 import { ReceiveIconButton, SendIconButton, SwapIconButton } from "../../UI/Buttons";
+import { useState } from "react";
+
 
 const BalanceBar = ({ balance, ...rest }) => {
     const [isFlipped, setIsFlipped] = useState(false);
