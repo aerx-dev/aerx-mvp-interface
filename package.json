@@ -27,6 +27,7 @@
         "antd": "^4.19.1",
         "autoprefixer": "^10.4.2",
         "axios": "^0.26.1",
+        "react-card-flip": "1.1.5"
         "beautiful-react-hooks": "^1.2.0",
         "big.js": "^6.1.1",
         "cross-undici-fetch": "^0.1.28",
