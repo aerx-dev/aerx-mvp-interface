@@ -2,12 +2,15 @@ import { Layout } from "antd";
 import { useState } from "react";
 import Collections from "../Collections";
 import NFTCard from "./NFTCard";
+import ReactCardFlip from "react-card-flip";
 
 const { Header, Sider, Content, Footer } = Layout;
 
 export default function SideBar({ children, bg, state }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     console.log("state", state);
+    const [isFlipped, setIsFlipped] = useState<boolean>(false);
+    const handleClick = () => setIsFlipped(!isFlipped);
 
     return (
         <div>
@@ -17,12 +20,14 @@ export default function SideBar({ children, bg, state }) {
                     className="col-start-1 col-span-3 flex flex-col items-center min-h-full"
                     trigger={null}
                 >
+                        <ReactCardFlip isFlipped={isFlipped}>
                     <NFTCard
                         profile={state?.profile}
                         balance={state?.aexBalance}
                         bg={bg}
                         className="sticky top-20 min-h-max min-w-full"
                     />
+                            </ReactCardFlip>
                 </div>
                 <div className="col-start-4 col-span-6 flex flex-col items-center">
                     <Content className="min-w-full">{children}</Content>
