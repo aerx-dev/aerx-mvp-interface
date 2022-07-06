@@ -9,7 +9,7 @@ const { Header, Sider, Content, Footer } = Layout;
 export default function SideBar({ children, bg, state }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     console.log("state", state);
-    const [isFlipped, setIsFlipped] = useState<boolean>(false);
+    const [isFlipped, setIsFlipped] = useState(false);
     const handleClick = () => setIsFlipped(!isFlipped);
 
     return (
@@ -23,6 +23,12 @@ export default function SideBar({ children, bg, state }) {
                         <ReactCardFlip isFlipped={isFlipped}>
                     <NFTCard
                         profile={state?.profile}
+                        balance={state?.aexBalance}
+                        handleClick={handleClick}
+                        bg={bg}
+                        className="sticky top-20 min-h-max min-w-full"
+                    />
+                            <NFTCard
                         balance={state?.aexBalance}
                         handleClick={handleClick}
                         bg={bg}
