@@ -91,7 +91,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                     </Text>
                     <Text overflowWrap="anywhere">{profile?.aboutMe}</Text>
                 </Box>
-                <BalanceBar balance={balance} />
+                <BalanceBar />
             </Flex>
         </Box>
     );
