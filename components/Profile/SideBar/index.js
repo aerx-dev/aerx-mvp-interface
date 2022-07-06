@@ -10,7 +10,7 @@ export default function SideBar({ children, bg, state }) {
     const [isCollapsed, setIsCollapsed] = useState(false);
     console.log("state", state);
     const [isFlipped, setIsFlipped] = useState<boolean>(false);
-    const handleClick = () => setIsFlipped(!isFlipped);
+    const handleClick = () => /*setIsFlipped(!isFlipped)*/console.log('flippeed');
 
     return (
         <div>
