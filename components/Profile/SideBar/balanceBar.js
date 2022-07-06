@@ -1,7 +1,7 @@
 import { Box, VStack, Icon, Heading, Text, HStack } from "@chakra-ui/react";
 import { ReceiveIconButton, SendIconButton, SwapIconButton } from "../../UI/Buttons";
 
-const BalanceBar = ({ balance, ...rest }) => {
+const BalanceBar = ({ balance,handleClick, ...rest }) => {
     return (
         <Box
             bgImage="/images/balance-bg.svg"
@@ -45,7 +45,7 @@ const BalanceBar = ({ balance, ...rest }) => {
                 >
                     <SendIconButton />
                     <ReceiveIconButton />
-                        <SwapIconButton />
+                        <SwapIconButton onclick={handleClick}/>
                 </HStack>
             </VStack>
         </Box>
