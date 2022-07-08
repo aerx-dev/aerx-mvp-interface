@@ -1,3 +1,12 @@
+import {
+    Box,
+    Divider,
+    Flex,
+    HStack,
+    Text,
+    useColorModeValue,
+    useClipboard,
+} from "@chakra-ui/react";
 import { Layout } from "antd";
 import { useState } from "react";
 import Collections from "../Collections";
@@ -21,9 +30,7 @@ export default function SideBar({ children, bg, state }) {
                     trigger={null}
                 >
                         <ReactCardFlip isFlipped={isFlipped}>
-      <CardStructure card={card}>
         <Flex
-          className='front-card-flex'
           flexDir='column'
           justifyContent='space-between'
           alignItems='center'
@@ -38,10 +45,7 @@ export default function SideBar({ children, bg, state }) {
             {isFlipped ? 'See description' : 'See answer'}
           </Button>
         </Flex>
-      </CardStructure>
-      <CardStructure card={card}>
         <Flex
-          className='front-card-flex'
           flexDir='column'
           justifyContent='space-between'
           alignItems='center'
@@ -56,7 +60,6 @@ export default function SideBar({ children, bg, state }) {
             {isFlipped ? 'See description' : 'See answer'}
           </Button>
         </Flex>
-      </CardStructure>
     </ReactCardFlip>
                 </div>
                 <div className="col-start-4 col-span-6 flex flex-col items-center">
