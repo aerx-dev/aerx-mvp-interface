@@ -39,7 +39,6 @@ export default function SideBar({ children, bg, state }) {
           mb={50}
         >
           <Text color='teal.100' overflowWrap='anywhere' padding={5}>
-            {card.front}
           </Text>
 
           <Button colorScheme='white' onClick={handleClick}>
@@ -54,7 +53,6 @@ export default function SideBar({ children, bg, state }) {
           mb={50}
         >
           <Text color='teal.100' padding={5}>
-            {card.back}
           </Text>
 
           <Button colorScheme='white' onClick={handleClick}>
