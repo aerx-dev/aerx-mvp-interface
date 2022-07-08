@@ -21,18 +21,43 @@ export default function SideBar({ children, bg, state }) {
                     trigger={null}
                 >
                         <ReactCardFlip isFlipped={isFlipped}>
-                    <NFTCard
-                        profile={state?.profile}
-                        balance={state?.aexBalance}
-                        bg={bg}
-                        className="sticky top-20 min-h-max min-w-full"
-                    />
-                            <NFTCard
-                        balance={state?.aexBalance}
-                        bg={bg}
-                        className="sticky top-20 min-h-max min-w-full"
-                    />
-                            </ReactCardFlip>
+      <CardStructure card={card}>
+        <Flex
+          className='front-card-flex'
+          flexDir='column'
+          justifyContent='space-between'
+          alignItems='center'
+          minH='inherit'
+          mb={50}
+        >
+          <Text color='teal.100' overflowWrap='anywhere' padding={5}>
+            {card.front}
+          </Text>
+
+          <Button colorScheme='white' onClick={handleClick}>
+            {isFlipped ? 'See description' : 'See answer'}
+          </Button>
+        </Flex>
+      </CardStructure>
+      <CardStructure card={card}>
+        <Flex
+          className='front-card-flex'
+          flexDir='column'
+          justifyContent='space-between'
+          alignItems='center'
+          minH='inherit'
+          mb={50}
+        >
+          <Text color='teal.100' padding={5}>
+            {card.back}
+          </Text>
+
+          <Button colorScheme='white' onClick={handleClick}>
+            {isFlipped ? 'See description' : 'See answer'}
+          </Button>
+        </Flex>
+      </CardStructure>
+    </ReactCardFlip>
                 </div>
                 <div className="col-start-4 col-span-6 flex flex-col items-center">
                     <Content className="min-w-full">{children}</Content>
