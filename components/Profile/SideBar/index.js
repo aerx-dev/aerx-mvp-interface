@@ -6,6 +6,7 @@ import {
     Text,
     useColorModeValue,
     useClipboard,
+    Button,
 } from "@chakra-ui/react";
 import { Layout } from "antd";
 import { useState } from "react";
