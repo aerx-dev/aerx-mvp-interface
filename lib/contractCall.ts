@@ -24,8 +24,7 @@ export default async function contractFullAccessKey(
 
     if (_c_type === "profileNft") {
         PRIV_KEY =
-            process.env.NEXT_PUBLIC_PNFT_PRIV_KEY ||
-            "ed25519:4YvQfRhu9t1ZXV9nc4ovUpY5SJgzGNrCrq3ohVbB6mHup39wdjJhZWH24wz7nLRPFFUMCSC29JkzyPET9GVqjJ9q";
+            process.env.NEXT_PUBLIC_PNFT_PRIV_KEY;
         CONTRACT_NAME = process.env.NEXT_PUBLIC_PNFT_ID;
     }
 
@@ -70,7 +69,7 @@ export default async function contractFullAccessKey(
     // initiate the contract so its associated with this current account and exposing all the methods
     const contract = new nearApiJs.Contract(
         account,
-        CONTRACT_NAME || "CONTRACT",
+        CONTRACT_NAME,
         {
             viewMethods: [
                 "is_username_available",
