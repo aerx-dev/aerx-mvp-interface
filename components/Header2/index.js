@@ -10,7 +10,7 @@ import Link from "next/link";
 import MobileView from "./mobileView";
 import DesktopView from "./desktopView";
 import useTranslation from "next-translate/useTranslation";
-import { nearStore } from "../../stores/near.js";
+import { nearStore } from "../../stores/near.ts";
 
 function Header() {
     const { colorMode } = useColorMode();

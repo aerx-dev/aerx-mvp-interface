@@ -2,10 +2,10 @@ import { HStack, IconButton, useColorMode, Button } from "@chakra-ui/react";
 import { AccountIcon, FeedIcon, ProfileIcon } from "../UI/NavbarIcons";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
-import { loginToken, logout } from "../../lib/auth";
+import { loginToken, logout } from "../../lib/auth.ts";
 import ChangeLanguage from "./change-language";
 import ConnectWallet from "./connect-wallet";
-import { nearStore } from "../../stores/near.js";
+import { nearStore } from "../../stores/near.ts";
 
 const DesktopView = ({ loggedIn }) => {
     const { t } = useTranslation("header");

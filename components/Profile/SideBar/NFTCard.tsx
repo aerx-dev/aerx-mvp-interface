@@ -18,7 +18,7 @@ const styles = {
     fontSize: 12,
 };
 
-const NFTCard = ({ profile, balance, ...rest }) => {
+const NFTCard = ({ profile, balance, flip, ...rest }) => {
     const nearState = nearStore((state) => state);
     const value = nearState.accountId || "0jx12hbuwc34jc";
     const { hasCopied, onCopy } = useClipboard(value);
@@ -91,7 +91,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                     </Text>
                     <Text overflowWrap="anywhere">{profile?.aboutMe}</Text>
                 </Box>
-                <BalanceBar />
+                <BalanceBar flip={flip} balance={balance} />
             </Flex>
         </Box>
     );
@@ -107,9 +107,14 @@ const ProfileTags = ({ iterType, data, ...rest }) => {
             alignItems="center"
             w="100%"
         >
-            {data.map((iter) =>
+            {data.map((iter, idx) =>
                 iterType === "tags" ? (
-                    <InterestTags key={iter} borderRadius={15} px={1} py={0.5}>
+                    <InterestTags
+                        key={iter + idx}
+                        borderRadius={15}
+                        px={1}
+                        py={0.5}
+                    >
                         {iter}
                     </InterestTags>
                 ) : null,

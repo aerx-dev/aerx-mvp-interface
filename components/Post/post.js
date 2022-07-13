@@ -18,7 +18,7 @@ import SongCard from "../Player/songCard";
 
 const { Header, Footer, Content } = Layout;
 
-function Post({ nft, charge }) {
+function Post({ nft }) {
     const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
     const tokenId = nft.token_id;

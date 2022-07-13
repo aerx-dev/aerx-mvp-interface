@@ -1,32 +1,59 @@
-import { connect, Contract, WalletConnection, keyStores } from "near-api-js";
+import {
+    connect,
+    Contract,
+    WalletConnection,
+    keyStores,
+    ConnectConfig,
+    ConnectedWalletAccount,
+} from "near-api-js";
 import { create } from "ipfs-core";
-import getConfig from "./config";
-import contractFullAccessKey from "../lib/contractCall";
+import { getConfig } from "./config";
+import contractFullAccessKey from "./contractCall";
+import { NearStoreType } from "../types/stores";
+import {
+    DEX_CONTRACT_NAME,
+    PROFILE_CONTRACT_NAME,
+    TOKEN_CONTRACT_NAME,
+} from "../utils/constants";
 
-const TOKEN_CONTRACT_NAME = "tokentest.mohzcrea8me.testnet"; //to load aex_token contract
-const PROFILE_CONTRACT_NAME = "profiletest.mohzcrea8me.testnet"; //to load profile_contract contract
-const DEX_CONTRACT_NAME = "swaptest.mohzcrea8me.testnet"; //to load profile_contract contract
-
-export async function initNearConnection(nearState) {
+export async function initNearConnection(nearState: NearStoreType) {
     // Initialize connection to the NEAR testnet
     // await initIfps();
+
     const nearTokenConfig = getConfig(process.env.NODE_ENV || "development");
-    const nearConnection = await connect(
-        Object.assign(
-            { deps: { keyStore: new keyStores.BrowserLocalStorageKeyStore() } },
-            nearTokenConfig,
-        ),
-    );
+
+    // See details in the official doc
+    // https://near.github.io/near-api-js/interfaces/browserconnect.connectconfig.html#keystore-1
+    const keyStore = new keyStores.BrowserLocalStorageKeyStore();
+    const config: ConnectConfig = {
+        ...nearTokenConfig,
+        headers: {},
+        keyStore,
+    };
+
+    const nearConnection = await connect(config);
+    console.log("nearConnection : ", nearConnection);
+
     nearState.setConnection(nearConnection);
 
-    const walletConnection = new WalletConnection(nearConnection);
+    // TODO: CHECK IF THE KEY IS NOT CAUSING LOCALSTORAGE ACCESS ISSUE
+    const walletConnection = new WalletConnection(nearConnection, "Aerx");
+    console.log("walletConnection : ", walletConnection);
+
     nearState.setWalletConnection(walletConnection);
 
     // Getting the Account ID. If still unauthorized, it's just empty string
-    window.accountId = walletConnection.getAccountId();
-    window.walletConnection = walletConnection;
-    const accId = walletConnection.getAccountId();
-    nearState.setAccountId(accId);
+    const accountId = walletConnection.getAccountId();
+    console.log("accountId : ", accountId);
+
+    if (!accountId) {
+        console.error("ACCOUNTID IS EMPTY");
+        return;
+    }
+    // TODO: CHECK IF THIS NEEDED AS WALLETCONNECTION IS STORED IN NEARSTORE
+    // window.walletConnection = walletConnection;
+
+    nearState.setAccountId(accountId);
 
     //.2 load tokenContract whenever it is ready
     await loadTokenContract(nearState, walletConnection.account());
@@ -83,9 +110,11 @@ export async function checkProfile(nearState) {
 }
 
 // Initializing our token contract APIs by contract name and configuration
-async function loadTokenContract(nearState, account) {
-    console.log("TOKEN ACC: ", account);
-    window.tokenContract = await new Contract(account, TOKEN_CONTRACT_NAME, {
+const loadTokenContract = (
+    nearState: NearStoreType,
+    account: ConnectedWalletAccount,
+) => {
+    const tokenContract = new Contract(account, TOKEN_CONTRACT_NAME, {
         // View methods are read only. They don't modify the state, but usually return some value.
         viewMethods: ["balance_of", "ft_balance_of"],
         changeMethods: [
@@ -94,13 +123,17 @@ async function loadTokenContract(nearState, account) {
             "change_owner_to",
             "send_aex",
         ],
-        sender: account.accountId,
     });
-    nearState.setTokenContract(window.tokenContract);
-    console.log("token contract:", window.tokenContract);
-}
-async function loadDexContrat(nearState, account) {
-    window.dexContract = await new Contract(account, DEX_CONTRACT_NAME, {
+
+    nearState.setTokenContract(tokenContract);
+    console.log("token contract:", tokenContract);
+};
+
+const loadDexContrat = (
+    nearState: NearStoreType,
+    account: ConnectedWalletAccount,
+) => {
+    const dexContract = new Contract(account, DEX_CONTRACT_NAME, {
         // View methods(read only methods).
         viewMethods: ["all_pools"],
         //change methods(methods that change state)
@@ -110,47 +143,58 @@ async function loadDexContrat(nearState, account) {
             "lend",
             "swap_aex",
         ],
-        sender: account.accountId,
     });
-    nearState.setDexContract(window.dexContract);
-}
-async function loadProfileWithUserAsSigner(nearState, account) {
-    window.profileContractWithUserAsSigner = await new Contract(
+    nearState.setDexContract(dexContract);
+    console.log("dexContract: ", dexContract);
+};
+const loadProfileWithUserAsSigner = (
+    nearState: NearStoreType,
+    account: ConnectedWalletAccount,
+) => {
+    const profileContractWithUserAsSigner = new Contract(
         account,
         PROFILE_CONTRACT_NAME,
         {
             // change methods(methods that change state)
             changeMethods: ["swap"],
-            sender: account.accountId,
+            viewMethods: [],
         },
     );
-    nearState.setProfileWithUserAsSigner(
-        window.profileContractWithUserAsSigner,
-    );
-}
-async function loadPNFTContract(nearState) {
-    const pnftContract = await contractFullAccessKey("profileNft");
+    nearState.setProfileWithUserAsSigner(profileContractWithUserAsSigner);
+};
+
+async function loadPNFTContract(nearState: NearStoreType) {
+    const pnftContract = await contractFullAccessKey(nearState, "profileNft");
     nearState.setPNFTContract(pnftContract);
     console.log("pnft contract:", pnftContract);
 }
 
-export function logout(state) {
+export function logout(nearState: NearStoreType) {
+    // TODO: NEED TO CONFIRM IF IT'S OK TO THROW
+    if (!nearState.walletConnection) {
+        throw new Error("wallet is not connected");
+    }
     // reset store
-    state.walletConnection.signOut();
+    nearState.walletConnection.signOut();
 
-    state.removeConnection();
-    state.removeWalletConnection();
+    nearState.removeConnection();
+    nearState.removeWalletConnection();
 
     // reload page
     window.location.replace(window.location.origin + window.location.pathname);
 }
 
-export async function loginToken(state) {
-    await state.walletConnection.requestSignIn(
+export async function loginToken(nearState: NearStoreType) {
+    if (!nearState.walletConnection) {
+        throw new Error("wallet is not connected");
+    }
+
+    await nearState.walletConnection.requestSignIn(
         TOKEN_CONTRACT_NAME,
         "",
         window.location.origin + "/account",
         "",
     );
+
     //todo: also maybe have a second URL like with like 404 or 401 / error page.
 }

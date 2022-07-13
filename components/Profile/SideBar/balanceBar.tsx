@@ -1,11 +1,11 @@
 import { Box, VStack, Icon, Heading, Text, HStack } from "@chakra-ui/react";
-import { ReceiveIconButton, SendIconButton, SwapIconButton } from "../../UI/Buttons";
-import { useState } from "react";
+import {
+    ReceiveIconButton,
+    SendIconButton,
+    SwapIconButton,
+} from "../../UI/Buttons";
 
-
-const BalanceBar = ({ balance, ...rest }) => {
-    const [isFlipped, setIsFlipped] = useState(false);
-    const handleClick = () => setIsFlipped(!isFlipped);
+const BalanceBar = ({ balance, flip }) => {
     return (
         <Box
             bgImage="/images/balance-bg.svg"
@@ -43,13 +43,10 @@ const BalanceBar = ({ balance, ...rest }) => {
                         {balance || 0}
                     </Heading>
                 </HStack>
-                <HStack
-                        justifyContent="space-evenly"
-                        width="100%"
-                >
+                <HStack justifyContent="space-evenly" width="100%">
                     <SendIconButton />
                     <ReceiveIconButton />
-                        <SwapIconButton onclick={handleClick}/>
+                    <SwapIconButton handleClick={flip} />
                 </HStack>
             </VStack>
         </Box>

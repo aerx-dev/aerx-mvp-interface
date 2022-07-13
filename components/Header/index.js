@@ -10,7 +10,7 @@ import SearchProfile from "../SearchProfile";
 import MobileView from "./mobileView";
 import DesktopView from "./desktopView";
 import useTranslation from "next-translate/useTranslation";
-import { nearStore } from "../../stores/near.js";
+import { nearStore } from "../../stores/near.ts";
 
 function Header() {
     const { colorMode } = useColorMode();
@@ -33,7 +33,10 @@ function Header() {
             backdropFilter={"blur(8px)"}
             className="sticky top-0 z-50 w-full bg-transparent py-4 px-4  md:px-10"
         >
-            <Box className="flex flex-row items-center justify-center dippynav w-full">
+            <Box
+                maxW={"1440px"} // TODO: change the value to constants
+                className="flex flex-row items-center justify-center dippynav"
+            >
                 <div className="flex-1">
                     <Link href={{ pathname: "/" }}>
                         <ChakraImage

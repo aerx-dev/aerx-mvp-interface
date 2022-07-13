@@ -29,7 +29,7 @@ function NewPost({ bg }) {
     const [uploadFile, setUploadFile] = useState();
     // Ipsf hook with details and upload hook.
     const ipfsData = usePinata(uploadFile, toast);
-    const ref = useRef();
+    const ref = useRef<HTMLInputElement>(null);
 
     const [body, setBody] = useState({
         text: "",
@@ -57,7 +57,7 @@ function NewPost({ bg }) {
     }, []);
 
     async function createPost() {
-        if (!body.text) {
+        if (!body.text || !ref.current) {
             toast("warning", "Post cannot be empty!", "feedpage");
             return;
         }
@@ -107,9 +107,9 @@ function NewPost({ bg }) {
     }
 
     // Reffs to the content data
-    const inputAudio = useRef(null);
+    const inputAudio = useRef<HTMLInputElement>(null);
     const onAudioClick = () => {
-        inputAudio.current.click();
+        inputAudio.current && inputAudio.current.click();
         setBody((prevBody) => {
             return {
                 ...prevBody,
@@ -118,9 +118,9 @@ function NewPost({ bg }) {
         });
     };
 
-    const inputImg = useRef(null);
+    const inputImg = useRef<HTMLInputElement>(null);
     const onImgClick = () => {
-        inputImg.current.click();
+        inputImg.current && inputImg.current.click();
         setBody((prevBody) => {
             return {
                 ...prevBody,
@@ -167,6 +167,7 @@ function NewPost({ bg }) {
             py={2}
             borderRadius={5}
             className="sticky top-20 z-10 shadow-lg"
+            w={"100%"}
         >
             <Avatar
                 size="xs"

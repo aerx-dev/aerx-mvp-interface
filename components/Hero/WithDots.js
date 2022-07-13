@@ -42,7 +42,7 @@ const WithDots = ({ children }) => {
             {dots.map((dot, i) => (
                 <Box
                     position="absolute"
-                    key="id"
+                    key={dot + i}
                     borderRadius="full"
                     bg={dot.color}
                     top={dot.top}
