@@ -24,7 +24,7 @@ export default async function contractFullAccessKey(
     let PRIV_KEY;
     let CONTRACT_NAME;
 
-    if (_c_type === "profileNft") {
+    if (_c_type === "AerxProfileContract") {
         PRIV_KEY = process.env.NEXT_PUBLIC_PNFT_PRIV_KEY;
         CONTRACT_NAME = process.env.NEXT_PUBLIC_PNFT_ID;
     }
@@ -46,6 +46,7 @@ export default async function contractFullAccessKey(
 
     let signer = new InMemorySigner(keyStore);
 
+    // Step 3:  create a connection to the network using the signer's keystore and default config for testnet
     const config: ConnectConfig = {
         networkId,
         nodeUrl,
@@ -53,8 +54,6 @@ export default async function contractFullAccessKey(
         keyStore: signer.keyStore,
         headers: {},
     };
-
-    // Step 3:  create a connection to the network using the signer's keystore and default config for testnet
     const near = await nearApiJs.connect(config);
 
     if (!nearState.connection) {
