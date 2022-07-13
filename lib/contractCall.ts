@@ -62,26 +62,35 @@ export default async function contractFullAccessKey(
         alert("ERROR");
     }
 
+    if (!account) {
+        console.error("ACCOUNT IS NULL");
+        return;
+    }
+
     // initiate the contract so its associated with this current account and exposing all the methods
-    const contract = new nearApiJs.Contract(account, CONTRACT_NAME, {
-        viewMethods: [
-            "is_username_available",
-            "has_registered",
-            "profile_by_id",
-            "nft_token", //Nft core
-            "post_details",
-            "nft_tokens",
-            "get_all_posts",
-            "get_user_ids",
-        ],
-        changeMethods: [
-            "mint_profile",
-            "edit_profile",
-            "mint_post",
-            "comment",
-            "charge",
-        ],
-    });
+    const contract = new nearApiJs.Contract(
+        account,
+        CONTRACT_NAME || "CONTRACT",
+        {
+            viewMethods: [
+                "is_username_available",
+                "has_registered",
+                "profile_by_id",
+                "nft_token", //Nft core
+                "post_details",
+                "nft_tokens",
+                "get_all_posts",
+                "get_user_ids",
+            ],
+            changeMethods: [
+                "mint_profile",
+                "edit_profile",
+                "mint_post",
+                "comment",
+                "charge",
+            ],
+        },
+    );
 
     return contract;
 }
