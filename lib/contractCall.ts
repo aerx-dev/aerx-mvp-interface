@@ -65,14 +65,10 @@ export default async function contractFullAccessKey(
     // Step 4:  get the account object of the currentAccount.  At this point, we should have full control over the account.
     let account;
     try {
-        account = new Account(
-            nearState.connection.connection,
-            nearState.accountId,
-        );
+        account = new nearApiJs.Account(near.connection, CONTRACT_NAME);
     } catch (e: any) {
-        alert("ERROR");
+        alert("ERROR GETTING ACCOUNT");
     }
-
     if (!account) {
         console.error("ACCOUNT IS NULL");
         return;
@@ -89,7 +85,6 @@ export default async function contractFullAccessKey(
             "has_registered",
             "profile_by_id",
             "post_details",
-            "nft_tokens",
             "get_all_posts",
             "get_user_ids",
             "repost_details",
