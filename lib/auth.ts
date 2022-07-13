@@ -187,7 +187,7 @@ const loadProfileWithUserAsSigner = (
 };
 
 async function loadPNFTContract(nearState: NearStoreType) {
-    const pnftContract = await contractFullAccessKey(nearState, "profileNft");
+    const pnftContract = await contractFullAccessKey("AerxProfileContract");
     nearState.setPNFTContract(pnftContract);
     console.log("pnft contract:", pnftContract);
 }

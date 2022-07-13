@@ -16,10 +16,7 @@ const {
     Account,
 } = nearApiJs;
 
-export default async function contractFullAccessKey(
-    nearState: NearStoreType,
-    _c_type: string,
-) {
+export default async function contractFullAccessKey(_c_type: string) {
     // Step 1:  get the keypair from the contract's full access private key
     let PRIV_KEY;
     let CONTRACT_NAME;
@@ -55,11 +52,6 @@ export default async function contractFullAccessKey(
         headers: {},
     };
     const near = await nearApiJs.connect(config);
-
-    if (!nearState.connection) {
-        console.error("NEAR STATE CONNECTION ERROR");
-        return;
-    }
 
     // Step 4:  get the account object of the currentAccount.  At this point, we should have full control over the account.
     let account;
