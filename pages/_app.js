@@ -3,7 +3,7 @@ import { ThemeProvider } from "next-themes";
 import { ChakraProvider } from "@chakra-ui/react";
 import { initNearConnection, initIfps, checkProfile } from "../lib/auth";
 import {  getBalance, fetchpostsData } from "../lib/tokenContract";
-import { nearStore } from "../stores/near.js";
+import { nearStore } from "../stores/near.ts";
 import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";

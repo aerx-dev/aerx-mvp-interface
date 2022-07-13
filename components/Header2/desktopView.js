@@ -5,7 +5,7 @@ import Link from "next/link";
 import { loginToken, logout } from "../../lib/auth";
 import ChangeLanguage from "./change-language";
 import ConnectWallet from "./connect-wallet";
-import { nearStore } from "../../stores/near.js";
+import { nearStore } from "../../stores/near.ts";
 
 const DesktopView = ({ loggedIn }) => {
     const { t } = useTranslation("header");
