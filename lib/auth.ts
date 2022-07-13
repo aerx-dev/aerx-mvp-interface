@@ -175,7 +175,6 @@ const loadProfileWithUserAsSigner = (
                 "has_registered",
                 "profile_by_id",
                 "post_details",
-                "nft_tokens",
                 "get_all_posts",
                 "get_user_ids",
                 "repost_details",
@@ -187,7 +186,7 @@ const loadProfileWithUserAsSigner = (
 };
 
 async function loadPNFTContract(nearState: NearStoreType) {
-    const pnftContract = await contractFullAccessKey(nearState, "profileNft");
+    const pnftContract = await contractFullAccessKey(nearState, "AerxProfileContract");
     nearState.setPNFTContract(pnftContract);
     console.log("pnft contract:", pnftContract);
 }
