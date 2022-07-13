@@ -43,6 +43,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
 
     const swap = async () => {
         // TODO: handle swapping tokens
+        console.log("SWAP CLICKED");
     };
 
     return (
