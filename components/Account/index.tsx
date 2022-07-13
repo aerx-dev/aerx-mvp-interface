@@ -12,7 +12,7 @@ const Account = () => {
     // The profile picture which will go into the NFT
     const { t } = useTranslation("account");
     const picBg = useColorModeValue("gray.200", "gray.700");
-    const nearState = nearStore((state) => state);
+    const nearState = nearStore((state: any) => state);
     const { pnftContract } = nearState;
     const toast = useCustomToast();
 
@@ -42,7 +42,7 @@ const Account = () => {
         } else {
             setLockPage(true);
             setUpdating(true);
-            setProfile((prevProfile) => {
+            setProfile((prevProfile: any) => {
                 return {
                     ...prevProfile,
                     ...nearState.profile,
@@ -51,7 +51,7 @@ const Account = () => {
         }
     }, [nearState.profile, nearState.accountId]);
 
-    function profileImageChange(event) {
+    function profileImageChange(event: { target: { files: any; }; }) {
         const { files } = event.target;
         const expectedType = [
             "jpg",
@@ -75,18 +75,18 @@ const Account = () => {
                 toast(
                     "error",
                     "Picture type not supported. Supported types are " +
-                        expectedType +
-                        " .",
+                    expectedType +
+                    " .",
                     "Images",
                 );
             }
         }
     }
 
-    function update(e) {
+    function update(e: { currentTarget: { dataset: { path: any; }; value: any; }; }) {
         let path = e.currentTarget.dataset.path;
         let val = e.currentTarget.value;
-        setProfile((prevProfile) => {
+        setProfile((prevProfile: any) => {
             return {
                 ...prevProfile,
                 [path]: val,
@@ -94,7 +94,7 @@ const Account = () => {
         });
     }
 
-    async function handleSave(e) {
+    async function handleSave(e: { preventDefault: () => void; }) {
         e.preventDefault();
         let profileToSave = {
             title: "AERX ProfileNFT for " + profile.username,
@@ -115,6 +115,9 @@ const Account = () => {
 
         // 3. send mint request
         var user_info;
+        function onMintDelay() {
+            window.location.replace(window.location.origin + "/profile");
+        }
         try {
             if (updating) {
                 console.log("Editing.....");
@@ -129,9 +132,9 @@ const Account = () => {
                 toast(
                     "success",
                     "Your AERX ProfileNFT username was changed to : " +
-                        user_info.token_id +
-                        " successfully along side other details" +
-                        "PNFTsccss",
+                    user_info.token_id +
+                    " successfully along side other details" +
+                    "PNFTsccss",
                 );
             } else {
                 console.log("Minting.....");
@@ -151,17 +154,14 @@ const Account = () => {
                 toast(
                     "success",
                     "Your AERX ProfileNFT with username: " +
-                        user_info.token_id +
-                        " was minted successfully!",
+                    user_info.token_id +
+                    " was minted successfully!",
                     "PNFTsccss",
                 );
             }
             console.log("acres", user_info);
             console.log("extra", nearState.accountId);
-            setInterval(supabaseDelay, 2000);
-            function supabaseDelay() {
-                window.location.replace(window.location.origin + "/profile");
-            }
+            setInterval(onMintDelay, 2000);
         } catch (e) {
             toast(
                 "error",
@@ -173,7 +173,7 @@ const Account = () => {
     }
 
     async function onEdit() {
-        setProfile((prev) => ({
+        setProfile((prev: any) => ({
             ...prev,
             ...nearState.profile,
         }));
