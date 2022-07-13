@@ -21,7 +21,7 @@ export async function initNearConnection(nearState: NearStoreType) {
     // Initialize connection to the NEAR testnet
     // await initIfps();
 
-    const nearTokenConfig = getConfig(process.env.NODE_ENV || "development");
+    const nearTokenConfig = getConfig(process.env.NODE_ENV);
 
     // See details in the official doc
     // https://near.github.io/near-api-js/interfaces/browserconnect.connectconfig.html#keystore-1
@@ -161,8 +161,26 @@ const loadProfileWithUserAsSigner = (
         PROFILE_CONTRACT_NAME,
         {
             // change methods(methods that change state)
-            changeMethods: ["swap"],
-            viewMethods: [],
+            changeMethods: [
+                "mint_post",
+                "charge_repost",
+                "repost",
+                "swap",
+                "list_post_for_sale",
+                "transfer_ownership",
+                "buy_post",
+            ],
+            viewMethods: [
+                "is_username_available",
+                "has_registered",
+                "profile_by_id",
+                "post_details",
+                "nft_tokens",
+                "get_all_posts",
+                "get_user_ids",
+                "repost_details",
+                "get_all_repost",
+            ],
         },
     );
     nearState.setProfileWithUserAsSigner(profileContractWithUserAsSigner);
