@@ -1,51 +1,5 @@
 import create from "zustand";
-
-// TODO: CHANGE ANY TYPE TO CUSTOM TYPE
-export type NearStoreType = {
-    connection: any;
-    setConnection: (connection) => void;
-    removeConnection: () => void;
-
-    walletConnection: any;
-    setWalletConnection: (walletConnection) => void;
-    removeWalletConnection: () => void;
-
-    accountId: any;
-    setAccountId: (accountId) => void;
-    removeAccountId: () => void;
-
-    tokenContract: any;
-    setTokenContract: (tokenContract) => void;
-    removeTokenContract: () => void;
-
-    profileContract: any;
-    setProfileWithUserAsSigner: (profileContract) => void;
-    removeProfileWithUserAsSigner: () => void;
-
-    DexContract: any;
-    setDexContract: (DexContract) => void;
-    removeDexContract: () => void;
-
-    pnftContract: any;
-    setPNFTContract: (pnftContract) => void;
-    removeNFTContract: () => void;
-
-    profile: any;
-    setProfile: (profile) => void;
-    removeProfile: () => void;
-
-    lastRes: any;
-    setLastRes: (lastRes) => void;
-    removeLastRes: () => void;
-
-    feed: any[] | null;
-    setFeed: (feed) => void;
-    removeFeed: () => void;
-
-    aexBalance: number;
-    setAexBalance: (aexBalance) => void;
-    removeAexBalance: () => void;
-};
+import { NearStoreType } from "../types/stores";
 
 const nearStore = create<NearStoreType>((set) => ({
     connection: null,

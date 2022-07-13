@@ -46,7 +46,7 @@ const WithStar = ({ children }) => {
         <Box position="relative">
             {stars.map((star, i) => (
                 <StarComponent
-                    key={i}
+                    key={star + i}
                     top={star.top}
                     left={star.left}
                     radius={star.radius}

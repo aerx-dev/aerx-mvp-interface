@@ -13,7 +13,7 @@ const Account = () => {
     const { t } = useTranslation("account");
     const picBg = useColorModeValue("gray.200", "gray.700");
     const nearState = nearStore((state) => state);
-    const pnftContract = nearState.pnftContract;
+    const { pnftContract } = nearState;
     const toast = useCustomToast();
 
     // The uploaded image which will be deployed through IPFS
@@ -106,9 +106,7 @@ const Account = () => {
             extra: JSON.stringify(profile),
         };
 
-        let fetchedImg = ipfsData.fileUrl
-            ? ipfsData.fileUrl
-            : nearState.profile.profileImg;
+        let fetchedImg = ipfsData.fileUrl || nearState.profile?.profileImg;
         nearState.setProfile({
             ...nearState.profile,
             ...profile,
@@ -175,11 +173,10 @@ const Account = () => {
     }
 
     async function onEdit() {
-        setProfile(() => {
-            return {
-                ...nearState.profile,
-            };
-        });
+        setProfile((prev) => ({
+            ...prev,
+            ...nearState.profile,
+        }));
         setUpdating(true);
         setLockPage(false);
     }
@@ -193,7 +190,7 @@ const Account = () => {
                     </Heading>
                     {lockPage && (
                         <Button
-                            className=" ml-auto"
+                            className="ml-auto"
                             colorScheme="blue"
                             onClick={onEdit}
                         >

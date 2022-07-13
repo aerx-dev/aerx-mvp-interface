@@ -1,4 +1,7 @@
-function getConfig(env) {
+import { ConnectConfig } from "near-api-js";
+import { EnvType } from "../types/common";
+
+export const getConfig = (env: EnvType): ConnectConfig => {
     switch (env) {
         case "production":
         case "mainnet":
@@ -7,7 +10,8 @@ function getConfig(env) {
                 nodeUrl: "https://rpc.testnet.near.org",
                 walletUrl: "https://wallet.testnet.near.org",
                 helperUrl: "https://helper.testnet.near.org",
-                explorerUrl: "https://explorer.testnet.near.org",
+                headers: {},
+                // explorerUrl: "https://explorer.testnet.near.org",
             };
         case "development":
         case "testnet":
@@ -16,7 +20,9 @@ function getConfig(env) {
                 nodeUrl: "https://rpc.testnet.near.org",
                 walletUrl: "https://wallet.testnet.near.org",
                 helperUrl: "https://helper.testnet.near.org",
-                explorerUrl: "https://explorer.testnet.near.org",
+                headers: {},
+
+                // explorerUrl: "https://explorer.testnet.near.org",
             };
         case "betanet":
             return {
@@ -24,7 +30,9 @@ function getConfig(env) {
                 nodeUrl: "https://rpc.betanet.near.org",
                 walletUrl: "https://wallet.betanet.near.org",
                 helperUrl: "https://helper.betanet.near.org",
-                explorerUrl: "https://explorer.betanet.near.org",
+                headers: {},
+
+                // explorerUrl: "https://explorer.betanet.near.org",
             };
         case "local":
             return {
@@ -36,6 +44,7 @@ function getConfig(env) {
                 walletUrl:
                     process.env.NEAR_WALLET_URL ||
                     "http://localhost:4000/wallet",
+                headers: {},
             };
         case "test":
         case "ci":
@@ -43,18 +52,18 @@ function getConfig(env) {
                 networkId: "shared-test",
                 nodeUrl: "https://rpc.ci-testnet.near.org",
                 masterAccount: "test.near",
+                headers: {},
             };
         case "ci-betanet":
             return {
                 networkId: "shared-test-staging",
                 nodeUrl: "https://rpc.ci-betanet.near.org",
                 masterAccount: "test.near",
+                headers: {},
             };
         default:
             throw Error(
                 `Unconfigured environment '${env}'. Can be configured in src/config.js.`,
             );
     }
-}
-
-module.exports = getConfig;
+};

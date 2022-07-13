@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import { ChakraProvider } from "@chakra-ui/react";
-import { initNearConnection, initIfps, checkProfile } from "../lib/auth";
+import { initNearConnection, initIfps, checkProfile } from "../lib/auth.ts";
 import {  getBalance, fetchpostsData } from "../lib/tokenContract";
 import { nearStore } from "../stores/near.ts";
 import { useEffect, useState } from "react";

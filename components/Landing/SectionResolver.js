@@ -94,7 +94,7 @@ const SectionResolver = ({
                 <Flex fontSize={[18, 20]} flexDirection="column" gap={2}>
                     {body?.map((text, i) => (
                         <Text
-                            key={i}
+                            key={text + i}
                             colorScheme={
                                 colorMode === "light" ? "#322E65" : "#000"
                             }

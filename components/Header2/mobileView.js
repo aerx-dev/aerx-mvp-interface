@@ -12,7 +12,7 @@ import Link from "next/link";
 import { AiOutlineMenu } from "react-icons/ai";
 import ChangeLanguage from "./change-language";
 import ConnectWallet from "./connect-wallet";
-import { loginToken, logout } from "../../lib/auth";
+import { loginToken, logout } from "../../lib/auth.ts";
 import { nearStore } from "../../stores/near.ts";
 import useTranslation from "next-translate/useTranslation";
 

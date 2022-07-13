@@ -107,9 +107,14 @@ const ProfileTags = ({ iterType, data, ...rest }) => {
             alignItems="center"
             w="100%"
         >
-            {data.map((iter) =>
+            {data.map((iter, idx) =>
                 iterType === "tags" ? (
-                    <InterestTags key={iter} borderRadius={15} px={1} py={0.5}>
+                    <InterestTags
+                        key={iter + idx}
+                        borderRadius={15}
+                        px={1}
+                        py={0.5}
+                    >
                         {iter}
                     </InterestTags>
                 ) : null,
