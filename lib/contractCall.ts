@@ -1,6 +1,7 @@
 // SOURCE: https://github.com/VitalPointAI/NEAR-Access-Key-Tutorial/blob/main/src/App.js
 
 import * as nearApiJs from "near-api-js";
+import { ConnectConfig } from "near-api-js";
 import { NearStoreType } from "../types/stores";
 import { getConfig } from "./config";
 
@@ -23,10 +24,8 @@ export default async function contractFullAccessKey(
     let PRIV_KEY;
     let CONTRACT_NAME;
 
-
     if (_c_type === "profileNft") {
-        PRIV_KEY =
-            process.env.NEXT_PUBLIC_PNFT_PRIV_KEY;
+        PRIV_KEY = process.env.NEXT_PUBLIC_PNFT_PRIV_KEY;
         CONTRACT_NAME = process.env.NEXT_PUBLIC_PNFT_ID;
     }
 
@@ -35,28 +34,28 @@ export default async function contractFullAccessKey(
         return;
     }
     const { networkId, nodeUrl, walletUrl } = getConfig("testnet");
-    let keyPair = KeyPair.fromString(PRIV_KEY);
+    const keyPair = KeyPair.fromString(PRIV_KEY);
 
     // Step 2:  load up an inMemorySigner using the keyPair for the account
     if (!CONTRACT_NAME) {
         console.error("CONTRACT NAME IS NULL");
         return;
     }
-    let signer = await InMemorySigner.fromKeyPair(
-        networkId,
-        CONTRACT_NAME,
-        keyPair,
-    );
+    const keyStore = new nearApiJs.keyStores.InMemoryKeyStore();
+    keyStore.setKey(networkId, CONTRACT_NAME, keyPair);
 
-    // Step 3:  create a connection to the network using the signer's keystore and default config for testnet
-    const near = await nearApiJs.connect({
+    let signer = new InMemorySigner(keyStore);
+
+    const config: ConnectConfig = {
         networkId,
         nodeUrl,
         walletUrl,
-        // TODO: FIX BELOW
-        // keyStore: signer.getPublicKey(near),
+        keyStore: signer.keyStore,
         headers: {},
-    });
+    };
+
+    // Step 3:  create a connection to the network using the signer's keystore and default config for testnet
+    const near = await nearApiJs.connect(config);
 
     if (!nearState.connection) {
         console.error("NEAR STATE CONNECTION ERROR");
@@ -66,14 +65,10 @@ export default async function contractFullAccessKey(
     // Step 4:  get the account object of the currentAccount.  At this point, we should have full control over the account.
     let account;
     try {
-        account = new Account(
-            nearState.connection.connection,
-            nearState.accountId,
-        );
+        account = new nearApiJs.Account(near.connection, CONTRACT_NAME);
     } catch (e: any) {
-        alert("ERROR");
+        alert("ERROR GETTING ACCOUNT");
     }
-
     if (!account) {
         console.error("ACCOUNT IS NULL");
         return;
@@ -84,30 +79,25 @@ export default async function contractFullAccessKey(
     }
 
     // initiate the contract so its associated with this current account and exposing all the methods
-    const contract = new nearApiJs.Contract(
-        account,
-        CONTRACT_NAME,
-        {
-            viewMethods: [
-                "is_username_available",
-                "has_registered",
-                "profile_by_id",
-                "post_details",
-                "nft_tokens",
-                "get_all_posts",
-                "get_user_ids",
-                "repost_details",
-                "get_all_repost",
-            ],
-            changeMethods: [
-                "mint_profile",
-                "edit_profile",
-                "mint_post",
-                "comment",
-                "charge",
-            ],
-        },
-    );
+    const contract = new nearApiJs.Contract(account, CONTRACT_NAME, {
+        viewMethods: [
+            "is_username_available",
+            "has_registered",
+            "profile_by_id",
+            "post_details",
+            "get_all_posts",
+            "get_user_ids",
+            "repost_details",
+            "get_all_repost",
+        ],
+        changeMethods: [
+            "mint_profile",
+            "edit_profile",
+            "mint_post",
+            "comment",
+            "charge",
+        ],
+    });
 
     return contract;
 }
