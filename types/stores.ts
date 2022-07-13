@@ -11,23 +11,23 @@ export type NearStoreType = {
     removeWalletConnection: () => void;
 
     accountId: any;
-    setAccountId: (accountId) => void;
+    setAccountId: (accountId: any) => void;
     removeAccountId: () => void;
 
     tokenContract: any;
-    setTokenContract: (tokenContract) => void;
+    setTokenContract: (tokenContract: any) => void;
     removeTokenContract: () => void;
 
     profileContract: any;
-    setProfileWithUserAsSigner: (profileContract) => void;
+    setProfileWithUserAsSigner: (profileContract: any) => void;
     removeProfileWithUserAsSigner: () => void;
 
     DexContract: any;
-    setDexContract: (DexContract) => void;
+    setDexContract: (DexContract: any) => void;
     removeDexContract: () => void;
 
     pnftContract: any;
-    setPNFTContract: (pnftContract) => void;
+    setPNFTContract: (pnftContract: any) => void;
     removeNFTContract: () => void;
 
     profile: ProfileType | null;
@@ -35,15 +35,15 @@ export type NearStoreType = {
     removeProfile: () => void;
 
     lastRes: any;
-    setLastRes: (lastRes) => void;
+    setLastRes: (lastRes: any) => void;
     removeLastRes: () => void;
 
     feed: any[] | null;
-    setFeed: (feed) => void;
+    setFeed: (feed: any) => void;
     removeFeed: () => void;
 
     aexBalance: number;
-    setAexBalance: (aexBalance) => void;
+    setAexBalance: (aexBalance: any) => void;
     removeAexBalance: () => void;
 };
 

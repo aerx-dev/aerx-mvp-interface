@@ -1,11 +1,10 @@
 import { Contract } from "near-api-js";
 
 export type TokenContract = Contract & {
-    ft_total_supply: () => Promise<any>;
+    balance_of: () => Promise<void>;
+    reward_users_for_anniversaries: () => Promise<void>;
+    change_owner_to: () => Promise<void>;
+    send_aex: () => Promise<void>;
     ft_balance_of: (accountId: string) => Promise<number>;
-    get_all_posts: (userId: string) => Promise<any[]>;
-    ft_transfer: ({ receiverId, amount, memo }) => Promise<any>;
-    ft_transfer_call: ({ receiverId, amount, memo, msg }) => Promise<void>;
-    ft_on_transfer: () => Promise<void>;
-    ft_resolve_transfer: ({ senderId, receiverId, amount }) => Promise<void>;
+    claim_gift: () => Promise<void>;
 };

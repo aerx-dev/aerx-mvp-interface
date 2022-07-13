@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { AddIconButton } from "../../UI/IconButton";
 
-const Collections = ({ collapse, ...rest }) => {
+const Collections = ({ collapse, ...rest }: { collapse: any }) => {
     const toggle = () => {
         collapse[1](!collapse[0]);
     };

@@ -15,6 +15,7 @@ import {
     PROFILE_CONTRACT_NAME,
     TOKEN_CONTRACT_NAME,
 } from "../utils/constants";
+import { TokenContract } from "../types/contracts";
 
 export async function initNearConnection(nearState: NearStoreType) {
     // Initialize connection to the NEAR testnet
@@ -77,7 +78,7 @@ export async function initIfps() {
     return { nodeIsOnline };
 }
 
-export async function checkProfile(nearState) {
+export async function checkProfile(nearState: any) {
     // checks profile is initialised and user is connected
     if (nearState.pnftContract && nearState.accountId) {
         console.log("profile checking ...", nearState.profile);
@@ -114,16 +115,20 @@ const loadTokenContract = (
     nearState: NearStoreType,
     account: ConnectedWalletAccount,
 ) => {
-    const tokenContract = new Contract(account, TOKEN_CONTRACT_NAME, {
-        // View methods are read only. They don't modify the state, but usually return some value.
-        viewMethods: ["balance_of", "ft_balance_of"],
-        changeMethods: [
-            "claim_gift",
-            "reward_users_for_anniversaries",
-            "change_owner_to",
-            "send_aex",
-        ],
-    });
+    const tokenContract: TokenContract = new Contract(
+        account,
+        TOKEN_CONTRACT_NAME,
+        {
+            // View methods are read only. They don't modify the state, but usually return some value.
+            viewMethods: ["balance_of", "ft_balance_of"],
+            changeMethods: [
+                "claim_gift",
+                "reward_users_for_anniversaries",
+                "change_owner_to",
+                "send_aex",
+            ],
+        },
+    ) as TokenContract;
 
     nearState.setTokenContract(tokenContract);
     console.log("token contract:", tokenContract);

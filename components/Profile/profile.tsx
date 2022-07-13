@@ -73,7 +73,7 @@ const Profile = () => {
 
             <Collections
                 collapse={[isCollapsed, setIsCollapsed]}
-                className="min-w-full"
+                // className="min-w-full"
             />
         </Grid>
     );

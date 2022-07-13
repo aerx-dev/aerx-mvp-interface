@@ -18,7 +18,16 @@ const styles = {
     fontSize: 12,
 };
 
-const NFTCard = ({ profile, balance, flip, ...rest }) => {
+const NFTCard = ({
+    profile,
+    balance,
+    flip,
+    ...rest
+}: {
+    profile: any;
+    balance: any;
+    flip: any;
+}) => {
     const nearState = nearStore((state) => state);
     const value = nearState.accountId || "0jx12hbuwc34jc";
     const { hasCopied, onCopy } = useClipboard(value);
@@ -97,7 +106,14 @@ const NFTCard = ({ profile, balance, flip, ...rest }) => {
     );
 };
 
-const ProfileTags = ({ iterType, data, ...rest }) => {
+const ProfileTags = ({
+    iterType,
+    data,
+    ...rest
+}: {
+    iterType: any;
+    data: any;
+}) => {
     return (
         <HStack
             spacing={1}
@@ -107,7 +123,7 @@ const ProfileTags = ({ iterType, data, ...rest }) => {
             alignItems="center"
             w="100%"
         >
-            {data.map((iter, idx) =>
+            {data.map((iter: any, idx: number) =>
                 iterType === "tags" ? (
                     <InterestTags
                         key={iter + idx}
