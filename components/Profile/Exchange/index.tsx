@@ -15,10 +15,11 @@ import {
 import ExchangeInput from "./input";
 
 export type ExchangeProps = {
+    balance: number;
     flip: () => void;
 };
 
-const Exchange = ({ flip }) => {
+const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
     const { colorMode } = useColorMode();
 
     const [input, setInput] = useState("");
@@ -48,7 +49,6 @@ const Exchange = ({ flip }) => {
         <Box
             className="border-1 max-h-screen sticky top-20 min-h-max min-w-full"
             bg={"lightblack"}
-            minW={"324px"}
         >
             <Flex
                 justifyContent={"center"}
@@ -91,7 +91,7 @@ const Exchange = ({ flip }) => {
                                     fontSize={"sm"}
                                     mt={"16px"}
                                 >
-                                    Available: 102.4 NEAR
+                                    Available: {balance} NEAR
                                 </Text>
                             </Box>
                             <Box>

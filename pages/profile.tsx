@@ -1,11 +1,11 @@
 import Profile from "../components/Profile";
-import { Box } from "@chakra-ui/react";
+import Layout from "../components/Layout";
 
 const ProfilePage = () => {
     return (
-        <Box>
+        <Layout>
             <Profile />
-        </Box>
+        </Layout>
     );
 };
 

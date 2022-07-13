@@ -4,44 +4,32 @@ import Collections from "../Collections";
 import NFTCard from "./NFTCard";
 import ReactCardFlip from "react-card-flip";
 import Exchange from "../Exchange";
+import { ReactNode } from "react";
+import { NearStoreType } from "../../../types/stores";
 
 const { Header, Sider, Content, Footer } = Layout;
 
-export default function SideBar({ children, bg, state }) {
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    console.log("state", state);
+export type SideBarProps = {
+    bg: string;
+    nearState: NearStoreType;
+};
+
+const SideBar = ({ bg, nearState }: SideBarProps) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const flip = () => setIsFlipped(!isFlipped);
 
     return (
-        <div>
-            <div className="grid grid-cols-12 gap-x-10 mx-10 dippy dippycontent sm:dippy md:griddy">
-                {" "}
-                <div className="col-start-1 col-span-3 flex flex-col items-center min-h-full">
-                    <ReactCardFlip isFlipped={isFlipped}>
-                        <NFTCard
-                            profile={state?.profile}
-                            balance={state?.aexBalance}
-                            bg={bg}
-                            flip={flip}
-                            className="sticky top-20 min-h-max min-w-full"
-                        />
-                        <Exchange flip={flip} />
-                    </ReactCardFlip>
-                </div>
-                <div className="col-start-4 col-span-6 flex flex-col items-center">
-                    <Content className="min-w-full">{children}</Content>
-                </div>
-                <div className="col-start-10 col-span-3 flex flex-col items-center">
-                    <Collections
-                        collapse={[isCollapsed, setIsCollapsed]}
-                        className="min-w-full"
-                    />
-                </div>
-            </div>
-            <div className="items-center md:dippy">
-                <Content className="min-w-full">{children}</Content>
-            </div>
-        </div>
+        <ReactCardFlip isFlipped={isFlipped}>
+            <NFTCard
+                profile={nearState?.profile}
+                balance={nearState?.aexBalance}
+                bg={bg}
+                flip={flip}
+                className="sticky top-20 min-h-max min-w-full"
+            />
+            <Exchange balance={100} flip={flip} />
+        </ReactCardFlip>
     );
-}
+};
+
+export default SideBar;

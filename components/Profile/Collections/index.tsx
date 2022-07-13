@@ -105,7 +105,10 @@ const Collections = ({ collapse, ...rest }) => {
 
             <div className="mt-3 dippyscroll">
                 {collections.map((item, index) => (
-                    <div key={index} className="flex flex-row relative">
+                    <div
+                        key={item.name + index}
+                        className="flex flex-row relative"
+                    >
                         <div className="flex flex-row relative items-center h-32 w-full m-1 z-10 justify-start">
                             <Text className=" absolute top-5 left-5">
                                 {item.name}
