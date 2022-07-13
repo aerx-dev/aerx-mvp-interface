@@ -5,7 +5,13 @@ import {
     SwapIconButton,
 } from "../../UI/Buttons";
 
-const BalanceBar = ({ balance, flip }) => {
+const BalanceBar = ({
+    balance,
+    flip,
+}: {
+    balance: number;
+    flip: () => void;
+}) => {
     return (
         <Box
             bgImage="/images/balance-bg.svg"

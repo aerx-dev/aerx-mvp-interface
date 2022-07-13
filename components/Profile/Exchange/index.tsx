@@ -25,7 +25,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState(0);
 
-    const handleInput = (e) => {
+    const handleInput = (e: any) => {
         setInput(e.target.value);
     };
 
