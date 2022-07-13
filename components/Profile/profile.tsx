@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Box, useColorModeValue, Button } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Layout from "../Layout";
@@ -19,7 +19,8 @@ const LazySider = dynamic(() => import("./SideBar"), {
             disabled
         />
     ),
-});
+}) as any; // TODO: FOR NOW TO REMOVE ERROR
+
 /*Moses fix the idea it is currently causing a break*/
 //const Profile = async () => {
 const Profile = () => {
@@ -36,7 +37,7 @@ const Profile = () => {
         <Layout>
             <LazySider bg={bg} state={nearState}>
                 <Box>
-                    <NewPost state={nearState} bg={bg} />
+                    <NewPost bg={bg} />
 
                     {nearState?.feed && nearState?.accountId ? (
                         nearState.feed

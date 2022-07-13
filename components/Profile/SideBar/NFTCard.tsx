@@ -18,7 +18,7 @@ const styles = {
     fontSize: 12,
 };
 
-const NFTCard = ({ profile, balance, ...rest }) => {
+const NFTCard = ({ profile, balance, flip, ...rest }) => {
     const nearState = nearStore((state) => state);
     const value = nearState.accountId || "0jx12hbuwc34jc";
     const { hasCopied, onCopy } = useClipboard(value);
@@ -91,7 +91,7 @@ const NFTCard = ({ profile, balance, ...rest }) => {
                     </Text>
                     <Text overflowWrap="anywhere">{profile?.aboutMe}</Text>
                 </Box>
-                <BalanceBar />
+                <BalanceBar flip={flip} balance={balance} />
             </Flex>
         </Box>
     );
