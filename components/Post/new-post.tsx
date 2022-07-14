@@ -19,7 +19,7 @@ import { getBalance, fetchpostsData } from "../../lib/tokenContract";
 import useTranslation from "next-translate/useTranslation";
 import useFetchPosts from "../../hooks/useFetchPosts";
 
-function NewPost({ bg }) {
+function NewPost({ bg }: { bg: string }) {
     const nearState = nearStore((state) => state);
     // const [balance, setBalance] = useState(0);
     const refresh = useFetchPosts();
@@ -96,7 +96,7 @@ function NewPost({ bg }) {
                 text: "",
                 media_type: "text",
             });
-        } catch (e) {
+        } catch (e: any) {
             console.log("Post could not be minted! Error: " + e.message);
             toast(
                 "error",
@@ -128,7 +128,7 @@ function NewPost({ bg }) {
             };
         });
     };
-    function fileChange(event) {
+    function fileChange(event: any) {
         const { files } = event.target;
         if (files) {
             // // TODO check what type it is
@@ -146,7 +146,7 @@ function NewPost({ bg }) {
         }
     }
 
-    function update(e) {
+    function update(e: any) {
         const path = e.currentTarget.dataset.path;
         const val = e.currentTarget.value;
         setBody((prevBody) => {
