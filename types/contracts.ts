@@ -60,6 +60,7 @@ export type PNFTContract = Contract & {
     mint_post: (
         args: {
             user_id: string;
+            repost_id: number;
             token_metadata: any;
         },
         gas: string,
@@ -95,6 +96,7 @@ export type ProfileContract = Contract & {
     mint_post: (
         args: {
             user_id: string;
+            origin_post_id: number;
             token_metadata: any;
         },
         gas: string,
