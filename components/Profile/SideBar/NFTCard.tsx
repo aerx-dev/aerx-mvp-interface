@@ -19,11 +19,12 @@ const styles = {
 };
 
 const NFTCard = ({
+    bg,
     profile,
     balance,
     flip,
-    ...rest
 }: {
+    bg: any;
     profile: any;
     balance: any;
     flip: any;
@@ -40,7 +41,7 @@ const NFTCard = ({
     const tags = ["#crypto", "#eth", "#near", "#aerx"];
 
     return (
-        <Box className="border-1 fixed max-h-screen " {...rest}>
+        <Box className="border-1 fixed max-h-screen top-20 min-h-max min-w-full">
             <Flex
                 className="align-middle justify-between"
                 direction="column"
@@ -73,7 +74,7 @@ const NFTCard = ({
                         <Text sx={styles} fontWeight="medium">
                             @{profile?.username || "pashq.aerx"}
                         </Text>
-                        <ProfileTags iterType="tags" data={tags} {...rest} />
+                        <ProfileTags iterType="tags" data={tags} />
                         <HStack className="bottom-0 gap-x-2 my-2">
                             <Box ml={2}>
                                 <SendButton />
