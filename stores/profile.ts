@@ -1,15 +1,5 @@
 import create from "zustand";
-
-export type ProfileStoreType = {
-    profile: any;
-    setProfile: (profile) => void;
-
-    follows: any;
-    setFollows: (follows) => void;
-
-    posts: any;
-    setPosts: (posts) => void;
-};
+import { ProfileStoreType } from "../types/stores";
 
 const profileStore = create<ProfileStoreType>((set) => ({
     profile: null,

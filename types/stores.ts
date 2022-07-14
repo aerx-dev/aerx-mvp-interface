@@ -47,6 +47,17 @@ export type NearStoreType = {
     removeAexBalance: () => void;
 };
 
+export type ProfileStoreType = {
+    profile: any;
+    setProfile: (profile: any) => void;
+
+    follows: any;
+    setFollows: (follows: any) => void;
+
+    posts: any;
+    setPosts: (posts: any) => void;
+};
+
 export type ProfileType = {
     username: string | undefined;
     fullName: string | undefined;
