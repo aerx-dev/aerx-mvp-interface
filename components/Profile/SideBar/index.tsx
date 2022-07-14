@@ -1,13 +1,8 @@
-import { Layout } from "antd";
 import { useState } from "react";
-import Collections from "../Collections";
 import NFTCard from "./NFTCard";
 import ReactCardFlip from "react-card-flip";
 import Exchange from "../Exchange";
-import { ReactNode } from "react";
 import { NearStoreType } from "../../../types/stores";
-
-const { Header, Sider, Content, Footer } = Layout;
 
 export type SideBarProps = {
     bg: string;
@@ -18,6 +13,9 @@ const SideBar = ({ bg, nearState }: SideBarProps) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const flip = () => setIsFlipped(!isFlipped);
 
+    // To switch Send and Exchange component on the back side of flip
+    const [toSend, setToSend] = useState(true);
+
     return (
         <ReactCardFlip isFlipped={isFlipped}>
             <NFTCard
@@ -25,8 +23,14 @@ const SideBar = ({ bg, nearState }: SideBarProps) => {
                 balance={nearState?.aexBalance}
                 bg={bg}
                 flip={flip}
+                setToSend={setToSend}
             />
-            <Exchange balance={100} flip={flip} />
+            {toSend ? (
+                // TODO: switch to Send Component
+                <Exchange balance={100} flip={flip} />
+            ) : (
+                <Exchange balance={100} flip={flip} />
+            )}
         </ReactCardFlip>
     );
 };
