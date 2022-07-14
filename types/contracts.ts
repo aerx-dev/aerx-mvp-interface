@@ -39,7 +39,7 @@ export type PNFTContract = Contract & {
     has_registered: (user_id: string) => Promise<boolean>;
     profile_by_id: (arg: {
         user_id: string;
-        user_to_find_id: string;
+        user_to_find_id: any;
     }) => Promise<any>;
     post_details: (arg: { user_id: string; post_id: string; }) => Promise<any>;
     get_all_posts: (user_id: string) => Promise<[any]>;
@@ -118,7 +118,7 @@ export type ProfileContract = Contract & {
     has_registered: (user_id: string) => Promise<boolean>;
     profile_by_id: (arg: {
         user_id: string;
-        user_to_find_id: string;
+        user_to_find_id: any;
     }) => Promise<any>;
     post_details: (arg: { user_id: string; post_id: string; }) => Promise<any>;
     get_all_posts: (user_id: string) => Promise<[any]>;
