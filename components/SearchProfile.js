@@ -1,7 +1,6 @@
 import { Box, Input, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import useCustomToast from "../hooks/useCustomToast";
 import { SearchIconButton } from "./UI/IconButton";
-import usePinata from "../hooks/usePinata";
 import { useState, useEffect, useRef } from "react";
 import { nearStore } from "../stores/near";
 import { useRouter } from "next/router";

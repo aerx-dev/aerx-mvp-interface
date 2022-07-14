@@ -18,7 +18,7 @@ import SongCard from "../Player/songCard";
 
 const { Header, Footer, Content } = Layout;
 
-function Post({ nft }) {
+function Post({ nft }: { nft: any }) {
     const metadata = nft.metadata;
     const extra = JSON.parse(nft.metadata?.extra) || null;
     const tokenId = nft.token_id;
@@ -29,26 +29,27 @@ function Post({ nft }) {
     const styles = {
         fontFamily: "Open Sans",
         backgroundColor: postBg,
-        position: "relative",
+        position: "relative" as "relative", // to avoid compile error(see: https://github.com/microsoft/TypeScript/issues/11465)
         borderRadius: 5,
         padding: 20,
         marginTop: 10,
         marginBottom: 10,
-        content: {
-            margin: "0 auto",
-            overflowY: "auto",
-            maxH: 400,
-            overflowX: "hidden",
-        },
+    };
+    const contentStyles = {
+        margin: "0 auto",
+        maxH: 400,
+        overflowY: "auto" as "auto", // to avoid compile error(see: https://github.com/emotion-js/emotion/issues/1179)
+        overflowX: "hidden" as "hidden", // to avoid compile error(see: https://github.com/emotion-js/emotion/issues/1179)
     };
 
-    const [currentCharge, setCurrentCharge] = useState();
+    const [currentCharge, setCurrentCharge] = useState("");
     const [currentComment, setCurrentComment] = useState();
+
     useEffect(() => {
         async function getCharge() {
-            var blncd = new Big(nft.total_charges || 0);
-            var resd = blncd.div("10e23").toFixed();
-            var res = resd.toString();
+            const blncd = new Big(nft.total_charges || 0);
+            const resd = blncd.div("10e23").toFixed();
+            const res = resd.toString();
 
             setCurrentCharge(res);
             // return res;
@@ -58,7 +59,7 @@ function Post({ nft }) {
 
     useEffect(() => {
         async function getComment() {
-            var re = nft.total_comments.toString();
+            const re = nft.total_comments.toString();
 
             setCurrentComment(re);
         }
@@ -71,11 +72,12 @@ function Post({ nft }) {
         async function get_current_profile() {
             if (
                 nft.owner_id === nearState.accountId ||
-                nft.owner_id === "Aerx.testnet"
+                nft.owner_id === "Aerx.testnet" ||
+                !nearState.pnftContract
             ) {
                 return;
             } else {
-                var res = await nearState.pnftContract.profile_by_id({
+                const res = await nearState.pnftContract.profile_by_id({
                     user_id: nearState.accountId,
                     user_to_find_id: nft.owner_id,
                 });
@@ -88,7 +90,7 @@ function Post({ nft }) {
     }, [nearState, nearState.accountId, nft.owner_id, isOpen]);
 
     return (
-        <>
+        <Box>
             <Layout style={styles}>
                 <PostHeader
                     metadata={metadata}
@@ -96,7 +98,7 @@ function Post({ nft }) {
                     isUserMsg={isUserMsg}
                     nft={nft}
                 />
-                <Content style={styles.content}>
+                <Content style={contentStyles}>
                     {nft.owner_id == "Aerx.testnet" ||
                     Number.isInteger(parseInt(nft?.post_id)) == false ? (
                         <Box p={2}>{metadata?.title}</Box>
@@ -135,7 +137,7 @@ function Post({ nft }) {
                 />
             </Layout>
             <ChargeModal nft={nft} state={[isOpen, onClose]} />
-        </>
+        </Box>
     );
 }
 

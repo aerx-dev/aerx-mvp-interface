@@ -2,6 +2,7 @@
 
 import * as nearApiJs from "near-api-js";
 import { ConnectConfig } from "near-api-js";
+import { PNFTContract } from "../types/contracts";
 import { NearStoreType } from "../types/stores";
 import { getConfig } from "./config";
 
@@ -16,7 +17,9 @@ const {
     Account,
 } = nearApiJs;
 
-export default async function contractFullAccessKey(_c_type: string) {
+export default async function contractFullAccessKey(
+    _c_type: string,
+): Promise<PNFTContract | null> {
     // Step 1:  get the keypair from the contract's full access private key
     let PRIV_KEY;
     let CONTRACT_NAME;
@@ -28,7 +31,7 @@ export default async function contractFullAccessKey(_c_type: string) {
 
     if (!PRIV_KEY) {
         console.error("PRIV KEY IS NULL");
-        return;
+        return null;
     }
     const { networkId, nodeUrl, walletUrl } = getConfig("testnet");
     const keyPair = KeyPair.fromString(PRIV_KEY);
@@ -36,7 +39,7 @@ export default async function contractFullAccessKey(_c_type: string) {
     // Step 2:  load up an inMemorySigner using the keyPair for the account
     if (!CONTRACT_NAME) {
         console.error("CONTRACT NAME IS NULL");
-        return;
+        return null;
     }
     const keyStore = new nearApiJs.keyStores.InMemoryKeyStore();
     keyStore.setKey(networkId, CONTRACT_NAME, keyPair);
@@ -62,11 +65,11 @@ export default async function contractFullAccessKey(_c_type: string) {
     }
     if (!account) {
         console.error("ACCOUNT IS NULL");
-        return;
+        return null;
     }
     if (!CONTRACT_NAME) {
         console.error("CONTRACT NAME IS NULL");
-        return;
+        return null;
     }
 
     // initiate the contract so its associated with this current account and exposing all the methods
@@ -88,7 +91,7 @@ export default async function contractFullAccessKey(_c_type: string) {
             "comment",
             "charge",
         ],
-    });
+    }) as PNFTContract;
 
     return contract;
 }

@@ -26,7 +26,9 @@ function NewPost({ bg }: { bg: string }) {
     const toast = useCustomToast();
 
     // The uploaded image which will be deployed through IPFS
-    const [uploadFile, setUploadFile] = useState();
+    const [uploadFile, setUploadFile] = useState<File>();
+    console.log("uploadFile : ", uploadFile);
+
     // Ipsf hook with details and upload hook.
     const ipfsData = usePinata(uploadFile, toast);
     const ref = useRef<HTMLInputElement>(null);
@@ -57,6 +59,10 @@ function NewPost({ bg }: { bg: string }) {
     }, []);
 
     async function createPost() {
+        if (!nearState.pnftContract) {
+            // TODO: do something here (maybe toast alert?)
+            return;
+        }
         if (!body.text || !ref.current) {
             toast("warning", "Post cannot be empty!", "feedpage");
             return;
@@ -84,7 +90,7 @@ function NewPost({ bg }: { bg: string }) {
             toast(
                 "success",
                 "AERX ContentNFT with id : " +
-                    minted_post.post_id +
+                    // minted_post.post_id +
                     "was minted successfully!",
                 "CNFTsccss",
             );

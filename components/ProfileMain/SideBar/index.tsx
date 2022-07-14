@@ -7,7 +7,15 @@ import { useRouter } from "next/router";
 
 const { Header, Sider, Content, Footer } = Layout;
 
-export default function SideBar({ children, bg, state }) {
+export default function SideBar({
+    children,
+    bg,
+    state,
+}: {
+    children: any;
+    bg: any;
+    state: any;
+}) {
     const router = useRouter();
     const profiledlooker = router.query;
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -17,6 +25,8 @@ export default function SideBar({ children, bg, state }) {
     const [currentProfileview, setCurrentProfileview] = useState();
     useEffect(() => {
         async function get_current_profileview() {
+            if (!nearState.pnftContract) return;
+
             var res = await nearState.pnftContract.profile_by_id({
                 user_id: nearState.accountId,
                 user_to_find_id: profiledlooker.profiledid,
@@ -38,10 +48,7 @@ export default function SideBar({ children, bg, state }) {
         <div>
             <div className="grid grid-cols-12 gap-x-10 mx-10 dippy dippycontent sm:dippy md:griddy">
                 {" "}
-                <div
-                    className="col-start-1 col-span-3 flex flex-col items-center min-h-full"
-                    trigger={null}
-                >
+                <div className="col-start-1 col-span-3 flex flex-col items-center min-h-full">
                     <NFTCard
                         profile={currentProfileview}
                         balance={state?.aexBalance}

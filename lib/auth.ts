@@ -15,7 +15,11 @@ import {
     PROFILE_CONTRACT_NAME,
     TOKEN_CONTRACT_NAME,
 } from "../utils/constants";
-import { TokenContract } from "../types/contracts";
+import {
+    DexContract,
+    ProfileContract,
+    TokenContract,
+} from "../types/contracts";
 
 export async function initNearConnection(nearState: NearStoreType) {
     // Initialize connection to the NEAR testnet
@@ -148,7 +152,7 @@ const loadDexContrat = (
             "lend",
             "swap_aex",
         ],
-    });
+    }) as DexContract;
     nearState.setDexContract(dexContract);
     console.log("dexContract: ", dexContract);
 };
@@ -182,12 +186,15 @@ const loadProfileWithUserAsSigner = (
                 "get_all_repost",
             ],
         },
-    );
+    ) as ProfileContract;
     nearState.setProfileWithUserAsSigner(profileContractWithUserAsSigner);
 };
 
 async function loadPNFTContract(nearState: NearStoreType) {
     const pnftContract = await contractFullAccessKey("AerxProfileContract");
+    if (!pnftContract) {
+        throw new Error("Failed to create PNftContract");
+    }
     nearState.setPNFTContract(pnftContract);
     console.log("pnft contract:", pnftContract);
 }

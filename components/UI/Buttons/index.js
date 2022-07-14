@@ -55,7 +55,7 @@ export const ReceiveIconButton = () => {
     );
 };
 
-export const SendIconButton = () => {
+export const SendIconButton = ({ handleClick }) => {
     const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Button
@@ -66,6 +66,7 @@ export const SendIconButton = () => {
             variant="solid"
             bgColor={colorMode === "light" ? "#edf2f7" : "#edf2f714"}
             leftIcon={<ArrowUpIcon />}
+            onClick={handleClick}
         ></Button>
     );
 };

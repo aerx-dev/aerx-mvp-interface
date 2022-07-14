@@ -1,17 +1,18 @@
 import {
     Box,
-    Divider,
     Flex,
     HStack,
     Text,
     useColorModeValue,
     useClipboard,
+    VStack,
 } from "@chakra-ui/react";
 import BalanceBar from "./balanceBar";
 import { nearStore } from "../../../stores/near";
 import { InterestTags } from "../../UI/Tags";
-import { CopyButton, HeartIcon, NotificationIcon } from "../../UI/IconButton";
+import { CopyButton } from "../../UI/IconButton";
 import { SendButton, FollowButton } from "../../UI/Buttons";
+import FlipButtons from "./flipButtons";
 
 const styles = {
     fontFamily: "Open Sans",
@@ -23,11 +24,13 @@ const NFTCard = ({
     profile,
     balance,
     flip,
+    setToSend,
 }: {
     bg: any;
     profile: any;
     balance: any;
-    flip: any;
+    flip: () => void;
+    setToSend: (toSend: boolean) => void;
 }) => {
     const nearState = nearStore((state) => state);
     const value = nearState.accountId || "0jx12hbuwc34jc";
@@ -101,7 +104,25 @@ const NFTCard = ({
                     </Text>
                     <Text overflowWrap="anywhere">{profile?.aboutMe}</Text>
                 </Box>
-                <BalanceBar flip={flip} balance={balance} />
+                <VStack
+                    bgImage="/images/balance-bg.svg"
+                    bgColor="#ffff0006"
+                    bgPos="center"
+                    bgSize="cover"
+                    bgBlendMode="darken"
+                    borderRadius="lg"
+                    w="100%"
+                    px={3}
+                    py={4}
+                    borderTopRadius="0"
+                    borderTopColor="grey"
+                    borderTopWidth="1px"
+                    spacing={2}
+                    alignItems={"left"}
+                >
+                    <BalanceBar balance={balance} />
+                    <FlipButtons flip={flip} setToSend={setToSend} />
+                </VStack>
             </Flex>
         </Box>
     );
