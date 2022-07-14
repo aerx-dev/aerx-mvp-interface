@@ -29,7 +29,7 @@ export default function SideBar({
 
             var res = await nearState.pnftContract.profile_by_id({
                 user_id: nearState.accountId,
-                user_to_find_id: profiledlooker.profiledid,
+                user_to_find_id: profiledlooker.profiledid.to_string(),
             });
 
             setCurrentProfileview(res);
