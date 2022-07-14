@@ -75,7 +75,7 @@ export type PNFTContract = Contract & {
     charge: (
         arg: {
             charger_id: string;
-            ost_id: number;
+            post_id: number;
             amount: string;
         },
         gas: string,
