@@ -75,8 +75,8 @@ const Account = () => {
                 toast(
                     "error",
                     "Picture type not supported. Supported types are " +
-                        expectedType +
-                        " .",
+                    expectedType +
+                    " .",
                     "Images",
                 );
             }
@@ -134,9 +134,9 @@ const Account = () => {
                 toast(
                     "success",
                     "Your AERX ProfileNFT username was changed to : " +
-                        user_info.token_id +
-                        " successfully along side other details" +
-                        "PNFTsccss",
+                    user_info.token_id +
+                    " successfully along side other details" +
+                    "PNFTsccss",
                 );
             } else {
                 console.log("Minting.....");
@@ -150,14 +150,16 @@ const Account = () => {
                     "300000000000000", //attached Gas
                     "1300000000000000000000", // attached Yocto amount
                 );
-                user_info = await pnftContract.nft_token({
-                    token_id: profile.username,
-                });
+                //no need to await this for now(because if mint_profile run succesfully nft_token will run as well) 
+                //but just to be sure changes will be made to contract to include nft_token
+                // user_info = await pnftContract.nft_token({
+                //     token_id: profile.username,
+                // });
                 toast(
                     "success",
                     "Your AERX ProfileNFT with username: " +
-                        user_info.token_id +
-                        " was minted successfully!",
+                    profile.username +
+                    " was minted successfully!",
                     "PNFTsccss",
                 );
             }
