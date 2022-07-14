@@ -60,7 +60,7 @@ export type PNFTContract = Contract & {
     mint_post: (
         args: {
             user_id: string;
-            repost_id: number;
+            origin_post_id: number;
             token_metadata: any;
         },
         gas: string,
