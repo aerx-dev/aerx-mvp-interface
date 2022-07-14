@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, ChangeEvent } from "react";
 import { Box, Input, useColorModeValue } from "@chakra-ui/react";
 import {
     AddIconButton,
@@ -17,12 +17,24 @@ import useLongPress from "./useLongPress";
 
 const { Header, Footer, Content } = Layout;
 
-const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
+export type InteractionBarProps = {
+    nft: any;
+    onOpen: any;
+    currentCharge: any;
+    currentComment: any;
+};
+
+const InteractionBar = ({
+    nft,
+    onOpen,
+    currentCharge,
+    currentComment,
+}: InteractionBarProps) => {
     const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const nearState = nearStore((state) => state);
     const toast = useCustomToast();
     const commentFeed = nft.comments.reverse();
-    const ref = useRef();
+    const ref = useRef<HTMLInputElement>(null);
     const [commentbody, setCommentbody] = useState({
         text: "",
         media_type: "text",
@@ -62,18 +74,23 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     };
     const longPressEvent = useLongPress(onLongPress, onClick, defaultOptions);
 
-    function commentUpdate(e) {
+    function commentUpdate(e: ChangeEvent<HTMLInputElement>) {
         const path = e.currentTarget.dataset.path;
         const val = e.currentTarget.value;
         setCommentbody((prevCommentbody) => {
             return {
                 ...prevCommentbody,
-                [path]: val,
+                [path!]: val, // Might cause issue as `dataset.path` could not exist
             };
         });
     }
 
     async function createComment() {
+        if (!nearState.pnftContract || !ref.current) {
+            // TODO: do something
+            return;
+        }
+
         if (!commentbody.text) {
             toast("warning", "Comment cannot be empty!", "feedpage");
             return;
@@ -97,7 +114,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
                 text: "",
                 media_type: "text",
             });
-        } catch (e) {
+        } catch (e: any) {
             console.log("Comment could not be minted! Error: " + e.message);
             toast(
                 "error",
@@ -108,7 +125,7 @@ const InteractionBar = ({ nft, onOpen, currentCharge, currentComment }) => {
     }
 
     async function clickchargePost() {
-        if (nearState?.aexBalance == 0) {
+        if (nearState?.aexBalance == 0 || !nearState.pnftContract) {
             return;
         } else {
             const amount = 1000000000000000000000000n;

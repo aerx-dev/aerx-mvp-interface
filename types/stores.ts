@@ -1,4 +1,5 @@
 import { Near, WalletConnection } from "near-api-js";
+import { DexContract, PNFTContract, ProfileContract } from "./contracts";
 
 // TODO: CHANGE ANY TYPE TO CUSTOM TYPE
 export type NearStoreType = {
@@ -18,16 +19,16 @@ export type NearStoreType = {
     setTokenContract: (tokenContract: any) => void;
     removeTokenContract: () => void;
 
-    profileContract: any;
-    setProfileWithUserAsSigner: (profileContract: any) => void;
+    profileContract: ProfileContract | null;
+    setProfileWithUserAsSigner: (profileContract: ProfileContract) => void;
     removeProfileWithUserAsSigner: () => void;
 
-    DexContract: any;
-    setDexContract: (DexContract: any) => void;
+    DexContract: DexContract | null;
+    setDexContract: (DexContract: DexContract) => void;
     removeDexContract: () => void;
 
-    pnftContract: any;
-    setPNFTContract: (pnftContract: any) => void;
+    pnftContract: PNFTContract | null;
+    setPNFTContract: (pnftContract: PNFTContract) => void;
     removeNFTContract: () => void;
 
     profile: ProfileType | null;

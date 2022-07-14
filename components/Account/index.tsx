@@ -51,7 +51,7 @@ const Account = () => {
         }
     }, [nearState.profile, nearState.accountId]);
 
-    function profileImageChange(event: { target: { files: any; }; }) {
+    function profileImageChange(event: { target: { files: any } }) {
         const { files } = event.target;
         const expectedType = [
             "jpg",
@@ -75,15 +75,17 @@ const Account = () => {
                 toast(
                     "error",
                     "Picture type not supported. Supported types are " +
-                    expectedType +
-                    " .",
+                        expectedType +
+                        " .",
                     "Images",
                 );
             }
         }
     }
 
-    function update(e: { currentTarget: { dataset: { path: any; }; value: any; }; }) {
+    function update(e: {
+        currentTarget: { dataset: { path: any }; value: any };
+    }) {
         let path = e.currentTarget.dataset.path;
         let val = e.currentTarget.value;
         setProfile((prevProfile: any) => {
@@ -94,7 +96,7 @@ const Account = () => {
         });
     }
 
-    async function handleSave(e: { preventDefault: () => void; }) {
+    async function handleSave(e: { preventDefault: () => void }) {
         e.preventDefault();
         let profileToSave = {
             title: "AERX ProfileNFT for " + profile.username,
@@ -132,9 +134,9 @@ const Account = () => {
                 toast(
                     "success",
                     "Your AERX ProfileNFT username was changed to : " +
-                    user_info.token_id +
-                    " successfully along side other details" +
-                    "PNFTsccss",
+                        user_info.token_id +
+                        " successfully along side other details" +
+                        "PNFTsccss",
                 );
             } else {
                 console.log("Minting.....");
@@ -154,8 +156,8 @@ const Account = () => {
                 toast(
                     "success",
                     "Your AERX ProfileNFT with username: " +
-                    user_info.token_id +
-                    " was minted successfully!",
+                        user_info.token_id +
+                        " was minted successfully!",
                     "PNFTsccss",
                 );
             }
