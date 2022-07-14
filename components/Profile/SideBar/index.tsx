@@ -25,7 +25,6 @@ const SideBar = ({ bg, nearState }: SideBarProps) => {
                 balance={nearState?.aexBalance}
                 bg={bg}
                 flip={flip}
-                className="sticky top-20 min-h-max min-w-full"
             />
             <Exchange balance={100} flip={flip} />
         </ReactCardFlip>
