@@ -13,8 +13,7 @@ export default function useFetchPosts() {
                 ?.get_all_posts(
                     {
                         user_id: nearState.accountId,
-                    },
-                    "300000000000000",
+                    }
                 )
                 .catch((e) => {
                     console.log("ERROR in usefetchpost");
