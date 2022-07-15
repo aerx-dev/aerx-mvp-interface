@@ -90,6 +90,7 @@ export default async function contractFullAccessKey(
             "mint_post",
             "comment",
             "charge",
+            "charge_repost",
         ],
     }) as PNFTContract;
 

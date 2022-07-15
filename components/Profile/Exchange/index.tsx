@@ -13,6 +13,7 @@ import {
     useColorMode,
 } from "@chakra-ui/react";
 import ExchangeInput from "./input";
+import { nearStore } from "../../../stores/near";
 
 export type ExchangeProps = {
     balance: number;
@@ -29,6 +30,8 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
         setInput(e.target.value);
     };
 
+    const nearState = nearStore((state: any) => state);
+
     useEffect(() => {
         const calculateOutput = async () => {
             const num = Number(input);
@@ -40,10 +43,29 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
         };
         calculateOutput();
     }, [input]);
-
+    const _amount = "0"; // change this to amount of aex inputed(must be number in "" that is string)
+    const _min_expected = "0"; //this is slippage(must be number in "" that is string)
     const swap = async () => {
-        // TODO: handle swapping tokens
-        console.log("SWAP CLICKED");
+        console.log("SWAP CLICKED, WILL PROCEED TO SWAP AEX FOR NEAR...");
+        try {
+            await nearState.profileContractWithUserAsSigner.swap({
+                amount: _amount,
+                min_expected: _min_expected,
+            },
+                "300000000000000", //attached gas 
+                "1" //attached deposit
+            );
+            toast("success", "YOUR AEX HAS BEEN SWAPPED TO NEAR SUCCESSFULLY", "CNFTpost");
+            //Todo: call get balance
+        } catch (e: any) {
+            console.log("ERROR SWAP COULD NOT BE COMPLETED");
+            toast(
+                "error",
+                "SWAP ERROR: " + e.message,
+                "CNFTerror",
+            );
+
+        }
     };
 
     return (
@@ -159,3 +181,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
 };
 
 export default Exchange;
+function toast(arg0: string, arg1: string, arg2: string) {
+    throw new Error("Function not implemented.");
+}
+

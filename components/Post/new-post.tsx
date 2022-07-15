@@ -76,12 +76,14 @@ function NewPost({ bg }: { bg: string }) {
             issued_at: new Date().toISOString(),
             extra: JSON.stringify(body),
         };
+        console.log("Type of post to save: ", typeof postToSave);
         console.log(body);
         console.log("Post to save: ", postToSave);
         try {
             const minted_post = await nearState.pnftContract.mint_post(
                 {
                     user_id: nearState.accountId,
+                    origin_post_id: 0,
                     token_metadata: postToSave,
                 },
                 "300000000000000", // attached GAS
@@ -90,8 +92,8 @@ function NewPost({ bg }: { bg: string }) {
             toast(
                 "success",
                 "AERX ContentNFT with id : " +
-                    // minted_post.post_id +
-                    "was minted successfully!",
+                // minted_post.post_id +
+                "was minted successfully!",
                 "CNFTsccss",
             );
 
@@ -116,7 +118,7 @@ function NewPost({ bg }: { bg: string }) {
     const inputAudio = useRef<HTMLInputElement>(null);
     const onAudioClick = () => {
         inputAudio.current && inputAudio.current.click();
-        setBody((prevBody) => {
+        setBody((prevBody: any) => {
             return {
                 ...prevBody,
                 type: "audio",
@@ -127,7 +129,7 @@ function NewPost({ bg }: { bg: string }) {
     const inputImg = useRef<HTMLInputElement>(null);
     const onImgClick = () => {
         inputImg.current && inputImg.current.click();
-        setBody((prevBody) => {
+        setBody((prevBody: any) => {
             return {
                 ...prevBody,
                 type: "image",
@@ -141,7 +143,7 @@ function NewPost({ bg }: { bg: string }) {
             const filename = files[0].name;
             var parts = filename.split(".");
             const fileType = parts[parts.length - 1];
-            setBody((prevBody) => {
+            setBody((prevBody: any) => {
                 return {
                     ...prevBody,
                     media_extension: fileType,
@@ -155,7 +157,7 @@ function NewPost({ bg }: { bg: string }) {
     function update(e: any) {
         const path = e.currentTarget.dataset.path;
         const val = e.currentTarget.value;
-        setBody((prevBody) => {
+        setBody((prevBody: any) => {
             return {
                 ...prevBody,
                 [path]: val,

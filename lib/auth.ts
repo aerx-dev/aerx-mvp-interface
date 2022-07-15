@@ -124,11 +124,13 @@ const loadTokenContract = (
         TOKEN_CONTRACT_NAME,
         {
             // View methods are read only. They don't modify the state, but usually return some value.
-            viewMethods: ["balance_of", "ft_balance_of"],
+            viewMethods: ["ft_balance_of", "get_owner", "ft_total_supply", "ft_metadata"],
             changeMethods: [
                 "claim_gift",
                 "reward_users_for_anniversaries",
                 "change_owner_to",
+                "ft_transfer",
+                "ft_transfer_call",
                 "send_aex",
             ],
         },
@@ -144,7 +146,7 @@ const loadDexContrat = (
 ) => {
     const dexContract = new Contract(account, DEX_CONTRACT_NAME, {
         // View methods(read only methods).
-        viewMethods: ["all_pools"],
+        viewMethods: ["all_pools", "get_user_share"],
         //change methods(methods that change state)
         changeMethods: [
             "connect_or_get_balance",
@@ -167,7 +169,6 @@ const loadProfileWithUserAsSigner = (
             // change methods(methods that change state)
             changeMethods: [
                 "mint_post",
-                "charge_repost",
                 "repost",
                 "swap",
                 "list_post_for_sale",
