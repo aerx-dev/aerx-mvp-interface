@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { HiRefresh } from "react-icons/hi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import useCustomToast from "../../hooks/useCustomToast";
 
 import {
     Box,
@@ -22,6 +23,7 @@ export type ExchangeProps = {
 
 const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
     const { colorMode } = useColorMode();
+    const toast = useCustomToast();
 
     const [input, setInput] = useState("");
     const [output, setOutput] = useState(0);
@@ -181,7 +183,3 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
 };
 
 export default Exchange;
-function toast(arg0: string, arg1: string, arg2: string) {
-    throw new Error("Function not implemented.");
-}
-
