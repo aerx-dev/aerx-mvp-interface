@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { HiRefresh } from "react-icons/hi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import useCustomToast from "../../hooks/useCustomToast";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 import {
     Box,
