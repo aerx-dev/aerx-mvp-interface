@@ -50,7 +50,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
     const swap = async () => {
         console.log("SWAP CLICKED, WILL PROCEED TO SWAP AEX FOR NEAR...");
         try {
-            await nearState.profileContractWithUserAsSigner.swap({
+            await nearState.profileContract.swap({
                 amount: _amount,
                 min_expected: _min_expected,
             },
