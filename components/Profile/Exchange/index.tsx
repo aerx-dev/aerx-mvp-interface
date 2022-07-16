@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { useState, useEffect } from "react";
 import { HiRefresh } from "react-icons/hi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import ExchangeInput from "./input";
 import { nearStore } from "../../../stores/near";
+import SwitchToken from "./switchTokens";
 
 export type ExchangeProps = {
     balance: number;
@@ -25,48 +26,94 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
     const { colorMode } = useColorMode();
     const toast = useCustomToast();
 
-    const [input, setInput] = useState("");
-    const [output, setOutput] = useState(0);
+    // price of AERX(=20AREX/1NEAR for now)
+    const [price, setPrice] = useState(1 / 20);
 
-    const handleInput = (e: any) => {
-        setInput(e.target.value);
+    // if user is trying to sell AERX token
+    const [isSelling, setIsSelling] = useState(false);
+    const [currency, setCurrency] = useState({
+        base: "NEAR",
+        quote: "AERX",
+    });
+
+    const [exchangeData, setExchangeData] = useState({
+        baseAmount: "",
+        quoteAmount: "",
+        slippage: "",
+    });
+
+    const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.value) {
+            setExchangeData((prev) => ({
+                ...prev,
+                baseAmount: " ",
+            }));
+        }
+
+        const inputNum = Number(e.target.value);
+
+        if (isNaN(inputNum)) return;
+
+        setExchangeData((prev) => ({
+            ...prev,
+            baseAmount: inputNum.toString(),
+        }));
     };
 
     const nearState = nearStore((state: any) => state);
 
+    const switchCurrency = () => {
+        setCurrency((prev) => ({
+            base: prev.quote,
+            quote: prev.base,
+        }));
+        setExchangeData((prev) => ({
+            ...prev,
+            baseAmount: prev.quoteAmount,
+            quoteAmount: prev.baseAmount,
+        }));
+        setIsSelling(!isSelling);
+    };
+
     useEffect(() => {
         const calculateOutput = async () => {
-            const num = Number(input);
-            if (isNaN(num) || num < 0) return setOutput(0);
+            const price = isSelling ? 1 / 20 : 20; // TODO: FETCH REAL TIME TOKEN PRICE FOR NEAR
+
+            const amount = Number(exchangeData.baseAmount);
+            if (isNaN(amount) || amount < 0)
+                return setExchangeData((prev) => ({
+                    ...prev,
+                    quoteAmount: "0",
+                }));
 
             // TODO: SHOULD CALCULATE REAL RATE AFTER TOKEN CONTRACT DEPLOYED
             // Call API to fetch the price
-            setOutput(num * 20);
+            setExchangeData((prev) => ({
+                ...prev,
+                quoteAmount: (amount * price).toString(),
+            }));
+            setPrice(price);
         };
         calculateOutput();
-    }, [input]);
-    const _amount = "0"; // change this to amount of aex inputed(must be number in "" that is string)
+    }, [exchangeData.baseAmount, isSelling]);
+
     const _min_expected = "0"; //this is slippage(must be number in "" that is string)
+
     const swap = async () => {
         console.log("SWAP CLICKED, WILL PROCEED TO SWAP AEX FOR NEAR...");
         try {
-            await nearState.profileContract.swap({
-                amount: _amount,
-                min_expected: _min_expected,
-            },
-                "300000000000000", //attached gas 
-                "1" //attached deposit
+            await nearState.profileContract.swap(
+                {
+                    amount: exchangeData.baseAmount,
+                    min_expected: _min_expected,
+                },
+                "300000000000000", //attached gas
+                "1", //attached deposit
             );
-            toast("success", "YOUR AEX HAS BEEN SWAPPED TO NEAR SUCCESSFULLY", "CNFTpost");
             //Todo: call get balance
         } catch (e: any) {
             console.log("ERROR SWAP COULD NOT BE COMPLETED");
-            toast(
-                "error",
-                "SWAP ERROR: " + e.message,
-                "CNFTerror",
-            );
-
+            toast("error", "SWAP ERROR: " + e.message, "CNFTerror");
         }
     };
 
@@ -81,8 +128,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
                 minH="81vh"
                 maxH="82vh"
                 overflowWrap="anywhere"
-                py={5}
-                px={10}
+                p={5}
             >
                 <Box
                     height="45vh"
@@ -102,40 +148,32 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
                             Transfer tokens
                         </Text>
                         <VStack className="bottom-0 gap-x-2 my-2">
-                            <Box>
+                            <Box px={5}>
                                 <ExchangeInput
-                                    value={input}
+                                    value={exchangeData.baseAmount}
                                     handleChange={handleInput}
                                     placeholder={"100"}
-                                    currency={"NEAR"}
+                                    currency={currency.base}
                                 />
-                                {/* TODO: CHANGE THE AMOUNT 102.4 TO VARIABLE */}
+                                {/* TODO: CHANGE THE AMOUNT 102.4 TO AMOUNT FROM CONTRACT OR API TO APPLY REAL TIME VALUE */}
                                 <Text
                                     color={"gray"}
                                     textAlign={"center"}
                                     fontSize={"sm"}
                                     mt={"16px"}
                                 >
-                                    Available: {balance} NEAR
+                                    Available: {balance} {currency.base}
                                 </Text>
                             </Box>
-                            <Box>
-                                <Text
-                                    fontWeight="bold"
-                                    fontSize="lg"
-                                    color={"gray"}
-                                    textAlign={"center"}
-                                    my={"12px"}
-                                >
-                                    To
-                                </Text>
+                            <Box w={"100%"} mt={0}>
+                                <SwitchToken handleClick={switchCurrency} />
                             </Box>
-                            <Box>
+                            <Box px={5}>
                                 <ExchangeInput
-                                    value={output}
+                                    value={exchangeData.quoteAmount}
                                     handleChange={handleInput}
                                     placeholder={"100"}
-                                    currency={"AEX"}
+                                    currency={currency.quote}
                                     disabled={true}
                                 />
                                 <Text
@@ -145,28 +183,32 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
                                     my={"16px"}
                                 >
                                     {/* TODO: CHANGE THE AMOUNT 3.9 TO VARIABLE */}
-                                    1 NEAR = 20 AERX
+                                    1 {currency.base} ={" "}
+                                    {`${price} ${currency.quote}`}
                                 </Text>
                             </Box>
-                            <Button
-                                borderRadius={20}
-                                size="md"
-                                width="100%"
-                                bgColor={
-                                    colorMode === "light"
-                                        ? "#edf2f7"
-                                        : "#edf2f714"
-                                }
-                                leftIcon={<HiRefresh />}
-                                py={"20px"}
-                                onClick={swap}
-                            >
-                                change
-                            </Button>
+                            <Box px={5} w={"100%"}>
+                                <Button
+                                    borderRadius={20}
+                                    size="md"
+                                    width="100%"
+                                    bgColor={
+                                        colorMode === "light"
+                                            ? "purple"
+                                            : "brand"
+                                    }
+                                    leftIcon={<HiRefresh />}
+                                    py={"20px"}
+                                    onClick={swap}
+                                >
+                                    change
+                                </Button>
+                            </Box>
                         </VStack>
                     </Box>
                 </Box>
                 <Flex
+                    mt={5}
                     justifyContent={"center"}
                     alignItems={"center"}
                     onClick={flip}

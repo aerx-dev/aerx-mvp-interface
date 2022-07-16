@@ -7,6 +7,7 @@ type InputProps = {
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
     currency: string;
     disabled?: boolean;
+    mexLength?: number;
 };
 
 const ExchangeInput: React.VFC<InputProps> = ({
@@ -15,6 +16,8 @@ const ExchangeInput: React.VFC<InputProps> = ({
     handleChange,
     currency,
     disabled = false,
+    // TODO: total supply or decimals
+    mexLength = 19,
 }) => {
     return (
         <Box position={"relative"}>
@@ -28,6 +31,7 @@ const ExchangeInput: React.VFC<InputProps> = ({
                 px={"24px"}
                 border={"2px"}
                 disabled={disabled}
+                maxLength={mexLength}
             />
             <Text
                 color={"gray"}
