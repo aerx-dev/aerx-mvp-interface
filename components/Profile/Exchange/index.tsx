@@ -52,7 +52,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.value) {
-            setExchangeData((prev: any) => ({
+            setExchangeData((prev) => ({
                 ...prev,
                 baseAmount: " ",
             }));
@@ -62,25 +62,25 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
 
         if (isNaN(inputNum)) return;
 
-        setExchangeData((prev: any) => ({
+        setExchangeData((prev) => ({
             ...prev,
             baseAmount: inputNum.toString(),
         }));
     };
 
     const changeSlippage = (value: string) => {
-        setExchangeData((prev: any) => ({
+        setExchangeData((prev) => ({
             ...prev,
             slippage: value,
         }));
     };
 
     const switchCurrency = () => {
-        setCurrency((prev: { quote: any; base: any; }) => ({
+        setCurrency((prev) => ({
             base: prev.quote,
             quote: prev.base,
         }));
-        setExchangeData((prev: { quoteAmount: any; baseAmount: any; }) => ({
+        setExchangeData((prev) => ({
             ...prev,
             baseAmount: prev.quoteAmount,
             quoteAmount: prev.baseAmount,
@@ -94,7 +94,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
 
             const amount = Number(exchangeData.baseAmount);
             if (isNaN(amount) || amount < 0)
-                return setExchangeData((prev: any) => ({
+                return setExchangeData((prev) => ({
                     ...prev,
                     quoteAmount: "0",
                 }));
