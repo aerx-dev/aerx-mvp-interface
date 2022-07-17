@@ -18,6 +18,15 @@ module.exports = nextTranslate({
             // require("./scripts/generate-sitemap");
         }
 
+        // To use svg files
+        config.module.rules.push({
+            test: /\.svg$/,
+            issuer: {
+                and: [/\.(js|ts)x?$/],
+            },
+            use: ["@svgr/webpack"],
+        });
+
         return config;
     },
 });

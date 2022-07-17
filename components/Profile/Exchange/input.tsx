@@ -1,12 +1,24 @@
-import { Box, Input, Text } from "@chakra-ui/react";
+import {
+    Box,
+    Flex,
+    HStack,
+    Input,
+    InputGroup,
+    InputRightElement,
+    Text,
+} from "@chakra-ui/react";
 import React, { ChangeEvent } from "react";
+import NEAR_LOGO from "@/public/near.svg";
+import AERX_LOGO from "@/public/aerx.svg";
+import { ExchangeCurrencyType } from "@/types/exchange";
 
 type InputProps = {
     value: string | number;
     placeholder: string;
     handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    currency: string;
+    currency: ExchangeCurrencyType;
     disabled?: boolean;
+    mexLength?: number;
 };
 
 const ExchangeInput: React.VFC<InputProps> = ({
@@ -15,32 +27,54 @@ const ExchangeInput: React.VFC<InputProps> = ({
     handleChange,
     currency,
     disabled = false,
+    // TODO: total supply or decimals
+    mexLength = 19,
 }) => {
     return (
-        <Box position={"relative"}>
+        <InputGroup maxW={"230px"} mx={"auto"}>
             <Input
                 value={value}
                 placeholder={placeholder}
                 onChange={handleChange}
                 fontSize={"md"}
                 rounded={"full"}
+                h={"48px"}
                 py={"20px"}
-                px={"24px"}
+                pl={"20px"}
+                pr={"40%"}
                 border={"2px"}
                 disabled={disabled}
+                maxLength={mexLength}
+                _focus={{ boxShadow: "none" }}
             />
-            <Text
-                color={"gray"}
-                fontWeight={"bold"}
-                fontSize={"md"}
-                position={"absolute"}
-                top={"10px"}
-                right={5}
+            <InputRightElement
+                pointerEvents="none"
+                color="gray.300"
+                width={"35%"}
+                height={"100%"}
             >
-                {currency}
-            </Text>
-        </Box>
+                {currency === "NEAR" ? <NearIcon /> : <AerxIcon />}
+            </InputRightElement>
+        </InputGroup>
     );
 };
+
+const NearIcon = () => (
+    <HStack spacing={1} width={"100%"}>
+        <Text color={"gray"} fontWeight={"bold"} fontSize={"sm"}>
+            NEAR
+        </Text>
+        <NEAR_LOGO />
+    </HStack>
+);
+
+const AerxIcon = () => (
+    <HStack spacing={1} width={"100%"}>
+        <Text color={"gray"} fontWeight={"bold"} fontSize={"sm"}>
+            AERX
+        </Text>
+        <AERX_LOGO />
+    </HStack>
+);
 
 export default ExchangeInput;

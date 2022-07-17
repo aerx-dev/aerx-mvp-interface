@@ -13,6 +13,7 @@ import { InterestTags } from "../../UI/Tags";
 import { CopyButton } from "../../UI/IconButton";
 import { SendButton, FollowButton } from "../../UI/Buttons";
 import FlipButtons from "./flipButtons";
+import { HEIGHT, WIDTH } from "@/utils/styles";
 
 const styles = {
     fontFamily: "Open Sans",
@@ -44,87 +45,86 @@ const NFTCard = ({
     const tags = ["#crypto", "#eth", "#near", "#aerx"];
 
     return (
-        <Box className="border-1 fixed max-h-screen top-20 min-h-max min-w-full">
-            <Flex
-                className="align-middle justify-between"
-                direction="column"
-                minH="81vh"
-                maxH="82vh"
-                overflowWrap="anywhere"
+        <Flex
+            className="justify-between"
+            direction="column"
+            minH={HEIGHT.sidebar}
+            maxH={HEIGHT.sidebar}
+            width={WIDTH.sidebar}
+            overflowWrap="anywhere"
+        >
+            <Box
+                className="rounded-t-lg w-full relative "
+                height="45vh"
+                bg={picBg}
+                bgImage={profile?.profileImg || "/images/pavel.png"}
+                position="relative"
+                bgSize="cover"
+                bgRepeat="no-repeat"
+                bgPosition="center"
             >
                 <Box
-                    className="rounded-t-lg w-full relative "
-                    height="45vh"
-                    bg={picBg}
-                    bgImage={profile?.profileImg || "/images/pavel.png"}
-                    position="relative"
-                    bgSize="cover"
-                    bgRepeat="no-repeat"
-                    bgPosition="center"
+                    className="z-10 absolute bottom-0 h-1/3 w-full px-2 text-white"
+                    bgGradient={bgGradient}
+                    fontFamily="Open Sans"
                 >
-                    <Box
-                        className="z-10 absolute bottom-0 h-1/3 w-full px-2 text-white"
-                        bgGradient={bgGradient}
-                        fontFamily="Open Sans"
-                    >
-                        <Text
-                            className="h-1/4 mb-2"
-                            fontWeight="bold"
-                            fontSize="2xl"
-                        >
-                            {profile?.fullName || "Pavel Dantsev"}
-                        </Text>
-                        <Text sx={styles} fontWeight="medium">
-                            @{profile?.username || "pashq.aerx"}
-                        </Text>
-                        <ProfileTags iterType="tags" data={tags} />
-                        <HStack className="bottom-0 gap-x-2 my-2">
-                            <Box ml={2}>
-                                <SendButton />
-                            </Box>
-                            <Box>
-                                <FollowButton />
-                            </Box>
-                        </HStack>
-                    </Box>
-                </Box>
-                <HStack m={3} justifyContent="left">
-                    <Text> {value} </Text>
-                    <Box onClick={onCopy}>
-                        <CopyButton />
-                    </Box>
-                </HStack>
-
-                <Box className="text-left px-4 mb-5" sx={styles}>
                     <Text
-                        className="opacity-50 mb-3 font-semibold"
-                        fontSize="1.8vh"
+                        className="h-1/4 mb-2"
+                        fontWeight="bold"
+                        fontSize="2xl"
                     >
-                        ABOUT
+                        {profile?.fullName || "Pavel Dantsev"}
                     </Text>
-                    <Text overflowWrap="anywhere">{profile?.aboutMe}</Text>
+                    <Text sx={styles} fontWeight="medium">
+                        @{profile?.username || "pashq.aerx"}
+                    </Text>
+                    <ProfileTags iterType="tags" data={tags} />
+                    <HStack className="bottom-0 gap-x-2 my-2">
+                        <Box ml={2}>
+                            <SendButton />
+                        </Box>
+                        <Box>
+                            <FollowButton />
+                        </Box>
+                    </HStack>
                 </Box>
-                <VStack
-                    bgImage="/images/balance-bg.svg"
-                    bgColor="#ffff0006"
-                    bgPos="center"
-                    bgSize="cover"
-                    bgBlendMode="darken"
-                    borderRadius="lg"
-                    w="100%"
-                    px={3}
-                    py={4}
-                    borderTopRadius="0"
-                    borderTopColor="grey"
-                    borderTopWidth="1px"
-                    spacing={2}
-                    alignItems={"left"}
+            </Box>
+            <HStack m={3} justifyContent="left">
+                <Text> {value} </Text>
+                <Box onClick={onCopy}>
+                    <CopyButton />
+                </Box>
+            </HStack>
+
+            <Box className="text-left px-4 mb-5" sx={styles}>
+                <Text
+                    className="opacity-50 mb-3 font-semibold"
+                    fontSize="1.8vh"
                 >
-                    <BalanceBar balance={balance} />
-                    <FlipButtons flip={flip} setToSend={setToSend} />
-                </VStack>
-            </Flex>
-        </Box>
+                    ABOUT
+                </Text>
+                <Text overflowWrap="anywhere">{profile?.aboutMe}</Text>
+            </Box>
+            <VStack
+                bgImage="/images/balance-bg.svg"
+                bgColor="#ffff0006"
+                bgPos="center"
+                bgSize="cover"
+                bgBlendMode="darken"
+                borderRadius="lg"
+                w="100%"
+                px={3}
+                py={4}
+                borderTopRadius="0"
+                borderTopColor="grey"
+                borderTopWidth="1px"
+                spacing={2}
+                alignItems={"left"}
+            >
+                <BalanceBar balance={balance} />
+                <FlipButtons flip={flip} setToSend={setToSend} />
+            </VStack>
+        </Flex>
     );
 };
 
