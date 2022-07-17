@@ -27,9 +27,9 @@ const SideBar = ({ bg, nearState }: SideBarProps) => {
             />
             {toSend ? (
                 // TODO: switch to Send Component
-                <Exchange balance={100} flip={flip} />
+                <Exchange balance={100} flip={flip} bg={bg} />
             ) : (
-                <Exchange balance={100} flip={flip} />
+                <Exchange balance={100} flip={flip} bg={bg} />
             )}
         </ReactCardFlip>
     );

@@ -31,24 +31,26 @@ const ExchangeInput: React.VFC<InputProps> = ({
     mexLength = 19,
 }) => {
     return (
-        <InputGroup>
+        <InputGroup maxW={"230px"} mx={"auto"}>
             <Input
                 value={value}
                 placeholder={placeholder}
                 onChange={handleChange}
                 fontSize={"md"}
                 rounded={"full"}
+                h={"48px"}
                 py={"20px"}
-                pl={"24px"}
+                pl={"20px"}
                 pr={"40%"}
                 border={"2px"}
                 disabled={disabled}
                 maxLength={mexLength}
+                _focus={{ boxShadow: "none" }}
             />
             <InputRightElement
                 pointerEvents="none"
                 color="gray.300"
-                width={"40%"}
+                width={"35%"}
                 height={"100%"}
             >
                 {currency === "NEAR" ? <NearIcon /> : <AerxIcon />}

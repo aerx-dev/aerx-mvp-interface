@@ -2,7 +2,7 @@ import React, { ChangeEvent } from "react";
 import { useState, useEffect } from "react";
 import { HiRefresh } from "react-icons/hi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
-import useCustomToast from "../../../hooks/useCustomToast";
+import useCustomToast from "@/hooks/useCustomToast";
 
 import {
     Box,
@@ -14,18 +14,22 @@ import {
     useColorMode,
 } from "@chakra-ui/react";
 import ExchangeInput from "./input";
-import { nearStore } from "../../../stores/near";
+import { nearStore } from "@/stores/near";
 import SwitchToken from "./switchTokens";
-import { ExchangeCurrencyType } from "../../../types/exchange";
+import { ExchangeCurrencyType } from "@/types/exchange";
+import { HEIGHT, WIDTH } from "@/utils/styles";
+import Slippage from "./slippage";
 
 export type ExchangeProps = {
     balance: number;
+    bg: string;
     flip: () => void;
 };
 
-const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
+const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
     const { colorMode } = useColorMode();
     const toast = useCustomToast();
+    const nearState = nearStore((state) => state);
 
     // price of AERX(=20AREX/1NEAR for now)
     const [price, setPrice] = useState(1 / 20);
@@ -64,7 +68,12 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
         }));
     };
 
-    const nearState = nearStore((state: any) => state);
+    const changeSlippage = (value: string) => {
+        setExchangeData((prev) => ({
+            ...prev,
+            slippage: value,
+        }));
+    };
 
     const switchCurrency = () => {
         setCurrency((prev) => ({
@@ -101,12 +110,16 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
         calculateOutput();
     }, [exchangeData.baseAmount, isSelling]);
 
+    useEffect(() => {
+        console.dir(exchangeData);
+    }, [exchangeData]);
+
     const _min_expected = "0"; //this is slippage(must be number in "" that is string)
 
     const swap = async () => {
         console.log("SWAP CLICKED, WILL PROCEED TO SWAP AEX FOR NEAR...");
         try {
-            await nearState.profileContract.swap(
+            await nearState.profileContract?.swap(
                 {
                     amount: exchangeData.baseAmount,
                     min_expected: _min_expected,
@@ -122,109 +135,108 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
     };
 
     return (
-        <Box
-            className="border-1 max-h-screen sticky top-20 min-h-max min-w-full"
-            bg={"lightblack"}
+        <Flex
+            justifyContent={"space-between"}
+            direction={"column"}
+            bg={bg}
+            h={HEIGHT.sidebar}
+            w={WIDTH.sidebar}
+            py={7}
+            px={2}
+            rounded={"md"}
         >
-            <Flex
-                justifyContent={"center"}
-                direction="column"
-                minH="81vh"
-                maxH="82vh"
-                overflowWrap="anywhere"
-                p={5}
-            >
-                <Box
-                    height="45vh"
-                    position="relative"
-                    bgSize="cover"
-                    bgRepeat="no-repeat"
-                    bgPosition="center"
-                >
-                    <Box className="z-10 bottom-0 h-1/3 w-full px-2 text-white">
+            <Box px={2} w={"100%"}>
+                <Box pb={6}>
+                    <Text
+                        fontWeight="semibold"
+                        fontSize="lg"
+                        color={"gray"}
+                        textAlign={"center"}
+                    >
+                        Transfer tokens
+                    </Text>
+                </Box>
+                <VStack>
+                    <Box w={"100%"} px={5}>
+                        <ExchangeInput
+                            value={exchangeData.baseAmount}
+                            handleChange={handleInput}
+                            placeholder={"100"}
+                            currency={currency.base}
+                        />
+                        {/* TODO: CHANGE THE AMOUNT 102.4 TO AMOUNT FROM CONTRACT OR API TO APPLY REAL TIME VALUE */}
                         <Text
-                            className="h-1/4 mb-2"
-                            fontWeight="bold"
-                            fontSize="lg"
                             color={"gray"}
                             textAlign={"center"}
+                            fontSize={"sm"}
+                            mt={"16px"}
                         >
-                            Transfer tokens
+                            Available: {balance} {currency.base}
                         </Text>
-                        <VStack className="bottom-0 gap-x-2 my-2">
-                            <Box px={5}>
-                                <ExchangeInput
-                                    value={exchangeData.baseAmount}
-                                    handleChange={handleInput}
-                                    placeholder={"100"}
-                                    currency={currency.base}
-                                />
-                                {/* TODO: CHANGE THE AMOUNT 102.4 TO AMOUNT FROM CONTRACT OR API TO APPLY REAL TIME VALUE */}
-                                <Text
-                                    color={"gray"}
-                                    textAlign={"center"}
-                                    fontSize={"sm"}
-                                    mt={"16px"}
-                                >
-                                    Available: {balance} {currency.base}
-                                </Text>
-                            </Box>
-                            <Box w={"100%"} mt={0}>
-                                <SwitchToken handleClick={switchCurrency} />
-                            </Box>
-                            <Box px={5}>
-                                <ExchangeInput
-                                    value={exchangeData.quoteAmount}
-                                    handleChange={handleInput}
-                                    placeholder={"100"}
-                                    currency={currency.quote}
-                                    disabled={true}
-                                />
-                                <Text
-                                    color={"gray"}
-                                    textAlign={"center"}
-                                    fontSize={"sm"}
-                                    my={"16px"}
-                                >
-                                    {/* TODO: CHANGE THE AMOUNT 3.9 TO VARIABLE */}
-                                    1 {currency.base} ={" "}
-                                    {`${price} ${currency.quote}`}
-                                </Text>
-                            </Box>
-                            <Box px={5} w={"100%"}>
-                                <Button
-                                    borderRadius={20}
-                                    size="md"
-                                    width="100%"
-                                    bgColor={
-                                        colorMode === "light"
-                                            ? "purple"
-                                            : "brand"
-                                    }
-                                    leftIcon={<HiRefresh />}
-                                    py={"20px"}
-                                    onClick={swap}
-                                >
-                                    change
-                                </Button>
-                            </Box>
-                        </VStack>
                     </Box>
-                </Box>
-                <Flex
-                    mt={5}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                    onClick={flip}
-                    w={"100%"}
-                >
-                    <Icon as={AiOutlineArrowLeft} color={"white"} />
-                    <Text color={"white"} _hover={{ cursor: "pointer" }} ml={2}>
-                        Back
-                    </Text>
-                </Flex>
+                    <Box w={"100%"} pt={5} px={5} alignItems={"center"}>
+                        <Slippage handleChange={changeSlippage} />
+                        <Text
+                            color={"gray"}
+                            textAlign={"center"}
+                            fontSize={"sm"}
+                            mt={"16px"}
+                        >
+                            Slippage tolerance
+                        </Text>
+                    </Box>
+                    <Box w={"100%"} mt={0}>
+                        <SwitchToken handleClick={switchCurrency} />
+                    </Box>
+                    <Box w={"100%"} px={5} textAlign={"center"}>
+                        <ExchangeInput
+                            value={exchangeData.quoteAmount}
+                            handleChange={handleInput}
+                            placeholder={"100"}
+                            currency={currency.quote}
+                            disabled={true}
+                        />
+                        <Text
+                            color={"gray"}
+                            textAlign={"center"}
+                            fontSize={"sm"}
+                            my={"16px"}
+                        >
+                            {/* TODO: CHANGE THE AMOUNT 3.9 TO VARIABLE */}1{" "}
+                            {currency.base} = {`${price} ${currency.quote}`}
+                        </Text>
+                    </Box>
+                    <Box pt={10} w={"100%"} px={5} textAlign={"center"}>
+                        <Button
+                            rounded={"full"}
+                            size="md"
+                            width="100%"
+                            maxW={"230px"}
+                            h={"56px"}
+                            mx={"auto"}
+                            bgColor={colorMode === "light" ? "purple" : "brand"}
+                            leftIcon={<HiRefresh />}
+                            py={"20px"}
+                            onClick={swap}
+                        >
+                            change
+                        </Button>
+                    </Box>
+                </VStack>
+            </Box>
+            <Flex
+                mt={5}
+                justifyContent={"center"}
+                alignItems={"center"}
+                onClick={flip}
+                w={"100%"}
+            >
+                <Icon as={AiOutlineArrowLeft} color={"gray"} />
+                <Text color={"gray"} _hover={{ cursor: "pointer" }} ml={2}>
+                    Back
+                </Text>
             </Flex>
-        </Box>
+        </Flex>
     );
 };
 

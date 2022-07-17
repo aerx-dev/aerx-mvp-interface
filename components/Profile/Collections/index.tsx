@@ -1,3 +1,4 @@
+import { HEIGHT, WIDTH } from "@/utils/styles";
 import {
     Box,
     HStack,
@@ -85,8 +86,8 @@ const Collections = ({ collapse, ...rest }: { collapse: any }) => {
         <Box
             className="flex flex-col w-full sticky top-20 rounded-md py-4"
             bgColor={bg}
-            minH="81vh"
-            maxH="82vh"
+            w={WIDTH.sidebar}
+            maxH={HEIGHT.sidebar}
         >
             <HStack className="flex justify-between mr-4">
                 <Hide below="lg">

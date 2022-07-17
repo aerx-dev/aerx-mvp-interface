@@ -7,6 +7,7 @@ import {
     Grid,
     GridItem,
     VStack,
+    HStack,
 } from "@chakra-ui/react";
 import NewPost from "../Post/new-post";
 import Post from "../Post/post";
@@ -16,6 +17,7 @@ import dynamic from "next/dynamic";
 import Collections from "./Collections";
 import SideBar from "./SideBar";
 import { Layout } from "antd";
+import { WIDTH } from "@/utils/styles";
 
 // important! lazy loads the profile components initially
 const LazySider = dynamic(() => import("./SideBar"), {
@@ -47,16 +49,15 @@ const Profile = () => {
     }
 
     return (
-        <Grid
-            w={"90%"}
-            maxW={"1440px"}
+        <HStack
+            w={"100%"}
+            maxW={WIDTH.contextMax}
             mx={"auto"}
-            templateAreas={`"left center right"`}
-            gridTemplateColumns={"22.5% 50% 25%"}
-            gap={"1.5%"}
+            alignItems={"flex-start"}
+            spacing={4}
         >
             <SideBar nearState={nearState} bg={bg} />
-            <VStack>
+            <VStack w={"100%"} maxW={WIDTH.mainContent}>
                 <NewPost bg={bg} />
                 {nearState?.feed && nearState?.accountId ? (
                     nearState.feed
@@ -75,7 +76,7 @@ const Profile = () => {
                 collapse={[isCollapsed, setIsCollapsed]}
                 // className="min-w-full"
             />
-        </Grid>
+        </HStack>
     );
 };
 
