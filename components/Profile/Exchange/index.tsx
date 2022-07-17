@@ -29,7 +29,7 @@ export type ExchangeProps = {
 const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
     const { colorMode } = useColorMode();
     const toast = useCustomToast();
-    const nearState = nearStore((state) => state);
+    const nearState = nearStore((state: any) => state);
 
     // price of AERX(=20AREX/1NEAR for now)
     const [price, setPrice] = useState(1 / 20);
@@ -41,7 +41,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
         quote: ExchangeCurrencyType;
     }>({
         base: "NEAR",
-        quote: "AERX",
+        quote: "AEX",
     });
 
     const [exchangeData, setExchangeData] = useState({
@@ -52,7 +52,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.value) {
-            setExchangeData((prev) => ({
+            setExchangeData((prev: any) => ({
                 ...prev,
                 baseAmount: " ",
             }));
@@ -62,25 +62,25 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
 
         if (isNaN(inputNum)) return;
 
-        setExchangeData((prev) => ({
+        setExchangeData((prev: any) => ({
             ...prev,
             baseAmount: inputNum.toString(),
         }));
     };
 
     const changeSlippage = (value: string) => {
-        setExchangeData((prev) => ({
+        setExchangeData((prev: any) => ({
             ...prev,
             slippage: value,
         }));
     };
 
     const switchCurrency = () => {
-        setCurrency((prev) => ({
+        setCurrency((prev: { quote: any; base: any; }) => ({
             base: prev.quote,
             quote: prev.base,
         }));
-        setExchangeData((prev) => ({
+        setExchangeData((prev: { quoteAmount: any; baseAmount: any; }) => ({
             ...prev,
             baseAmount: prev.quoteAmount,
             quoteAmount: prev.baseAmount,
@@ -94,14 +94,14 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
 
             const amount = Number(exchangeData.baseAmount);
             if (isNaN(amount) || amount < 0)
-                return setExchangeData((prev) => ({
+                return setExchangeData((prev: any) => ({
                     ...prev,
                     quoteAmount: "0",
                 }));
 
             // TODO: SHOULD CALCULATE REAL RATE AFTER TOKEN CONTRACT DEPLOYED
             // Call API to fetch the price
-            setExchangeData((prev) => ({
+            setExchangeData((prev: any) => ({
                 ...prev,
                 quoteAmount: (amount * price).toString(),
             }));
