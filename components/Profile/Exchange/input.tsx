@@ -52,6 +52,7 @@ const ExchangeInput: React.VFC<InputProps> = ({
                 color="gray.300"
                 width={"35%"}
                 height={"100%"}
+                justifyContent={"flex-end"}
             >
                 {currency === "NEAR" ? <NearIcon /> : <AerxIcon />}
             </InputRightElement>
@@ -60,21 +61,21 @@ const ExchangeInput: React.VFC<InputProps> = ({
 };
 
 const NearIcon = () => (
-    <HStack spacing={1} width={"100%"}>
-        <Text color={"gray"} fontWeight={"bold"} fontSize={"sm"}>
+    <Flex width={"100%"} alignItems={"center"}>
+        <Text color={"gray"} fontWeight={"bold"} fontSize={"sm"} pr={2}>
             NEAR
         </Text>
         <NEAR_LOGO />
-    </HStack>
+    </Flex>
 );
 
 const AerxIcon = () => (
-    <HStack spacing={1} width={"100%"}>
-        <Text color={"gray"} fontWeight={"bold"} fontSize={"sm"}>
-            AERX
+    <Flex width={"100%"} alignItems={"center"}>
+        <Text color={"gray"} fontWeight={"bold"} fontSize={"sm"} pr={2}>
+            AEX
         </Text>
         <AERX_LOGO />
-    </HStack>
+    </Flex>
 );
 
 export default ExchangeInput;
