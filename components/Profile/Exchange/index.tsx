@@ -16,6 +16,7 @@ import {
 import ExchangeInput from "./input";
 import { nearStore } from "../../../stores/near";
 import SwitchToken from "./switchTokens";
+import { ExchangeCurrencyType } from "../../../types/exchange";
 
 export type ExchangeProps = {
     balance: number;
@@ -31,7 +32,10 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, flip }) => {
 
     // if user is trying to sell AERX token
     const [isSelling, setIsSelling] = useState(false);
-    const [currency, setCurrency] = useState({
+    const [currency, setCurrency] = useState<{
+        base: ExchangeCurrencyType;
+        quote: ExchangeCurrencyType;
+    }>({
         base: "NEAR",
         quote: "AERX",
     });
