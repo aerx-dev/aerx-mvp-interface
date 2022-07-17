@@ -52,7 +52,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.value) {
-            setExchangeData((prev) => ({
+            setExchangeData((prev: any) => ({
                 ...prev,
                 baseAmount: " ",
             }));
@@ -80,7 +80,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
             base: prev.quote,
             quote: prev.base,
         }));
-        setExchangeData((prev: { quoteAmount: any; baseAmount: any; }) => ({
+        setExchangeData((prev: { quoteAmount: string; baseAmount: string; }) => ({
             ...prev,
             baseAmount: prev.quoteAmount,
             quoteAmount: prev.baseAmount,
