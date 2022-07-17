@@ -9,12 +9,6 @@ export default function useFetchPosts() {
 
     async function refreshPosts() {
         if (nearState.pnftContract) {
-            // check if user is registered
-            const isUserRegistered = true ; // call fuction
-            
-            // if user is NOT registered, dont do anything
-            if (!isUserRegistered) return;
-            
             const responseFeed = await nearState.pnftContract
                 ?.get_all_posts(
                     {

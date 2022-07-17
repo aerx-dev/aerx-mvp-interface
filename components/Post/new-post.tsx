@@ -46,7 +46,7 @@ function NewPost({ bg }: { bg: string }) {
     useEffect(() => {
         (async () => {
             if (nearState.tokenContract) {
-                let { formatted } = await getBalance(nearState);
+                let { formatted }: any = await getBalance(nearState);
                 await fetchpostsData(nearState);
                 toast(
                     "info",
