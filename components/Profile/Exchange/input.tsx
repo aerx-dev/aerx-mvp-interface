@@ -71,7 +71,7 @@ const NearIcon = () => (
 const AerxIcon = () => (
     <HStack spacing={1} width={"100%"}>
         <Text color={"gray"} fontWeight={"bold"} fontSize={"sm"}>
-            AERX
+            AEX
         </Text>
         <AERX_LOGO />
     </HStack>
