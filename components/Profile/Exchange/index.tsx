@@ -19,6 +19,7 @@ import SwitchToken from "./switchTokens";
 import { ExchangeCurrencyType } from "@/types/exchange";
 import { HEIGHT, WIDTH } from "@/utils/styles";
 import Slippage from "./slippage";
+import { calcExpectedMinAmount } from "@/utils/calculate";
 
 export type ExchangeProps = {
     balance: number;
@@ -47,7 +48,8 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
     const [exchangeData, setExchangeData] = useState({
         baseAmount: "",
         quoteAmount: "",
-        slippage: "",
+        slippage: "0.1",
+        expectedMinAmount: "",
     });
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -99,16 +101,22 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
                     quoteAmount: "0",
                 }));
 
+            const minExpected = calcExpectedMinAmount(
+                (amount * price).toString(),
+                exchangeData.slippage,
+            );
+
             // TODO: SHOULD CALCULATE REAL RATE AFTER TOKEN CONTRACT DEPLOYED
             // Call API to fetch the price
             setExchangeData((prev) => ({
                 ...prev,
                 quoteAmount: (amount * price).toString(),
+                expectedMinAmount: minExpected.toString(),
             }));
             setPrice(price);
         };
         calculateOutput();
-    }, [exchangeData.baseAmount, isSelling]);
+    }, [exchangeData.baseAmount, exchangeData.slippage, isSelling]);
 
     useEffect(() => {
         console.dir(exchangeData);
@@ -207,7 +215,17 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
                             {currency.base} = {`${price} ${currency.quote}`}
                         </Text>
                     </Box>
-                    <Box pt={10} w={"100%"} px={5} textAlign={"center"}>
+                    <Box w={"100%"} px={5} textAlign={"center"}>
+                        <Text
+                            color={"gray"}
+                            textAlign={"center"}
+                            fontSize={"sm"}
+                        >
+                            Minimum received: {exchangeData.expectedMinAmount}
+                            {currency.quote}
+                        </Text>
+                    </Box>
+                    <Box pt={5} w={"100%"} px={5} textAlign={"center"}>
                         <Button
                             rounded={"full"}
                             size="md"
