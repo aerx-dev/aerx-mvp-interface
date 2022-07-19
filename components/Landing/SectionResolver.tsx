@@ -9,8 +9,21 @@ import {
 } from "@chakra-ui/react";
 import { useColorMode } from "@chakra-ui/system";
 import Image from "next/image";
+import { ReactNode } from "react";
 
-const CustomHeading = ({ children, isCenter, styled, colorMode }) => {
+export type CustomHeadingProps = {
+    children?: ReactNode;
+    isCenter?: boolean;
+    styled?: any;
+    colorMode?: any;
+};
+
+const CustomHeading = ({
+    children,
+    isCenter,
+    styled,
+    colorMode,
+}: CustomHeadingProps) => {
     return (
         <Heading
             fontWeight={"bold"}
@@ -21,7 +34,9 @@ const CustomHeading = ({ children, isCenter, styled, colorMode }) => {
             {children}
             <Flex
                 className="heading-italic"
-                justifyContent={isCenter && ["center", "center", "flex-start"]}
+                justifyContent={
+                    isCenter ? ["center", "center", "flex-start"] : []
+                }
                 alignItems="center"
                 gap={2}
                 as="i"
@@ -29,13 +44,30 @@ const CustomHeading = ({ children, isCenter, styled, colorMode }) => {
                 fontWeight="extrabold"
                 color="#8D00FF"
             >
-                <Image src="/star.svg" width={50} height={50} />
+                <Image
+                    src="/star.svg"
+                    alt={"star picture"}
+                    width={50}
+                    height={50}
+                />
                 {styled}
             </Flex>
         </Heading>
     );
 };
 
+export type SectionResolverProps = {
+    children: any;
+    image: any;
+    rtl: any;
+    heading: any;
+    styledHeading: any;
+    body: string[];
+    imgSpan: any;
+    bodySpan: any;
+    overflow: any;
+    paddingTop: any;
+};
 const SectionResolver = ({
     children,
     image,
@@ -43,10 +75,9 @@ const SectionResolver = ({
     heading,
     styledHeading,
     body,
-    imgSpan,
-    bodySpan,
     overflow,
-}) => {
+    paddingTop,
+}: SectionResolverProps) => {
     const options = {
         imgOrder: rtl && [1, 1, 2],
         textOrder: rtl && [2, 2, 1],
@@ -55,6 +86,7 @@ const SectionResolver = ({
 
     return (
         <Grid
+            paddingTop={paddingTop}
             overflow={overflow}
             templateColumns="repeat(2, 1fr)"
             textAlign={["center", "center", "left"]}
@@ -69,7 +101,7 @@ const SectionResolver = ({
                     left={-200}
                     top={0}
                 >
-                    <CustomImage src="/blue.png" layout="fill" />
+                    <CustomImage src="/blue.png" fit="fill" />
                 </Box>
                 <Box>
                     <CustomImage
