@@ -11,8 +11,15 @@ import {
     Grid,
 } from "@chakra-ui/react";
 import { AtSignIcon } from "@chakra-ui/icons";
+import { ProfileType } from "@/types/stores";
+import { Translate } from "next-translate";
 
-function AccountData({ profile, t }) {
+export type AccountDataProps = {
+    profile: ProfileType;
+    t: Translate;
+};
+
+const AccountData = ({ profile, t }: AccountDataProps) => {
     console.log("ac", profile);
     return (
         <Grid
@@ -76,20 +83,12 @@ function AccountData({ profile, t }) {
 
                 <FormControl mb={2}>
                     <FormLabel>{t("label.aboutMe")}</FormLabel>
-                    <Textarea
-                        type="text"
-                        defaultValue={profile.aboutMe}
-                        readOnly
-                    />
+                    <Textarea defaultValue={profile.aboutMe} readOnly />
                 </FormControl>
 
                 <FormControl mb={2}>
                     <FormLabel>{t("label.hobbys")}</FormLabel>
-                    <Textarea
-                        type="text"
-                        defaultValue={profile.hobbys}
-                        readOnly
-                    />
+                    <Textarea defaultValue={profile.hobbys} readOnly />
                 </FormControl>
 
                 <FormControl mb={2}>
@@ -108,6 +107,6 @@ function AccountData({ profile, t }) {
             </Box>
         </Grid>
     );
-}
+};
 
 export default AccountData;
