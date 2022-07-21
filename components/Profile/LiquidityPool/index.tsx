@@ -1,12 +1,13 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { useState, useEffect } from "react";
 
-import { Box, Flex, Button, Text, useColorMode } from "@chakra-ui/react";
+import { Box, Flex, Button, Text, useColorMode, Input } from "@chakra-ui/react";
 import { AddIconButton } from "@/components/UI/IconButton";
 import CreatePool from "./createPool";
 import AddLiquidity from "./addLiquidity";
 import { nearStore } from "@/stores/near";
 import MyPool from "./myPool";
+import CustomInput from "@/components/UI/Inputs/CustomInput";
 
 // TODO: remove once fetching data properly
 const DUMMY_MY_POOL: PoolType[] = [
@@ -31,13 +32,13 @@ const DUMMY_TOP_POOL: PoolType[] = [
         pools: 197,
     },
     {
-        pair: "NEAR-AEX",
+        pair: "NEAR-ETH",
         fee: 0.3,
         tvl: 3.6,
         pools: 197,
     },
     {
-        pair: "NEAR-AEX",
+        pair: "NEAR-BTC",
         fee: 0.3,
         tvl: 3.6,
         pools: 197,
@@ -63,6 +64,7 @@ const LiquidityPool: React.VFC<LiquidityPoolProps> = () => {
     const { colorMode } = useColorMode();
 
     const nearState = nearStore((state) => state);
+    const [searchInput, setSearchInput] = useState("");
 
     const [myPools, setMyPools] = useState<PoolType[]>([]);
     const [topPools, setTopPools] = useState<PoolType[]>([]);
@@ -80,9 +82,21 @@ const LiquidityPool: React.VFC<LiquidityPoolProps> = () => {
         load();
     }, []);
 
+    useEffect(() => {
+        if (!searchInput) {
+            //  TODO: should set the default top pools
+            setTopPools(DUMMY_TOP_POOL);
+            return;
+        }
+    }, [searchInput]);
+
     const handlePoolClick = (pair: string) => {
         setTargetPool(pair);
         openAddLiquidity();
+    };
+
+    const handleSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearchInput(e.target.value);
     };
 
     const openCreatePool = () => {
@@ -111,6 +125,13 @@ const LiquidityPool: React.VFC<LiquidityPoolProps> = () => {
 
             {!isOpenCreatePool && !isOpenAddLiquidity && (
                 <Flex flexDir={"column"}>
+                    <Flex>
+                        <CustomInput
+                            placeholder="Search by pair name"
+                            value={searchInput}
+                            handleChange={handleSearchInput}
+                        />
+                    </Flex>
                     <Box pb={6} pos={"relative"}>
                         <Text fontSize="sm" color={"gray"} textAlign={"center"}>
                             My Pools
@@ -131,7 +152,13 @@ const LiquidityPool: React.VFC<LiquidityPoolProps> = () => {
                             Top Pools
                         </Text>
                         <MyPool
-                            pools={topPools}
+                            pools={
+                                searchInput
+                                    ? topPools.filter(({ pair }) =>
+                                          pair.includes(searchInput),
+                                      )
+                                    : topPools
+                            }
                             handleClick={handlePoolClick}
                         />
                     </Box>
