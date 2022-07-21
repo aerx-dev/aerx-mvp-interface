@@ -29,7 +29,7 @@ const CustomInput = ({
             ref={ref}
             size={size}
             border="none"
-            bg={useColorModeValue("white", "#1B1D1E")}
+            bg={useColorModeValue("white", "#191A1B")}
         />
     );
 };

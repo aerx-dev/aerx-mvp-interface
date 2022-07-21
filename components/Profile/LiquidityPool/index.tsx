@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import { Box, Flex, Button, Text, useColorMode, Input } from "@chakra-ui/react";
 import { AddIconButton } from "@/components/UI/IconButton";
-import CreatePool from "./createPool";
+import CreatePool from "./CreatePool";
 import AddLiquidity from "./addLiquidity";
 import { nearStore } from "@/stores/near";
 import MyPool from "./myPool";
