@@ -1,6 +1,5 @@
 import {
     Box,
-    Header,
     FormControl,
     FormLabel,
     Input,
@@ -12,14 +11,40 @@ import {
     Grid,
 } from "@chakra-ui/react";
 import { AtSignIcon } from "@chakra-ui/icons";
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
+import { Translate } from "next-translate";
+import { ProfileType } from "@/types/stores";
 
-export default function CreateProfileForm(props) {
-    const inputFile = useRef(null);
+export type ProfileFormProps = {
+    t: Translate;
+    picBg: string;
+    profile: ProfileType;
+    uploadImg: File | undefined;
+    profileImageChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    handleUpdate: (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => void;
+    handleSave: (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) => Promise<void>;
+};
+
+const ProfileForm = ({
+    t,
+    picBg,
+    profile,
+    uploadImg,
+    handleUpdate,
+    handleSave,
+    profileImageChange,
+}: ProfileFormProps) => {
+    const inputFile = useRef<HTMLInputElement>(null);
+
     const onButtonClick = () => {
-        inputFile.current.click();
-        console.log("acup", props.uploadImg);
+        inputFile.current?.click();
+        console.log("acup uploadImg", uploadImg);
     };
+
     // TODO Only show upload BUtton if IPFS is ready
     const [uploadReady, setUploadReady] = useState(true);
 
@@ -39,21 +64,21 @@ export default function CreateProfileForm(props) {
                 margin="0 auto"
             >
                 <FormControl mb={2}>
-                    <FormLabel>{props.t("label.profilePicture")}</FormLabel>
+                    <FormLabel>{t("label.profilePicture")}</FormLabel>
                     <Box
-                        bg={props.picBg}
+                        bg={picBg}
                         height="320px"
                         rounded="lg"
                         width={["100%", "400px", "225px"]}
                         mb={2}
                     >
-                        {props.uploadImg && (
+                        {uploadImg && (
                             <ChakraImage
                                 height="320px"
                                 rounded="lg"
                                 maxWidth={["100%", "400px", "225px"]}
                                 margin="0 auto"
-                                src={URL.createObjectURL(props.uploadImg)}
+                                src={URL.createObjectURL(uploadImg)}
                                 alt="profileImgPreview"
                                 objectFit="cover"
                             />
@@ -63,13 +88,11 @@ export default function CreateProfileForm(props) {
                     {uploadReady ? (
                         <Button
                             size="sm"
-                            colorScheme={props.uploadImg ? "gray" : "pink"}
+                            colorScheme={uploadImg ? "gray" : "pink"}
                             mb={2}
                             onClick={onButtonClick}
                         >
-                            {props.uploadImg
-                                ? props.t("label.change")
-                                : props.t("label.upload")}
+                            {uploadImg ? t("label.change") : t("label.upload")}
                         </Button>
                     ) : (
                         <Button> IFPS loading ... </Button>
@@ -78,7 +101,7 @@ export default function CreateProfileForm(props) {
                     <Box height={0} width={0} opacity={0}>
                         <input
                             ref={inputFile}
-                            onChange={props.profileImageChange}
+                            onChange={profileImageChange}
                             //   publicKey="9a62ac3cb175e8d52479"
                             type="file"
                         />
@@ -88,70 +111,67 @@ export default function CreateProfileForm(props) {
 
             <Box pl={[0, 0, 1]} pr={8}>
                 <FormControl mb={2}>
-                    <FormLabel>{props.t("label.fullName")}</FormLabel>
+                    <FormLabel>{t("label.fullName")}</FormLabel>
                     <Input
-                        type="email"
-                        defaultValue={props.profile.fullName}
+                        defaultValue={profile.fullName}
                         placeholder="fullName"
-                        onChange={props.update}
-                        data-path="fullName"
+                        onChange={handleUpdate}
+                        name="fullName"
                     />
                 </FormControl>
 
                 <FormControl mb={2}>
-                    <FormLabel>{props.t("label.username")}</FormLabel>
+                    <FormLabel>{t("label.username")}</FormLabel>
                     <InputGroup>
                         <InputLeftElement pointerEvents="none">
                             <AtSignIcon color="gray.300" />
                         </InputLeftElement>
                         <Input
                             placeholder="username"
-                            defaultValue={props.profile.username}
-                            type="text"
-                            onChange={props.update}
-                            data-path="username"
+                            defaultValue={profile.username}
+                            onChange={handleUpdate}
+                            name="username"
                         />
                     </InputGroup>
                 </FormControl>
 
                 <FormControl mb={2}>
-                    <FormLabel>{props.t("label.aboutMe")}</FormLabel>
-                    <Textarea
-                        type="email"
-                        defaultValue={props.profile.aboutMe}
+                    <FormLabel>{t("label.aboutMe")}</FormLabel>
+                    <Input
+                        defaultValue={profile.aboutMe}
                         placeholder="aboutMe"
-                        onChange={props.update}
-                        data-path="aboutMe"
+                        onChange={handleUpdate}
+                        name="aboutMe"
                     />
                 </FormControl>
 
                 <FormControl mb={2}>
-                    <FormLabel>{props.t("label.hobbys")}</FormLabel>
+                    <FormLabel>{t("label.hobbys")}</FormLabel>
                     <Textarea
-                        defaultValue={props.profile.hobbys}
+                        defaultValue={profile.hobbys}
                         placeholder="hobbys"
-                        onChange={props.update}
-                        data-path="hobbys"
+                        onChange={handleUpdate}
+                        name="hobbys"
                     />
                 </FormControl>
 
                 <FormControl mb={2}>
-                    <FormLabel>{props.t("label.city")}</FormLabel>
+                    <FormLabel>{t("label.city")}</FormLabel>
                     <Input
                         placeholder="city"
-                        defaultValue={props.profile.city}
-                        onChange={props.update}
-                        data-path="city"
+                        defaultValue={profile.city}
+                        onChange={handleUpdate}
+                        name="city"
                     />
                 </FormControl>
 
                 <FormControl mb={2}>
-                    <FormLabel>{props.t("label.country")}</FormLabel>
+                    <FormLabel>{t("label.country")}</FormLabel>
                     <Input
                         placeholder="Country"
-                        defaultValue={props.profile.country}
-                        onChange={props.update}
-                        data-path="country"
+                        defaultValue={profile.country}
+                        onChange={handleUpdate}
+                        name="country"
                     />
                 </FormControl>
 
@@ -159,11 +179,13 @@ export default function CreateProfileForm(props) {
                     colorScheme="green"
                     mt={2}
                     size="lg"
-                    onClick={props.save}
+                    onClick={handleSave}
                 >
-                    {props.t("label.save")}
+                    {t("label.save")}
                 </Button>
             </Box>
         </Grid>
     );
-}
+};
+
+export default ProfileForm;

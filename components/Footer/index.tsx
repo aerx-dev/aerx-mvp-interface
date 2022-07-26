@@ -1,37 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
-import {
-    Box,
-    useColorMode,
-    Flex,
-    Button,
-    Input,
-    StylizedButton,
-    Image as CustomImage,
-    HStack,
-    SimpleGrid,
-    Text,
-} from "@chakra-ui/react";
-import EmailCapture from "../Landing/email-capture";
-import { IoLogoDiscord, IoLogoTwitter } from "react-icons/io5";
-import useTranslation from "next-translate/useTranslation";
+import { SOCIAL_LINKS } from "@/utils/constants/socials";
+import { Flex, Button, Input, Image as CustomImage } from "@chakra-ui/react";
 import SectionResolver from "../Landing/SectionResolver";
 
-const socials = [
-    {
-        icon: "discord",
-        url: "https://discord.gg/UqU39muz",
-    },
-    {
-        icon: "telegram",
-        url: "https://t.me/aerx_int",
-    },
-];
-
-function Footer() {
-    const { t } = useTranslation("footer");
-    const { colorMode } = useColorMode();
-
+const Footer = () => {
     return (
         <>
             <SectionResolver
@@ -42,6 +13,7 @@ function Footer() {
                 body={[
                     `Kindly subscribe to our email newsletter to get amazing information.`,
                 ]}
+                rtl={""}
                 imgSpan={[12, 12, 5]}
                 bodySpan={[12, 12, 7]}
                 overflow="hidden"
@@ -76,9 +48,9 @@ function Footer() {
                     </Button>
                 </Flex>
                 <Flex gap={3}>
-                    {socials.map((social, i) => (
+                    {SOCIAL_LINKS.map((social, i) => (
                         <a
-                            key={i}
+                            key={social.url}
                             href={social.url}
                             rel="noreferrer"
                             target="_blank"
@@ -150,6 +122,6 @@ function Footer() {
         //     />
         // </Box>
     );
-}
+};
 
 export default Footer;

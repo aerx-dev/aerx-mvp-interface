@@ -5,6 +5,7 @@
  */
 
 import { Contract } from "near-api-js";
+import { ProfileType } from "./stores";
 
 //TODO: Go through each and every 'any' type and verify it's right
 export type TokenContract = Contract & {

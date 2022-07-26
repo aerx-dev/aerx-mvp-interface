@@ -124,7 +124,12 @@ const loadTokenContract = (
         TOKEN_CONTRACT_NAME,
         {
             // View methods are read only. They don't modify the state, but usually return some value.
-            viewMethods: ["ft_balance_of", "get_owner", "ft_total_supply", "ft_metadata"],
+            viewMethods: [
+                "ft_balance_of",
+                "get_owner",
+                "ft_total_supply",
+                "ft_metadata",
+            ],
             changeMethods: [
                 "claim_gift",
                 "reward_users_for_anniversaries",
