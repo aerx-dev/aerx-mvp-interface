@@ -144,27 +144,18 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
     };
 
     return (
-        <Flex
-            justifyContent={"space-between"}
-            direction={"column"}
-            bg={bg}
-            h={HEIGHT.sidebar}
-            w={WIDTH.sidebar}
-            py={7}
-            px={2}
-            rounded={"md"}
-        >
-            <Box px={2} w={"100%"}>
-                <Box pb={6}>
+        <>
+            <Box w={"100%"}>
+                {/* <Box pb={6}>
                     <Text
                         fontWeight="semibold"
                         fontSize="lg"
                         color={"gray"}
                         textAlign={"center"}
                     >
-                        Transfer tokens
+                        Exchange
                     </Text>
-                </Box>
+                </Box> */}
                 <VStack>
                     <Box w={"100%"} px={5}>
                         <ExchangeInput
@@ -255,7 +246,7 @@ const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }) => {
                     Back
                 </Text>
             </Flex>
-        </Flex>
+        </>
     );
 };
 
