@@ -18,6 +18,7 @@ import { HEIGHT, WIDTH } from "@/utils/styles";
 export type SideBarProps = {
     bg: string;
     nearState: NearStoreType;
+    balance: number;
 };
 
 const SideBar = ({ bg, nearState }: SideBarProps) => {
