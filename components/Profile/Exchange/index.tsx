@@ -27,7 +27,7 @@ export type ExchangeProps = {
     flip: () => void;
 };
 
-const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }: : ExchangeProps) => {
+const Exchange: React.VFC<ExchangeProps> = ({ balance, bg, flip }: ExchangeProps) => {
     const { colorMode } = useColorMode();
     const toast = useCustomToast();
     const nearState = nearStore((state) => state);
