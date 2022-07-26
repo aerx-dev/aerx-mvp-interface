@@ -51,7 +51,11 @@ const DUMMY_TOP_POOL: PoolType[] = [
     },
 ];
 
-export type LiquidityPoolProps = {};
+export type LiquidityPoolProps = {
+    balance: number;
+    bg: string;
+    flip: () => void;
+};
 
 export type PoolType = {
     pair: string;
@@ -60,7 +64,7 @@ export type PoolType = {
     pools: number;
 };
 
-const LiquidityPool: React.VFC<LiquidityPoolProps> = () => {
+const LiquidityPool: React.VFC<LiquidityPoolProps> = ({ balance, bg, flip }: LiquidityPoolProps) => {
     const { colorMode } = useColorMode();
 
     const nearState = nearStore((state) => state);
@@ -155,8 +159,8 @@ const LiquidityPool: React.VFC<LiquidityPoolProps> = () => {
                             pools={
                                 searchInput
                                     ? topPools.filter(({ pair }) =>
-                                          pair.includes(searchInput),
-                                      )
+                                        pair.includes(searchInput),
+                                    )
                                     : topPools
                             }
                             handleClick={handlePoolClick}
