@@ -22,6 +22,7 @@ export type InteractionBarProps = {
     onOpen: any;
     currentCharge: any;
     currentComment: any;
+    onShare: () => void;
 };
 
 const InteractionBar = ({
@@ -29,6 +30,7 @@ const InteractionBar = ({
     onOpen,
     currentCharge,
     currentComment,
+    onShare
 }: InteractionBarProps) => {
     const bdcolorchanger = useColorModeValue("white", "#1B1D1E");
     const nearState = nearStore((state) => state);
@@ -186,7 +188,7 @@ const InteractionBar = ({
                         {currentCharge}
                         <CommentIconButton onClick={comment} />
                         {currentComment}
-                        <ShareIconButton opacity={0.7} ml={2} />0
+                        <ShareIconButton opacity={0.7} ml={2} onClick={onShare}/>0
                         <MemberTag style={styles.tag} />
                     </Footer>
                     <Footer>

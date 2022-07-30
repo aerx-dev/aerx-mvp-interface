@@ -31,7 +31,7 @@ function Header() {
             bg={bg}
             as="nav"
             backdropFilter={"blur(8px)"}
-            className="sticky top-0 z-50 w-full bg-transparent py-4 px-4  md:px-10"
+            className="sticky top-0 z-0 w-full bg-transparent py-4 px-4  md:px-10"
         >
             <Box
                 maxW={"1440px"} // TODO: change the value to constants
