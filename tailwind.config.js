@@ -12,6 +12,7 @@ module.exports = {
                 cursive: ["Cursive", "sans-serif"],
             },
             colors: {
+                primary:"#6054F0",
                 brand: {
                     DEFAULT: "#9510AC",
                     dark: "#0F0111",

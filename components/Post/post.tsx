@@ -15,6 +15,7 @@ import ChargeModal from "./chargeModal";
 import { Big } from "big.js";
 import InteractionBar from "./interactionBar";
 import SongCard from "../Player/songCard";
+import ShareModal from './shareModal';
 
 const { Header, Footer, Content } = Layout;
 
@@ -44,6 +45,7 @@ function Post({ nft }: { nft: any }) {
 
     const [currentCharge, setCurrentCharge] = useState("");
     const [currentComment, setCurrentComment] = useState();
+    const [showShareModal, setShowShareModal] = useState<boolean>(false);
 
     useEffect(() => {
         async function getCharge() {
@@ -134,9 +136,13 @@ function Post({ nft }: { nft: any }) {
                     onOpen={onOpen}
                     currentCharge={currentCharge}
                     currentComment={currentComment}
+                    onShare={() => setShowShareModal(true)}
                 />
             </Layout>
             <ChargeModal nft={nft} state={[isOpen, onClose]} />
+            {showShareModal && 
+                <ShareModal nft={nft} onClose={() => setShowShareModal(false)}/>
+            }
         </Box>
     );
 }

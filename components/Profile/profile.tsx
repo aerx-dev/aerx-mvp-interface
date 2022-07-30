@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import {useRouter} from "next/router";
 import {
     Text,
     useColorModeValue,
@@ -18,6 +19,7 @@ import Collections from "./Collections";
 import SideBar from "./SideBar";
 import { Layout } from "antd";
 import { WIDTH } from "@/utils/styles";
+import Earn2gether from '../Earn2Gether';
 
 // important! lazy loads the profile components initially
 const LazySider = dynamic(() => import("./SideBar"), {
@@ -38,6 +40,8 @@ const { Content, Sider } = Layout;
 /*Moses fix the idea it is currently causing a break*/
 //const Profile = async () => {
 const Profile = () => {
+    const router = useRouter();
+    const post = router.query?.post;
     const nearState = nearStore((state) => state);
     const [profileLoaded, setProfileLoaded] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -57,7 +61,9 @@ const Profile = () => {
             spacing={4}
         >
             <SideBar nearState={nearState} bg={bg} />
-            <VStack w={"100%"} maxW={WIDTH.mainContent}>
+            <VStack w={"50%"}>
+            {!post && 
+            <>
                 <NewPost bg={bg} />
                 {nearState?.feed && nearState?.accountId ? (
                     nearState.feed
@@ -65,12 +71,19 @@ const Profile = () => {
                         .map((nft, idx) => {
                             return <Post key={nft.post_id + idx} nft={nft} />;
                         })
-                ) : (
-                    <>
+                        ) : (
+                            <>
                         <Text>No posts yet</Text>
                     </>
                 )}
+            </>
+            }
+            {post &&
+            <Earn2gether />
+
+            }
             </VStack>
+            
 
             <Collections
                 collapse={[isCollapsed, setIsCollapsed]}
