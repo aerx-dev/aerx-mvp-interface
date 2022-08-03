@@ -3,14 +3,16 @@ import Image from 'next/image';
 import { Input, Textarea, useColorMode } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-const Earn2Gether = () => {
+const Earn2Gether:React.FC = () => {
     const router = useRouter();
-    const bg = useColorMode("#1E2021", "#E5E5E5")?.colorMode;
+    const onPost = () => {
+        
+    }
     
 
     return (
         <div className='flex bg-[#1E2021] w-full rounded-[5px]'>
-           <div className={`w-[50%] bg-[${bg}]`}>
+           <div className={`w-[50%] bg-[#1E2021]`}>
             <div className='bg-[#2C2F31] w-[100%] h-[40vh] flex justify-around items-center'>
                 <Image src="/images/default-image.svg" alt="upload nft" width={130} height={130} />
             </div>
@@ -103,7 +105,7 @@ const Earn2Gether = () => {
                 </div>
 
                 <div className='mt-[6em]'>
-                    <button className='bg-primary text-white p-3 rounded-full  w-full'>Post</button>
+                    <button onClick={onPost} className='bg-primary text-white p-3 rounded-full  w-full'>Post</button>
                 </div>
 
                 </div>
