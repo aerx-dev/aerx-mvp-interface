@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 const Earn2Gether:React.FC = () => {
     const router = useRouter();
     const onPost = () => {
-        
+        alert("Submit just clicked")
     }
     
 

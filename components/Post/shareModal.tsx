@@ -26,6 +26,7 @@ const ShareModal: React.FC<IProps> = ({ nft, onClose }) => {
     }
 
     const Button:React.FC<IButtonProps> = ({ label, onClick }) => {
+        console.log("Checking NFT "+JSON.stringify(nft))
         return (
             <button onClick={onClick} className='bg-primary p-4 rounded-full w-[150px] hover:opacity-[0.8]'>
                 <label className='font-bold'>{label}</label>

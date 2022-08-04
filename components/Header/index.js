@@ -10,7 +10,7 @@ import SearchProfile from "../SearchProfile";
 import MobileView from "./mobileView";
 import DesktopView from "./desktopView";
 import useTranslation from "next-translate/useTranslation";
-import { nearStore } from "../../stores/near.ts";
+import { nearStore } from "../../stores/near";
 
 function Header() {
     const { colorMode } = useColorMode();

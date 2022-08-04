@@ -6,9 +6,9 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 import useTranslation from "next-translate/useTranslation";
-import { loginToken, logout } from "../../lib/auth.ts";
+import { loginToken, logout } from "../../lib/auth";
 import { useState, useEffect } from "react";
-import { nearStore } from "../../stores/near.ts";
+import { nearStore } from "../../stores/near";
 import { WalletSignedIn, WalletSignedOut } from "../UI/NavbarIcons";
 
 function ConnectWallet() {
@@ -19,7 +19,7 @@ function ConnectWallet() {
     useEffect(() => {
         setMounted(true);
         // in this case, we only care to query the contract when signed in
-        if (window.walletConnection && window.walletConnection.isSignedIn()) {
+        if ((window as any).walletConnection && (window as any).walletConnection.isSignedIn()) {
         }
     }, []);
 
