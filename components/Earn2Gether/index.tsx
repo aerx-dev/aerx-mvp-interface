@@ -7,9 +7,11 @@ import { nearStore } from '@/stores/near';
 const Earn2Gether: React.FC = () => {
     const nearState = nearStore((state: any) => state);
     const router = useRouter();
+    const post = router.query?.post;
     const onPost = async () => {
         console.log("Submit just clicked");
-        console.log("Äccountid: ", nearState.accountId);
+        console.log("Accountid: ", nearState.accountId);
+        console.log("Post: ", post);
         // try {
         //     await nearState.profileContract?.mint_post({
         //     user_id: nearState.accountId;
