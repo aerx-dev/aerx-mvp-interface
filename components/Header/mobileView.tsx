@@ -7,12 +7,17 @@ import {
     IconButton,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { FC } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import ChangeLanguage from "./change-language";
 import ConnectWallet from "./connect-wallet";
 import ToggleMode from "./toggle-mode";
 
-const MobileView = ({ loggedIn }) => {
+interface IProps {
+    loggedIn?: boolean
+}
+
+const MobileView: FC<IProps> = ({ loggedIn }) => {
     return (
         <HStack display={["flex", "none", "none", "none"]}>
             <ToggleMode />

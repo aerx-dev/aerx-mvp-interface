@@ -46,6 +46,7 @@ const Profile = () => {
     const [profileLoaded, setProfileLoaded] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(false);
 
+
     const bg = useColorModeValue("gray.100", "lightblack");
 
     if (nearState.profile && profileLoaded === false) {

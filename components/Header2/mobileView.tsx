@@ -12,11 +12,15 @@ import Link from "next/link";
 import { AiOutlineMenu } from "react-icons/ai";
 import ChangeLanguage from "./change-language";
 import ConnectWallet from "./connect-wallet";
-import { loginToken, logout } from "../../lib/auth.ts";
-import { nearStore } from "../../stores/near.ts";
+import { loginToken, logout } from "../../lib/auth";
+import { nearStore } from "../../stores/near";
 import useTranslation from "next-translate/useTranslation";
+import { FC } from "react";
 
-const MobileView = ({ loggedIn }) => {
+interface IProps{
+    loggedIn?: boolean
+}
+const MobileView: FC<IProps> = ({ loggedIn }) => {
     const { t } = useTranslation("header");
     const { colorMode, toggleColorMode } = useColorMode();
     const state = nearStore((state) => state);
