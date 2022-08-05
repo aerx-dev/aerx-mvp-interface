@@ -10,6 +10,7 @@ const Earn2Gether: React.FC = () => {
     const router = useRouter();
     const post_id = router.query?.post;
     const toast = useCustomToast();
+    //Todo: update postToSave
     let postToSave = {
         title: "AERX PostNFT for " + nearState.accountId,
         description: "Good post",
