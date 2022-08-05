@@ -3,24 +3,36 @@ import Image from 'next/image';
 import { Input, Textarea, useColorMode } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { nearStore } from '@/stores/near';
+import useCustomToast from '@/hooks/useCustomToast';
 
 const Earn2Gether: React.FC = () => {
     const nearState = nearStore((state: any) => state);
     const router = useRouter();
-    const post = router.query?.post;
+    const post_id = router.query?.post;
+    const toast = useCustomToast();
+    let postToSave = {
+        title: "AERX PostNFT for " + nearState.accountId,
+        description: "Good post",
+        issued_at: new Date().toISOString(),
+    };
     const onPost = async () => {
         console.log("Submit just clicked");
         console.log("Accountid: ", nearState.accountId);
-        console.log("Post: ", post);
-        // try {
-        //     await nearState.profileContract?.mint_post({
-        //     user_id: nearState.accountId;
-        //     origin_post_id: number;
-        //     token_metadata: any;
-        //     })
-        // } catch (error) {
+        console.log("Post id: ", post_id);
+        try {
+            await nearState.profileContract?.mint_post({
+                user_id: nearState.accountId,
+                origin_post_id: post_id,
+                token_metadata: postToSave,
+            },
+                "300000000000000", //attached gas
+                "10000000000000000000000", //attached deposit
+            )
+        } catch (error: any) {
+            console.log("ERROR MINT COULD NOT BE COMPLETED");
+            toast("error", "SWAP ERROR: " + error.message, "CNFTerror");
 
-        // }
+        }
     }
 
 
