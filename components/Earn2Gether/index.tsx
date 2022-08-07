@@ -13,7 +13,7 @@ import { upload } from '@/lib/crust';
 const Earn2Gether: React.FC = () => {
     const nearState = nearStore((state) => state) as any;
     const router = useRouter();
-    const post_id = router.query?.post;
+    const post_id: number = router.query?.post;
     const toast = useCustomToast();
 
     const sharedPost = router.query.post as string;
@@ -53,8 +53,9 @@ const Earn2Gether: React.FC = () => {
     }, [])
 
     const onPost = async () => {
-        if (!file) return toast('error', 'Please upload media')
-        await fileUpload(file);
+        if (file) {
+            await fileUpload(file);
+        }
         const postToSave = {
             title: "AERX PostNFT for " + nearState.accountId,
             description: body.text,
@@ -74,7 +75,7 @@ const Earn2Gether: React.FC = () => {
             )
         } catch (error: any) {
             console.log("ERROR MINT COULD NOT BE COMPLETED");
-            toast("error", "SWAP ERROR: " + error.message, "CNFTerror");
+            toast("error", "MINT POST ERROR: " + error.message, "CNFTerror");
 
         }
     }
@@ -116,7 +117,7 @@ const Earn2Gether: React.FC = () => {
                     .update(_fileUrl)
                     .digest("base64");
 
-                setIpfsData((prevIpfs) => ({
+                setIpfsData((prevIpfs: any) => ({
                     ...prevIpfs,
                     fileUrl: _fileUrl,
                     fileSize: res.data.PinSize,
@@ -162,15 +163,15 @@ const Earn2Gether: React.FC = () => {
     return (
         <div className='flex bg-[#1E2021] w-full rounded-[5px]'>
             <div className={`w-[50%] bg-[#1E2021]`}>
-               {!filePreview && 
-                <div className='bg-[#2C2F31] w-[100%] h-[40vh] flex justify-around items-center'>
-                    <Image src="/images/default-image.svg" alt="upload nft" width={130} height={130} />
-                </div>
+                {!filePreview &&
+                    <div className='bg-[#2C2F31] w-[100%] h-[40vh] flex justify-around items-center'>
+                        <Image src="/images/default-image.svg" alt="upload nft" width={130} height={130} />
+                    </div>
                 }
-                {filePreview && 
-                <div className='bg-[#2C2F31] w-[100%] h-[40vh] flex justify-around items-center'>
-                    <Image src={filePreview} alt="upload nft" width={340} height={315} />
-                </div>
+                {filePreview &&
+                    <div className='bg-[#2C2F31] w-[100%] h-[40vh] flex justify-around items-center'>
+                        <Image src={filePreview} alt="upload nft" width={340} height={315} />
+                    </div>
                 }
                 <div className='p-4'>
                     <Textarea className='' rows={14} />
