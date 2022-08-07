@@ -13,7 +13,7 @@ import { upload } from '@/lib/crust';
 const Earn2Gether: React.FC = () => {
     const nearState = nearStore((state) => state) as any;
     const router = useRouter();
-    const post_id: number = router.query?.post;
+    const post_id = router.query?.post as number;
     const toast = useCustomToast();
 
     const sharedPost = router.query.post as string;
