@@ -53,6 +53,7 @@ const Earn2Gether: React.FC = () => {
     }, [])
 
     const onPost = async () => {
+        if(!body.text) return toast("error","Description is required");
         if (file) {
             await fileUpload(file);
         }
@@ -73,6 +74,8 @@ const Earn2Gether: React.FC = () => {
                 "300000000000000", //attached gas
                 "10000000000000000000000", //attached deposit
             )
+            toast("success", "Post created successfully");
+            router.push('/flow')
         } catch (error: any) {
             console.log("ERROR MINT COULD NOT BE COMPLETED");
             toast("error", "MINT POST ERROR: " + error.message, "CNFTerror");
@@ -174,7 +177,7 @@ const Earn2Gether: React.FC = () => {
                     </div>
                 }
                 <div className='p-4'>
-                    <Textarea className='' rows={14} />
+                    <Textarea className='' rows={14} onChange={(event) => setBody({...body, text: event.target.value})} />
                 </div>
             </div>
             <div className='p-4 w-[50%]'>
@@ -190,7 +193,7 @@ const Earn2Gether: React.FC = () => {
 
                         <div className='flex flex-col'>
                             <label className='text-[14px] text-gray-500 mt-4'>Name: </label>
-                            <label className='font-semibold mt-4'>Example post</label>
+                            <label className='font-semibold mt-4'>{sharedPostMetaData?.title}</label>
                         </div>
 
                         <div className="mt-4">
@@ -212,7 +215,7 @@ const Earn2Gether: React.FC = () => {
 
                             <div className='flex gap-2 mt-4'>
                                 <div className="flex  rounded-full bg-[#ffffff08] gap-4 cursor-pointer px-6 py-2">
-                                    <label className="text-white font-semibold text-[14px]">@pashq.aerx</label>
+                                    <label className="text-white font-semibold text-[14px]">{ownerId}</label>
                                     <Image src="/icons/close-icon.svg" alt="post" width={20} height={20} />
                                 </div>
                                 <div className='flex justify-around gap-2 rounded-full bg-[#ffffff08] cursor-pointer p-2 w-[40px] h-[40px]'>
