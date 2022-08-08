@@ -67,7 +67,7 @@ const Earn2Gether: React.FC = () => {
         try {
             await nearState.profileContract?.mint_post({
                 user_id: nearState.accountId,
-                origin_post_id: post_id,
+                origin_post_id: parseInt(post_id as string),
                 token_metadata: postToSave,
             },
                 "300000000000000", //attached gas
