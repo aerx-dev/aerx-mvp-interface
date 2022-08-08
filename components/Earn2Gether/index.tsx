@@ -53,7 +53,7 @@ const Earn2Gether: React.FC = () => {
     }, [])
 
     const onPost = async () => {
-        if(!body.text) return toast("error","Description is required");
+        if (!body.text) return toast("warning", "Post cannot be empty!", "feedpage");
         if (file) {
             await fileUpload(file);
         }
@@ -73,9 +73,10 @@ const Earn2Gether: React.FC = () => {
             },
                 "300000000000000", //attached gas
                 "10000000000000000000000", //attached deposit
-            )
-            toast("success", "Post created successfully");
-            router.push('/flow')
+            ).then(() => {
+                toast("success", "Post created successfully");
+                router.push('/flow');
+            })
         } catch (error: any) {
             console.log("ERROR MINT COULD NOT BE COMPLETED");
             toast("error", "MINT POST ERROR: " + error.message, "CNFTerror");
@@ -177,7 +178,7 @@ const Earn2Gether: React.FC = () => {
                     </div>
                 }
                 <div className='p-4'>
-                    <Textarea className='' rows={14} onChange={(event) => setBody({...body, text: event.target.value})} />
+                    <Textarea className='' rows={14} onChange={(event) => setBody({ ...body, text: event.target.value })} />
                 </div>
             </div>
             <div className='p-4 w-[50%]'>
