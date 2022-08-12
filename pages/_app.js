@@ -7,6 +7,8 @@ import { nearStore } from "../stores/near.ts";
 import { useEffect, useState } from "react";
 import myTheme from "../lib/theme.js";
 import "../components/Landing/slider.css";
+import "../components/LandingPage/css/landing.css";
+
 
 function MyApp({ Component, pageProps }) {
     const [isLoading, setIsLoading] = useState(true);

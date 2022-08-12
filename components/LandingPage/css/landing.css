@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.group1-a {
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: 310px;
+  margin-inline: 40px;
+  margin-left: -20px;
+
+}
+.group1-b {
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: -150px;
+  margin-left: 140px;
+  z-index: -1;
+}
+.group2-b {
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: 190px;
+  margin-right: -623px;
+  z-index: 1;
+}
+.saly1 {
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: -170px;
+  margin-left: 160px;
+  z-index: 1;
+}
+.saly2 {
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: -242px;
+  margin-right: -623px;
+  z-index: -1;
+}
+.saly1-b {
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: 55px;
+  margin-left: 160px;
+  z-index: 1;
+}
+.saly2-b {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 345px;
+  margin-top: 45px;
+  z-index: -1;
+}
+
+.easily {
+font-family: 'Poppins';
+font-style: italic;
+font-weight: 900;
+font-size: 66px;
+line-height: 111px;
+letter-spacing: -0.03em;
+text-transform: capitalize;
+color: #8D00FF;
+}
+.together {
+font-family: 'Poppins';
+font-style: italic;
+font-weight: 900;
+font-size: 66px;
+line-height: 111px;
+letter-spacing: -0.03em;
+text-transform: capitalize;
+color: #8D00FF;
+}
+.monitize {
+  padding-top: 12px;
+}
+.form {
+  margin-top: 45px;
+}
+.inner {
+  position:absolute;
+  margin-right: 88px;
+}
