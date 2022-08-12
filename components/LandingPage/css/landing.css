@@ -25,14 +25,14 @@
 .saly1 {
   background-repeat: no-repeat;
   background-size: contain;
-  margin-top: -170px;
+  margin-top: -110px;
   margin-left: 160px;
   z-index: 1;
 }
 .saly2 {
   background-repeat: no-repeat;
   background-size: contain;
-  margin-top: -242px;
+  margin-top: -132px;
   margin-right: -623px;
   z-index: -1;
 }
@@ -43,6 +43,24 @@
   margin-left: 160px;
   z-index: 1;
 }
+.fly1 {
+  margin-top: 95px;
+  margin-left:40px;
+  z-index: 1;
+}
+.fly2 {
+ 
+  margin-top: -65px;
+  margin-left:0;
+  z-index: -1;
+}
+.fly3 {
+ 
+  margin-top: -165px;
+  margin-left:285px;
+  z-index: -1;
+}
+
 .saly2-b {
   position: absolute;
   background-repeat: no-repeat;

@@ -13,6 +13,7 @@ type Images = {
     group2:string
     group3:string
     handWriting:string
+    star:string
 }
 
 const SectionOne: React.FC<Images> = (props:Images) => {
@@ -30,11 +31,14 @@ const SectionOne: React.FC<Images> = (props:Images) => {
                     <Heading fontSize='6xl' color='#322E65'>
                     Monetize your ideas
                     </Heading>
+                    <Box display="flex" flexDirection='row'>
+                        <Image  src={props.star} mr={2}/>
                     <Text 
                     className='easily'
                     >
                        Easily
                     </Text>
+                    </Box>
                     <Text
                      fontSize='2xl'
                      fontStyle='normal'

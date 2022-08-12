@@ -9,7 +9,12 @@ import {
 
 type Images = {
     saly3:string,
-    saly4:string
+    saly4:string,
+    fly1:string,
+    fly2:string,
+    fly3:string,
+    star:string
+
 }
 
 const SectionTwo: React.FC<Images> = (props:Images) => {
@@ -22,11 +27,14 @@ const SectionTwo: React.FC<Images> = (props:Images) => {
                     <Heading fontSize='6xl' color='#322E65'>
                     Earn more
                     </Heading>
+                    <Box display="flex" flexDirection='row'>
+                        <Image  src={props.star} mr={2}/>
                     <Text 
                     className='together'
                     >
                        Together
                     </Text>
+                    </Box>
                     <Text  fontSize='2xl'
                      fontStyle='normal'
                      lineHeight={1.5}
@@ -52,8 +60,11 @@ It turns out a win = a
                     </Text>
                 </Box>
                 <Box ml={0} width={585} mr={4} position='relative'>
-                    <Image width='85' src={props.saly3} position='absolute' className='saly1'/>
-                    <Image width='85' src={props.saly4} position='absolute' className='saly2'/>
+                    <Image width={185} src={props.fly1} position='absolute' className='fly1'/>
+                    <Image  src={props.fly2} position='absolute' className='fly2'/>
+                    <Image width={92} src={props.fly3} position='absolute' className='fly3'/>
+                    <Image width={285} src={props.saly3} position='absolute' className='saly1'/>
+                    <Image width={285} src={props.saly4} position='absolute' className='saly2'/>
                 </Box>
                 
             </Box>

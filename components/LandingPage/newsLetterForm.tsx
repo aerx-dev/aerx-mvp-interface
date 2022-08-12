@@ -21,6 +21,7 @@ type Images = {
     frame1:string
     frame2:string
     frame3:string
+    star:string
 }
 
 const NewsLetterForm: React.FC<Images> = (props:Images) => {
@@ -39,16 +40,14 @@ const NewsLetterForm: React.FC<Images> = (props:Images) => {
                     <Heading fontSize='6xl' color='#322E65'>
                     Be part of the team
                     </Heading>
+                    <Box display="flex" flexDirection='row'>
+                        <Image  src={props.star} mr={2}/>
                     <Text 
-                    fontSize='5xl'
-                    fontFamily = 'Poppins'
-                    fontStyle = 'italic'
-                    fontWeight = {800}
-                    lineHeight = '144px'
-                    color = '#8D00FF'
+                    className='easily'
                     >
-                       Right Now
+                       Right now
                     </Text>
+                    </Box>
                     <Text 
                      fontSize='2xl'
                      fontStyle='normal'
@@ -57,6 +56,7 @@ const NewsLetterForm: React.FC<Images> = (props:Images) => {
                      justifyContent='left'
                      marginRight={13}
                      mt={35}
+                     mb={35}
                      color="#322E6580"
                     >
                     Kindly subscribe to our email news letter to get amazing information.
@@ -68,18 +68,21 @@ const NewsLetterForm: React.FC<Images> = (props:Images) => {
                         type="text"
                         width='50%'
                         borderRadius='25'
+                        py={6}
+                        borderColor="8E8E8E"
                         >
                         
                         </Input>
                         <Button bgColor='#8D00FF' borderRadius='100%' color='white' mt={5} className='inner' marginTop="-5px" marginLeft="-48px">
                             <Image width={3} height={3} src={props.frame3} />
                         </Button>
+                        <Box display='flex' flexDirection='row' mt={35} mb={55}>
+                            <Image src={props.frame1} mr={6}/>
+                            <Image src={props.frame2}/>
+                        </Box>
                     </FormControl>
                 </Box>
-                <Box display='flex' flexDirection='row'>
-                    {/* <Image src='frame1' />
-                    <Image src='frame2'/> */}
-                </Box>
+              
         </Box>
         </Container>
     </Box>
